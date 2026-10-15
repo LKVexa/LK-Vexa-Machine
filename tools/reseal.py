@@ -33,6 +33,8 @@ runtime_paths += ['tools/SiliconWebView2Acceptance.cs', 'tools/Build-Silicon-Acc
 # Downloaded SDK assemblies need the reviewed per-application CLR trust policy.
 # Require both sidecars even when the prior runtime inventory predates this fix.
 runtime_paths += ['JA21-Silicon-Console.exe.config', 'tools/Test-Silicon-WebView2.exe.config']
+# Retain the command/clipboard source contracts as well as their mapped modules.
+runtime_paths += ['applications/silicon/src/lib/terminal-clipboard.js', 'applications/silicon/src/lib/terminal-paths.js']
 runtime_paths += [p.relative_to(ROOT).as_posix() for p in sorted((ROOT/'applications/silicon/dist').rglob('*')) if p.is_file()]
 # Retain the reviewed closure from the shipped manifest. The inherited generic
 # list predates source/helper/gateway sealing; dropping those members silently

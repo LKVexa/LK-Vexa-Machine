@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 """Opt-in Windows regression for Internet-zone WebView2 SDK assembly loading.
 
-Run manually from a full repository/export with the fixed 360-member seal:
+Run manually from a full repository/export with the current runtime seal:
     python tests/test_downloaded_sdk_startup.py --run --work-parent D:\\Codex
 
 Default invocation only prints help. --run creates a new owned runtime copy,
@@ -149,8 +149,8 @@ def main():
     if os.name!='nt': parser.error('This opt-in regression requires Windows')
     source=args.source_root.resolve()
     seal_bytes=member(source,'engine/ja21/runtime.integrity.json').read_bytes(); seal=json.loads(seal_bytes)
-    if seal.get('format')!='vb-ja21-runtime-seal/4' or len(seal['files'])!=360:
-        parser.error('A complete fixed 360-member source/runtime closure is required')
+    if seal.get('format')!='vb-ja21-runtime-seal/4' or len(seal['files'])<360:
+        parser.error('A complete current source/runtime closure of at least 360 members is required')
     if not set(CONFIGS).issubset({r['path'] for r in seal['files']}): parser.error('Both app-scoped configurations must be sealed')
     verify(source,seal)
     if args.reuse_owned_root:
@@ -173,7 +173,7 @@ def main():
         (root/OWNER).write_bytes(OWNER_VALUE)
     result={'schema':'LK-VEXA-MACHINE/DOWNLOADED-SDK-STARTUP-REGRESSION/1','status':'RUNNING',
             'startedUtc':datetime.now(timezone.utc).isoformat(),'ownedRoot':str(root),'reportDirectory':str(reports),
-            'runtimeManifestSha256':sha(seal_bytes),'runtimeMembers':360,'uacAttempted':False,
+            'runtimeManifestSha256':sha(seal_bytes),'runtimeMembers':len(seal['files']),'uacAttempted':False,
             'globalPolicyChanged':False,'downloadMarkersRemoved':False,'checks':[]}
     report=reports/'DOWNLOADED_SDK_STARTUP_RESULTS.json'
     def save(): report.write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
@@ -240,7 +240,7 @@ def main():
         final=preflight('restored fixed root: final actual Main preflight')
         final['passed']=final['exitCode']==0 and 'preflight PASS' in final['stdout']
         verify(root,seal)
-        result['all360FinalRuntimeHashesMatch']=True
+        result['allRuntimeHashesMatch']=True
         result['sdkInternetZoneMarkersRetained']=all(Path(str(member(root,p))+':Zone.Identifier').read_bytes()==ZONE for p in SDK)
         result['status']='PASS' if all(r.get('passed') is True for r in result['checks']) and result['sdkInternetZoneMarkersRetained'] else 'FAIL'
     except Exception as error:

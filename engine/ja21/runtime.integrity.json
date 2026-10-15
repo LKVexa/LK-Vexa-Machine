@@ -100,8 +100,8 @@
     },
     {
       "path": "applications/silicon/dist/index.html",
-      "bytes": 18931,
-      "sha256": "e8a4a097e3ed894c69b3a286c5d2e7063f2d021c4241a29a02f417f1bf68b760"
+      "bytes": 20989,
+      "sha256": "97952f74aca64c66a507bf15be2bdea22716398f00ebce4546f97d5f1136afb2"
     },
     {
       "path": "applications/silicon/dist/release.json",
@@ -110,8 +110,8 @@
     },
     {
       "path": "applications/silicon/dist/src/app.js",
-      "bytes": 28318,
-      "sha256": "15d0aba7a93c7d33dfe90b319ad34f08ab9e1cd9b02c701f2bcfdc2d499cc86a"
+      "bytes": 31364,
+      "sha256": "d5927f2c14657464b9035fc935c11d00908ea247d52c6cf97606eaa1097d0020"
     },
     {
       "path": "applications/silicon/dist/src/browser-validation.js",
@@ -375,8 +375,8 @@
     },
     {
       "path": "applications/silicon/dist/style.css",
-      "bytes": 11093,
-      "sha256": "fd34208699036a410eae55990b58eec24dcbe53dd5be27d1dedf5b51eed75252"
+      "bytes": 11881,
+      "sha256": "a96027d94e3acc4cfa61f9aeaa822d1a18c6e23fb904a5de3832b3788fa9e542"
     },
     {
       "path": "applications/silicon/dist/terminal.html",
@@ -485,8 +485,8 @@
     },
     {
       "path": "applications/silicon/src/app.js",
-      "bytes": 28318,
-      "sha256": "15d0aba7a93c7d33dfe90b319ad34f08ab9e1cd9b02c701f2bcfdc2d499cc86a"
+      "bytes": 31364,
+      "sha256": "d5927f2c14657464b9035fc935c11d00908ea247d52c6cf97606eaa1097d0020"
     },
     {
       "path": "applications/silicon/src/browser-validation.js",
@@ -1785,13 +1785,13 @@
     },
     {
       "path": "tools/SiliconWebView2Acceptance.cs",
-      "bytes": 26166,
-      "sha256": "d277ed34d6c3474b4ee23be00f3d84db24837dc75a111df41c7f8103863eadec"
+      "bytes": 26281,
+      "sha256": "e6cc78e67c43dec7a261956ecd1b4e55a2c58b4c178bb039cbc5ab9879be0666"
     },
     {
       "path": "tools/Test-Silicon-WebView2.exe",
       "bytes": 298496,
-      "sha256": "eb12a98030cc539969f94fc70b43f2ceed3e50cc5b8f473dcd26cfa206707995"
+      "sha256": "d063175558e7fc61febec2ee7ee0f4a8c738f06fe82ba662c8f4092d1c9c3129"
     },
     {
       "path": "JA21-Silicon-Console.exe.config",
@@ -1802,6 +1802,26 @@
       "path": "tools/Test-Silicon-WebView2.exe.config",
       "bytes": 364,
       "sha256": "732de288bde037f1647af32e81a68ee5bb1b43ae6b6ef3341ffd640ecfbe9c70"
+    },
+    {
+      "path": "applications/silicon/src/lib/terminal-clipboard.js",
+      "bytes": 4984,
+      "sha256": "516546cf3edcd569d02186681a98700763b4f934f88012c178c12a458d4a81c9"
+    },
+    {
+      "path": "applications/silicon/src/lib/terminal-paths.js",
+      "bytes": 3424,
+      "sha256": "88ff7f9869e0aafa3ba7ddbff0efb7d892c37827375a7eda9630571a48ac111b"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/terminal-clipboard.js",
+      "bytes": 4984,
+      "sha256": "516546cf3edcd569d02186681a98700763b4f934f88012c178c12a458d4a81c9"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/terminal-paths.js",
+      "bytes": 3424,
+      "sha256": "88ff7f9869e0aafa3ba7ddbff0efb7d892c37827375a7eda9630571a48ac111b"
     }
   ],
   "consoleVersion": "1.4.0",
