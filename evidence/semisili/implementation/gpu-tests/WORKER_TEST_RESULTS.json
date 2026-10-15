@@ -1,0 +1,39 @@
+{
+  "schema": "JA21-SEMISILI-WORKER-FIXTURE-TESTS/1",
+  "started": "2026-10-14T20:37:54.782Z",
+  "finished": "2026-10-14T20:37:59.231Z",
+  "node": "v24.21.0",
+  "platform": "win32",
+  "arch": "x64",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "tests": 18,
+  "pass": 18,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "sourceStable": true,
+  "sourceSha256": {
+    "src/version.js": "42eb1fea0b3dbb4f9de6485cd31e8f6b2f09d7a6b6c6a5c43d028765c79b714e",
+    "src/vendor/ram-worker.js": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+    "src/lib/semisili-core.js": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+    "src/lib/semisili-model.js": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+    "src/lib/semisili-codec.js": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+    "src/lib/semisili-gpu.js": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+    "tests/semisili-worker.test.mjs": "ffd666ccaaa46b3c287dabaebaafd45af41a6263c20368044463a9ab5c5759ae",
+    "tests/semisili-worker-adapter.mjs": "48b04224a0e478e8e3dd47426567afebe5ab0c6d668bb430e9a31b99f4e559b2",
+    "tests/semisili-gpu-fixture.mjs": "bf422b8e7bcd58274af5b5be49d1ffedfcaf31dcbcf481d50b3cb949d2f4ee49",
+    "tests/semisili-gpu-fixture-wrapper.mjs": "386e61fb68aa4d7782e0901bacf6efbf7039913fdc1eb1fef83af0b98c17a6fd",
+    "tests/fake-idb.mjs": "b1c688875f0320e201c219dcb5cd9aaea867e1e78efa66e1d84225b986884365"
+  },
+  "fixtures": {
+    "indexedDB": true,
+    "locks": true,
+    "gpu": "explicit injection marked fixture; no physical GPU confirmation",
+    "digestGates": true
+  },
+  "liveBrowserPersistence": "NOT_RUN",
+  "liveHardwareGpu": "NOT_RUN",
+  "tap": "WORKER_TEST_RESULTS.tap"
+}

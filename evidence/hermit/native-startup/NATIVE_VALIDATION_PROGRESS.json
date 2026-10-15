@@ -1,0 +1,161 @@
+{
+  "schema": "JA21/NATIVE_VALIDATION_PROGRESS/1",
+  "status": "NATIVE_STANDARD_STARTUP_AND_PERSISTENCE_PASS_WITH_EXPLICIT_REMAINING_GATES",
+  "consoleVersion": "1.4.0",
+  "engineVersion": "2.4.0",
+  "testedUtc": "2026-10-14T23:12:43.462Z",
+  "securityRelaxations": false,
+  "uacInvoked": false,
+  "productionMainEntry": {
+    "status": "PASS",
+    "evidence": "NATIVE_MAIN_PROCESS_RELAUNCH_FINAL.json",
+    "actualProgramRun": true,
+    "exactVirtualFileAndFieldAcrossDistinctProcesses": true,
+    "threePanesVisible": true,
+    "runtimeManifestSha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6",
+    "nativeProcessIds": [
+      34068,
+      27352
+    ]
+  },
+  "controllerDiagnosis": {
+    "status": "ISOLATED",
+    "compositionController": "FAIL_0x8000FFFF",
+    "windowedController": "PASS",
+    "reference": "NATIVE_STARTUP_DIAGNOSIS.json"
+  },
+  "documentStartup": {
+    "longProfile": "BLOCKED_INDEXEDDB_BACKING_STORE",
+    "shortProfile": "ONLINE",
+    "sameSealedBytes": true,
+    "shortDiagnostic": "NATIVE_DOCUMENT_SHORT_PATH.json",
+    "sdkScreenshot": "NATIVE_DOCUMENT_SHORT_PATH.png"
+  },
+  "nativePolicy": {
+    "status": "PASS",
+    "checks": 46,
+    "evidence": "SILICON_NATIVE_POLICY_RESULTS.json",
+    "productionExeSha256": "31697d8319d2ede0d103634cc7503493af6c99426d390c4c0f9a3330392a64b5"
+  },
+  "fullNativeQa": {
+    "status": "PASS",
+    "checks": 8,
+    "evidence": "NATIVE_WEBVIEW2_ACCEPTANCE_FINAL.json",
+    "workerBoot": true,
+    "originRefusal": true,
+    "byteLanes": true,
+    "indexedDbCommitExport": true,
+    "reloadExactFileAndField": true,
+    "singleWriterRefusal": true,
+    "invalidRestorePreservesVolume": true,
+    "validRestoreRecoversFileAndField": true
+  },
+  "adminPrivilegedStartup": "NOT_RUN",
+  "nativeGpuComputation": "NOT_RUN",
+  "fullNativeApplicationRestart": "ACTUAL_COMPILED_ENTRY_RELAUNCH_IN_DISTINCT_NON_ELEVATED_DIAGNOSTIC_PROCESSES_PASS",
+  "artifacts": [
+    {
+      "path": "NATIVE_STARTUP_DIAGNOSIS.json",
+      "bytes": 6668,
+      "sha256": "221a3c6a06e2fe410a9058d3c14bd19c3e51c3e58105172109e0a7ad881a4723"
+    },
+    {
+      "path": "NATIVE_DOCUMENT_BLOCKED.json",
+      "bytes": 2913,
+      "sha256": "ed18ad7fa2a333b5b5320b3fd2c194fe06159aac7e3e6aca62b7d1eecdac38b2"
+    },
+    {
+      "path": "NATIVE_DOCUMENT_BLOCKED.png",
+      "bytes": 65823,
+      "sha256": "55c44f853fa6193edf8bfd10337c663e18f4fe639cf2c7484d63a10db5a6a2e5"
+    },
+    {
+      "path": "NATIVE_DOCUMENT_SHORT_PATH.json",
+      "bytes": 3019,
+      "sha256": "1c0f37d10697bacad7ad3c08f06f050207033fe75a67765f479017376807f7cb"
+    },
+    {
+      "path": "NATIVE_DOCUMENT_SHORT_PATH.png",
+      "bytes": 104423,
+      "sha256": "1150649ae7e77711e89806e47b185d08e1d3c2fbb969e0ca0c5f5809b004b7f0"
+    },
+    {
+      "path": "SILICON_NATIVE_POLICY_RESULTS.json",
+      "bytes": 279,
+      "sha256": "5b51c021dd4f209a77e30c457a59838e2557c0ec11c28bcb9ecf4d4320b36a7d"
+    },
+    {
+      "path": "NATIVE_QA_SHORT_INITIAL.json",
+      "bytes": 1393,
+      "sha256": "c94c1953f2ee8c65a2b8ddbf48efc6f0fb9234f4f44035c5cba1c27635a7aac7"
+    },
+    {
+      "path": "NATIVE_MAIN_ENTRY_INITIAL.json",
+      "bytes": 1655,
+      "sha256": "4bd91f3965fb981a1d1e3244c50704e5f0acac66d8b06f52c089ee292bd7f392"
+    },
+    {
+      "path": "NativeDocumentProbe.cs",
+      "bytes": 8306,
+      "sha256": "8702f9e1a79160eaea9b799de3075251082196a9d9203500549c64c1b88254ef"
+    },
+    {
+      "path": "NativeMainEntryProbe.cs",
+      "bytes": 10787,
+      "sha256": "2bd45e989ffc8b1c80c291ef4148a7fbec89a7ba6bd7d71e13b98d0083c24df9"
+    },
+    {
+      "path": "SiliconPolicyAcceptance.cs",
+      "bytes": 9476,
+      "sha256": "97105d644fb2c4c0d3337e110757ec1d2b9db1cdae6d2a039c49b28c24965ed0"
+    },
+    {
+      "path": "NATIVE_WEBVIEW2_ACCEPTANCE_FINAL.json",
+      "bytes": 1489,
+      "sha256": "8030dbffe0f56c40d05e9f78cf72aef7fba05d3a04494ebc9552788aa58578bc"
+    },
+    {
+      "path": "NATIVE_MAIN_PROCESS_RELAUNCH_FINAL.json",
+      "bytes": 3345,
+      "sha256": "1d519b7cbd9d87767a19b076294737b9b6a95152d2d39905adfe8c58d3261baf"
+    },
+    {
+      "path": "NATIVE_MAIN_SEED_FINAL.json",
+      "bytes": 109397,
+      "sha256": "1c9781cc0748d01b0fb1197ac7fe95556228c4c595691e23f782c49fcebc236f"
+    },
+    {
+      "path": "NATIVE_MAIN_RESTART_FINAL.json",
+      "bytes": 109250,
+      "sha256": "a8caa327ecb7490579d23960aa2eef9419ce2f24bcc8aec713cad422c0c7db67"
+    },
+    {
+      "path": "NATIVE_RUNTIME_MANIFEST_TESTED.json",
+      "bytes": 64688,
+      "sha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6"
+    },
+    {
+      "path": "NATIVE_DOCUMENT_THREE_PANES.png",
+      "bytes": 109001,
+      "sha256": "32abd73b35890cb2b7cd5dd1b39d74c985131d31cf2b48b9d983bc922934a9a8"
+    },
+    {
+      "path": "NATIVE_DRAFT_CLOSURE_FINAL.json",
+      "bytes": 1667,
+      "sha256": "fd2788a72a2a7fc034ae43208d0a662c5cd2feb5f0d9ec0ff20a362b3d39594a"
+    },
+    {
+      "path": "NATIVE_PROFILE_PATH_CONTROL.json",
+      "bytes": 1555,
+      "sha256": "bea4bd935d12bb272c233087b6daa65e6a6c2b514a2ffdc332d67c554cf76c2a"
+    }
+  ],
+  "updatedUTC": "2026-10-14T23:32:03.496Z",
+  "remainingGates": {
+    "administratorIpc": "BLOCKED_ENVIRONMENT",
+    "administratorUacStartup": "NOT_RUN",
+    "nativeWebView2GpuComputation": "NOT_RUN",
+    "browserRuntimeProcessTermination": "NOT_ASSERTED",
+    "powerLossDurability": "NOT_RUN"
+  }
+}

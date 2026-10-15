@@ -1,0 +1,581 @@
+=== PAGE 1 ===
+Architectural Foundations for
+High-Throughput Holographic Neural
+Weights via MHz-Spooled Image
+Streams
+Introduction: The Paradigm Shift in Neural Weight
+Instantiation
+The prevailing architecture of artificial neural networks rests upon the von Neumann
+computational model, wherein the synaptic weight is defined as a discrete, mathematically
+based functional relationship—a numerical shard—connecting localized nodes within a
+computational graph. These weights are instantiated as floating-point values in memory,
+requiring massive data transport to Arithmetic Logic Units (ALUs) for tensor operations,
+typically matrix-vector multiplications. As the dimensional complexity of models scales, the
+latency and energy costs associated with fetching these localized shards degrade system
+throughput precipitously.
+To circumvent the fundamental limitations of localized tensor mathematics, a radical
+architectural departure is required: the abandonment of the mathematical shard in favor of a
+byte-by-byte processable physical hologram. In this paradigm, a neural weight is not a discrete
+numerical value, but rather a dynamic, physical interference pattern. This approach shifts the
+computational burden entirely from floating-point arithmetic to data streaming bandwidth. By
+leveraging industry-standard image formats—such as the Tagged Image File Format (TIFF) for
+high-dynamic-range phase maps and the Graphics Interchange Format (GIF) for rapid, lossless
+Lempel-Ziv-Welch (LZW) streaming—pipelined via Field Programmable Gate Arrays (FPGAs) at
+Megahertz (MHz) refresh rates, it becomes possible to instantiate a continuously streaming
+optical intelligence engine.
+This report presents an exhaustive theoretical, optical, and architectural analysis of
+constructing high-throughput holographic neural weights. The analysis synthesizes historical
+precedents in holographic neural technology, Vector Symbolic Architectures (VSA), Fourier
+optics, 5D physical storage mediums, high-frequency Acousto-Optic Deflectors (AODs), and
+direct memory access byte-streaming pipelines.
+The Theoretical Substrate: Beyond Tensor Shards
+The ambition to transcend discrete mathematical shards necessitates a representational space
+capable of continuous, distributed analogical encoding. In localized networks, the loss or
+corruption of a single critical weight drastically alters the output. In a holographic system,
+information is distributed continuously across the entire representational substrate, ensuring
+robustness and enabling quantum-logical phase interactions.
+Holographic Neural Technology and Complex Phase Space
+
+=== PAGE 2 ===
+The foundational premise of non-mathematical weight relationships originates in Holographic
+Neural Technology (HNeT), pioneered by John Sutherland1. Traditional neural models represent
+magnitude and certainty as distinct scalar values. HNeT, conversely, encodes features and
+certainty simultaneously within the phase terms of complex numbers1. By mapping the phase
+orientation of complex numbers to cognitive features, the system operates on principles of
+phase coherence and decoherence rather than linear summation2.
+This complex phase space mimics the holoflux—a wholistic, indivisible process defined by
+quantum logic, where coherent, organized behavior emerges across macroscopic
+observables3. In a physical holographic neural network (HNN), this mathematical formalism
+dictates that the network's global state can be accurately approximated by sampling a small
+cross-section of the underlying microstate5. Theoretical models of computational complexity
+
+analyze these as "fuzzy Boolean functions," where a function                                              is
+deemed "holographic" if its value can be recovered up to a small error, with high probability,
+from a bounded number of randomly chosen coordinates5. This structural property proves that
+bounded random recoverability is qualitatively equivalent to bounded neural network
+properties, meaning the physical hologram natively executes complex polynomial
+approximations simply by existing in space5.
+Vector Symbolic Architectures and Holographic Reduced
+Representation
+To encode structured, hierarchical concepts within this holographic medium, the architecture
+relies upon Vector Symbolic Architectures (VSA) and Holographic Reduced Representations
+(HRR)8. Developed by Tony Plate, HRR maps symbols to high-dimensional, distributed
+hypervectors, bypassing the need for discrete associative arrays8.
+HRR operations map probability and logic directly into vector space through three primary
+mechanisms. First, similarity is determined by the dot product of two vectors, estimating
+analogical closeness12. Second, bundling (superposition) combines sets of symbols into a single
+memory trace via vector addition, distributing similarity over the bundle10. Third, binding
+associates two vectors to create a novel concept vector of the exact same dimensionality8.
+
+In HRR, binding is executed via circular convolution, denoted as                              8. In traditional
+electronic hardware, circular convolution is computationally prohibitive for millions of
+parameters, requiring continuous Fast Fourier Transforms (FFTs)15. However, in the frequency
+domain, circular convolution simplifies to element-wise complex multiplication—multiplying the
+moduli and adding the phases10.
+
+  HRR Operation                Mathematical                 Optical Equivalent           Cognitive
+                               Formalism                                                 Function
+
+
+  Similarity                   Dot Product:                 Interference                 Analogical
+                                                            Intensity                    matching
+
+=== PAGE 3 ===
+  Bundling                     Addition:                    Wavefront                    Memory trace
+                                                            Superposition                generation
+
+
+  Binding                      Circular                           Lens Fourier           Concept
+                               Convolution:                 Transform                    association
+
+
+
+
+
+Furthermore, continuous data types are encoded using fractional binding to create Spatial
+Semantic Pointers (SSPs)12. By taking the Fourier transform of a base vector and applying a
+real-valued exponent, continuous spatial trajectories are represented as unitary vectors
+(vectors whose Fourier components possess a magnitude of one)12. This continuous,
+phase-based representation perfectly aligns with physical optics, where the byte stream
+defines the phase shift applied to a coherent light source.
+Optical Physics: Translating Bytes into Diffractive
+Wavefronts
+Transitioning from the abstract mathematics of HRR to physical space requires the deployment
+of Diffractive Deep Neural Networks (D2NNs) and Fourier optics. The objective is to replace the
+Arithmetic Logic Unit with the physical propagation of light18.
+The Mach-Zehnder Limitation vs. Diffractive Propagation
+Early optical neural networks attempted to replicate traditional matrix multiplication using
+Mach-Zehnder Interferometers (MZIs)20. An MZI mesh relies on physical waveguides and
+localized heaters to alter the refractive index of one arm of the interferometer, computing the
+product between a                 unitary matrix and a 2-element data vector21. While faster than
+electronics, MZIs remain philosophically tethered to the "shard" model: they are rigid, physically
+discrete, and highly localized components that scale poorly for massive parallelism24.
+Conversely, D2NNs utilize free-space diffractive optical elements (DOEs)26. Each pixel on a
+diffractive layer acts as an artificial neuron, modifying the complex amplitude of the incoming
+coherent light28. The propagation of light between the              -th and              -th layers is modeled
+by the Rayleigh-Sommerfeld diffraction equation28:
+
+
+
+
+
+
+where      is the Euclidean distance and           is the wavelength28. The transmission coefficient at
+each diffractive neuron—the actual "holographic weight"—is defined as:
+
+=== PAGE 4 ===
+where       dictates amplitude modulation and              dictates the phase delay28. By cascading these
+layers, the network learns complex decision boundaries natively in the optical domain31.
+
+The          Optical Correlator System
+To execute the circular convolution required for HRR binding instantaneously, the architecture
+employs a          optical system27. A          system comprises two objective lenses separated by
+their focal lengths, with a spatial light modulator situated at the intermediate Fourier plane35.
+When light passes through the first lens, it naturally undergoes a continuous two-dimensional
+spatial Fourier transform33. If a byte-streamed phase mask (the hologram) is applied at the
+Fourier plane, the light is multiplied by the mask's transfer function. The second lens then
+performs an inverse Fourier transform, projecting the result onto a detector37. This physical
+
+process perfectly mimics the                  circular convolution necessary for HRR vector binding,
+entirely eliminating algorithmic latency15.
+Recent advancements in D2NN design have introduced ReLU phase-limiting functions to the
+physical masks. By restricting the phase parameters during modulation, the network
+suppresses zero-order noise and background diffractive scattering, raising inference
+accuracies to parity with deep electronic networks while maintaining speed-of-light
+execution34.
+The Volumetric Storage Medium: 5D Optical Quartz
+Before the holographic weights can be streamed at MHz rates to the active modulator, the
+immense volume of phase data must be stored physically. Traditional magnetic or solid-state
+drives struggle to provide the density required for petabyte-scale continuous HRR datasets.
+The architectural solution lies in 5D optical storage systems utilizing fused quartz41.
+5D optical storage employs femtosecond laser pulses to induce self-assembled nanogratings
+within a quartz substrate41. These nanogratings induce form birefringence, encoding data
+across five independent degrees of freedom: three spatial dimensions (multilayer voxel arrays
+arranged in depth) and two birefringence parameters41. The two critical birefringence
+
+parameters are the slow-axis direction, denoted as                         , and the retardance magnitude,
+denoted as                 41.
+Extracting this data at high speeds historically suffered from polarization instability and additive
+
+Gaussian noise (                                 ) generated by thermal drift and spectral jitter during
+laser writing41. Furthermore, as the read laser focuses onto a target layer, out-of-focus layers
+positioned farther from the focal plane intersect a wider beam footprint, exerting a cumulative
+
+=== PAGE 5 ===
+distance-dependent modulation on the probe beam41.
+To bypass these noise limitations, modern 5D read-out mechanisms utilize convolutional neural
+network decoders to solve the polarization detection problem in real-time, effectively isolating
+the desired layer's birefringence from the cumulative geometric scattering of adjacent layers41.
+This allows the fused quartz to act as a massive, read-only memory bank holding the raw,
+uncompressed phase maps that will subsequently be formatted into byte streams.
+Holographic Data Transport: TIFF and GIF
+Architectures
+The core of the user requirement is the instantiation of the weight as a "byte by byte
+processable hologram utilizing a tiff-gif spooled at MHz." In this architecture, TIFF and GIF are
+not static image files; they are highly optimized, standardized payload delivery mechanisms
+designed to transport spatial phase states from memory directly to the optical plane.
+The TIFF Architecture for Continuous Phase Mapping
+The Tagged Image File Format (TIFF) is ideally suited for encoding uncompressed,
+high-dynamic-range holographic data. Unlike traditional rigid array structures, the TIFF
+specification is a highly extensible container format that deals directly with raw byte alignment
+and directory offsets43.
+A TIFF file is organized into an 8-byte Image File Header (IFH) and an Image File Directory
+(IFD)43. The IFH immediately declares the byte order—either II for Intel (little-endian) or MM for
+Motorola (big-endian)46. In an FPGA-driven Direct Memory Access (DMA) streaming context,
+enforcing II little-endian alignment exactly matches the native word alignment of Peripheral
+Component Interconnect Express (PCIe) engines, dropping byte-swapping translation
+overhead to absolute zero46.
+The IFD consists of a sequence of 12-byte field entries, each containing a Tag ID, a Field Type, a
+Length (Count), and a Value Offset47. Because the Value Offset can point to any location within
+the file (even after the image data itself), multiple multi-dimensional holographic layers can be
+stored contiguously in a single massive stream46.
+
+  TIFF Structure                        Byte Size                              Holographic Streaming
+  Component                                                                    Function
+
+
+  Image File Header (IFH)               8 Bytes                                Determines Little-Endian
+                                                                               DMA alignment (II).
+
+  Image File Directory (IFD)            Variable                               Contains 12-byte tags
+                                                                               indexing the phase maps.
+
+
+  FLOAT / DOUBLE Types                  4 / 8 Bytes                            Stores ultra-precise
+                                                                               continuous phase values
+
+=== PAGE 6 ===
+                                                                                 natively.
+
+
+  Private Tags (>= 32768)                12 Bytes                                Out-of-band metadata
+                                                                                 routing to FPGA schedulers.
+
+
+
+
+For complex weights requiring continuous phase (                ) and amplitude (       ) precision, the TIFF 6.0
+specification natively supports IEEE single-precision (4-byte FLOAT, Type 11) and
+double-precision (8-byte DOUBLE, Type 12) formats47. This allows the raw bytes of a TIFF to
+represent high-fidelity phase variations necessary for precision D2NNs without interpolation47.
+Furthermore, the architecture leverages modern TIFF extensions. Standard TIFF limits file sizes
+to 4 GB due to 32-bit offsets52. The BigTIFF specification (version 43) utilizes 64-bit offsets,
+permitting practically unlimited continuous streaming from multi-terabyte quartz storage52.
+Multi-dimensional mapping—such as 8-dimensional HRR conceptual spaces—is natively
+handled by formats like OME-TIFF and ImageJ hyperstacks, which store multi-dimensional
+phase matrices contiguously after the first IFD52. Finally, the TIFF standard allows for Private
+Tags (tag numbers 32768 and higher)54. The FPGA parser utilizes these private tags (e.g.,
+AOD_RF_CARRIER_FREQ) to extract out-of-band hardware routing instructions alongside the
+visual hologram, dynamically adjusting the optical hardware without interrupting the data
+payload54.
+The GIF Data Stream for Continuous LZW Spooling
+While TIFF provides uncompressed floating-point precision for continuous phase maps, the
+Graphics Interchange Format (GIF) excels at rapid, continuous, compressed byte streaming for
+quantized optical networks. The GIF89a standard utilizes an 8-bit indexed color palette,
+capping phase states at 256 discrete levels, and relies on lossless Lempel-Ziv-Welch (LZW)
+compression57. For high-speed hardware spooling, the GIF architecture acts as the ultimate
+pipeline.
+The authority on the format is the W3C GIF89a specification59. A valid GIF begins with a 6-byte
+header containing the magic bytes 47 49 46 38 39 61 (GIF89a)57. Following the Logical Screen
+Descriptor and the Global Color Table, the Image Data block dictates the streaming
+mechanics57.
+The first byte of the Raster Data field is the LZW Minimum Code Size, which indicates the
+starting bit-width of the LZW dictionary60. The dictionary is reset by a Clear code (                    ), and
+
+compression terminates with an End-of-Information code (                            )59. This explicit dictionary
+sizing allows an FPGA-based hardware decoder to dynamically adjust its internal shift registers
+for maximum throughput ahead of the incoming data59.
+The genius of GIF for hardware streaming lies in its sub-block packaging. Instead of presenting
+a massive monolithic block of compressed data, GIF raster data is packaged into sequential
+
+=== PAGE 7 ===
+sub-blocks of 1 to 255 bytes59. Each sub-block is prefixed by a single length byte indicating how
+many data bytes follow60.
+For an FPGA direct memory access (DMA) engine, this structure is revolutionary. The FPGA
+does not need to buffer an entire multi-megabyte tensor in its limited block RAM; it simply
+ingests 255-byte chunks continuously, feeding them directly into highly parallelized on-chip
+LZW decoders62. Hardware-accelerated LZW decoders instantiated on modern FPGAs can
+achieve decompression throughputs exceeding 200 MiB/s per core64. A length byte of 0x00
+acts as the Block Terminator, seamlessly triggering the end of the frame, followed by a Graphic
+Control Extension (indicated by 21 F9) to manage phase transition delays, or the trailer byte 3B
+to terminate the sequence57. Furthermore, the Application Extension block (21 FF 0B) allows the
+stream to specify infinite looping (via the NETSCAPE2.0 identifier), creating a continuously
+oscillating holographic weight that requires no further instruction from the host CPU58.
+Hardware Modulation: Acousto-Optic Deflectors
+(AODs) for MHz Spooling
+To instantiate the diffractive mask as a physical hologram spooling at MHz frequencies,
+standard Spatial Light Modulators (SLMs) are entirely insufficient. Conventional liquid crystal
+SLMs are restricted to the Hz or low kHz ranges due to the physical relaxation times of the
+liquid crystal molecules51. Achieving continuous Megahertz refresh rates necessitates
+solid-state, inertia-free optical steering elements.
+The Physics of Acousto-Optic Deflection
+The core modulation hardware for this architecture is the Acousto-Optic Deflector (AOD). An
+AOD exploits the acousto-optic effect—specifically photoelasticity—to convert
+radio-frequency (RF) driven acoustic waves into a spatially varying refractive index grating
+within a transparent crystal medium, typically tellurium dioxide (                     )68.
+When a piezo-transducer bonded to the crystal is driven by electrical signals at high radio
+frequencies (e.g., 30–350 MHz), it generates a pressure wave that propagates through the
+medium70. This travelling sound wave alters the permittivity of the material, creating a dynamic,
+
+volumetric phase mask69. The angular deflection                of the first-order Bragg diffracted beam is
+governed by the equation:
+
+
+
+
+
+
+where       is the optical wavelength,         is the acoustic velocity in the medium (typically
+               in          ), and     is the frequency of the driving RF signal69.
+AODs are distinct from Acousto-Optic Modulators (AOMs). While AOMs only modulate the
+amplitude of the sound wave to alter intensity, AODs adjust both amplitude and frequency
+
+=== PAGE 8 ===
+simultaneously, shifting the optical frequency of the deflected beam by an amount equal to the
+acoustic frequency (creating a Doppler shift) while steering the beam68. This allows AODs to
+achieve microsecond to sub-microsecond switching times, easily sustaining continuous
+MHz-rate optical refresh rates68.
+
+  Deflector Parameter                    Physical Limitation                   Architectural Implication
+                                                                               for Holography
+
+
+  Response Time                          Microsecond to                        Enables true >1 MHz frame
+                                         Sub-microsecond                       rate spooling.
+
+  Access Time                            Beam Diameter / Acoustic              Dictates latency of spatial
+                                         Velocity                              phase updates.
+
+
+  Resolution (        )                              (Bandwidth                Defines the maximum
+                                         Access Time)                          addressable phase points.
+
+
+  Parasitic Effects                      Thermal Lensing, RF                   Requires active cooling and
+                                         Impedance Mismatch                    precise FPGA calibration.
+
+
+FPGA RF Synthesis and PCIe Streaming
+The AOD does not require a single frequency; it can process multitone RF input signals. By
+applying multiple frequencies simultaneously, a single AOD can generate highly complex
+two-dimensional spatial patterns, creating arrays with up to 50x50 distinct beam geometries73.
+Two perpendicularly oriented AODs enable vast 2D diffractive phase mapping73.
+The byte-by-byte spooling pipeline operates via a PCIe 5.0 FPGA accelerator. A PCIe 5.0 x16
+link provides a bidirectional raw data rate of 32 GigaTransfers per second (GT/s) per lane,
+yielding 128 GB/s of total bandwidth75. The FPGA utilizes High-Level Synthesis (HLS) to define
+hardware behavior, enabling direct host-to-FPGA streaming via Direct Memory Access (DMA)
+using EN_STRM directives49.
+The host memory pumps the GIF sub-blocks or TIFF raw bytes over the PCIe bus into the
+FPGA's local memory77. The on-chip LZW decoders inflate the GIF bytes into an uncompressed
+array of 8-bit quantized phase levels59. This array is instantly mapped to a massive bank of
+Digital-to-Analog Converters (DACs) capable of GHz sampling rates, which synthesize the
+multitone RF waveforms required to drive the AOD68.
+By locking the read rate of the PCIe 5.0 bus to the DAC output clock, the entire system
+operates as a continuous MHz spool. The AOD converts the continuous RF stream into physical
+
+sound waves propagating through the                       crystal. As the laser passes through this
+
+=== PAGE 9 ===
+acoustic field, the interference pattern—the neural weight—is instantiated physically, executing
+the network inference via diffraction at the speed of light33.
+Signal Integrity and Noise Resilience in Low-SNR
+Regimes
+Abandoning exact floating-point mathematics in favor of analog diffractive optics introduces
+inherent noise, including optical scattering, spatial dispersion, phase quantization errors, and
+thermal lensing within the AOD68.
+Phase Quantization and Single-Photon Detection
+When streaming via GIF, the continuous phase values of the ideal holographic weight are
+quantized into 256 discrete levels (8-bit palette). In conventional digital systems, drastic
+quantization severely degrades performance27. However, diffractive neural networks exhibit
+extraordinary resilience to noise80.
+Recent studies in Single-Photon-Detection Neural Networks (SPDNNs) demonstrate that
+optical architectures maintain high inference accuracy even in extreme low Signal-to-Noise
+Ratio (SNR) environments80. In an SPDNN, optical matrix-vector multiplications occur at
+ultra-low light intensities governed strictly by Poissonian photon statistics, where the
+probability of a detector click is                                     80.
+Despite operating with on average less than one detected photon per scalar multiplication (an
+SNR of roughly 1), these physical networks achieve test accuracies exceeding 90%80. This
+proves that the physical holographic weight does not require 32-bit floating-point precision to
+function optimally. The stochastic, highly resilient nature of distributed Holographic Reduced
+Representations ensures that even an imperfectly quantized, noisy GIF stream mapped to an
+AOD will yield highly accurate cognitive inferences10.
+Adversarial Robustness and Anti-Interference
+A critical vulnerability in optical networks is adversarial perturbation in the complex tensor
+domain. Attack mechanisms, such as the Complex Fast Gradient Sign Method (C-FGSM), have
+demonstrated that imperceptible physical phase alterations can confuse diffractive models82.
+To counter adversarial interference and hardware-induced scattering, the architecture employs
+Anti-Interference Diffractive Deep Neural Networks (AI D2NNs)31. AI D2NNs utilize task
+decomposition, splitting the overall network classification task across multiple parallel spatial
+channels30. By spooling distinct TIFF or GIF streams to separate, parallel AODs, the optimization
+difficulty of individual phase masks is reduced30. If noise or adversarial interference corrupts
+one spatial channel, the ensemble inference remains robust, maintaining high accuracy even in
+dynamic, multi-object scenarios without requiring error-correction overhead in the byte
+stream27.
+Synthesis and Conclusion
+The architecture detailed in this report dismantles the prevailing doctrine of modern artificial
+intelligence hardware. It forcibly transitions the field away from discrete, localized shards of
+
+=== PAGE 10 ===
+mathematical relationships constrained by the von Neumann bottleneck, advancing instead
+toward continuous, distributed Vector Symbolic Architectures (VSAs) reliant upon physical
+optical convolution5.
+By framing the neural weight as a byte-by-byte processable physical hologram, the
+computational bottleneck shifts entirely from arithmetic calculation to I/O bandwidth. Spooling
+8-bit quantized lossless LZW-encoded GIF streams or raw, high-dynamic-range uncompressed
+TIFF formats leverages the inherent structural efficiencies of these protocols43. These byte
+streams—transported via 128 GB/s PCIe 5.0 Direct Memory Access pipelines to FPGA-driven
+RF synthesizers—excite Acousto-Optic Deflectors, creating fully reconfigurable, volumetric
+diffractive arrays updating at multiple Megahertz70.
+
+When combined with the inherent                  circular convolution capabilities of          Fourier
+optics, the network performs ultra-high-dimensional cognitive associations instantaneously12.
+The system operates efficiently within low-SNR, Poissonian light limits, natively resisting
+quantization degradation80. The ultimate outcome is a continuously streaming optical
+intelligence engine—one that abandons mathematical shards for physical light fields,
+computing holistically at the speed of light, and scaling orders of magnitude beyond current
+electronic paradigms.
+
+Works cited
+
+  1.   Noninvasive Monitoring of Blood Glucose Using Color-Coded ... - PMC,
+       https://pmc.ncbi.nlm.nih.gov/articles/PMC6232738/
+  2.   Holographic associative memory,
+       https://en-academic.com/dic.nsf/enwiki/2559372
+  3.   UMI - viXra.org, https://vixra.org/pdf/1712.0136v1.pdf
+  4.   Full text of "Technological Singularity Wikibook" - Internet Archive,
+       https://archive.org/stream/TechnologicalSingularityWikibook/TechnologicalSingul
+       arityWikibook_djvu.txt
+  5.   Holographic functions and neural networks - arXiv,
+       https://arxiv.org/pdf/2605.22666
+  6.   NEURAL NETWORKS AS A BASIS FOR QUANTUM ASSOCIATIVE,
+       https://www.semanticscholar.org/paper/NEURAL-NETWORKS-AS-A-BASIS-FOR-
+       QUANTUM-ASSOCIATIVE-Perus/f8deca83367163b78d8f2cfb433d408060e8b995
+  7.   [2605.22666] Holographic functions and neural networks - arXiv,
+       https://arxiv.org/abs/2605.22666
+  8.   Holographic Reduced Representations for Working Memory,
+       https://jewlscholar.mtsu.edu/bitstreams/32f0ed2f-63dd-4478-96a6-8a1941ce15c1
+       /download
+  9.   VSA- and HRR-related publications - Tony Plate's Publications,
+       http://d-reps.org/vsapubs.html
+  10. Associative Long Short-Term Memory,
+       http://proceedings.mlr.press/v48/danihelka16.pdf
+  11. (PDF) Learning Holographic Reduced Representations with Clifford,
+
+=== PAGE 11 ===
+    https://www.researchgate.net/publication/414686640_Learning_Holographic_Red
+    uced_Representations_with_Clifford_Variational_Autoencoders/download
+12. Modelling neural probabilistic computation using vector symbolic,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC11655797/
+13. Bridging Cognitive Architectures and Generative Models with Vector,
+    https://ojs.aaai.org/index.php/AAAI-SS/article/download/27686/27459/31737
+14. Iterative projection meets sparsity regularization,
+    https://www.light-am.com/article/pdf/preview/LAM2022050014.pdf
+15. Real-time Optical Realization of Circle Hough Transform with,
+    https://www.researchgate.net/publication/301422317_Real-time_Optical_Realizati
+    on_of_Circle_Hough_Transform_with_Incoherent_Light
+16. Solution to the issue of high-order diffraction images for cylindrical,
+    https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-9-14978
+17. Tony Plate's Publications, http://www.d-reps.org/
+18. Using Diffraction Deep Neural Networks for Indirect Phase Recovery,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC10819540/
+19. Generative Adversarial Optical Networks Using Diffractive Layers for,
+    https://www.mdpi.com/2304-6732/13/1/94
+20. Parallel photonic acceleration processor for matrix–matrix,
+    https://opg.optica.org/ol/fulltext.cfm?uri=ol-48-12-3231
+21. Photonic matrix multiplication lights up photonic accelerator and,
+    https://www.researchgate.net/publication/358351958_Photonic_matrix_multiplicat
+    ion_lights_up_photonic_accelerator_and_beyond
+22. The MFT System Part 1: Silicon Photonics - Optalysys,
+    https://optalysys.com/resource/the-mft-system-part-1-silicon-photonics/
+23. Matrix processing with nanophotonics - Lightmatter - Medium,
+    https://medium.com/lightmatter/matrix-processing-with-nanophotonics-998e294
+    dabc1
+24. Photonic matrix multiplication lights up photonic accelerator and,
+    https://research.cuhk.edu.hk/files/256400995/388371591.pdf
+25. Photonic Matrix Computing: From Fundamentals to Applications - PMC,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC8308143/
+26. Diffractive optical elements 75 years on: from micro ... - Researching,
+    https://www.researching.cn/articles/OJ2130a292345c96aa
+27. A Residual Optronic Convolutional Neural Network for SAR Target,
+    https://www.mdpi.com/2304-6732/12/7/678
+28. Metasurface-Based Image Classification Using Diffractive Deep,
+    https://www.mdpi.com/2079-4991/14/22/1812
+29. Study of simulation model of diffractive neural network in liquid,
+    https://epjam.edp-open.org/articles/epjam/full_html/2026/01/epjam250025/epjam
+    250025.html
+30. Simulated task-decomposed multi-channel diffractive neural,
+    https://opg.optica.org/oe/abstract.cfm?uri=oe-34-18-33357
+31. Anti-interference diffractive deep neural networks for multi-object,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC12868834/
+
+=== PAGE 12 ===
+32. Ensemble learning of diffractive optical networks,
+    https://www.light-am.com/article/pdf/preview/xjzz-2021-10-123.pdf
+33. Optical Phase Space Measurements and Applications ... - UC Berkeley,
+    https://escholarship.org/content/qt5kk7w66s/qt5kk7w66s.pdf
+34. Compact and effective zero-order noise suppression in Fresnel,
+    https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13573/135730
+    5/Compact-and-effective-zero-order-noise-suppression-in-Fresnel-holography/
+    10.1117/12.3063744.full
+35. Optical Diffraction Tomography: A Resolution Study - AMS Laurea,
+    https://amslaurea.unibo.it/id/eprint/21258/1/odt.pdf
+36. Physics-guided deep unfolding network for snapshot 3D imaging,
+    https://www.researching.cn/ArticlePdf/m00105/2026/5/5/056024.pdf
+37. Optical Diffractive Convolutional Neural Networks Implemented in,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC10302459/
+38. Rotation Invariant Parallel Signal Processing Using a Diffractive,
+    https://www.mdpi.com/2076-3417/12/1/439
+39. Pixel Super-Resolution Phase Retrieval for Lensless On-Chip ... - PMC,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC9265759/
+40. A method to improve the computational performance of nonlinear all,
+    https://www.tandfonline.com/doi/full/10.1080/15599612.2023.2209624
+41. Multi-layer 5D Optical Data Storage - arXiv, https://arxiv.org/pdf/2508.20106
+42. Chinese Scientists Built A 3D Holographic Storage System ... - Reddit,
+    https://www.reddit.com/r/InterstellarKinetics/comments/1s4bq22/exclusive_chines
+    e_scientists_built_a_3d/
+43. TIFF File Format Summary - Paul Bourke,
+    https://paulbourke.net/dataformats/tiff/tiff_summary.pdf
+44. OGC GeoTIFF Standard - OGC Standards,
+    https://docs.ogc.org/is/19-008r4/19-008r4.html
+45. The Hidden Art of Crafting TIFF Files: How to Create TIFF Image,
+    https://files.crisesnotes.com/article/the-hidden-art-of-crafting-tiff-files-how-to-
+    create-tiff-image-files-like-a-pro
+46. Revision 6.0 - AlternaTIFF, https://www.alternatiff.com/resources/TIFF6.pdf
+47. TIFF - Revision 6.0 - Publications Office of the EU,
+    https://op.europa.eu/documents/3938058/5896514/TIFF-v6/9340926d-6a7a-63c9
+    -5fd7-21c435dcdfeb
+48. Description of Exif file format - MIT Media Lab,
+    https://www.media.mit.edu/pia/Research/deepview/exif.html
+49. UCLA Electronic Theses and Dissertations - eScholarship.org,
+    https://escholarship.org/content/qt072909j7/qt072909j7.pdf
+50. TIFF Revision 5.0, https://cool.culturalheritage.org/bytopic/imaging/std/tiff5.html
+51. Optical Reservoir Computing using multiple light scattering ... - arXiv,
+    https://arxiv.org/html/1907.00657v2
+52. tifffile | Documentation - Christoph Gohlke,
+    https://www.cgohlke.com/docs/tifffile/
+53. Loading and Saving Large TIFF/BigTIFF Files - LEADTOOLS,
+
+=== PAGE 13 ===
+    https://www.leadtools.com/help/sdk/main/api/loading-and-saving-large-tiff-bigtif
+    f-files.html
+54. Custom tags on Tiff Image: Private Tags - c++ - Stack Overflow,
+    https://stackoverflow.com/questions/42954220/custom-tags-on-tiff-image-privat
+    e-tags
+55. ANSI X9.100-181-2014 (R2021) TIFF Image Format for Image,
+    https://x9.org/wp-content/uploads/2021/01/ANSI-X9.100-181-2014-R2021.pdf
+56. Defining New TIFF Tags - LibTIFF, http://libtiff.maptools.org/addingtags.html
+57. GIF - Wikipedia, https://en.wikipedia.org/wiki/GIF
+58. What Is a GIF File? Complete Format Guide - CoolUtils,
+    https://www.coolutils.com/blog/what-is-gif-file/
+59. GIF file extension - Graphics Interchange Format File,
+    https://file-extensions.com/docs/gif
+60. What's In A GIF - Bits and Bytes - GIFLib,
+    https://giflib.sourceforge.net/whatsinagif/bits_and_bytes.html
+61. Image file type and format guide - Media - MDN Web Docs - Mozilla,
+    https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_typ
+    es
+62. Network-conscious GIF image transmission over the Internet,
+    https://sites.cs.ucsb.edu/~pconrad/files/paper014.pdf
+63. 3MF Project: What's In A GIF - Bit by Byte - Matthew Flickinger,
+    https://www.matthewflickinger.com/lab/whatsinagif/bits_and_bytes.asp
+64. redwarp/lzw: Fast implementation of the LZW encoder and decoder,
+    https://github.com/redwarp/lzw
+65. Decompressor for hardware applications,
+    https://aait.od.ua/index.php/journal/article/download/115/115
+66. The Tiniest GIF Ever - Probably Programming,
+    http://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever
+67. 4F Optical Neural Network Acceleration: An Architectural Perspective,
+    https://nanocad.ee.ucla.edu/wp-content/papercite-data/pdf/ip18.pdf
+68. What is Acousto-optic deflector? Meaning, Examples, Use Cases,
+    https://quantumopsschool.com/blog/acousto-optic-deflector/
+69. Acousto-optics - Wikipedia, https://en.wikipedia.org/wiki/Acousto-optics
+70. Acousto-optic deflectors in experimental neuroscience,
+    https://diposit.ub.edu/server/api/core/bitstreams/417ed803-6b23-455a-9adb-7b3
+    9971bd1dc/content
+71. AA Opto-Electronic - Acousto-optic devices and RF drivers,
+    https://aaoptoelectronic.com/
+72. Megahertz Spatial Light Modulator Achieves Rapid,
+    https://quantumzeitgeist.com/megahertz-spatial-light-modulator-achieves/
+73. Model-Based Real-Time Synthesis of Acousto-Optically Generated,
+    https://arxiv.org/pdf/2512.16774
+74. Ultrahigh-throughput single-pixel complex-field microscopy with,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC12340123/
+75. PCIe 5.0 vs 4.0: A Comprehensive Technical Deep Dive for Engineers,
+
+=== PAGE 14 ===
+    https://www.wevolver.com/article/pcie-50-vs-40-a-comprehensive-technical-de
+    ep-dive-for-engineers
+76. PCIe 4.0 vs PCIe 5.0 Graphics Cards | Gaming Guide 2026 - Box,
+    https://box.co.uk/blog/pcie-4-vs-pcie-5-graphics-cards-gaming-performance
+77. Do OS abstractions make sense on FPGAs? - USENIX,
+    https://www.usenix.org/system/files/osdi20-korolija.pdf
+78. Optical next generation reservoir computing - arXiv,
+    https://arxiv.org/html/2404.07857v3
+79. Optoelectronic nonlinear Softmax operator based on diffractive,
+    https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-15-26458
+80. Quantum-limited stochastic optical neural networks operating at a,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC11698857/
+81. An optical neural network using less than 1 photon per multiplication,
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC8748769/
+82. Physical Adversarial Attacks of Diffractive Deep Neural Networks,
+    https://ycunxi.github.io/cunxiyu/papers/lbr_dac21_advonn.pdf

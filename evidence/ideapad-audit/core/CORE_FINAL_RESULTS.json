@@ -1,0 +1,204 @@
+{
+  "schema": "JA21-CORE-FINAL-HOST-VALIDATION/1",
+  "generatedAt": "2026-10-14T18:51:44.117196+00:00",
+  "status": "PASS_WITH_ENVIRONMENT_RERUNS",
+  "engineVersion": "2.2.2",
+  "productionUnchanged": true,
+  "testedInputFiles": 236,
+  "productionFilesChecked": 358,
+  "productionHpuSha256": "8028591b199564fe8523603b494586a35ad6bff9725dc7443d59140fb373c7bc",
+  "initialRun": {
+    "report": "D:\\Codex\\2026-10-13\\pl\\work\\ideapad-cpu-audit\\core\\CORE_HOST_RESULTS.json",
+    "tap": "D:\\Codex\\2026-10-13\\pl\\work\\ideapad-cpu-audit\\core\\CORE_TEST_RESULTS.tap",
+    "summary": {
+      "tests": 311,
+      "suites": 0,
+      "pass": 286,
+      "fail": 22,
+      "cancelled": 0,
+      "skipped": 3,
+      "todo": 0,
+      "duration_ms": 321087.0193
+    }
+  },
+  "environmentConditions": "Initial Node process lacked this agent loopback permission and three launcher fixture subprocesses exceeded their fixed 15-second timeout while file/build jobs were running. The local test-network permission was granted, and affected tests were rerun unchanged in new processes. Original failures are preserved.",
+  "uniqueTestSummary": {
+    "tests": 311,
+    "pass": 308,
+    "fail": 0,
+    "skipped": 3,
+    "cancelled": 0
+  },
+  "resolvedInitialFailures": [
+    {
+      "test": "HEAD has no body",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "HTML and CSP are served",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "Host rebinding",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "JavaScript MIME",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "NUL",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "POST",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "backslash",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "cross-site fetch",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "double encoding",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "encoded traversal",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "foreign Origin",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "hidden dotfile",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "host: Windows streams, device aliases and filename normalization are rejected",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "host: oversized assets and directories are unavailable, HEAD reports length without body",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "launcher/native: cmd preflight refuses absent/corrupt offline runtime without starting a server",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_STARTUP_RERUN"
+    },
+    {
+      "test": "launcher/native: minimal ZIP extraction ignores traversal entries and refuses duplicate executable entries",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_STARTUP_RERUN"
+    },
+    {
+      "test": "launcher/native: real-target acceptance refuses another Windows architecture before provisioning",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_STARTUP_RERUN"
+    },
+    {
+      "test": "legacy scaffold not served",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "local static host boundary",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "references not served",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "root manifest",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    },
+    {
+      "test": "traversal",
+      "finalOutcome": "PASS",
+      "rerun": "CORE_NETWORK_RERUN"
+    }
+  ],
+  "unresolvedInitialFailures": [],
+  "reruns": [
+    {
+      "name": "CORE_NETWORK_RERUN",
+      "tap": "D:\\Codex\\2026-10-13\\pl\\work\\ideapad-cpu-audit\\core\\CORE_NETWORK_RERUN.tap",
+      "tapSha256": "712f916f426cd8292e0cbcc8cf08b665640149ff7e5a8543762f4a5d121c6530",
+      "exitCode": 0,
+      "summary": {
+        "tests": 21,
+        "pass": 20,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 1,
+        "duration_ms": 13184.149
+      },
+      "outcomes": {
+        "host: Windows streams, device aliases and filename normalization are rejected": "PASS",
+        "host: oversized assets and directories are unavailable, HEAD reports length without body": "PASS",
+        "bind address is loopback": "PASS",
+        "HTML and CSP are served": "PASS",
+        "HEAD has no body": "PASS",
+        "Host rebinding": "PASS",
+        "foreign Origin": "PASS",
+        "cross-site fetch": "PASS",
+        "POST": "PASS",
+        "traversal": "PASS",
+        "encoded traversal": "PASS",
+        "double encoding": "PASS",
+        "NUL": "PASS",
+        "backslash": "PASS",
+        "hidden dotfile": "PASS",
+        "root manifest": "PASS",
+        "references not served": "PASS",
+        "legacy scaffold not served": "PASS",
+        "JavaScript MIME": "PASS",
+        "local static host boundary": "PASS",
+        "static host rejects symlink traversal": "SKIP"
+      }
+    },
+    {
+      "name": "CORE_STARTUP_RERUN",
+      "tap": "D:\\Codex\\2026-10-13\\pl\\work\\ideapad-cpu-audit\\core\\CORE_STARTUP_RERUN.tap",
+      "tapSha256": "2fe223c847a838755021613916c4c5662e2812466f9c5c5052957a0f1b40aa8d",
+      "exitCode": 0,
+      "summary": {
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "duration_ms": 213655.8988
+      },
+      "outcomes": {
+        "launcher/native: real-target acceptance refuses another Windows architecture before provisioning": "PASS",
+        "launcher/native: cmd preflight refuses absent/corrupt offline runtime without starting a server": "PASS",
+        "launcher/native: minimal ZIP extraction ignores traversal entries and refuses duplicate executable entries": "PASS"
+      }
+    }
+  ],
+  "scope": "Production engine regression tests plus optional standalone runtime launcher contracts. Browser IndexedDB persistence and physical ARM64 operating-system execution are not exercised by this test suite."
+}

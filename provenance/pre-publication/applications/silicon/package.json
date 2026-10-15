@@ -1,0 +1,19 @@
+{
+  "name": "ja21-silicon-console",
+  "version": "2.4.0",
+  "private": true,
+  "type": "module",
+  "description": "Local browser virtual console and software XPU reference simulator",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs --open",
+    "serve": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs",
+    "check": "node scripts/check.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "license": "UNLICENSED"
+}

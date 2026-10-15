@@ -1,0 +1,93 @@
+{
+  "schema": "JA21-HERMIT-VT-REVIEW-1",
+  "sourceArchive": "D:\\downloads\\hermit-ramws_2.0.0-ramws.1(3).zip",
+  "sourceArchiveSha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e",
+  "runtimeBindings": {
+    "screen": "src/app.js imports Screen from src/vendor/vt/screen.js",
+    "parser": "src/app.js creates one Parser per terminal and passes transport output to Parser.write",
+    "renderer": "src/app.js creates one CanvasRenderer per terminal and renders active tabs",
+    "socket": "socket contract: write, resize, signal, status, close; local RamLink is retained",
+    "accessibleMirror": "new accessibility adapter uses supplied status and transcript elements"
+  },
+  "vtModules": [
+    {
+      "attachedMember": "src/renderer/vt/screen.js",
+      "attachedSha256": "4a6030d451065946689d0e549a14c49ebf44efa3f896a00a4b11ccda5365af1c",
+      "productionPath": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\vt\\screen.js",
+      "productionSha256": "e99683e9704817c89a35e281610ee53c6b6ab354c3d039b0e98e63c326145b8b",
+      "byteEqual": false,
+      "disposition": "retain existing HERMIT-derived ESM implementation and prior hardening",
+      "sourceDifference": "--- attached/src/renderer/vt/screen.js\n+++ production/src/vendor/vt/screen.js\n@@ -1,3 +1,4 @@\n+// @ts-nocheck\n 'use strict';\n \n /**\n@@ -137,11 +138,14 @@\n   cursorNextLine(n = 1) { this.cursorDown(n); this.cursor.x = 0; }\n   cursorPrevLine(n = 1) { this.cursorUp(n); this.cursor.x = 0; }\n \n-  saveCursor() { this.saved = { x: this.cursor.x, y: this.cursor.y, pen: { ...this.pen } }; }\n+  saveCursor() { this.saved = { x: this.cursor.x, y: this.cursor.y, pen: { ...this.pen }, wrapNext: this.wrapNext }; }\n   restoreCursor() {\n     if (this.saved) {\n-      this.cursor.x = this.saved.x; this.cursor.y = this.saved.y;\n+      // Saved coordinates may belong to a larger screen before a resize.\n+      this.cursor.x = Math.min(this.cols - 1, this.saved.x);\n+      this.cursor.y = Math.min(this.rows - 1, this.saved.y);\n       this.pen = { ...this.saved.pen };\n+      this.wrapNext = !!this.saved.wrapNext && this.cursor.x === this.cols - 1;\n     }\n   }\n   setCursorVisible(v) { this.cursor.visible = !!v; }\n@@ -165,7 +169,7 @@\n       for (let y = 0; y < this.cursor.y; y++) { this.grid[y] = this._blankRow(); this.markDirty(y); }\n     } else {\n       // 2 = whole screen; 3 = screen + scrollback\n-      if (mode === 3) this.scrollback = [];\n+      if (mode === 3) { this.scrollback = []; this.scrollbackCells = 0; }\n       for (let y = 0; y < this.rows; y++) { this.grid[y] = this._blankRow(); this.markDirty(y); }\n     }\n   }\n@@ -249,6 +253,7 @@\n       this.scrollTop = Math.max(0, top);\n       this.scrollBottom = Math.min(this.rows - 1, bottom);\n       this.cursor.x = 0; this.cursor.y = this.scrollTop;\n+      this.wrapNext = false;\n     }\n   }\n \n@@ -290,8 +295,13 @@\n \n   _extendedColor(params, i, which) {\n     const mode = params[i + 1];\n-    if (mode === 5) { this.pen[which] = params[i + 2]; return i + 2; }\n-    if (mode === 2) { this.pen[which] = [params[i + 2] || 0, params[i + 3] || 0, params[i + 4] || 0]; return i + 4; }\n+    const channel = n => Number.isInteger(n) && n >= 0 && n <= 255;\n+    if (mode === 5) { if (channel(params[i + 2])) this.pen[which] = params[i + 2]; return i + 2; }\n+    if (mode === 2) {\n+      const color = params.slice(i + 2, i + 5);\n+      if (color.length === 3 && color.every(channel)) this.pen[which] = color;\n+      return i + 4;\n+    }\n     return i;\n   }\n \n@@ -313,6 +323,9 @@\n   reset() {\n     this.pen = this._defaultPen();\n     this.cursor = { x: 0, y: 0, visible: true };\n+    this.saved = null; this.wrapNext = false;\n+    this.scrollback = []; this.scrollbackCells = 0;\n+    this.dirty.clear();\n     this.scrollTop = 0; this.scrollBottom = this.rows - 1;\n     this._initGrid();\n     this._resetTabs();\n@@ -343,9 +356,12 @@\n     this.cursor.x = Math.min(this.cursor.x, cols - 1);\n     this.cursor.y = Math.min(this.cursor.y, rows - 1);\n     this._resetTabs();\n+    this.wrapNext = false;\n+    this.dirty.clear();\n     this.markAllDirty();\n   }\n }\n \n // Exposed as a browser global (renderer is sandboxed; no CommonJS here).\n-window.HermitVT = Object.assign(window.HermitVT || {}, { Screen, blankCell, MAX_SCROLLBACK, MAX_SCROLLBACK_CELLS });\n+\n+export { Screen, blankCell, MAX_SCROLLBACK, MAX_SCROLLBACK_CELLS };\n"
+    },
+    {
+      "attachedMember": "src/renderer/vt/parser.js",
+      "attachedSha256": "18a4a7c61d18f21667be37af8ba5f4ae586e168e35825655f62627128e59740e",
+      "productionPath": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\vt\\parser.js",
+      "productionSha256": "6eb1c54bf16cc33413bcf71dc3cdbf16dd0ded0a263b131f8530c7f610f2ae0e",
+      "byteEqual": false,
+      "disposition": "retain existing HERMIT-derived ESM implementation and prior hardening",
+      "sourceDifference": "--- attached/src/renderer/vt/parser.js\n+++ production/src/vendor/vt/parser.js\n@@ -1,3 +1,4 @@\n+// @ts-nocheck\n 'use strict';\n \n /**\n@@ -39,6 +40,7 @@\n   }\n \n   reset() {\n+    this.oscOverflow = false;\n     this.state = S.GROUND;\n     this.params = this.intermediates = this.osc = this.printBuf = '';\n   }\n@@ -94,7 +96,11 @@\n   /* ---- escape ---------------------------------------------------------- */\n \n   _esc(ch, code) {\n+    if (code === 0x1b) { this.intermediates = ''; return; }\n+    if (code === 0x18 || code === 0x1a) { this.state = S.GROUND; return; }\n+    if (code < 0x20) { this._c0(code); return; }\n     if (code >= 0x20 && code <= 0x2f) { if (this.intermediates.length < MAX_INTERMEDIATES) this.intermediates += ch; return; } // collect, stay\n+    if (this.intermediates) { this.state = S.GROUND; return; }\n     switch (ch) {\n       case '[': this.state = S.CSI; this.params = ''; this.intermediates = ''; return;\n       case ']': this.state = S.OSC; this.osc = ''; this.oscOverflow = false; return;\n@@ -138,7 +144,10 @@\n \n   _dispatchCsi(final) {\n     const t = this.term;\n+    // Unsupported intermediate/private/colon forms must not alias a supported operation.\n+    if (this.intermediates || !/^\\??[0-9;]*$/.test(this.params)) return;\n     const { nums, priv } = this._numParams();\n+    if (priv && final !== 'h' && final !== 'l') return;\n     const p = (i, d) => (nums[i] === undefined || Number.isNaN(nums[i]) ? d : nums[i]);\n \n     switch (final) {\n@@ -213,4 +222,5 @@\n   }\n }\n \n-window.HermitVT = Object.assign(window.HermitVT || {}, { Parser });\n+\n+export { Parser };\n"
+    },
+    {
+      "attachedMember": "src/renderer/vt/renderer-canvas.js",
+      "attachedSha256": "835762bf66e95cd21d328da73f04eb7e459763676bc6b38952dc42b80d77f7cb",
+      "productionPath": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\vt\\renderer-canvas.js",
+      "productionSha256": "8cbb899f758f4b8fc9951a742b52abf7c102e9163281039740df053c4fb018b5",
+      "byteEqual": false,
+      "disposition": "retain existing HERMIT-derived ESM implementation and prior hardening",
+      "sourceDifference": "--- attached/src/renderer/vt/renderer-canvas.js\n+++ production/src/vendor/vt/renderer-canvas.js\n@@ -1,3 +1,4 @@\n+// @ts-nocheck\n 'use strict';\n \n /**\n@@ -57,11 +58,19 @@\n \n   _measure() {\n     const ctx = this.ctx;\n+    ctx.setTransform(1, 0, 0, 1, 0, 0);\n     ctx.font = `${this.theme.fontSize}px ${this.theme.fontFamily}`;\n-    const m = ctx.measureText('M');\n-    this.cellW = Math.max(1, Math.ceil(m.width));\n+    const sample = 'MMMMMMMMMM';\n+    const width = ctx.measureText(sample).width / sample.length;\n+    this.cellW = Math.max(1, Math.round(width * 100) / 100);\n+    // integer cells keep glyphs from spilling into the next column\n+    this.cellW = Math.max(1, Math.ceil(this.cellW));\n     this.cellH = Math.ceil(this.theme.fontSize * this.theme.lineHeight);\n-    this.baseline = Math.ceil(this.theme.fontSize * 0.5 + this.cellH * 0.35);\n+    this.baseline = Math.round(this.fontSizeBaseline());\n+  }\n+\n+  fontSizeBaseline() {\n+    return this.theme.fontSize * 0.8 + (this.cellH - this.theme.fontSize) * 0.35;\n   }\n \n   /** Fit the canvas to a pixel box; returns the resulting {cols, rows}. */\n@@ -98,6 +107,7 @@\n \n   _viewportRows() {\n     const { screen } = this;\n+    this.scrollOffset = Math.max(0, Math.min(screen.scrollback.length, this.scrollOffset));\n     if (this.scrollOffset <= 0) return screen.grid;\n     const sb = screen.scrollback;\n     const start = sb.length - this.scrollOffset;\n@@ -141,7 +151,8 @@\n           ctx.fillRect(xPix, yPix, this.cellW, this.cellH);\n         }\n \n-        if (cell.hidden || cell.ch === ' ') { this._maybeDecor(cell, xPix, yPix, fg); continue; }\n+        if (cell.hidden) continue;\n+        if (cell.ch === ' ') { this._maybeDecor(cell, xPix, yPix, fg); continue; }\n \n         ctx.fillStyle = fg;\n         let font = '';\n@@ -177,7 +188,7 @@\n     ctx.fillStyle = this.theme.cursor;\n     ctx.fillRect(xPix, yPix, this.cellW, this.cellH);\n     const cell = this.screen.grid[y] && this.screen.grid[y][x];\n-    if (cell && cell.ch !== ' ') {\n+    if (cell && !cell.hidden && cell.ch !== ' ') {\n       ctx.fillStyle = this.theme.cursorText;\n       ctx.font = `${this.theme.fontSize}px ${this.theme.fontFamily}`;\n       ctx.fillText(cell.ch, xPix, yPix + this.baseline);\n@@ -203,4 +214,5 @@\n   }\n }\n \n-window.HermitVT = Object.assign(window.HermitVT || {}, { CanvasRenderer, PALETTE, DEFAULT_THEME });\n+\n+export { CanvasRenderer, PALETTE, DEFAULT_THEME };\n"
+    }
+  ],
+  "newAdapter": {
+    "attachedMember": "client/accessibility.js",
+    "attachedSha256": "f6dd1de61cd96cffec37fa614d2c3735ec5447435f2eebb79261761d3d4e474b",
+    "implementation": "D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\vt\\src\\vendor\\vt\\accessibility.js",
+    "implementationSha256": "efa813b2af5b570fe347eff224efeb32318a2eca5038a400de7e432c362eac0a",
+    "changes": [
+      "ES module export",
+      "owner-supplied DOM elements",
+      "300-character control-free status",
+      "400-column and 200-row transcript bound",
+      "concealed cells masked",
+      "plain text DOM assignment only"
+    ]
+  },
+  "preservedHardening": [
+    "Saved cursor coordinates are clamped after resizing and pending wrap is saved explicitly.",
+    "Full reset clears saved cursor, wrap, scrollback and dirty-row accounting.",
+    "Scrollback erase resets its retained cell count.",
+    "Changing the scroll region and screen size discards pending autowrap.",
+    "Palette and truecolor SGR arguments must be complete integer channels in 0..255.",
+    "Unsupported intermediate, private and colon escape forms cannot alias supported operations.",
+    "ESC restart, C0 execution and CAN/SUB cancellation are recognized inside escape sequences.",
+    "Concealed glyphs and decoration are not rendered under the block cursor.",
+    "Scrollback viewport offset is clamped after history is cleared.",
+    "Existing font metrics and ESM isolation remain active.",
+    "OSC clipboard/hyperlink controls are ignored; titles and control accumulators stay bounded.",
+    "Paste is a single editable line and never automatically executes pasted newlines."
+  ],
+  "recommendedAppFixes": [
+    "Ctrl-key conversion must only convert a single-character key.",
+    "Strip C1 control characters from pasted text, consistently with command submission validation.",
+    "Use one accessible mirror for the active local or HERMIT remote terminal.",
+    "Keep remote titles separate from trusted origin labels."
+  ],
+  "validation": {
+    "hermitAccessibility": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    "existingTerminalHardening": {
+      "tests": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "runtime": "Node.js 24.21.0 Windows x64",
+    "browserUi": "not executed in this isolated adapter review"
+  },
+  "license": "Copyright (c) 2026 David Paul Russell\n\nAll rights reserved.\n\nThis software and its source code are provided to the copyright holder for their\nown use. Redistribution terms are at the copyright holder's discretion; replace\nthis file with the license of your choice (e.g. MIT, Apache-2.0) before\npublishing.\n",
+  "productionEdits": "none; root agent approval and final integration are separate"
+}

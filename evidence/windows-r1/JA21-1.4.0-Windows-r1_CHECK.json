@@ -1,0 +1,43 @@
+{
+  "schema": "JA21/WINDOWS_LAUNCH_BUNDLE_CHECK/1",
+  "status": "PASS",
+  "archive": "D:\\Codex\\2026-10-13\\pl\\outputs\\JA21-1.4.0-Windows-r1.zip",
+  "bytes": 84360858,
+  "sha256": "4be8908778c40b0003b6183378c951238252ed9bca48096453a674770cddbae1",
+  "outerFiles": 377,
+  "runtimeFilesVerified": 358,
+  "maxOuterEntryUtf16": 114,
+  "maxInstalledPathUtf16": 123,
+  "crcAllOuterFiles": "PASS",
+  "allOuterBytesVerified": true,
+  "originalArchivePreservedByteExactly": true,
+  "originalArchiveSha256": "d3b2b9eb7f76d899275ca0683f21343c464896a281ea264d1e9198587694ec03",
+  "sourceRuntimeBytesChanged": false,
+  "administratorLiveVerified": false,
+  "windowsExtraction": {
+    "status": "PASS",
+    "reader": "Windows .NET Framework System.IO.Compression.ZipArchive/ZipFile",
+    "clrVersion": "4.0.30319.42000",
+    "destination": "D:\\Codex\\JA21",
+    "outerFilesExtracted": 377,
+    "payloadFileHashesVerified": 375,
+    "checksumEntriesVerified": 376,
+    "maxInstalledPathUtf16": 123,
+    "retainedFirstVerifierError": "The first report resolved runtime rows relative to the manifest directory. Extraction and payload checks succeeded. The corrected root-relative runtime verification passes all 358 files.",
+    "evidence": [
+      "JA21-1.4.0-Windows-r1_EXTRACTION_ATTEMPT.json",
+      "JA21-1.4.0-Windows-r1_INSTALLED_RUNTIME.json",
+      "JA21-1.4.0-Windows-r1_NATIVE_PREFLIGHT.json",
+      "JA21-1.4.0-Windows-r1_PATH_POLICY.json"
+    ]
+  },
+  "nativePreflight": {
+    "status": "PASS",
+    "exitCode": 0,
+    "openedWindow": false,
+    "requestedElevation": false,
+    "networkStarted": false
+  },
+  "installedLauncher": "D:/Codex/JA21/Start Console.cmd",
+  "scope": "Windows short-path launch packaging, actual .NET Framework extraction, exact installed payload/runtime hashes and native startup preflight verified. Original complete release retained byte-exact inside the bundle. Elevated PowerShell startup and delegation still require the pending completed live acceptance test."
+}

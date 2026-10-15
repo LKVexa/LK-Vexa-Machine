@@ -1,0 +1,43 @@
+{
+  "format": "ja21-admin-acceptance-plan/1",
+  "purpose": "Complete the pending native Administrator and delegation checks in an ordinary Windows desktop session.",
+  "storagePolicy": "Use a separate short release folder under D:/Codex; preserve the previous package/workspace and any exported backups. These checks do not apply XPU drafts, restore, reset or replace a volume.",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Check the release ZIP hash against its supplied sidecar and extract to a separate short folder such as D:/Codex/JA21-1.4. Launch Start Console.cmd from File Explorer outside Codex."
+    },
+    {
+      "step": 2,
+      "action": "Wait for XPU 1 and XPU 2 prompts. If startup fails, save the displayed error and workspace/logs/boot-latest.log; report the startup gate as failed."
+    },
+    {
+      "step": 3,
+      "action": "Open Administrator PowerShell using the console button. Confirm the Windows request for the packaged JA21-Admin-Terminal.exe. Record whether startup completes or the request was cancelled."
+    },
+    {
+      "step": 4,
+      "action": "Run the proof command below in Administrator PowerShell and copy its resulting JSON. Actual administrator must be true; each terminal result must have code 0, completion COMPLETED and truncated false. Check each unique marker appears in its corresponding XPU tab. The GPU preview result must explicitly report a successful actual GPU check. Leave its preview unsaved."
+    },
+    {
+      "step": 5,
+      "action": "Record powerShellPid from the proof, then close the Administrator tab with its close button. From a regular Windows PowerShell window, run Get-Process -Id <recorded PID> -ErrorAction SilentlyContinue. No returned process confirms the owned PowerShell exited."
+    },
+    {
+      "step": 6,
+      "action": "Reopen Administrator PowerShell and run the two xpu info delegation checks again; record the new PID. Close it, reopen once more and cancel the Windows elevation request. Verify no connected Administrator terminal remains and XPU 1 and XPU 2 still respond."
+    },
+    {
+      "step": 7,
+      "action": "Share the proof JSON, the owned-process closure result, a screenshot of the three terminal tabs when connected, and any exact startup/delegation error text. Mark any unperformed step NOT_RUN."
+    }
+  ],
+  "proofCommand": "$ja21Proof=[ordered]@{utc=[DateTime]::UtcNow.ToString('o');powerShellPid=$PID;administrator=([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator);terminal1=(Invoke-JA21Terminal -Terminal 1 -Command 'xpu info');terminal2=(Invoke-JA21Terminal -Terminal 2 -Command 'xpu info');marker1=(Invoke-JA21Terminal -Terminal 1 -Command 'echo JA21-ACCEPTANCE-T1');marker2=(Invoke-JA21Terminal -Terminal 2 -Command 'echo JA21-ACCEPTANCE-T2');gpuPreview=(Invoke-JA21Terminal -Terminal 2 -Command 'xpu run add 1 2 8 4 gpu field')};$ja21Proof|ConvertTo-Json -Depth 8",
+  "claimsAfterSuccess": [
+    "Actual Windows Administrator PowerShell startup after operator consent",
+    "Native named-pipe delegation to the two existing XPU terminal sessions",
+    "Real browser GPU confirmation requested through native delegation",
+    "Owned administrator process closes with its tab",
+    "Cancellation and reopening retain the existing XPU sessions"
+  ]
+}

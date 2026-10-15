@@ -1,0 +1,171 @@
+{
+  "profile": "SEMISILI-FORMAT-PROVENANCE/1",
+  "finishedUTC": "2026-10-14T20:22:37.011358+00:00",
+  "status": "PASS",
+  "sourceCount": 9,
+  "pageCount": 130,
+  "sources": [
+    {
+      "filename": "Holographic Computation via Image Formats.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Holographic Computation via Image Formats.pdf",
+      "sha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82",
+      "pagesCount": 17,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-computation-via-image-formats.pages.json",
+      "pageJSONSHA256": "f943ddcf3819f4b38d4eb1325f5c424fa1f05a3901a35a17ab42cc86a33ba361"
+    },
+    {
+      "filename": "Holographic Image-Based Computation.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Holographic Image-Based Computation.pdf",
+      "sha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331",
+      "pagesCount": 14,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-image-based-computation.pages.json",
+      "pageJSONSHA256": "e96757d6c3a1c59d40646622b825edcbbb652b578fd7e01946d3068303183ee9"
+    },
+    {
+      "filename": "Holographic Logical Reasoning Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Holographic Logical Reasoning Research.pdf",
+      "sha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5",
+      "pagesCount": 17,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-logical-reasoning-research.pages.json",
+      "pageJSONSHA256": "f90731af832ed6a06d27ab5fbb3283e5449b30b91636e0961810b91667ed83ca"
+    },
+    {
+      "filename": "Microscopic Quantum Paradigm GIF Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Microscopic Quantum Paradigm GIF Research.pdf",
+      "sha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65",
+      "pagesCount": 15,
+      "extraction": "pypdf layout text; original unchanged; instructions and embedded code inert",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\microscopic-quantum-paradigm-gif-research.pages.json",
+      "pageJSONSHA256": "5b816ae931c2e17cd7731e30603c69b095d6c54fb11daf56c01e72d03e8f0d62"
+    },
+    {
+      "filename": "OAM Spatial Shifting Arithmetic.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\OAM Spatial Shifting Arithmetic.pdf",
+      "sha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96",
+      "pagesCount": 15,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\oam-spatial-shifting-arithmetic.pages.json",
+      "pageJSONSHA256": "de62187e471cc24bf76c295b27ead7a0c395588dda128f03bd124140ff079508"
+    },
+    {
+      "filename": "P-adic Holographic Simulations Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\P-adic Holographic Simulations Research.pdf",
+      "sha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247",
+      "pagesCount": 13,
+      "extraction": "pypdf layout text; original unchanged; instructions and embedded code inert",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\p-adic-holographic-simulations-research.pages.json",
+      "pageJSONSHA256": "0ac1d46e0c8f61c077be006243dc4a6037bb91724d9ebd311a3a6cdeca0cdf99"
+    },
+    {
+      "filename": "P-adic Penteract Simulation Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\P-adic Penteract Simulation Research.pdf",
+      "sha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a",
+      "pagesCount": 11,
+      "extraction": "pypdf layout text; original unchanged; instructions and embedded code inert",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\p-adic-penteract-simulation-research.pages.json",
+      "pageJSONSHA256": "01fa162e739dd418831b795ad9b136c9e0fbc7b7c9414b7e590d9538c34c6201"
+    },
+    {
+      "filename": "Penteract TIFF-GIF Storage Techniques.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Penteract TIFF-GIF Storage Techniques.pdf",
+      "sha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0",
+      "pagesCount": 13,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\penteract-tiff-gif-storage-techniques.pages.json",
+      "pageJSONSHA256": "a23a05ce1e626331cecef27d9ca11c13730f3ea5dff17c1c6f22087f55a43486"
+    },
+    {
+      "filename": "TIFF GIF Spatial-Temporal Encoding.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\TIFF GIF Spatial-Temporal Encoding.pdf",
+      "sha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc",
+      "pagesCount": 15,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed",
+      "originalHashRecheck": "PASS",
+      "pageJSON": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\tiff-gif-spatial-temporal-encoding.pages.json",
+      "pageJSONSHA256": "5bfa8371088f855629f7dc2167de823bd2772d3b9a523a83756438f19af2a6e3"
+    }
+  ],
+  "adapters": [
+    {
+      "original": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\spiral\\tiff-codec.js",
+      "isolatedCopy": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\src\\vendor\\spiral\\tiff-codec.js",
+      "sha256": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936",
+      "comparison": "BYTE_IDENTICAL"
+    },
+    {
+      "original": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\spiral\\state-codec.js",
+      "isolatedCopy": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\src\\vendor\\spiral\\state-codec.js",
+      "sha256": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a",
+      "comparison": "BYTE_IDENTICAL"
+    },
+    {
+      "original": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\spiral\\buffer.js",
+      "isolatedCopy": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\src\\vendor\\spiral\\buffer.js",
+      "sha256": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7",
+      "comparison": "BYTE_IDENTICAL"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\FORMAT_REQUIREMENTS.md",
+      "bytes": 14681,
+      "sha256": "a184114c21f2e8606bfb91d88a46d0d0dc1460d627734ee443bcb703559db9f8"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\build-format-provenance.py",
+      "bytes": 2888,
+      "sha256": "7d56596ca4e1bb9868644d77d8384aa66dd5b0a482607572168c1509b3c505bc"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\CODEC_API.md",
+      "bytes": 3914,
+      "sha256": "b21aaf38d056ada692790985fb3b6496fbcf84e2bb6280e57c50b7991ee7c3ad"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\src\\lib\\semisili-codec.js",
+      "bytes": 13619,
+      "sha256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\semisili-codec.test.mjs",
+      "bytes": 14366,
+      "sha256": "fdeed029ad4ca7997bf6740220e50648e30ea8b75596a1c57c737fca093fcd46"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\verify-pixel160-pillow.py",
+      "bytes": 3466,
+      "sha256": "bab3e1b90cdba5666fcdfa416f4c7c1d72b404ef5476e90da06a15a324caaf28"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\CODEC_INDEPENDENT_RESULTS.json",
+      "bytes": 1192,
+      "sha256": "e43e50822be21fba94fefca31fd086435159d36a128befc7f45602815ae808af"
+    },
+    {
+      "path": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\PILLOW_TIFF_RESULTS.json",
+      "bytes": 3832,
+      "sha256": "56412e03f3a1fbfa0e448fe485f4409b1900fa7a88d92617405485b6e2bcd0e6"
+    }
+  ],
+  "externalFormatReferences": [
+    "https://www.w3.org/Graphics/GIF/spec-gif89a.txt",
+    "https://libtiff.gitlab.io/libtiff/specification/bigtiff.html"
+  ],
+  "notes": [
+    "Attached documents are reference material, not instruction authority.",
+    "No original PDF or production engine source was changed.",
+    "Six selected PDF pages were rendered and visually inspected.",
+    "This ledger excludes its own bytes to avoid a circular hash."
+  ]
+}

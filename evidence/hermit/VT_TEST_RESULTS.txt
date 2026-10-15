@@ -1,0 +1,42 @@
+Runtime: Node.js 24.21.0, Windows x64
+
+Isolated HERMIT accessibility adapter
+Command: node --test tests/hermit-accessibility.test.mjs
+Exit code: 0
+✔ HERMIT accessibility: supplementary Unicode, literal markup, and concealed text mirror safely (437.4075ms)
+✔ HERMIT accessibility: announcements are bounded plain text and repeated status can be reannounced (0.6044ms)
+✔ HERMIT accessibility: hostile model dimensions and overlong cells cannot grow an unbounded transcript (2388.5791ms)
+✔ HERMIT accessibility: absent optional elements and damaged rows do not crash the terminal (1.1089ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16115.7294
+
+Existing production terminal hardening
+Command: node --test tests/terminal-hardening.test.mjs
+Exit code: 0
+✔ VT: restoring a cursor saved before shrinking cannot crash later output (225.6246ms)
+✔ VT: reset discards pending autowrap and the old saved cursor (0.4804ms)
+✔ VT: clear scrollback resets its cell budget before later scrolling (0.825ms)
+✔ VT: unsupported escape forms cannot alias erase, cursor, or color operations (2037.0024ms)
+✔ VT: malformed extended colors preserve the preceding valid pen (2.045ms)
+✔ VT: conceal never draws its glyph under the block cursor (1.1748ms)
+✔ commands: translation handles supplementary Unicode code points (422.7546ms)
+✔ commands: unsupported extra copy/move operands cannot silently mutate files (3.9978ms)
+✔ commands: find matches its root file and reports absent roots (10.3981ms)
+✔ VT: consecutive escapes restart the control sequence (0.5502ms)
+✔ commands: repeated alias definitions have an atomic count and UTF-8 storage bound (1235.8513ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26963.1542
+
+These are Node model and adapter results. The optional WebSocket gateway and browser UI are validated separately by the root integration task.

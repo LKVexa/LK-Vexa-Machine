@@ -1,0 +1,162 @@
+{
+  "schema": "ja21.hermit.engine-boundary-review.v1",
+  "engineRoot": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon",
+  "sourceArchiveSha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e",
+  "reviewedFiles": [
+    {
+      "path": "scripts/serve.mjs",
+      "bytes": 8605,
+      "sha256": "cf0e44ad1be2d120144cfff3075f6b69b726fd6357d8d74709374a760333c1f6"
+    },
+    {
+      "path": "scripts/windows/bootstrap.ps1",
+      "bytes": 21390,
+      "sha256": "0df1548733ee332cd2f408b5e6a2e96e36762be6456c28a0ed7f9d99ae620cc0"
+    },
+    {
+      "path": "Start-Console.cmd",
+      "bytes": 23124,
+      "sha256": "83d6b20e153bb15309f9ace34f54d11e4c97256c5a1316a5cc2126deeed693a6"
+    },
+    {
+      "path": "scripts/ramws/ramws-gateway.mjs",
+      "bytes": 22094,
+      "sha256": "eff973eb8ff8ba591401d2b5fd9edf4de30243cbe13bf6f324dfece96f63a8a7"
+    },
+    {
+      "path": "scripts/ramws/admin-gateway.mjs",
+      "bytes": 11103,
+      "sha256": "b81827f72902577c6a1a121838e9002f3da92ecd943663b83a8b460d36392aeb"
+    },
+    {
+      "path": "scripts/ramws/gateway/ws.cjs",
+      "bytes": 21484,
+      "sha256": "21967b4e82ab5d1f562115f2fe19bb8728c395e21ad73fa0874c00ec2200369f"
+    },
+    {
+      "path": "src/lib/admin-link.js",
+      "bytes": 10065,
+      "sha256": "1a540f5152e132c84af8e0cdc0f1e00c62e1479151a38705105fddacb1737af9"
+    },
+    {
+      "path": "src/lib/xpu-delegation.js",
+      "bytes": 3179,
+      "sha256": "80d81af93112f0613a8f06a5d6b41ae6d866f5cd4be723915940a900770dd2f2"
+    },
+    {
+      "path": "src/lib/ram-link.js",
+      "bytes": 9766,
+      "sha256": "269929bd0ffbbf1e9aeb00e0464f91d7239e4f959112d13d8b50d745d1da8065"
+    },
+    {
+      "path": "src/vendor/ram-worker.js",
+      "bytes": 28269,
+      "sha256": "1e8886ce422830ba064509c35dedd8f4f3989b8906d2af0dec03c7558557d9cd"
+    },
+    {
+      "path": "src/vendor/spiral/kernel.js",
+      "bytes": 25923,
+      "sha256": "daf42e54c997cfe565d06bed29464052e653b4a5d008a615c5de59ddedfbb7d7"
+    },
+    {
+      "path": "src/app.js",
+      "bytes": 24591,
+      "sha256": "5941440c2bc69ecabc0936b5aa060eed0831d2fb4dd972d4e1ea195b690e2e16"
+    },
+    {
+      "path": "tests/admin-delegation-worker.test.mjs",
+      "bytes": 10436,
+      "sha256": "1d63fde20ac44d579e87e5cfa7810e2c95bbfdf8bbc7f434c04ee4fdec7380ae"
+    },
+    {
+      "path": "tests/admin-gateway.test.mjs",
+      "bytes": 6682,
+      "sha256": "9eaddbc2d1d55b544aa0fb537eda4326e2232e0ab0d660496a36930bcbba7602"
+    },
+    {
+      "path": "tests/ramws-gateway.test.mjs",
+      "bytes": 14599,
+      "sha256": "e7329da5f566a315bb9a7a6b78ca59fd4bfa8b442a6bccb0bd8c118627253424"
+    },
+    {
+      "path": "tests/ramws-serve.test.mjs",
+      "bytes": 5985,
+      "sha256": "6d33004565a08c31087f11b5d50ec63d69cfd4915224b15addf03b832e36ebbb"
+    }
+  ],
+  "results": {
+    "productionWorkerDelegation": {
+      "pass": 7,
+      "fail": 0,
+      "storage": "TEST_FIXTURE",
+      "locks": "TEST_FIXTURE",
+      "gpu": "UNUSED",
+      "source": "Actual production RAM worker/kernel"
+    },
+    "adminNativeAdapter": {
+      "pass": 6,
+      "fail": 0,
+      "childProcess": "TEST_FIXTURE",
+      "UAC": "NOT_RUN",
+      "PowerShell": "NOT_RUN"
+    },
+    "loopbackBrokerWithAdminRoleFixture": {
+      "pass": 10,
+      "fail": 0,
+      "transport": "Actual RFC6455 loopback",
+      "owner": "SYNTHETIC_TEST_PEER",
+      "admin": "TEST_FIXTURE",
+      "rawRun": {
+        "pass": 16,
+        "includesSixAdminNativeAdapterTests": true
+      }
+    },
+    "optionalServe": {
+      "pass": 6,
+      "fail": 0
+    },
+    "launcherContract": {
+      "pass": 18,
+      "fail": 0
+    }
+  },
+  "findings": [
+    {
+      "id": "E01",
+      "status": "FIXED_AND_TESTED",
+      "finding": "Administrator disconnect now cancels correlated delegated XPU jobs; matching SID/requestId only, guard retained until real completion"
+    },
+    {
+      "id": "E02",
+      "status": "FIXED_AND_TESTED",
+      "finding": "Worker epoch admits a delegation ID once; reused/cancelled completed IDs rejected by bounded4096-id fence"
+    },
+    {
+      "id": "E03",
+      "status": "FIXED",
+      "finding": "Delegation UNKNOWN errors bounded256 and actual completed codes restricted0..255"
+    },
+    {
+      "id": "E04",
+      "status": "FIXED_AND_TESTED",
+      "finding": "Native ACK event explicitly means input/control admission rather than PowerShell command completion"
+    },
+    {
+      "id": "E05",
+      "status": "REPORTED_PENDING_NATIVE_TEST",
+      "finding": "Native Administrator tab closing before opened/SID must cancel owned opening bridge; WS transport already closes owned bridge"
+    }
+  ],
+  "limits": [
+    "Storage completion tests prove production flush ordering using a fault-capable IndexedDB fixture, not browser eviction or machine-restart durability.",
+    "No UAC acceptance, elevated PowerShell startup, or physical administrator terminal execution was performed in this audit.",
+    "GPU acceleration is not claimed by these protocol/CPU-delegation checks."
+  ],
+  "evidence": [
+    "ADMIN_WORKER_VERIFIED.tap",
+    "ADMIN_GATEWAY_VERIFIED.tap",
+    "ADMIN_BROKER_TESTS.tap",
+    "ADMIN_SERVE_TESTS.tap",
+    "LAUNCHER_RERUN.tap"
+  ]
+}

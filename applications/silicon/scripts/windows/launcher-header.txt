@@ -1,0 +1,23 @@
+@echo off
+setlocal EnableExtensions DisableDelayedExpansion
+title JA21 Silicon Console - private runtime launcher
+set "JA21_BOOTSTRAP_SELF=%~f0"
+set "JA21_BOOTSTRAP_ROOT=%~dp0"
+set "JA21_BOOTSTRAP_MODE=%~1"
+set "JA21_BOOTSTRAP_EXTRA=%~2"
+set "JA21_PSHOST=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+if exist "%SystemRoot%\Sysnative\WindowsPowerShell\v1.0\powershell.exe" set "JA21_PSHOST=%SystemRoot%\Sysnative\WindowsPowerShell\v1.0\powershell.exe"
+if not exist "%JA21_PSHOST%" goto :no_powershell
+"%JA21_PSHOST%" -NoLogo -NoProfile -NonInteractive -Command "$ErrorActionPreference='Stop';try{$t=[IO.File]::ReadAllText($env:JA21_BOOTSTRAP_SELF);$m='#==JA21_POWERSHELL_PAYLOAD==';$p=$t.LastIndexOf($m,[StringComparison]::Ordinal);if($p -lt 0){throw 'Launcher payload missing'};& ([ScriptBlock]::Create($t.Substring($p+$m.Length)))}catch{[Console]::Error.WriteLine($_.Exception.Message);exit 1}"
+set "JA21_RESULT=%ERRORLEVEL%"
+echo.
+echo Launcher exit code: %JA21_RESULT%.
+if "%JA21_NO_PAUSE%"=="1" goto :finish
+pause
+:finish
+exit /b %JA21_RESULT%
+:no_powershell
+echo Windows PowerShell 5.1 could not be found in the Windows system directory.
+echo No system configuration was changed. This launcher needs Windows PowerShell 5.1.
+if not "%JA21_NO_PAUSE%"=="1" pause
+exit /b 1

@@ -1,0 +1,1974 @@
+{
+  "input": "RUSSL-Zarr-main.zip",
+  "sha256": "4adec0988b7e9de5e82d6c43d910112341373d18207545f4df2be431cbb66eb1",
+  "files": 325,
+  "selectedFiles": [
+    "research/FIXED_SHAPE_INDEXING_PROFILE.md",
+    "machine/registries/fixed_shape_layout.json",
+    "tests/vectors/field/fixed_shape_index_vectors.jsonl",
+    "tooling/field_layout.py",
+    "interoperability/TIFF_PROFILE.md",
+    "interoperability/OME_ZARR_PROFILE.md",
+    "interoperability/STORAGE_ADAPTER_CONTRACT.md",
+    "spec/WP04_Penteract_Field_Specification.md",
+    "spec/WP14_RUSSL_Imaging_Profile.md",
+    "spec/WP17_Canonicalization_and_Cryptographic_Identity.md",
+    "spec/WP23_TIFF_RUSS_Migration_Specification.md",
+    "spec/WP24_OME_Zarr_RUSS_Interoperability_Specification.md",
+    "UNRESOLVED_ISSUES.md",
+    "README_START_HERE.md"
+  ],
+  "scope": "Inventory of all outer-archive files; selected TIFF/layout specifications and implementation reviewed. Nested archives preserved, not recursively re-audited or executed. No corpus prompts executed.",
+  "records": [
+    {
+      "path": ".gitattributes",
+      "bytes": 80,
+      "sha256": "2399ddf752045b35b4e7f6aaaadc63059f5eb94e0dda3825a8c04d5ba732c927",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 49,
+      "sha256": "1823bd97a37712618e1be8f983c7b419268ade9cd0514fb528f005fe6d4f8b86",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "COPYRIGHT",
+      "bytes": 1121,
+      "sha256": "77a26d9efb7c4a899896f9b8e9bf4ebe0b0230c1476559c69789e3b27ba544c6",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 34674,
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 3319,
+      "sha256": "195bb7eedea02c1664c3949fc18d43e76782818e8d46fe7e9f621faae905d555",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5147,
+      "sha256": "d55cd36ef09ae5b733a9e9f560453e328125c3007eaf88f13f61192ad5904d72",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/ARCHITECTURE_CHARTER.md",
+      "bytes": 2631,
+      "sha256": "1c26bed612866ce17a203e4fb3a475859c505dcaa1cf8aa2ed84985b1fa1bb49",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/AUDIT_REPORT.md",
+      "bytes": 12935,
+      "sha256": "25c725b84f684b1992b323fec225d7a3d97d112c441ff3337785bd964bae38d8",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/BUILD_RECEIPT.json",
+      "bytes": 758,
+      "sha256": "728e52133517b2c51a7777e088e6f141928b102c0af43f9189b272fabc7dd765",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/CHANGELOG.md",
+      "bytes": 3168,
+      "sha256": "5e9b00ab2fcc08d00627a6ccf5c7e24ebd6aea870c478c2c3daf8d3ef9947be4",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/CORPUS_INDEX.md",
+      "bytes": 5380,
+      "sha256": "d981a7bd98043101fbc5910a4d641ae7c9c47bc68689047054d191acea7814f0",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/DEPENDENCY_GRAPH.md",
+      "bytes": 1116,
+      "sha256": "8859e0dda9073d9b4e3e94027ed39bf23c3024c64528a3013e69287516efcc4b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/GLOSSARY.md",
+      "bytes": 2242,
+      "sha256": "0e3c7e8433ada1e58e449caa3cf8fbb2e54e6bd50d675a4bc74840c580bccd11",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/MANIFEST.json",
+      "bytes": 56644,
+      "sha256": "6fd8f453f82f902c9475f8f09ff926a6479b47b1174cedbc954af5642e9ebfcb",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/README_START_HERE.md",
+      "bytes": 4356,
+      "sha256": "cefe2dee76247a18b896b0e11341e9117bc12dc474a6b91bbd766c3b9df96e71",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/RUSSL_Corpus_Release_Report_v2.0.0.md",
+      "bytes": 2085,
+      "sha256": "934f233823bc973defaa2291c24222595592a682219334a9f428c0c60256267d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/RUSSL_FULL_CORPUS.md",
+      "bytes": 538175,
+      "sha256": "d239d4d81cc156e7b7f5b06536d1c5af5f62d2da1d556b15f05d1c098e44a063",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/SHA256SUMS.txt",
+      "bytes": 34015,
+      "sha256": "2370021795a2da31b2d266384c36cc7b501fb9d4a6bce6334ef4d22245bd97e5",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/SOURCE_AUTHORITY.md",
+      "bytes": 6811,
+      "sha256": "9e901d6c89e30cedf150b9f3f2c8f50ed37e825195622c976d4342b9db0b4ed2",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/UNRESOLVED_ISSUES.md",
+      "bytes": 5396,
+      "sha256": "07d2371b6a61388cd040d7a75bb665eb329f25c3123b5b5c9f6349717215cc9e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/WORKFLOW_ERRATA.md",
+      "bytes": 1002,
+      "sha256": "d9c87607a071102685d60eda1cf27f6a19a176c5b1f3e903d038e092307b8092",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/bindings/mssl/final_admission.mssl",
+      "bytes": 1169,
+      "sha256": "0e4952a1e4a059c431863bbf6d225a26f08b75e51be88d1c9fccbf202ebad426",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/bindings/mssl/lab_stack.mssl",
+      "bytes": 11988,
+      "sha256": "d4fb76610576e37eece3f857f370bc544041487651427f2bdf12e051a15f6367",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/bindings/mssl/master_coupled_mechanics.mssl",
+      "bytes": 1453,
+      "sha256": "35158ea4260b69a1cb0c5037e5fdabc89d0fc253ba2866abb517a4ff7b08b15f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/bindings/mssl/product_metrics.mssl",
+      "bytes": 2445,
+      "sha256": "87d2291963cdc3e7ccbc6b1e74a02b5e9533c2bbfc58c3b508023ca7d283d243",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/completion/WP01_completion.json",
+      "bytes": 1075,
+      "sha256": "198c243879fdca05c337df593a5c18182f16e7d467dbe08b3258ae5d4a662e49",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP02_completion.json",
+      "bytes": 1092,
+      "sha256": "7995fe12248f6b14e2a66891c5c0b3444baf818231ae1beb690485aceb0c9357",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP03_completion.json",
+      "bytes": 1143,
+      "sha256": "c59dba2b2682800419a2c896995affe87def96ed5ff4b20b4130bc251318e7cb",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP04_completion.json",
+      "bytes": 1129,
+      "sha256": "cb8b5f35723eee124a5a3eb5e1e2262f01cf02f7e90cef73e01771f18890870a",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP05_completion.json",
+      "bytes": 1108,
+      "sha256": "955e159267b3bc45ed9ddcac1a26b5932b2a38c200e81fb3b37f5848cc081511",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP06_completion.json",
+      "bytes": 1135,
+      "sha256": "4cb7efbcd05921e6f7154e70996574ca1c9a2b7414429f73b91eff781e69ceec",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP07_completion.json",
+      "bytes": 1103,
+      "sha256": "6a728c34242855f23db88dbffb39b69f6bf4ba069a2519572867d48ec1908033",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP08_completion.json",
+      "bytes": 1148,
+      "sha256": "e7481f4e68ae614d903a6649f67b806d6e359e02682e0c7c6c5f4a0b4e227724",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP09_completion.json",
+      "bytes": 1148,
+      "sha256": "6752ba9aa86f2cbf3906f9fcab3488242fac2112f0d1ecab3ce52891b6f2e956",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP10_completion.json",
+      "bytes": 1110,
+      "sha256": "bd7e9cfd14d8c2160a09ff4036c594d733b7cb8957d37aadb12d0fc1bdfd4674",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP11_completion.json",
+      "bytes": 1111,
+      "sha256": "9973845a2455e45ceb80ebe7a3be0e98e01df9cbde8f6c4c3cbac4c08530fcd0",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP12_completion.json",
+      "bytes": 1128,
+      "sha256": "61edc95c74ee6077309c48a94e911f4ce5c16a45bbe7b606cb03e043af1a87b3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP13_completion.json",
+      "bytes": 1117,
+      "sha256": "a55db9fd91fdf3539f46590a0aa743f6c08f630b4992634304bd9e197216435b",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP14_completion.json",
+      "bytes": 1111,
+      "sha256": "ea0bf530d838101a5e62ebafb8ec5deac69a6a0b8dae9839043bc665b3973dca",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP15_completion.json",
+      "bytes": 1125,
+      "sha256": "d6ef0632b53dfeabcbf66a1c3de3b9897d6ca7f5cd8824d9307158a862794b67",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP16_completion.json",
+      "bytes": 1133,
+      "sha256": "3fb3a40a7aba7f63c2f488cc90242a40b27ff4b4fee7e4f5e704bf196b180e27",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP17_completion.json",
+      "bytes": 1132,
+      "sha256": "3beae7b3faa21a724fe9e7fe714c73a6f625d1681da40d2493675e2524ff8425",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP18_completion.json",
+      "bytes": 1115,
+      "sha256": "cdfb91095cd44d1d04d622b9465e7be0af57937d60349568cdd55afd626b23e3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP19_completion.json",
+      "bytes": 1137,
+      "sha256": "e8a9c9110a8e24f44595b4bdf79d839b0194251183820e3e67a02c7827311668",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP20_completion.json",
+      "bytes": 1318,
+      "sha256": "e508e52c05f2ec4bf2de190cedc7c5614ff2d40aa53ef44ff3d9a2679aac8c7b",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP21_completion.json",
+      "bytes": 1332,
+      "sha256": "f04686f7004eacde7cf15abe12f130c0243c9ed93748485c3c04c05209735759",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP22_completion.json",
+      "bytes": 1208,
+      "sha256": "c18aa545c5f3b25d571113b58fd4d90ea037c4cdb24438708ca3e795a923a82c",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP23_completion.json",
+      "bytes": 1123,
+      "sha256": "76e41207a7df50d15c7c1570f0d7c7d05b740a20ef92e81caca7df25cc691b2e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP24_completion.json",
+      "bytes": 1134,
+      "sha256": "1567789e8ac04e6310d7037fcedbe8c330937e34d2d748db9a0cd3e5467414c1",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP25_completion.json",
+      "bytes": 1382,
+      "sha256": "6133326ee8451d10be42b7085ed18a45a0855d3a0d82245e0843c9e08c79321e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP26_completion.json",
+      "bytes": 1096,
+      "sha256": "e49c0397b4e5ab9f96a1ebc4bfabe1c2450d28d21fd693b4509787fdf118ac40",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP27_completion.json",
+      "bytes": 1130,
+      "sha256": "b7a896f302fe62d70916d821fc5fe1f43dff7b21212a701fdf8f2632c02709ed",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/completion/WP28_completion.json",
+      "bytes": 1139,
+      "sha256": "43b809979642be2a07e828a17e464a005f72a762a219a2ba43b9778e0d2171c5",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/ADDITIONAL_MATH_AUDIT.json",
+      "bytes": 3949,
+      "sha256": "ab6274a46c56bc5fe01af8f2d4ffb960f2f3ae8c89b1b588cf82770bf0c72a3a",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/ADDITIONAL_SYSTEMS_AUDIT.json",
+      "bytes": 7856,
+      "sha256": "4033f23fa682f0e1646ed433d16cd678dbf183a6f2145472719af30511c528c6",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/COMPLETION_MISMATCHES.JSON",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/evidence/CONFORMANCE_RESULTS.json",
+      "bytes": 7080,
+      "sha256": "edd95193158a147be8bde10273a740bd0e293a08ffc1e981a6ce5c1cf534c12e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/INDEPENDENT_TOOLING_REVIEW.json",
+      "bytes": 10525,
+      "sha256": "b6d64debc2fe999a0c8891ac61bd32f7e39add449b7c67172f0482bb52368da5",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/INGESTION.JSON",
+      "bytes": 38877,
+      "sha256": "523c1571cdb7b2228edc38cd2af905dbf26e78d55f0afe3b34d2ccd4a42f03ad",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/evidence/INSTITUTIONAL_RESEARCH_AUDIT.json",
+      "bytes": 5674,
+      "sha256": "7d8a141c14976028d7619d6d329a20185f577750f89f04de3a483fba88ece31b",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/NESTED_ARCHIVE_AUDIT.JSON",
+      "bytes": 748,
+      "sha256": "178c1a000bda4daefdd10da44be46b34debdfe8baebe8cec22e98fa0b119bdfc",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/evidence/NESTED_STATIC_FLAGS.JSON",
+      "bytes": 212,
+      "sha256": "0bf30ccff3dd48844e89b82479436fc7212c7d0cc16d646c78f3443b28545287",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/evidence/ORIGINAL_ADVERSARIAL_OBSERVATIONS.JSON",
+      "bytes": 785,
+      "sha256": "f9d69a44b1cd378c4a09ea1a863e83a4019efd73c3ea27b3494edf2d4f07b1e4",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/evidence/PROVENANCE_RECEIPT.json",
+      "bytes": 500,
+      "sha256": "e4302b6c6955db5278f173895cdd216d8d68e9a014b284eaadf164008a84fd55",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/RELEASE_AUDIT.json",
+      "bytes": 726,
+      "sha256": "dee2d60c1a1ba35a1b4c1303a07941c8084a5ec4ccc364b29447d8dfdd0f7785",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/RELEASE_INTEGRITY.json",
+      "bytes": 394,
+      "sha256": "daad242cbbf8fc69d263b392db415796429830db9365f14b23c553fa84981641",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/REPRODUCIBILITY_RECEIPT.json",
+      "bytes": 527,
+      "sha256": "059dd5e5165e70c95ec98b5ada02c2372439131520d75d7b89b149a9e3fd4604",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/RESEARCH_INDEX_MUTATION_RESULTS.json",
+      "bytes": 2156,
+      "sha256": "dad9a700beddddc2713061d483ae00b2261d37c30e7cf214099a1b5f55cf079a",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/TECHNICAL_SPEC_AUDIT.json",
+      "bytes": 15571,
+      "sha256": "70c6876259598b7b6dbbce5ad8d36ded84f23e09233ced9e57b889410e137c25",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/evidence/TOOLING_REVIEW_RESOLUTION.json",
+      "bytes": 5683,
+      "sha256": "85dee89ad3b994a51e7f2e797d4d71650af085116d16e41b184a1d9df17eb042",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/golden/RUSS_Penteract_RUSSL_1.0_golden.manifest.json",
+      "bytes": 3914,
+      "sha256": "5bd0100068efd32614d019ddcb6c2d731c4598979c295f66cf48e255e6278f16",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/golden/RUSS_Penteract_RUSSL_1.0_golden.receipt.json",
+      "bytes": 605,
+      "sha256": "f5c6b0b63f4624a97dc84af8be91a4d88d38fabdd84317d2f8c13dfd0a5059ba",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/golden/RUSS_Penteract_RUSSL_1.0_golden.russ",
+      "bytes": 30624,
+      "sha256": "b78f9258fcba3d04db7ff953251c34ed01440535bc2015504059199d866f2766",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/examples/golden/field_descriptor.json",
+      "bytes": 402,
+      "sha256": "20e0cf6c42f0082996f6cba82a7e2e7d99e2ffabebc34c609f7f1103efd0422c",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/evidence/provenance.json",
+      "bytes": 184,
+      "sha256": "b7bd96d1285d725697da8974eba7e96c0e3ebdc36eb196fa7348d4626e09645d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/language/main.russir.json",
+      "bytes": 8162,
+      "sha256": "dd7127952cad5fea534345840cc900146d446dd442f7b6bbdfb8173e034519e3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/language/main.russl",
+      "bytes": 1590,
+      "sha256": "7c632e5fd6b10cc8ec4df60cf7bac32ff106beaf7587bc28daea7bdec1117bda",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/mssl/final_admission.mssl",
+      "bytes": 1169,
+      "sha256": "0e4952a1e4a059c431863bbf6d225a26f08b75e51be88d1c9fccbf202ebad426",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/mssl/lab_stack.mssl",
+      "bytes": 11988,
+      "sha256": "d4fb76610576e37eece3f857f370bc544041487651427f2bdf12e051a15f6367",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/mssl/master_coupled_mechanics.mssl",
+      "bytes": 1453,
+      "sha256": "35158ea4260b69a1cb0c5037e5fdabc89d0fc253ba2866abb517a4ff7b08b15f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/mssl/product_metrics.mssl",
+      "bytes": 2445,
+      "sha256": "87d2291963cdc3e7ccbc6b1e74a02b5e9533c2bbfc58c3b508023ca7d283d243",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/golden/fixture_payload/state/field_descriptor.json",
+      "bytes": 402,
+      "sha256": "20e0cf6c42f0082996f6cba82a7e2e7d99e2ffabebc34c609f7f1103efd0422c",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/README.md",
+      "bytes": 442,
+      "sha256": "04cc044152428e7f355ddbb52b512b26e9dd678f77518a729e0a5029494eabe5",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/RUSS_Penteract_RUSSL_1.0_golden.manifest.json",
+      "bytes": 3750,
+      "sha256": "ecb29e0ef77a5e8e3b48307f00b44f2f79051a92ee91b499bf4b65a35b7c278d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/RUSS_Penteract_RUSSL_1.0_golden.receipt.json",
+      "bytes": 403,
+      "sha256": "057ed3371745494f83f58348041dcefb961f30c574323947ebe01dbde82b68e3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/RUSS_Penteract_RUSSL_1.0_golden.russ",
+      "bytes": 30658,
+      "sha256": "94e8e1fd8ff71ce540cfc0ec5be7b954917236acc756943b8d71a4b5b107add0",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/field_descriptor.json",
+      "bytes": 447,
+      "sha256": "2ea699eec62359d8ad6972f5a94a17b9bdc28123536fb89f74a933005eb39302",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/evidence/provenance.json",
+      "bytes": 184,
+      "sha256": "b7bd96d1285d725697da8974eba7e96c0e3ebdc36eb196fa7348d4626e09645d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/language/main.russir.json",
+      "bytes": 8162,
+      "sha256": "dd7127952cad5fea534345840cc900146d446dd442f7b6bbdfb8173e034519e3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/language/main.russl",
+      "bytes": 1590,
+      "sha256": "7c632e5fd6b10cc8ec4df60cf7bac32ff106beaf7587bc28daea7bdec1117bda",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/mssl/final_admission.mssl",
+      "bytes": 1169,
+      "sha256": "0e4952a1e4a059c431863bbf6d225a26f08b75e51be88d1c9fccbf202ebad426",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/mssl/lab_stack.mssl",
+      "bytes": 11988,
+      "sha256": "d4fb76610576e37eece3f857f370bc544041487651427f2bdf12e051a15f6367",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/mssl/master_coupled_mechanics.mssl",
+      "bytes": 1453,
+      "sha256": "35158ea4260b69a1cb0c5037e5fdabc89d0fc253ba2866abb517a4ff7b08b15f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/mssl/product_metrics.mssl",
+      "bytes": 2445,
+      "sha256": "87d2291963cdc3e7ccbc6b1e74a02b5e9533c2bbfc58c3b508023ca7d283d243",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/legacy_golden/fixture_payload/state/field_descriptor.json",
+      "bytes": 447,
+      "sha256": "2ea699eec62359d8ad6972f5a94a17b9bdc28123536fb89f74a933005eb39302",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/01_single_sample.russir.json",
+      "bytes": 5829,
+      "sha256": "66e9a77407a48db34678640860ec282f2a25eacf809dbe96cfa6b4792425c92e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/02_grayscale_2d.russir.json",
+      "bytes": 4443,
+      "sha256": "e6ace22e32b0fd8ec1137f0d1c17bbc2e58186647423a87b756f533780ed2558",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/03_rgb_image.russir.json",
+      "bytes": 4549,
+      "sha256": "88468a7a56ead6a2f7c27ca109b32c06a564e6b10c72e7cf74cff1d8f478f4fe",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/04_volume_3d.russir.json",
+      "bytes": 3479,
+      "sha256": "f71490f3206eb4843856fcc533d2329d91ef9b819e80ad1e3914e0b8e87b4cb6",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/05_native_5d.russir.json",
+      "bytes": 4700,
+      "sha256": "2725bd2accf0d38a30983ca0c736444f0a33c39a9a93f4529e67f80da1d21245",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/06_sparse_coupled_field.russir.json",
+      "bytes": 3597,
+      "sha256": "80a4352f44d3681da25f60400c987cfa2ca66d4dc7abdf07158f82cdcd702a1d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/07_mssl_lab_metrics_admission.russir.json",
+      "bytes": 8162,
+      "sha256": "dd7127952cad5fea534345840cc900146d446dd442f7b6bbdfb8173e034519e3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/08_distributed_candidate.russir.json",
+      "bytes": 5329,
+      "sha256": "80098e292eccd912e183bfdde2ddb9ae80c5801f09ecdececf99ea6960be24f4",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/09_commit_requires_grant.russir.json",
+      "bytes": 4343,
+      "sha256": "c915d8cd938cd981a35d434225f255eb35c91a9c09eab8cca733eac9bcadc4ec",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/10_projection.russir.json",
+      "bytes": 3561,
+      "sha256": "67dd3bb8c040f9134e859ccc783e6ce7ac1e0edb0bf79777221c1c79a6c564ca",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/11_tiff_migration_profile.russir.json",
+      "bytes": 3417,
+      "sha256": "f53a2f14d6cb3c172823402a58b8e01bdc2d671299f0c8ab91832932d8a2ac6a",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/lowered/12_observe_only_admission.russir.json",
+      "bytes": 4931,
+      "sha256": "e8a2504e6dc2c55aa0c396695adec09474bae8cb6478f9853a7f72b0ecf386d6",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/examples/source/01_single_sample.russl",
+      "bytes": 1100,
+      "sha256": "56708df08e6ac0fa1b442d84a1447c936036c7108ae84a87e0c0491c6842fa99",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/02_grayscale_2d.russl",
+      "bytes": 721,
+      "sha256": "1bf82430925d19fa84d387fdce42fe6c9c114d24b0c33911c2e727d95694b10f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/03_rgb_image.russl",
+      "bytes": 716,
+      "sha256": "f55e3a204b6a626435203a943a558e4380a5d7e1a52bc2d36a465df53189d713",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/04_volume_3d.russl",
+      "bytes": 607,
+      "sha256": "2968ff668876047414ccf032e6d1d9ece5c760723dc37bc69e00f9a0dc2e97d2",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/05_native_5d.russl",
+      "bytes": 855,
+      "sha256": "e6454c01b8c48335787cd1921efa516e7bc5a34295a412b7a33106a2d2635560",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/06_sparse_coupled_field.russl",
+      "bytes": 632,
+      "sha256": "44c6c36a805caa6a66f054402560f49d64fe5377f2fd98c17847f1da20682785",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/07_mssl_lab_metrics_admission.russl",
+      "bytes": 1590,
+      "sha256": "7c632e5fd6b10cc8ec4df60cf7bac32ff106beaf7587bc28daea7bdec1117bda",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/08_distributed_candidate.russl",
+      "bytes": 788,
+      "sha256": "d4fd40a6a5eaaf74c9f6c6d01f571159fbc3bed8359777cf373ed46e41bdb1d3",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/09_commit_requires_grant.russl",
+      "bytes": 679,
+      "sha256": "d7e0e272c70599939e51fd3dc925cf94fa171fc55ea55bcdca9d6b8feea65a10",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/10_projection.russl",
+      "bytes": 633,
+      "sha256": "4ddc6b8e651d5bb526bc27b76c70621cd64bac3afd8622080a2bf78e963aab44",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/11_tiff_migration_profile.russl",
+      "bytes": 623,
+      "sha256": "fb340dd85713e0c1a9b80eca48ebe2545e6afd43a8a6f8477cf26ba8c2cd835c",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/examples/source/12_observe_only_admission.russl",
+      "bytes": 1021,
+      "sha256": "0e865000655ed850382bccbf91d9e18f4802215b26d1269f61a7108345a8d883",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/governance/GOVERNANCE_CHARTER.md",
+      "bytes": 3614,
+      "sha256": "d2afa02d2d12722b925983a0787b72b29497f62fb35637c1dbee308bc157da2d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/ARCHITECTURE_DECISIONS.md",
+      "bytes": 3275,
+      "sha256": "9c6524248d8804c2e8c96eba7ab9a01d588e8e2c8d7aa66d0b7fe1fd863780c3",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/ARCHIVAL_POLICY.md",
+      "bytes": 3339,
+      "sha256": "eb05af773c6219f780d4fd283d3be16f843c860649be84494857078802ffa4d7",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/ASSURANCE_CASE.md",
+      "bytes": 5099,
+      "sha256": "4ccf5a69b6738fbd91d7cdeaa5fe376dafcdf8deec946acaceaa38ab14ac51a2",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/CHANGE_CONTROL_POLICY.md",
+      "bytes": 3465,
+      "sha256": "fd4d8c8cda29b8a148c2807803283b15539bf3adcb5edeaf578919049a55cc2b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/INCIDENT_RESPONSE_POLICY.md",
+      "bytes": 1990,
+      "sha256": "3d0a136f6cc0c1956f38c66d804809c7fba0839ff79c39a5ff83305391dccc1d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/LIMITATIONS_AND_SAFETY.md",
+      "bytes": 3401,
+      "sha256": "b4a9fe404e6d06ed620993c93f11e334d446cdaf140f094d439b55bebb3463a3",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/institutional/RIGHTS_PRIVACY_AND_DISTRIBUTION.md",
+      "bytes": 2169,
+      "sha256": "2104a7539c004e4d3ab17873aecf5f4243fccd1158d27295e61b05bb2ad0f650",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/interoperability/OME_ZARR_PROFILE.md",
+      "bytes": 6091,
+      "sha256": "cdd2387f6333e8f951c4a02007d1e91c85548a8a83a2843a25a7ed813c125bbe",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/interoperability/STORAGE_ADAPTER_CONTRACT.md",
+      "bytes": 5388,
+      "sha256": "8d6737ee5a1c10fba97715169b2f572964d855d5ebd0e8bbd24842230c24038b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/interoperability/TIFF_PROFILE.md",
+      "bytes": 5984,
+      "sha256": "bad2ed6bea33100fa0bf22f63f4fa84e1038f7c92ff6aae05c9a0fbb751e1aa8",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/COLUMNED_LCTL_CORPUS_1.0.0.zip",
+      "bytes": 554254,
+      "sha256": "b60b268a05b817bd7a9865f77f36b26b3952ef9bc28023eb3a8216b908bb634e",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/lineage/COLUMNED_LCTL_MANIFEST.json",
+      "bytes": 43758,
+      "sha256": "69487e50dc56c6d5a645b2165570fd8d2274b2a4951291947e234acf90ca4440",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/LCTL_C_1_0_SPEC.md",
+      "bytes": 3962,
+      "sha256": "1f587a6fa8cd397c048a4570140c28fefac1f2f7dc2068109133852d597139d7",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/LCTL_C_DESIGN_RATIONALE.md",
+      "bytes": 1171,
+      "sha256": "bb164ab593a5f61e3c6075424dff3430f21dcbdcccb7b3c4bf0d833e08eaba47",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/LCTL_C_GRAMMAR.ebnf",
+      "bytes": 747,
+      "sha256": "2fa8e5ac88a338f186d9ab1ddb6ef732b83545727a76b948a7244269ed4042bd",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/LCTL_README_START_HERE.md",
+      "bytes": 1343,
+      "sha256": "7214a8ba5326525ef4192d3fdb5621c9a2997f80e8d7b07919279df8b2f5ba54",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/LCTL_SOURCE_AUTHORITY.md",
+      "bytes": 657,
+      "sha256": "c0f219e5869b9e3ce13bc9ead10369e5df14a47433911f5a62672f23a41ec197",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/README_PRESERVATION.md",
+      "bytes": 1163,
+      "sha256": "15362f86dd7d80f974fe696d4c75ab568122c3b4cc2594e1297286cf2ca75115",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/RUSSL_Corpus_28_Prompt_Workflow_v1.0.0.md",
+      "bytes": 197014,
+      "sha256": "f00418656da4af13dcf6f4209eca356b10cc5d5a474b433c3bc7fafdc560530d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/RUSSL_PROTOTYPE_SUPERSESSION.md",
+      "bytes": 833,
+      "sha256": "ed9fa398bcc791284753dc32e502134c5aa0c98ac8de03f302b9368b89c0bc32",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/RUSSL_v1.0.0_RUSS_v1.2.0_LCTL_Spinoff.zip",
+      "bytes": 375790,
+      "sha256": "e80c83a824135ef57fa8c089c0d6b596fe1f2d3e7ac31dbe819882934c96a1dd",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/lineage/RUSS_P5S3_v1.2.0_prestandard.russ",
+      "bytes": 1187488,
+      "sha256": "08524bc903b07804b6869ca6b1299922588dccc964e0f3b2840ad9901453d76b",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/lineage/RUSS_P5S3_v1.2.0_prestandard.russir.json",
+      "bytes": 4336,
+      "sha256": "065982d79d1c299def5212c22a7e6f4f34a5a5f19bc1969a12313b157bca1062",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/RUSS_P5S3_v1.2.0_prestandard.russl",
+      "bytes": 1285,
+      "sha256": "0d3069ee9ecb78f18ae2a4a2f22220d71483cf7ea17ac56d2ee0095e068efa85",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/build_corpus_v1.0.0.py.txt",
+      "bytes": 135305,
+      "sha256": "d01198328592e959c5acfc0d45dd4debf15c483caf53d42104b9fe1f56650dda",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/original_corpus_v1.0.0.zip",
+      "bytes": 1448683,
+      "sha256": "8f900e895c0e403885d82b8b84d2de756391908e95e9380d9ea471ef5dc3b1c8",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/lineage/prior_release/BUILD_RECEIPT.json",
+      "bytes": 1003,
+      "sha256": "a54361c55aa67fe4f51f5e01e034c34732c2193ba2ebc7d977595eef0278a54f",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/MANIFEST.json",
+      "bytes": 30118,
+      "sha256": "5fe740491fc2573a2398d3eaba32557638297b6d5de36c1107f9bf5fe999b4c0",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/RUSSL_Corpus_Release_Report_v1.0.0.md",
+      "bytes": 1831,
+      "sha256": "5657eb53f3a060b14026d6d909de478d8f159343daf3fc424b9e45bd3efa917a",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/prior_release/SHA256SUMS.txt",
+      "bytes": 18426,
+      "sha256": "1845eb77d4fc5413aa5c68879adb1bc5c1496038268890e0a1d8db6a486ea0fb",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP01_completion.json",
+      "bytes": 857,
+      "sha256": "22ec3e8dc7332bb6b2511264832434082986674c1745e411358d430e12622346",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP02_completion.json",
+      "bytes": 871,
+      "sha256": "827cce4659f4f1f7e9ddb010320a371caa78d0efeac67e48f46278b6a8a2602f",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP03_completion.json",
+      "bytes": 976,
+      "sha256": "c14ce2bb03105953c71ec9a71646af422d527919aec627c7485b0105f548cf42",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP04_completion.json",
+      "bytes": 964,
+      "sha256": "9f757951b39c9ebada1844bb703c5386ada754d163f09a2734bf241e90d13071",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP05_completion.json",
+      "bytes": 887,
+      "sha256": "167d75435105434d9713ef18d1309588debdf26e72b1f28e01331ddcfdf2fad3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP06_completion.json",
+      "bytes": 912,
+      "sha256": "d9a974dd8a16c1feeed4a7e6c225befae52d98fce9b509e9133aa6dd893fc875",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP07_completion.json",
+      "bytes": 881,
+      "sha256": "702d3cf5c0798f71703cc8d65b9addb6356e46e17667a4ed8bad683e3091b9a7",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP08_completion.json",
+      "bytes": 980,
+      "sha256": "722b8abaaf0c8c407c9b2bd5882b3094c3d546888e74554945e54294c47c410e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP09_completion.json",
+      "bytes": 981,
+      "sha256": "c1c2a572d11c75bf83415e150d93cdca547f91877b581389b15d6beb6f1203d9",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP10_completion.json",
+      "bytes": 887,
+      "sha256": "4041f37724eb00c35621d8d3362d1d82a8dc17669cacce212b794a059b308915",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP11_completion.json",
+      "bytes": 888,
+      "sha256": "d5b4793486a76713d7493c625edc643492ac72e820b0fbc2eca1d68df7dfef01",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP12_completion.json",
+      "bytes": 905,
+      "sha256": "4a121ba72006a5f4554c09ae202284c2c54031f5e022f2bf12efd053fd463209",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP13_completion.json",
+      "bytes": 895,
+      "sha256": "5c5c0e6ea2690dc4b1870393759dc16d8185c5aafea5781217017ef2b120e7cb",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP14_completion.json",
+      "bytes": 888,
+      "sha256": "ded35641ffdfffe347a44dceb1a2b2588040a5534c496fa75af4a336ecdf1d12",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP15_completion.json",
+      "bytes": 902,
+      "sha256": "6cc890e5804484a8bf4c996258e414eea0ae7f085b1d7bdd7e6cc106eb18269f",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP16_completion.json",
+      "bytes": 909,
+      "sha256": "357908c5a84391b11607215b63bb8ac61c3c417c50533f47caf48203853cf558",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP17_completion.json",
+      "bytes": 910,
+      "sha256": "ceb69e77915226aaa7b03527cfadb843c698d202c43490a9fb4445984a7d3592",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP18_completion.json",
+      "bytes": 894,
+      "sha256": "db4b94fbc64f6e945307640b3e977fa28401161840459fc5aab2d905c71c1166",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP19_completion.json",
+      "bytes": 914,
+      "sha256": "18d8aede2dbdbd82c8bc86c6da9229cb2b823784a42228d06c6e2455df9d0032",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP20_completion.json",
+      "bytes": 1079,
+      "sha256": "9836a51c91c228257aae4a597f66aaf2a157d6044a9080da1b05acb45c9c7264",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP21_completion.json",
+      "bytes": 1092,
+      "sha256": "837b5c67e848e6199a686e82f96ee6516d2a2cd3fa087a0591d6cf1a31b07684",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP22_completion.json",
+      "bytes": 979,
+      "sha256": "03796f86539615e4a82ec2c64b4262ad876aaeb5a13150b48257cdd88cdd7a33",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP23_completion.json",
+      "bytes": 1019,
+      "sha256": "de1680356aa5bc3c5b4c693b945ae91aa754a151ddd4010eb200e6d2393ae01d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP24_completion.json",
+      "bytes": 1030,
+      "sha256": "70b337688d89544ca3084f32f4e49a81b71943013ee533c4653c3b97828a377d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP25_completion.json",
+      "bytes": 1138,
+      "sha256": "e9190c7eabc71d6ebd5099b7e8efadd1a6e7c5b05bcd4527ce5d9a47c6a8b341",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP26_completion.json",
+      "bytes": 1014,
+      "sha256": "fb53824829e988401995a10c08ecffe84d09094e4e3b31367d2acb8388ebd11e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP27_completion.json",
+      "bytes": 906,
+      "sha256": "8e031cbc3062d9d26b888bd6b22eab4d55979fe72b6d338c690310554eed9cc4",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/completion/WP28_completion.json",
+      "bytes": 913,
+      "sha256": "4158679f49721917b1aca3fb972d7eb7f304b41fdf4806a9f92720b29e234991",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/evidence/CONFORMANCE_RESULTS.json",
+      "bytes": 1962,
+      "sha256": "3b6519f7a10266f17972c66ff6f40ed8af7ce8723e2f010c66de87cb0d9498d3",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/evidence/PROVENANCE_RECEIPT.json",
+      "bytes": 1764,
+      "sha256": "4ff489fe4503ef123d73daf60faec234a3fd024a398dc4945caab032ee8b3404",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/evidence/RELEASE_AUDIT.json",
+      "bytes": 191,
+      "sha256": "23e3f025b3dadf15241f66d2490f31201acbfe5b2d9a2a14cd794f9fad42290d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/prior_release/evidence/REPRODUCIBILITY_RECEIPT.json",
+      "bytes": 493,
+      "sha256": "6a66250d200fd3004b290f7788b5fb56ec11bc721bd6e2a1b2dd03e258667b14",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA01.pdf",
+      "bytes": 1100841,
+      "sha256": "7bb1c6dcab2ab81265d00cf79f213c12f6a141afe4425e23b96d4170161ac2b3",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA02.txt",
+      "bytes": 37440,
+      "sha256": "646428a037202a7c126ed6dd2ff86cea16f0289c1413f3aadca20a503a17a1e2",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA03.txt",
+      "bytes": 37777,
+      "sha256": "a94d3b5c4628de66cb4a777719679da8c4a13e93a916b3fcdb46cbda11f713d5",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA04.txt",
+      "bytes": 37098,
+      "sha256": "368374b1d71609048de9f5f428e519f174ca413e2cfc7da2428d82fdffab6883",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA05.txt",
+      "bytes": 40787,
+      "sha256": "1bc0e50d254181cc8f529a8c681f6778f61915237d93239330e010a71e3ff12c",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA06.txt",
+      "bytes": 35729,
+      "sha256": "bdca7a6e85b778852fe742d7432547d6a3e999c51b4c2da96f7c796c578852da",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA07.txt",
+      "bytes": 21992,
+      "sha256": "45afd3be962d5f40889e43b85d6b958dd06fd489fea0a9cf11925c2f0ba4bfdb",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA08.txt",
+      "bytes": 32287,
+      "sha256": "4c63d20663f52ae6d66d8edf1c62388a1f81bc3c352d9c983f56353adbe94047",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA09.txt",
+      "bytes": 34105,
+      "sha256": "a787bc626f63be61b113c82eeaa4b3212ca21eb65bc321caaf4926b574e5c412",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA10.txt",
+      "bytes": 27346,
+      "sha256": "c94a9753aa1bc2281b356561f725b39582bea09c15b21978e3cd58c9dac25873",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA11.txt",
+      "bytes": 36058,
+      "sha256": "9230e64e3e84083c57e5013cd71b28eca6b9e1d036e52e41f04c79f5c5d15aca",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA12.txt",
+      "bytes": 46039,
+      "sha256": "76951f2c2b05dbac456ef97bbf3b82deea8490b611a0085d6f6f3ac9d47ad102",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA13.txt",
+      "bytes": 41690,
+      "sha256": "2a4f14985c0a7af8f1a05b2dd51cefe842aa06a9554a5bda67f20056cf25bacc",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA14.txt",
+      "bytes": 40644,
+      "sha256": "d37b07e5dca8a9e34d51a9516563f693a765366e240c1b48a1b04b4575a92f6a",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA15.txt",
+      "bytes": 37097,
+      "sha256": "08712c135ea7fc43eb76db7be3f4aacb81948d9688f9e2c017d433be193b170c",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA16.txt",
+      "bytes": 34061,
+      "sha256": "20375db69bdbf0d30a20d36263dbb3fb5822cae1eb2c2a55d5cc31002b4780ec",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA17.txt",
+      "bytes": 45361,
+      "sha256": "bd9bc1059e03978adf1e98c7dc78effe7dc3b7a12534e95f425d316f1cb59887",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA18.txt",
+      "bytes": 42297,
+      "sha256": "804c21318edf3d217808a64191e4612addfdf5ccd6bf27342ed4aaeddbaa13d5",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/research_additions/RA19.txt",
+      "bytes": 34769,
+      "sha256": "7b0302e5a83087d85d9864cceaf3eb1be86522330fa8b1b206e7394e073564a3",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/lineage/verify_corpus_v1.0.0.py.txt",
+      "bytes": 7957,
+      "sha256": "75423777a07dd50959a80105c5cedef819f91f1428a6831a7b3500815c67592f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/machine/RUSSL_1_0_GRAMMAR.ebnf",
+      "bytes": 4410,
+      "sha256": "fc4106bfc5f8dbca24c834773ef69f812a736ebd56b6b6a384d8e59c63e8d445",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/machine/registries/capability_registry.json",
+      "bytes": 292,
+      "sha256": "69d894dfa02b65ed9e9a4a02ddd9fd946ea486470552d1556bc82d5d18601288",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/document_registry.json",
+      "bytes": 18609,
+      "sha256": "720a12a8e4dd1d6a088fe61913e693e408f4ab205a488adb31698492e584ddc8",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/error_registry.json",
+      "bytes": 1996,
+      "sha256": "853f171cc4d04a08fc2738f51d420696950dd040664dbcfa581107d0cce85ba5",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/extension_registry.json",
+      "bytes": 689,
+      "sha256": "8f6b1db2c301c024d922b540c930ccb075b0712212f4c7882587d47c13def49b",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/fixed_shape_layout.json",
+      "bytes": 1319,
+      "sha256": "472639aa87b56bd251b12fe588409697ee2b602a90a080978bac453778d5389d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/mssl_baseline_registry.json",
+      "bytes": 1827,
+      "sha256": "bd54950e05dd3d875e0bad27988dca37b9d2e960695cd9ab836ddb3db75057e7",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/operator_catalog.json",
+      "bytes": 5002,
+      "sha256": "a7e1cc25039c1e8690beae209b68e872b0f7b42a1c39dc4f3d843bd6fe0c0490",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/requirement_results.json",
+      "bytes": 95046,
+      "sha256": "559086c1596ab19c1b62e21b0f20afb998d30caad71a97438b4ef1681d16ae3d",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/requirements_coverage.json",
+      "bytes": 3872,
+      "sha256": "d8e082bbdc5c575174c33bed1aaa7ab3e7a56b037356b64a262b0f2a0566ac83",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/research_evidence_index.json",
+      "bytes": 53413,
+      "sha256": "a6e4f27fef08fac7555dc68d42f0d258e4532c41f38dcf25dfd6f88f5a200155",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/sample_capability_grant.json",
+      "bytes": 1002,
+      "sha256": "d8e7c9d1d42beb1f62876580aaa0c4e8fb4fd7a7dcfda1b100e8d90526595319",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/sample_evidence_receipt.json",
+      "bytes": 268,
+      "sha256": "8e7b610d60cabfb9c1197c1fe2c35d579397c6c48aff619efa1697b9f49fdca8",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/sample_execution_receipt.json",
+      "bytes": 302,
+      "sha256": "4204f53162cea80926bc0d4f1abad936d943cb815951f5140690fa764f963d16",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/sample_mssl_binding.json",
+      "bytes": 456,
+      "sha256": "d7cc070a12223be2b01b7fa15187ffdea75b77f3326b9e1e058ae94865c0d3df",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/source_digest_registry.json",
+      "bytes": 1237,
+      "sha256": "d4bf3b9adc0e4a7740c5261e800722661b884fa1bc509aa5775c4ec2d8d323a0",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/registries/work_package_dependencies.json",
+      "bytes": 2869,
+      "sha256": "3a57e3760ceaade0e99ea14577d9d2a62e521dd50784eb16dd5cb5da72b9515a",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/requirements_registry.jsonl",
+      "bytes": 64596,
+      "sha256": "6413f893e6b1f7ba91968153ce012033ff561da59cb4ef3d53af3ba3d42765de",
+      "disposition": "JSONL parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/capability_grant.schema.json",
+      "bytes": 3146,
+      "sha256": "30b020bf17be2a57c4ea8c3ba0067f8bd82f4566d5e681b7258f86bb1a97d586",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/conformance_result.schema.json",
+      "bytes": 1557,
+      "sha256": "7af9fcfcbbca9d8e595e55eca727d5b1d12ff4d1ba4451b6cb150acf21b1d6b7",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/evidence_receipt.schema.json",
+      "bytes": 989,
+      "sha256": "dffac60c74b5c4e83fcd731fe8cc0c626d29f66235e9b90fe9227744c458ca7a",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/execution_receipt.schema.json",
+      "bytes": 1287,
+      "sha256": "5040133f80badc83412485ebc770402cb0ebf74c285ae52891f322bbc0454757",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/extension_registry.schema.json",
+      "bytes": 1312,
+      "sha256": "7d79d633046e630a514a59e3327ffa2d1154c8c9ca5b1f25ee43ae72823fca21",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/mssl_binding.schema.json",
+      "bytes": 1281,
+      "sha256": "4f10ec02d58192524e46ced18a23c49e32aa5f25086f17c99d8858dd07c722a9",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/penteract_field.schema.json",
+      "bytes": 2618,
+      "sha256": "ec0ac15eb32004d23bb878b4e13d84f83a4dbac475fdd2e408744769f58d6bfd",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/russ_tuple_manifest.schema.json",
+      "bytes": 5281,
+      "sha256": "67392104ae0826ebc3f5be69b0a24fb0cec2a47de79c458a15478d2a85767669",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/schemas/russir.schema.json",
+      "bytes": 6992,
+      "sha256": "18b182d5d5876b44d1fc6629bed912d269706dd5a9e107df896a5f9e4635e2f6",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/machine/tests_registry.jsonl",
+      "bytes": 192807,
+      "sha256": "d9c60437a472c25170504044dedb8dfd3637177f1c4aa30df7f49c85de96bce1",
+      "disposition": "JSONL parsed"
+    },
+    {
+      "path": "corpus/research/ADDITIONAL_MATHEMATICAL_AND_HOLOGRAPHIC_REVIEW.md",
+      "bytes": 26734,
+      "sha256": "68f4c9b6081f7e613efbc1f4366ac7da1a074da61b85405616be6ad5c6e2aa1a",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/ADDITIONAL_PRIMARY_REFERENCE_INDEX.md",
+      "bytes": 13634,
+      "sha256": "fc2d792e1e29187a329c16b38236a9a488e5adc3c5ea8bf82687a1cf5611dfa5",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/ADDITIONAL_SOURCE_INTAKE.json",
+      "bytes": 15877,
+      "sha256": "cf4426b703c4df0a79282dd0f9c1e9c0414da5394e62e299906233106020ab42",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/research/ADDITIONAL_SYSTEMS_AND_OPTIMIZATION_REVIEW.md",
+      "bytes": 30421,
+      "sha256": "7ae693b33160f9b83796354defff4b31d5ee59b490b7dc5f1925edd96928aaad",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/BIBLIOGRAPHY.md",
+      "bytes": 4295,
+      "sha256": "f5609601bb214b76cc43f764703eeb3dd8ad44b206089624ea1522edbf182c2b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/EXPERIMENT_PROTOCOLS.md",
+      "bytes": 7700,
+      "sha256": "88236bea965205514fbe06f777be4c30899d506e396dafaee3795063bc29442e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/FIXED_SHAPE_INDEXING_PROFILE.md",
+      "bytes": 6112,
+      "sha256": "0381d7b3be576dec0d159e3ed286045193fb48c0145c2960197a07cd23c9577d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/MECHANICS_CRITICAL_REVIEW.md",
+      "bytes": 6773,
+      "sha256": "46b1cda0dbff288f786af3038e7395f6dd3e6c3cc23ef08c5be46c6017937dbf",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/ONE_BIT_LAMB_PAPER_REVIEW.md",
+      "bytes": 14238,
+      "sha256": "d151d0c057d0a9dedd1454aea8a78d23fea6694388df1e38faa0b929d6e0fe55",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/REPRODUCIBILITY_AND_CANONICALIZATION.md",
+      "bytes": 2972,
+      "sha256": "ca781fdf61d85d74eb97904660212acc9904b15f484281e7a08a79729904d25b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/RESEARCH_FOUNDATION.md",
+      "bytes": 6623,
+      "sha256": "2698766d0bb950f96752749832d16bf731a8281c84fda793d9160141f8a4acfa",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/RESEARCH_INTEGRATION_REPORT.md",
+      "bytes": 14310,
+      "sha256": "cb65e3c9862b14c256bf0c4ff223cd3a5b6ee620e7bd0394d60ac857255343ce",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/additional_math_claims.json",
+      "bytes": 140430,
+      "sha256": "f1d8a9a53afe29063ceb28febed26beb7064c4abce9fce0f42f85c0d5eddeabd",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/research/additional_systems_claims.json",
+      "bytes": 77366,
+      "sha256": "31463f49330f6171bd5a1d89d5651eb03668126669a75de7ce3eccdeefaff8cd",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA01.txt",
+      "bytes": 73503,
+      "sha256": "a5c71e3ca3ff9e454823caecc3c022074104822119cafe5d3ddd951f1f93569b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA02.txt",
+      "bytes": 37553,
+      "sha256": "fdf452add8369e2c7bdd2c6665a559060d172c367726b749ce6549e89f37b83d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA03.txt",
+      "bytes": 37884,
+      "sha256": "51ede87264389d208abc88c8b796743bbe5ffc3529178c97bb0fa8f977d6f1fa",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA04.txt",
+      "bytes": 37239,
+      "sha256": "a3f9125ae5845f830f35b7b259ca8e0b66bb06d0170f8d4eee03d595f0af93cf",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA05.txt",
+      "bytes": 40916,
+      "sha256": "66943d58f92efb6a3ca608fed815f46b847c51991c7e9d7375b699a98e854ce4",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA06.txt",
+      "bytes": 35839,
+      "sha256": "0674189471f8b1a790e092d80480d3fd9d0b8a4e1f35f4b57e946f18921ded90",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA07.txt",
+      "bytes": 22147,
+      "sha256": "f5d5b745e428de37b8112244859455a5bd4956fa19ff53e7796598db84d00752",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA08.txt",
+      "bytes": 32616,
+      "sha256": "9a413810990fd72f13a03751db0df6b9ee5b33cf0f267ab7269efc57f0009822",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA09.txt",
+      "bytes": 34368,
+      "sha256": "9f8b1b09a3abdf569c004b6bb01edee9537b93fac387b26e72066d4f134b17f1",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA10.txt",
+      "bytes": 27543,
+      "sha256": "e9ce2b61f12ea0ddc36b403a91efd5293f7cfa59bb4f75f8eb26aa9a25d822f5",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA11.txt",
+      "bytes": 36227,
+      "sha256": "72e0f550b0205fa283afdbeea77b28b39e4797ae5dcd838b6b64cbe38e41f768",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA12.txt",
+      "bytes": 46255,
+      "sha256": "4ab234d0bfb2929e91f81398abe0778c650e23272163ca41840c7578be119ab2",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA13.txt",
+      "bytes": 41917,
+      "sha256": "fdd1d9567fe72c3a9c3eea9584c24254edae3e3fe5b362d44a6d0451bfb36579",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA14.txt",
+      "bytes": 40875,
+      "sha256": "39dd4e9c30fc1a8cd5f203c0c736e5a56d145f288cd392510ce793f66d8d9619",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA15.txt",
+      "bytes": 37316,
+      "sha256": "f02587e139f07bc05cc2f2d78b786fcc9285551bab34fbb4ede43f2b5c8550a9",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA16.txt",
+      "bytes": 34225,
+      "sha256": "32901f846094f0a465c3dfd69f0f3dbe45c26c3e2d31bfc68d9caf3602f1cfe9",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA17.txt",
+      "bytes": 45544,
+      "sha256": "8fb3f3d7036fbf144a99035ad1c154ee1511d65b6917fc8d455869e8c7b6230b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA18.txt",
+      "bytes": 42535,
+      "sha256": "62ed663bfae50ce6feff0564450a86e13fc14d84359d29b910dd8103999f1690",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/extracted_sources/RA19.txt",
+      "bytes": 34972,
+      "sha256": "461066fbb1c5722f58ff6abaae7138fe58af8d74c6fc5d3f4f7a7577eb2d6066",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/research/source/RA01_page_05.png",
+      "bytes": 320248,
+      "sha256": "3313bd938410173578d316fe76c2b51e7cc23f6ccff730408dbb22e1165c1e88",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/research/source/RA01_page_06.png",
+      "bytes": 302122,
+      "sha256": "3f40221e77e923a3841b8434d001f97eceba05bab938e21e053a48285210dd80",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/research/source/RA01_page_09.png",
+      "bytes": 314781,
+      "sha256": "95b6730e22568d16035a5fba95b166442c8eba1d7ee40e8ea0e6472849280e01",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/research/source/master_law.png",
+      "bytes": 101505,
+      "sha256": "12e144e83daf6b562c64b53f7a5f609524dbad9cd908953ca882031825911d86",
+      "disposition": "binary preserved"
+    },
+    {
+      "path": "corpus/research/source_registry.json",
+      "bytes": 105088,
+      "sha256": "6ec6f846e96e2fb1aee3ab4d6439a7146acf7c63093f16e213470e2da4b58c36",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/spec/WP01_RUSSL_Language_Specification.md",
+      "bytes": 12046,
+      "sha256": "a6a80b04eeadb0564ea1ec0afe6c46a91e5772c65fea56d94ecda9808d25cd14",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP02_RUSSL_Semantic_Specification.md",
+      "bytes": 9831,
+      "sha256": "5691fa4d940cbc50ab9c37e81cb011b242ffff997a36ad340da186146133079e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP03_RUSSL_Type_System.md",
+      "bytes": 9884,
+      "sha256": "9e4a3d72df23057b56cb9957efeb95145226140c8cdb0bf85ae2eb69a43a9d32",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP04_Penteract_Field_Specification.md",
+      "bytes": 10583,
+      "sha256": "dcda2f6b813f408b9a4411ff68e51dbccfe1a18689f437cfea25093f3d040d5d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP05_RUSSL_MSSL_Binding_Specification.md",
+      "bytes": 9717,
+      "sha256": "2ee950a27b792d791355d1bde2a3be970e76d671f0c332e681229e2d05807233",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP06_RUSSL_Intermediate_Representation.md",
+      "bytes": 9288,
+      "sha256": "4cfcd9bec67d710e6b75759e94e1138efff32c956790cbd435e3c9136a0b0677",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP07_RUSS_Tuple_ABI.md",
+      "bytes": 10257,
+      "sha256": "98b8102d2937946d9c6429d6bc762770db307bfddbfaeba57e0b8e04f9cacbc6",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP08_RUSSL_Execution_Model.md",
+      "bytes": 9656,
+      "sha256": "d25acb874624f318ed590566b34b04765813e3709c908307ea5f27cfacba8f8e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP09_RUSSL_Capability_and_Effect_System.md",
+      "bytes": 9573,
+      "sha256": "1815c73e4ffdd885b2cf316bcae356026b97648ae29d4cb826a8e26ec95e1241",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP10_RUSSL_Security_Model.md",
+      "bytes": 9895,
+      "sha256": "bd99a8c7712bf743993cbbca56233c23120ac6a076417cdeb62f5af4932b99db",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP11_RUSSL_Admission_Model.md",
+      "bytes": 9502,
+      "sha256": "09e17a3d89621387a7cd6aaab19032d93be1ddf3fd0c7a87ec83d8124c103a30",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP12_RUSSL_Distributed_Fabric_Specification.md",
+      "bytes": 10029,
+      "sha256": "0021d367bfc19750c7c0d65942aed8e351d8c8d7823ec9e597e765c6eacd24da",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP13_RUSSL_Storage_Independence_Specification.md",
+      "bytes": 9919,
+      "sha256": "7ad62c1675fda6073d9ed47e9e54ba5fb7a51e3e2f8b7f4aa1f8c61cc35ecf07",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP14_RUSSL_Imaging_Profile.md",
+      "bytes": 9671,
+      "sha256": "3035f606cbeeafc501b98692c337cc9cc1bf6848387c44d6d7d12db149af7c2a",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP15_RUSSL_Scientific_Volumetric_Profile.md",
+      "bytes": 9376,
+      "sha256": "dbd122648cb66c54a81f493811fa9c853c8c6ac63e74177b57fc11e99b3e32de",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP16_RUSSL_Projection_Specification.md",
+      "bytes": 9398,
+      "sha256": "3077ad1954be339a2eae0a33300e60029e3e1bd8fbe98e7b719a0d464106b4c4",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP17_Canonicalization_and_Cryptographic_Identity.md",
+      "bytes": 9448,
+      "sha256": "ac9625f59c537ad0a3b07ef1e3e7892239315a15b17d54d8ad1758edbea3108e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP18_Reproducibility_Specification.md",
+      "bytes": 9696,
+      "sha256": "128c9e70a04c0750f0ca3ed2e3a16594037699194e1f2dad05063ad6d0793047",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP19_RUSSL_Error_and_Diagnostic_Standard.md",
+      "bytes": 8903,
+      "sha256": "cdd67ddb9e7c97097a25fefddfbf9170ad71e8c48b290e89e64583c114fe3ba6",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP20_Conformance_Standard.md",
+      "bytes": 9307,
+      "sha256": "80ef45b85317874660323634c8ab5fd1943e0d042dc724d08283329d3fb2121b",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP21_Normative_Test_Corpus.md",
+      "bytes": 9805,
+      "sha256": "908eb1d45f8b288532cab9717543afe4d1fabe5d5c24239af82687b6c33bfafb",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP22_Reference_Programs.md",
+      "bytes": 8985,
+      "sha256": "b6fe7f651a3265ee1b9900bd98d4c152b614596186e8354e02cd30cde3718379",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP23_TIFF_RUSS_Migration_Specification.md",
+      "bytes": 9718,
+      "sha256": "131f4b05f4fbc3953ad84a7f92330aeaf07f5ee8fa423d415345f3761f56a9be",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP24_OME_Zarr_RUSS_Interoperability_Specification.md",
+      "bytes": 9486,
+      "sha256": "a89a7028933ff090f5bf2022a284d8e4a6b1fb11fcca07e6373edcaca57bb637",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP25_Language_Governance.md",
+      "bytes": 9385,
+      "sha256": "688cb45526b04769fcc20e2c66ec349c87542fe2a2b326b4e1ff9ba2bf38f8b8",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP26_Research_Foundation.md",
+      "bytes": 10330,
+      "sha256": "16f8012308337ed743d657377a042f6ded37e6b8bc838900ff5a06f4635521f1",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP27_Institutional_Documentation.md",
+      "bytes": 9449,
+      "sha256": "c37256baf26b8960f7950924838c39b05462c69330c8e9425d6d903859e3516e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/spec/WP28_Machine_Readable_Schemas.md",
+      "bytes": 9341,
+      "sha256": "a14c8b751942ea6891da0daac9f3e9b9d9518d561a5f07823db7f7b19b4616d4",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/technical/FORMAL_MODEL_AND_IMPLEMENTATION_ROADMAP.md",
+      "bytes": 16297,
+      "sha256": "e616cf23f1064c6aae65b05f8a83b30e3dcf71ee0ee899e27d2f752a76959629",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/technical/REFERENCE_PROFILE.md",
+      "bytes": 20427,
+      "sha256": "0137865aa8eecb7b12a733dc158de6534d62d09552a6e0a5c1c51eab1c668b6d",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/technical/SERIALIZATION_AND_CONTAINER_PROFILE.md",
+      "bytes": 3640,
+      "sha256": "d98a855883b96b32c95ce82c57674cb45370e202f2e3f35fe625b89e80b9bd27",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/technical/VERIFICATION_GUIDE.md",
+      "bytes": 5076,
+      "sha256": "796180d4fc68a12fb180296fab20753de26e64f7dcbc91da6091dcf98fdaefa2",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/test_field_layout.py",
+      "bytes": 2656,
+      "sha256": "a19527805c5fea0c515a4c00229664d91bdea3d0df2c4c20399bd310c9097c48",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tests/test_reference_hardening.py",
+      "bytes": 19840,
+      "sha256": "fb4e0c0a0e832bb99c3894137c5a44d27f676e2968f68b26025996545be10dd2",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tests/test_release_security.py",
+      "bytes": 16110,
+      "sha256": "ff80b3c3e3e997164e0af7953e2428521b26e6121c18134e9ed3e2dc16a060ab",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tests/vectors/canonicalization/source_vectors.json",
+      "bytes": 1048,
+      "sha256": "0e52e97833e72912cee25b62a9a07aec5f6ffe7fd63365e738dbcb6de81d51df",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/tests/vectors/field/coordinate_vectors.json",
+      "bytes": 745,
+      "sha256": "3435663e883b04866dc7d2e5accd9040e209baf9585df2366f289739de7859ae",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "corpus/tests/vectors/field/fixed_shape_index_vectors.jsonl",
+      "bytes": 656538,
+      "sha256": "79050f2300a3e4413cf4bb6ab9ee182fc8e1e92578e66abeac4e640d3e7ec0e0",
+      "disposition": "JSONL parsed"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/invalid/01_unknown_op.russl",
+      "bytes": 330,
+      "sha256": "a6f060f516c299712b2735bd3e00f600aae8558f7341b2e6a8fec41923925bc1",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/invalid/02_duplicate_id.russl",
+      "bytes": 345,
+      "sha256": "e1c7a112f29884e9b6e2971fb97b83ef4899d0be0f53b1ec1641db46e46bf5cf",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/invalid/03_forward_dependency.russl",
+      "bytes": 353,
+      "sha256": "a2739ae278b88e39cb0e47b9dd571492eaccbb60f3dc77aa8101cfda060a4b07",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/invalid/04_missing_mssl_digest.russl",
+      "bytes": 297,
+      "sha256": "f86788a3cf5edd2a7469507d1a13a12b9c563fdf9982fda9506bf7e23a3d398f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/invalid/05_storage_leak.russl",
+      "bytes": 367,
+      "sha256": "f8826c825fe8913db54d36dca84b5d5c5e0e6d30e37c67515a8ac2c0722f602e",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/valid/01_single_sample.russl",
+      "bytes": 1100,
+      "sha256": "56708df08e6ac0fa1b442d84a1447c936036c7108ae84a87e0c0491c6842fa99",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/valid/02_grayscale_2d.russl",
+      "bytes": 721,
+      "sha256": "1bf82430925d19fa84d387fdce42fe6c9c114d24b0c33911c2e727d95694b10f",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/valid/05_native_5d.russl",
+      "bytes": 855,
+      "sha256": "e6454c01b8c48335787cd1921efa516e7bc5a34295a412b7a33106a2d2635560",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tests/vectors/syntax/valid/07_mssl_lab_metrics_admission.russl",
+      "bytes": 1590,
+      "sha256": "7c632e5fd6b10cc8ec4df60cf7bac32ff106beaf7587bc28daea7bdec1117bda",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "corpus/tooling/build_corpus.py",
+      "bytes": 150,
+      "sha256": "3edd8a2fdfcad5880f51f61b96850c5a59a7417f414033112bddbcbc79874dea",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tooling/field_layout.py",
+      "bytes": 1416,
+      "sha256": "ef3d819534bc6ab66575d44a1b47f41ed10135a19c859ec8a0654d3379aa76d5",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tooling/russ_container.py",
+      "bytes": 9280,
+      "sha256": "63d9c7fa00ae9f559455e54d850222f7be031df9b49cf15575cc7eedb979b168",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tooling/russl_reference.py",
+      "bytes": 28374,
+      "sha256": "c137b7500baeb00f117949adfe51924d9c7e1392464d814e13894ab2fdcb1e2a",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tooling/schema_subset.py",
+      "bytes": 9287,
+      "sha256": "7d36dcf957ab27bdcdcbfb17bd16377512d4bbfecac9b5a32db4233a3487ae97",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tooling/seal_release.py",
+      "bytes": 13958,
+      "sha256": "cbca6110ad7c2307cf4a5616597c9c77ad761445a4fdd812e8b9521f611342df",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "corpus/tooling/verify_corpus.py",
+      "bytes": 20249,
+      "sha256": "6c0c83553e941ec84f4531b4c814fbb9b6dc390a1edd2fdf9489ba6cda8217ab",
+      "disposition": "Python AST parsed; not executed"
+    },
+    {
+      "path": "releases/v2.0.0/DELIVERY_VALIDATION.json",
+      "bytes": 2091,
+      "sha256": "cea58fd34f8dfd9c7af5ba37ad74535f3a51ae1aa20a69103b19764ce8b45e7e",
+      "disposition": "JSON parsed"
+    },
+    {
+      "path": "releases/v2.0.0/RUSSL_Release_SHA256SUMS.txt",
+      "bytes": 114,
+      "sha256": "344e033059f4b395b3bc0ff4319609aa7ed63a65b1719e4ed4b873b063a05e7c",
+      "disposition": "UTF-8 decoded"
+    },
+    {
+      "path": "releases/v2.0.0/RUSSL_Research_Institutional_Corpus_v2.0.0.zip",
+      "bytes": 5574837,
+      "sha256": "b62c18f84929fcba3db76fa82d693966ad35c97b40bacdb4497f2c57a0ca15bf",
+      "disposition": "binary preserved"
+    }
+  ]
+}

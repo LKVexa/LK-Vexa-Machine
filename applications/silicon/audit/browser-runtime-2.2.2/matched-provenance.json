@@ -1,0 +1,10 @@
+{
+  "url": "https://storage.googleapis.com/chrome-for-testing-public/151.0.7922.34/win64/chrome-headless-shell-win64.zip",
+  "version": "151.0.7922.34",
+  "googleHash": [
+    "crc32c=mgSDzQ==",
+    "md5=/BiaqS/vFlhkgTISwTFIhw=="
+  ],
+  "sha256": "46CC69EF55BA29268FFE32DDA4192A9D2165BE42C3F4E923241153D519493AEA",
+  "md5Base64": "/BiaqS/vFlhkgTISwTFIhw=="
+}

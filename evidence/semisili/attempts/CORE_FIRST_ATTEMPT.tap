@@ -1,0 +1,2895 @@
+TAP version 13
+# Subtest: launcher/native: x64/ARM64 resolver accepts native names and refuses unsupported/null names
+ok 1 - launcher/native: x64/ARM64 resolver accepts native names and refuses unsupported/null names
+  ---
+  duration_ms: 2544.6884
+  type: 'test'
+  ...
+# Subtest: launcher/native: PE machine and PE32+ checks reject swapped, truncated and malformed runtime headers
+ok 2 - launcher/native: PE machine and PE32+ checks reject swapped, truncated and malformed runtime headers
+  ---
+  duration_ms: 3977.1099
+  type: 'test'
+  ...
+# Subtest: launcher/native: runtime probe executes current native Node and rejects wrong version/architecture
+ok 3 - launcher/native: runtime probe executes current native Node and rejects wrong version/architecture
+  ---
+  duration_ms: 2428.198
+  type: 'test'
+  ...
+# Subtest: launcher/native: real-target acceptance refuses another Windows architecture before provisioning
+ok 4 - launcher/native: real-target acceptance refuses another Windows architecture before provisioning
+  ---
+  duration_ms: 5707.5725
+  type: 'test'
+  ...
+# Subtest: phase retrieval seeds a nonzero target where resident phase is undefined
+ok 5 - phase retrieval seeds a nonzero target where resident phase is undefined
+  ---
+  duration_ms: 38.7188
+  type: 'test'
+  ...
+# Subtest: invalid lens and gate arguments preserve field and byte caches
+ok 6 - invalid lens and gate arguments preserve field and byte caches
+  ---
+  duration_ms: 214.2701
+  type: 'test'
+  ...
+# Subtest: Wigner rendering rejects nonfinite coefficients and excessive work before allocation
+ok 7 - Wigner rendering rejects nonfinite coefficients and excessive work before allocation
+  ---
+  duration_ms: 1.7915
+  type: 'test'
+  ...
+# Subtest: all byte-sized OAM values round trip and shifts preserve modulo/remainder semantics
+ok 8 - all byte-sized OAM values round trip and shifts preserve modulo/remainder semantics
+  ---
+  duration_ms: 65.9784
+  type: 'test'
+  ...
+# Subtest: OAM input rejects coercion and invalid shifts without discarding byte caches
+ok 9 - OAM input rejects coercion and invalid shifts without discarding byte caches
+  ---
+  duration_ms: 159.2575
+  type: 'test'
+  ...
+# Subtest: rightmost OAM well cannot read x=64 as x=0 in the following row
+ok 10 - rightmost OAM well cannot read x=64 as x=0 in the following row
+  ---
+  duration_ms: 0.84
+  type: 'test'
+  ...
+# Subtest: byte tables and metadata cannot be mutated after module initialization
+ok 11 - byte tables and metadata cannot be mutated after module initialization
+  ---
+  duration_ms: 0.7303
+  type: 'test'
+  ...
+# Subtest: embedded C\# reference is exactly the distributed source
+ok 12 - embedded C\# reference is exactly the distributed source
+  ---
+  duration_ms: 36.6566
+  type: 'test'
+  ...
+# Subtest: forged HPU counters, recorded-object pairs and semantic metadata fail atomically
+ok 13 - forged HPU counters, recorded-object pairs and semantic metadata fail atomically
+  ---
+  duration_ms: 217.9677
+  type: 'test'
+  ...
+# Subtest: byte ledger claims must be reproduced from their sampled lanes
+ok 14 - byte ledger claims must be reproduced from their sampled lanes
+  ---
+  duration_ms: 202.6408
+  type: 'test'
+  ...
+# Subtest: high-amplitude valid fields preserve sampled intensity through HPU2 save/load
+ok 15 - high-amplitude valid fields preserve sampled intensity through HPU2 save/load
+  ---
+  duration_ms: 31.0748
+  type: 'test'
+  ...
+# Subtest: canonical field metadata rejects unsupported values, sparse arrays and nonfinite aliases
+ok 16 - canonical field metadata rejects unsupported values, sparse arrays and nonfinite aliases
+  ---
+  duration_ms: 1.2
+  type: 'test'
+  ...
+# Subtest: derived field slots reject negative intensity and phase beyond its physical range
+ok 17 - derived field slots reject negative intensity and phase beyond its physical range
+  ---
+  duration_ms: 22.1197
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unsupported tone curves, volumes, legacy sample semantics and raw-DNG transforms
+ok 18 - TIFF rejects unsupported tone curves, volumes, legacy sample semantics and raw-DNG transforms
+  ---
+  duration_ms: 1.6084
+  type: 'test'
+  ...
+# Subtest: model step limits saturate without uint32 wrapping and reject invalid work requests atomically
+ok 19 - model step limits saturate without uint32 wrapping and reject invalid work requests atomically
+  ---
+  duration_ms: 287.6171
+  type: 'test'
+  ...
+# Subtest: HPU shell rolls back a valid high-amplitude field whose byte phase exceeds model bounds
+ok 20 - HPU shell rolls back a valid high-amplitude field whose byte phase exceeds model bounds
+  ---
+  duration_ms: 45.7155
+  type: 'test'
+  ...
+# Subtest: HPU shell quota failure leaves no partial byte planes and preserves every derived cache
+ok 21 - HPU shell quota failure leaves no partial byte planes and preserves every derived cache
+  ---
+  duration_ms: 61.8162
+  type: 'test'
+  ...
+# Subtest: HPU shell publication failure restores original HPU and persisted file before reporting success
+ok 22 - HPU shell publication failure restores original HPU and persisted file before reporting success
+  ---
+  duration_ms: 63.968
+  type: 'test'
+  ...
+# Subtest: quoting: echo '$A'
+ok 23 - quoting: echo '$A'
+  ---
+  duration_ms: 5.6038
+  type: 'test'
+  ...
+# Subtest: quoting: echo "$A"
+ok 24 - quoting: echo "$A"
+  ---
+  duration_ms: 0.5555
+  type: 'test'
+  ...
+# Subtest: quoting: echo \\$A
+ok 25 - quoting: echo \\$A
+  ---
+  duration_ms: 0.1884
+  type: 'test'
+  ...
+# Subtest: quoting: echo a" b"c
+ok 26 - quoting: echo a" b"c
+  ---
+  duration_ms: 0.1303
+  type: 'test'
+  ...
+# Subtest: quoting: echo ""
+ok 27 - quoting: echo ""
+  ---
+  duration_ms: 0.1252
+  type: 'test'
+  ...
+# Subtest: quoting: echo a\#b \# ignored
+ok 28 - quoting: echo a\#b \# ignored
+  ---
+  duration_ms: 0.1026
+  type: 'test'
+  ...
+# Subtest: quoting: echo ~ ~/x "~"
+ok 29 - quoting: echo ~ ~/x "~"
+  ---
+  duration_ms: 0.1252
+  type: 'test'
+  ...
+# Subtest: quoting: echo "a\\$A"
+ok 30 - quoting: echo "a\\$A"
+  ---
+  duration_ms: 0.0905
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo \\""
+ok 31 - reject malformed shell "echo \\""
+  ---
+  duration_ms: 0.5394
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x |"
+ok 32 - reject malformed shell "echo x |"
+  ---
+  duration_ms: 0.7001
+  type: 'test'
+  ...
+# Subtest: reject malformed shell ";echo x"
+ok 33 - reject malformed shell ";echo x"
+  ---
+  duration_ms: 0.3212
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x >"
+ok 34 - reject malformed shell "echo x >"
+  ---
+  duration_ms: 0.2809
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x &&"
+ok 35 - reject malformed shell "echo x &&"
+  ---
+  duration_ms: 0.2696
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x > a > b"
+ok 36 - reject malformed shell "echo x > a > b"
+  ---
+  duration_ms: 0.3716
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x\\u0000"
+ok 37 - reject malformed shell "echo x\\u0000"
+  ---
+  duration_ms: 0.1245
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "xxxxxxxxxxxxxxxxxxxxxxxxx"
+ok 38 - reject malformed shell "xxxxxxxxxxxxxxxxxxxxxxxxx"
+  ---
+  duration_ms: 0.1353
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo \\\\"
+ok 39 - reject malformed shell "echo \\\\"
+  ---
+  duration_ms: 0.1724
+  type: 'test'
+  ...
+# Subtest: bounded shell tokenization
+ok 40 - bounded shell tokenization
+  ---
+  duration_ms: 3.0216
+  type: 'test'
+  ...
+# Subtest: flag parser accepts negative values and find options
+ok 41 - flag parser accepts negative values and find options
+  ---
+  duration_ms: 0.6827
+  type: 'test'
+  ...
+# Subtest: environment unset hides parent and prototype names are data
+ok 42 - environment unset hides parent and prototype names are data
+  ---
+  duration_ms: 0.2945
+  type: 'test'
+  ...
+# Subtest: canonical path resolves traversal without leaving root
+ok 43 - canonical path resolves traversal without leaving root
+  ---
+  duration_ms: 0.561
+  type: 'test'
+  ...
+# Subtest: root cannot become a child or file
+ok 44 - root cannot become a child or file
+  ---
+  duration_ms: 1.3722
+  type: 'test'
+  ...
+# Subtest: recursive mkdir reserves quota before mutation
+ok 45 - recursive mkdir reserves quota before mutation
+  ---
+  duration_ms: 0.4119
+  type: 'test'
+  ...
+# Subtest: move prohibits cycles and nonempty directory replacement
+ok 46 - move prohibits cycles and nonempty directory replacement
+  ---
+  duration_ms: 0.4223
+  type: 'test'
+  ...
+# Subtest: file copies never alias caller or read buffers
+ok 47 - file copies never alias caller or read buffers
+  ---
+  duration_ms: 0.3248
+  type: 'test'
+  ...
+# Subtest: VFS write quota and touch mutation accounting
+ok 48 - VFS write quota and touch mutation accounting
+  ---
+  duration_ms: 0.2019
+  type: 'test'
+  ...
+# Subtest: VFS snapshots are atomic and byte exact
+ok 49 - VFS snapshots are atomic and byte exact
+  ---
+  duration_ms: 1.265
+  type: 'test'
+  ...
+# Subtest: snapshot rejects malformed base64 before publication
+ok 50 - snapshot rejects malformed base64 before publication
+  ---
+  duration_ms: 0.2188
+  type: 'test'
+  ...
+# Subtest: canonical content digest input ignores mtimes and sorts entries
+ok 51 - canonical content digest input ignores mtimes and sorts entries
+  ---
+  duration_ms: 0.2555
+  type: 'test'
+  ...
+# Subtest: shell: export A=hello; echo $A
+ok 52 - shell: export A=hello; echo $A
+  ---
+  duration_ms: 1.6682
+  type: 'test'
+  ...
+# Subtest: shell: false; echo $?
+ok 53 - shell: false; echo $?
+  ---
+  duration_ms: 0.4158
+  type: 'test'
+  ...
+# Subtest: shell: true && echo yes || echo no
+ok 54 - shell: true && echo yes || echo no
+  ---
+  duration_ms: 0.2811
+  type: 'test'
+  ...
+# Subtest: shell: echo hello | rev
+ok 55 - shell: echo hello | rev
+  ---
+  duration_ms: 0.9756
+  type: 'test'
+  ...
+# Subtest: shell: seq -2 2
+ok 56 - shell: seq -2 2
+  ---
+  duration_ms: 15.6003
+  type: 'test'
+  ...
+# Subtest: shell: echo x | head -n 0
+ok 57 - shell: echo x | head -n 0
+  ---
+  duration_ms: 0.6727
+  type: 'test'
+  ...
+# Subtest: shell: printf x | wc -l
+ok 58 - shell: printf x | wc -l
+  ---
+  duration_ms: 1.018
+  type: 'test'
+  ...
+# Subtest: alias parsing preserves quotes and recursion fails
+ok 59 - alias parsing preserves quotes and recursion fails
+  ---
+  duration_ms: 4.1084
+  type: 'test'
+  ...
+# Subtest: redirection and pipeline binary file copy
+ok 60 - redirection and pipeline binary file copy
+  ---
+  duration_ms: 1.8308
+  type: 'test'
+  ...
+# Subtest: small geometry man does not throw
+ok 61 - small geometry man does not throw
+  ---
+  duration_ms: 1.104
+  type: 'test'
+  ...
+# Subtest: seq detects non-progress and zero increment
+ok 62 - seq detects non-progress and zero increment
+  ---
+  duration_ms: 0.5663
+  type: 'test'
+  ...
+# Subtest: sleep validates finite bounds and aborts promptly
+ok 63 - sleep validates finite bounds and aborts promptly
+  ---
+  duration_ms: 28.8844
+  type: 'test'
+  ...
+# Subtest: interactive cat responds to SIGINT
+ok 64 - interactive cat responds to SIGINT
+  ---
+  duration_ms: 24.1004
+  type: 'test'
+  ...
+# Subtest: session cap and close exactly once
+ok 65 - session cap and close exactly once
+  ---
+  duration_ms: 0.6645
+  type: 'test'
+  ...
+# Subtest: safe glob resists overlapping star patterns
+ok 66 - safe glob resists overlapping star patterns
+  ---
+  duration_ms: 2.1939
+  type: 'test'
+  ...
+# Subtest: grep works in disposable regex worker
+ok 67 - grep works in disposable regex worker
+  ---
+  duration_ms: 93.0782
+  type: 'test'
+  ...
+# Subtest: hostile regex is terminated
+ok 68 - hostile regex is terminated
+  ---
+  duration_ms: 759.5644
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 1
+ok 69 - uint48 frame round trip 1
+  ---
+  duration_ms: 1.3934
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 255
+ok 70 - uint48 frame round trip 255
+  ---
+  duration_ms: 0.4547
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 65536
+ok 71 - uint48 frame round trip 65536
+  ---
+  duration_ms: 0.2688
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 2147483655
+ok 72 - uint48 frame round trip 2147483655
+  ---
+  duration_ms: 0.1562
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 4294967297
+ok 73 - uint48 frame round trip 4294967297
+  ---
+  duration_ms: 0.4533
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 281474976710655
+ok 74 - uint48 frame round trip 281474976710655
+  ---
+  duration_ms: 0.2459
+  type: 'test'
+  ...
+# Subtest: framing rejects empty, oversized, invalid kind and sequence
+ok 75 - framing rejects empty, oversized, invalid kind and sequence
+  ---
+  duration_ms: 0.8551
+  type: 'test'
+  ...
+# Subtest: flow windows work past two GiB without signed overflow
+ok 76 - flow windows work past two GiB without signed overflow
+  ---
+  duration_ms: 0.5186
+  type: 'test'
+  ...
+# Subtest: optical gate model and(0,0)
+ok 77 - optical gate model and(0,0)
+  ---
+  duration_ms: 13.5727
+  type: 'test'
+  ...
+# Subtest: optical gate model and(0,1)
+ok 78 - optical gate model and(0,1)
+  ---
+  duration_ms: 7.7472
+  type: 'test'
+  ...
+# Subtest: optical gate model and(1,0)
+ok 79 - optical gate model and(1,0)
+  ---
+  duration_ms: 2.6737
+  type: 'test'
+  ...
+# Subtest: optical gate model and(1,1)
+ok 80 - optical gate model and(1,1)
+  ---
+  duration_ms: 2.125
+  type: 'test'
+  ...
+# Subtest: optical gate model or(0,0)
+ok 81 - optical gate model or(0,0)
+  ---
+  duration_ms: 2.9459
+  type: 'test'
+  ...
+# Subtest: optical gate model or(0,1)
+ok 82 - optical gate model or(0,1)
+  ---
+  duration_ms: 3.0104
+  type: 'test'
+  ...
+# Subtest: optical gate model or(1,0)
+ok 83 - optical gate model or(1,0)
+  ---
+  duration_ms: 2.2466
+  type: 'test'
+  ...
+# Subtest: optical gate model or(1,1)
+ok 84 - optical gate model or(1,1)
+  ---
+  duration_ms: 2.0737
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(0,0)
+ok 85 - optical gate model nand(0,0)
+  ---
+  duration_ms: 2.3686
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(0,1)
+ok 86 - optical gate model nand(0,1)
+  ---
+  duration_ms: 1.6679
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(1,0)
+ok 87 - optical gate model nand(1,0)
+  ---
+  duration_ms: 1.8306
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(1,1)
+ok 88 - optical gate model nand(1,1)
+  ---
+  duration_ms: 2.9431
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(0,0)
+ok 89 - optical gate model xor(0,0)
+  ---
+  duration_ms: 0.92
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(0,1)
+ok 90 - optical gate model xor(0,1)
+  ---
+  duration_ms: 0.5877
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(1,0)
+ok 91 - optical gate model xor(1,0)
+  ---
+  duration_ms: 0.5237
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(1,1)
+ok 92 - optical gate model xor(1,1)
+  ---
+  duration_ms: 0.5252
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(0,0)
+ok 93 - optical gate model xnor(0,0)
+  ---
+  duration_ms: 0.7597
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(0,1)
+ok 94 - optical gate model xnor(0,1)
+  ---
+  duration_ms: 1.1555
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(1,0)
+ok 95 - optical gate model xnor(1,0)
+  ---
+  duration_ms: 0.5798
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(1,1)
+ok 96 - optical gate model xnor(1,1)
+  ---
+  duration_ms: 0.5705
+  type: 'test'
+  ...
+# Subtest: field propagation approximately preserves sampled energy
+ok 97 - field propagation approximately preserves sampled energy
+  ---
+  duration_ms: 3.774
+  type: 'test'
+  ...
+# Subtest: valuation zero is infinity; finite domain validated
+ok 98 - valuation zero is infinity; finite domain validated
+  ---
+  duration_ms: 0.4767
+  type: 'test'
+  ...
+# Subtest: truncated Kerr state is renormalized and exposes loss
+ok 99 - truncated Kerr state is renormalized and exposes loss
+  ---
+  duration_ms: 0.3215
+  type: 'test'
+  ...
+# Subtest: all six byte tables and C\# source agree for all 256 inputs
+ok 100 - all six byte tables and C\# source agree for all 256 inputs
+  ---
+  duration_ms: 0.4641
+  type: 'test'
+  ...
+# Subtest: byte lanes follow LUTs and deterministic maximum-delta selector
+ok 101 - byte lanes follow LUTs and deterministic maximum-delta selector
+  ---
+  duration_ms: 13.1107
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: sample
+ok 102 - complete HPU state roundtrip: sample
+  ---
+  duration_ms: 23.839
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: cycle
+ok 103 - complete HPU state roundtrip: cycle
+  ---
+  duration_ms: 27.7503
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: diffuse
+ok 104 - complete HPU state roundtrip: diffuse
+  ---
+  duration_ms: 18.5481
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: frame
+ok 105 - complete HPU state roundtrip: frame
+  ---
+  duration_ms: 65.2411
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: kuramoto
+ok 106 - complete HPU state roundtrip: kuramoto
+  ---
+  duration_ms: 64.9363
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: record
+ok 107 - complete HPU state roundtrip: record
+  ---
+  duration_ms: 17.6493
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: oam
+ok 108 - complete HPU state roundtrip: oam
+  ---
+  duration_ms: 17.6397
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: bytes
+ok 109 - complete HPU state roundtrip: bytes
+  ---
+  duration_ms: 54.1964
+  type: 'test'
+  ...
+# Subtest: recorded object supports replay after state reload
+ok 110 - recorded object supports replay after state reload
+  ---
+  duration_ms: 13.1574
+  type: 'test'
+  ...
+# Subtest: HPU corruption and forged geometry never partially load
+ok 111 - HPU corruption and forged geometry never partially load
+  ---
+  duration_ms: 13.0124
+  type: 'test'
+  ...
+# Subtest: legacy HPU1 migration is strict and atomic
+ok 112 - legacy HPU1 migration is strict and atomic
+  ---
+  duration_ms: 27.8661
+  type: 'test'
+  ...
+# Subtest: processor caches invalidate after field changes
+ok 113 - processor caches invalidate after field changes
+  ---
+  duration_ms: 1.8204
+  type: 'test'
+  ...
+# Subtest: spool count bounded and image encoder dimensions validated
+ok 114 - spool count bounded and image encoder dimensions validated
+  ---
+  duration_ms: 1.7143
+  type: 'test'
+  ...
+# Subtest: image encoder artifacts emitted for independent Pillow verification
+ok 115 - image encoder artifacts emitted for independent Pillow verification
+  ---
+  duration_ms: 1272.5495
+  type: 'test'
+  ...
+# Subtest: VT parser caps control accumulation and ignores OSC52
+ok 116 - VT parser caps control accumulation and ignores OSC52
+  ---
+  duration_ms: 6.1108
+  type: 'test'
+  ...
+# Subtest: VT rendering model handles fragmented sequences identically
+ok 117 - VT rendering model handles fragmented sequences identically
+  ---
+  duration_ms: 1.5392
+  type: 'test'
+  ...
+# Subtest: line editor removes whole supplementary code points
+ok 118 - line editor removes whole supplementary code points
+  ---
+  duration_ms: 0.4367
+  type: 'test'
+  ...
+# Subtest: recursive mkdir rejects an existing file without mutation
+ok 119 - recursive mkdir rejects an existing file without mutation
+  ---
+  duration_ms: 0.307
+  type: 'test'
+  ...
+# Subtest: host: CLI refuses ambiguous, orphan and out-of-range arguments before build
+ok 120 - host: CLI refuses ambiguous, orphan and out-of-range arguments before build
+  ---
+  duration_ms: 2.8082
+  type: 'test'
+  ...
+# Subtest: host: Windows streams, device aliases and filename normalization are rejected
+ok 121 - host: Windows streams, device aliases and filename normalization are rejected
+  ---
+  duration_ms: 476.5962
+  type: 'test'
+  ...
+# Subtest: host: oversized assets and directories are unavailable, HEAD reports length without body
+ok 122 - host: oversized assets and directories are unavailable, HEAD reports length without body
+  ---
+  duration_ms: 1051.2961
+  type: 'test'
+  ...
+# Subtest: build: invalid input preserves the previous complete distribution
+ok 123 - build: invalid input preserves the previous complete distribution
+  ---
+  duration_ms: 906.9266
+  type: 'test'
+  ...
+# Built JA21 2.3.0: static, no third-party runtime packages.
+# Subtest: build: complete static publication excludes the Node-only worker
+ok 124 - build: complete static publication excludes the Node-only worker
+  ---
+  duration_ms: 2444.4839
+  type: 'test'
+  ...
+# Subtest: build: failed publication restores the previous complete distribution
+ok 125 - build: failed publication restores the previous complete distribution
+  ---
+  duration_ms: 2266.9909
+  type: 'test'
+  ...
+# Subtest: build: failed rollback preserves and reports recoverable previous files
+ok 126 - build: failed rollback preserves and reports recoverable previous files
+  ---
+  duration_ms: 1690.9427
+  type: 'test'
+  ...
+# Subtest: build: linked output cannot redirect a recursive build replacement
+ok 127 - build: linked output cannot redirect a recursive build replacement # SKIP link creation unavailable
+  ---
+  duration_ms: 915.0862
+  type: 'test'
+  ...
+# Subtest: launcher/native: PowerShell hash verification and linked-ancestor boundary
+    # Subtest: linked-ancestor dynamic rejection
+    ok 1 - linked-ancestor dynamic rejection # SKIP Junction creation unavailable
+      ---
+      duration_ms: 0.539
+      type: 'test'
+      ...
+    1..1
+ok 128 - launcher/native: PowerShell hash verification and linked-ancestor boundary
+  ---
+  duration_ms: 2759.0209
+  type: 'test'
+  ...
+# Subtest: launcher/native: cmd preflight refuses absent/corrupt offline runtime without starting a server
+ok 129 - launcher/native: cmd preflight refuses absent/corrupt offline runtime without starting a server
+  ---
+  duration_ms: 9120.9879
+  type: 'test'
+  ...
+# Subtest: launcher/native: minimal ZIP extraction ignores traversal entries and refuses duplicate executable entries
+ok 130 - launcher/native: minimal ZIP extraction ignores traversal entries and refuses duplicate executable entries
+  ---
+  duration_ms: 3719.3509
+  type: 'test'
+  ...
+# Subtest: launcher/static: generated .cmd embeds the exact readable reviewed payload
+ok 131 - launcher/static: generated .cmd embeds the exact readable reviewed payload
+  ---
+  duration_ms: 2.701
+  type: 'test'
+  ...
+# Subtest: launcher/static: the local payload starts after the LAST marker
+ok 132 - launcher/static: the local payload starts after the LAST marker
+  ---
+  duration_ms: 0.8789
+  type: 'test'
+  ...
+# Subtest: launcher/static: system PowerShell is absolute and package paths pass as environment values
+ok 133 - launcher/static: system PowerShell is absolute and package paths pass as environment values
+  ---
+  duration_ms: 0.3727
+  type: 'test'
+  ...
+# Subtest: launcher/static: neither launcher relies on a global Node or npm installation
+ok 134 - launcher/static: neither launcher relies on a global Node or npm installation
+  ---
+  duration_ms: 27.6228
+  type: 'test'
+  ...
+# Subtest: launcher/static: no security-policy or certificate bypass commands
+ok 135 - launcher/static: no security-policy or certificate bypass commands
+  ---
+  duration_ms: 1.4105
+  type: 'test'
+  ...
+# Subtest: launcher/static: pins match the exact official v24.21.0 checksum values
+ok 136 - launcher/static: pins match the exact official v24.21.0 checksum values
+  ---
+  duration_ms: 0.5639
+  type: 'test'
+  ...
+# Subtest: launcher/static: native Windows architecture uses OSArchitecture before legacy environment fallback
+ok 137 - launcher/static: native Windows architecture uses OSArchitecture before legacy environment fallback
+  ---
+  duration_ms: 0.3307
+  type: 'test'
+  ...
+# Subtest: launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+ok 138 - launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+  ---
+  duration_ms: 0.1716
+  type: 'test'
+  ...
+# Subtest: launcher/static: download has size, read, request and total transfer limits
+ok 139 - launcher/static: download has size, read, request and total transfer limits
+  ---
+  duration_ms: 0.2008
+  type: 'test'
+  ...
+# Subtest: launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+ok 140 - launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+  ---
+  duration_ms: 0.2912
+  type: 'test'
+  ...
+# Subtest: launcher/static: extraction is exact allowlisted entries, not archive path expansion
+ok 141 - launcher/static: extraction is exact allowlisted entries, not archive path expansion
+  ---
+  duration_ms: 1.5258
+  type: 'test'
+  ...
+# Subtest: launcher/static: writable runtime locations reject reparse points and concurrent setup
+ok 142 - launcher/static: writable runtime locations reject reparse points and concurrent setup
+  ---
+  duration_ms: 0.3128
+  type: 'test'
+  ...
+# Subtest: launcher/static: partial downloads and staging are scoped, private, and cleaned
+ok 143 - launcher/static: partial downloads and staging are scoped, private, and cleaned
+  ---
+  duration_ms: 0.3285
+  type: 'test'
+  ...
+# Subtest: launcher/static: process-local Node injection settings are removed without editing PATH
+ok 144 - launcher/static: process-local Node injection settings are removed without editing PATH
+  ---
+  duration_ms: 0.3366
+  type: 'test'
+  ...
+# Subtest: launcher/static: exact runtime version/platform/architecture probe is bounded before the host runs
+ok 145 - launcher/static: exact runtime version/platform/architecture probe is bounded before the host runs
+  ---
+  duration_ms: 0.197
+  type: 'test'
+  ...
+# Subtest: launcher/static: default origin is unchanged and port override is explicitly validated
+ok 146 - launcher/static: default origin is unchanged and port override is explicitly validated
+  ---
+  duration_ms: 0.124
+  type: 'test'
+  ...
+# Subtest: launcher/static: offline cache and preflight modes are explicit
+not ok 147 - launcher/static: offline cache and preflight modes are explicit
+  ---
+  duration_ms: 2.5237
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\launcher-contract.test.mjs:123:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0', '2\.2\.1', '2\.2\.2'\)/. Input:
+    
+    '# JA21 Silicon Console 2.3.0 - Windows PowerShell 5.1-compatible source.\n' +
+      '# The .cmd contains this same readable payload so it also works as a one-file\n' +
+      '# replacement launcher for an already extracted 2.1.0 package.\n' +
+      '# No network script evaluation, npm install, elevation, or policy changes.\n' +
+      'Set-StrictMode -Version 2.0\n' +
+      "$ErrorActionPreference = 'Stop'\n" +
+      '$script:LogPath = $null\n' +
+      '$script:ExitCode = 1\n' +
+      '$script:RuntimeLock = $null\n' +
+      '$script:StagePath = $null\n' +
+      '\n' +
+      'function Write-LaunchLog([string]$Message) {\n' +
+      '    Write-Host $Message\n' +
+      '    if ($script:LogPath) {\n' +
+      "        [IO.File]::AppendAllText($script:LogPath, ('{0:u} {1}{2}' -f [DateTime]::UtcNow, $Message, [Environment]::NewLine))\n" +
+      '    }\n' +
+      '}\n' +
+      '\n' +
+      'function Assert-PlainPath([string]$LiteralPath) {\n' +
+      '    # Checking only the leaf misses a linked parent such as .runtime/downloads.\n' +
+      '    $candidate = [IO.Path]::GetFullPath($LiteralPath)\n' +
+      '    while ($candidate) {\n' +
+      '        if (Test-Path -LiteralPath $candidate) {\n' +
+      '            $item = Get-Item -LiteralPath $candidate -Force\n' +
+      '            if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {\n' +
+      '                throw "A private runtime/log path is a reparse point: $candidate. Use a normal local folder; no linked path will be written."\n' +
+      '            }\n' +
+      '        }\n' +
+      '        $parent = [IO.Directory]::GetParent($candidate)\n' +
+      '        if ($parent) { $candidate = $parent.FullName } else { $candidate = $null }\n' +
+      '    }\n' +
+      '}\n' +
+      '\n' +
+      'function New-PrivateDirectory([string]$LiteralPath) {\n' +
+      '    Assert-PlainPath $LiteralPath\n' +
+      '    if (Test-Path -LiteralPath $LiteralPath) {\n' +
+      '        if (-not (Test-Path -LiteralPath $LiteralPath -PathType Container)) {\n' +
+      '            throw "Expected a directory: $LiteralPath"\n' +
+      '        }\n' +
+      '    } else {\n' +
+      '        [void][IO.Directory]::CreateDirectory($LiteralPath)\n' +
+      '    }\n' +
+      '    Assert-PlainPath $LiteralPath\n' +
+      '}\n' +
+      '\n' +
+      'function Assert-FileHash([string]$LiteralPath, [string]$Expected) {\n' +
+      '    Assert-PlainPath $LiteralPath\n' +
+      '    if (-not (Test-Path -LiteralPath $LiteralPath -PathType Leaf)) {\n' +
+      '        throw "Missing runtime file: $LiteralPath"\n' +
+      '    }\n' +
+      '    # Core .NET is available with PowerShell 5.1 even when optional module\n' +
+      '    # discovery (and therefore Get-FileHash) is unavailable.\n' +
+      '    $algorithm = [Security.Cryptography.SHA256]::Create()\n' +
+      '    $stream = $null\n' +
+      '    try {\n' +
+      '        $stream = [IO.File]::Open($LiteralPath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)\n' +
+      "        $actual = [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '')\n" +
+      '    } finally {\n' +
+      '        if ($stream) { $stream.Dispose() }\n' +
+      '        $algorithm.Dispose()\n' +
+      '    }\n' +
+      '    if (-not [string]::Equals($actual, $Expected, [StringComparison]::OrdinalIgnoreCase)) {\n' +
+      '        throw "SHA-256 mismatch: $LiteralPath. Nothing from this file was executed. Remove ONLY the affected private runtime file/directory and retry; do not clear browser data."\n' +
+      '    }\n' +
+      '}\n' +
+      '\n' +
+      'function Receive-RuntimeArchive([string]$Url, [string]$Destination, [string]$Expected) {\n' +
+      '    $uri = [Uri]$Url\n' +
+      "    if ($uri.Scheme -ne 'https' -or $uri.Host -ne 'nodejs.org' -or $uri.Port -ne 443 -or $uri.UserInfo -or $uri.Query -or $uri.Fragment) {\n" +
+      "        throw 'Only the fixed official Node.js HTTPS release URL is permitted.'\n" +
+      '    }\n' +
+      '    Assert-PlainPath $Destination\n' +
+      "    $temporary = $Destination + '.part-' + [Guid]::NewGuid().ToString('N')\n" +
+      '    $response = $null\n' +
+      '    $source = $null\n' +
+      '    $sink = $null\n' +
+      '    $request = $null\n' +
+      '    try {\n' +
+      "        Write-LaunchLog ('Downloading official runtime: ' + $Url)\n" +
+      '        # This changes TLS selection in this process only, not Windows policy.\n' +
+      '        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12\n' +
+      '        $request = [Net.HttpWebRequest]::Create($uri)\n' +
+      "        $request.Method = 'GET'\n" +
+      '        $request.AllowAutoRedirect = $false\n' +
+      '        $request.Timeout = 30000\n' +
+      '        $request.ReadWriteTimeout = 30000\n' +
+      "        $request.UserAgent = 'JA21-Silicon-Console/2.3.0'\n" +
+      "        # Use Windows' configured proxy and normal certificate validation.\n" +
+      '        $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()\n' +
+      '        if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }\n' +
+      '        $response = $request.GetResponse()\n' +
+      '        if ([int]$response.StatusCode -ne 200) {\n' +
+      "            throw ('Download returned HTTP ' + [int]$response.StatusCode + '. Redirects are not followed.')\n" +
+      '        }\n' +
+      '        $maxBytes = 100MB\n' +
+      "        if ($response.ContentLength -gt $maxBytes) { throw 'Runtime download exceeds the 100 MiB limit.' }\n" +
+      '        $source = $response.GetResponseStream()\n' +
+      '        $sink = [IO.File]::Open($temporary, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)\n' +
+      '        $buffer = New-Object byte[] 65536\n' +
+      '        $total = [long]0\n' +
+      '        $lastProgress = [long]0\n' +
+      '        $clock = [Diagnostics.Stopwatch]::StartNew()\n' +
+      '        while (($count = $source.Read($buffer, 0, $buffer.Length)) -gt 0) {\n' +
+      '            $total += $count\n' +
+      "            if ($total -gt $maxBytes) { throw 'Runtime download exceeds the 100 MiB limit.' }\n" +
+      "            if ($clock.Elapsed.TotalSeconds -gt 300) { throw 'Runtime download exceeded its transfer deadline.' }\n" +
+      '            $sink.Write($buffer, 0, $count)\n' +
+      '            if (($total - $lastProgress) -ge 8MB) {\n' +
+      "                Write-LaunchLog ('  Received {0:N1} MiB' -f ($total / 1MB))\n" +
+      '                $lastProgress = $total\n' +
+      '            }\n' +
+      '        }\n' +
+      '        if ($total -eq 0 -or ($response.ContentLength -ge 0 -and $total -ne $response.ContentLength)) {\n' +
+      "            throw 'The runtime download was empty or incomplete.'\n" +
+      '        }\n' +
+      '        $sink.Dispose(); $sink = $null\n' +
+      '        Assert-FileHash $temporary $Expected\n' +
+      '        [IO.File]::Move($temporary, $Destination)\n' +
+      "        Write-LaunchLog 'Archive SHA-256 verified before extraction.'\n" +
+      '    } finally {\n' +
+      '        if ($sink) { $sink.Dispose() }\n' +
+      '        if ($source) { $source.Dispose() }\n' +
+      '        if ($response) { $response.Close() }\n' +
+      '        if ($request) { $request.Abort() }\n' +
+      '        if ([IO.File]::Exists($temporary)) { [IO.File]::Delete($temporary) }\n' +
+      '    }\n' +
+      '}\n' +
+      '\n' +
+      'function Expand-MinimalRuntime([string]$ArchivePath, [string]$ExpectedFolder, [string]$StagePath) {\n' +
+      '    Add-Type -AssemblyName System.IO.Compression.FileSystem\n' +
+      '    $zip = [IO.Compression.ZipFile]::OpenRead($ArchivePath)\n' +
+      '    try {\n' +
+      '        # Extract ONLY these exact regular entries, never archive-provided paths.\n' +
+      "        foreach ($name in @('node.exe', 'LICENSE', 'README.md')) {\n" +
+      "            $fullName = $ExpectedFolder + '/' + $name\n" +
+      '            $matches = @($zip.Entries | Where-Object { $_.FullName -ceq $fullName })\n' +
+      '            if ($matches.Count -ne 1) { throw "Expected one archive entry: $fullName" }\n' +
+      '            $entry = $matches[0]\n' +
+      '            $limit = 128MB\n' +
+      "            if ($name -ne 'node.exe') { $limit = 2MB }\n" +
+      '            if ($entry.Length -le 0 -or $entry.Length -gt $limit) { throw "Invalid archive entry length: $fullName" }\n' +
+      '            $inputStream = $null\n' +
+      '            $outputStream = $null\n' +
+      '            try {\n' +
+      '                $inputStream = $entry.Open()\n' +
+      '                $target = Join-Path $StagePath $name\n' +
+      '                $outputStream = [IO.File]::Open($target, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)\n' +
+      '                $buffer = New-Object byte[] 65536\n' +
+      '                $written = [long]0\n' +
+      '                while (($read = $inputStream.Read($buffer, 0, $buffer.Length)) -gt 0) {\n' +
+      '                    $written += $read\n' +
+      '                    if ($written -gt $limit -or $written -gt $entry.Length) { throw "Oversized entry: $fullName" }\n' +
+      '                    $outputStream.Write($buffer, 0, $read)\n' +
+      '                }\n' +
+      '                if ($written -ne $entry.Length) { throw "Incomplete archive entry: $fullName" }\n' +
+      '            } finally {\n' +
+      '                if ($outputStream) { $outputStream.Dispose() }\n' +
+      '                if ($inputStream) { $inputStream.Dispose() }\n' +
+      '            }\n' +
+      '        }\n' +
+      '    } finally { $zip.Dispose() }\n' +
+      '}\n' +
+      '\n' +
+      'function Resolve-WindowsRuntimeArchitecture([string]$NativeArchitecture) {\n' +
+      "    if ([string]::IsNullOrWhiteSpace($NativeArchitecture)) { throw 'Windows did not report its native architecture.' }\n" +
+      '    switch ($NativeArchitecture.ToUpperInvariant()) {\n' +
+      "        'X64' { return 'x64' }\n" +
+      "        'AMD64' { return 'x64' }\n" +
+      "        'ARM64' { return 'arm64' }\n" +
+      '        default { throw "Unsupported Windows architecture: $NativeArchitecture. This build requires x64 or ARM64 Windows." }\n' +
+      '    }\n' +
+      '}\n' +
+      '\n' +
+      'function Get-WindowsRuntimeArchitecture {\n' +
+      '    # OSArchitecture refers to Windows itself, even when PowerShell runs under\n' +
+      '    # WOW64/emulation. Older .NET Framework installations may lack this type.\n' +
+      '    $nativeArchitecture = $null\n' +
+      '    try { $nativeArchitecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() } catch {}\n' +
+      '    if (-not $nativeArchitecture) {\n' +
+      '        $nativeArchitecture = $env:PROCESSOR_ARCHITEW6432\n' +
+      '        if (-not $nativeArchitecture) { $nativeArchitecture = $env:PROCESSOR_ARCHITECTURE }\n' +
+      '    }\n' +
+      '    return Resolve-WindowsRuntimeArchitecture $nativeArchitecture\n' +
+      '}\n' +
+      '\n' +
+      'function Assert-RuntimeMachine([string]$NodePath, [string]$ExpectedArchitecture) {\n' +
+      '    Assert-PlainPath $NodePath\n' +
+      '    $expectedMachine = switch ($ExpectedArchitecture) {\n' +
+      "        'x64' { 0x8664 }\n" +
+      "        'arm64' { 0xAA64 }\n" +
+      '        default { throw "Unknown expected runtime architecture: $ExpectedArchitecture" }\n' +
+      '    }\n' +
+      '    $stream = $null\n' +
+      '    $reader = $null\n' +
+      '    try {\n' +
+      '        $stream = [IO.File]::Open($NodePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)\n' +
+      '        $reader = New-Object IO.BinaryReader($stream)\n' +
+      "        if ($stream.Length -lt 64 -or $reader.ReadUInt16() -ne 0x5A4D) { throw 'Runtime has no valid DOS/PE header.' }\n" +
+      '        $stream.Position = 0x3C\n' +
+      '        $peOffset = $reader.ReadUInt32()\n' +
+      "        if ($peOffset -lt 64 -or [long]$peOffset + 26 -gt $stream.Length) { throw 'Runtime PE header offset is outside the executable.' }\n" +
+      '        $stream.Position = $peOffset\n' +
+      "        if ($reader.ReadUInt32() -ne 0x00004550) { throw 'Runtime has no valid PE signature.' }\n" +
+      '        $machine = $reader.ReadUInt16()\n' +
+      '        $stream.Position = [long]$peOffset + 20\n' +
+      ' '... 10943 more characters
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    # JA21 Silicon Console 2.3.0 - Windows PowerShell 5.1-compatible source.
+    # The .cmd contains this same readable payload so it also works as a one-file
+    # replacement launcher for an already extracted 2.1.0 package.
+    # No network script evaluation, npm install, elevation, or policy changes.
+    Set-StrictMode -Version 2.0
+    $ErrorActionPreference = 'Stop'
+    $script:LogPath = $null
+    $script:ExitCode = 1
+    $script:RuntimeLock = $null
+    $script:StagePath = $null
+    
+    function Write-LaunchLog([string]$Message) {
+        Write-Host $Message
+        if ($script:LogPath) {
+            [IO.File]::AppendAllText($script:LogPath, ('{0:u} {1}{2}' -f [DateTime]::UtcNow, $Message, [Environment]::NewLine))
+        }
+    }
+    
+    function Assert-PlainPath([string]$LiteralPath) {
+        # Checking only the leaf misses a linked parent such as .runtime/downloads.
+        $candidate = [IO.Path]::GetFullPath($LiteralPath)
+        while ($candidate) {
+            if (Test-Path -LiteralPath $candidate) {
+                $item = Get-Item -LiteralPath $candidate -Force
+                if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+                    throw "A private runtime/log path is a reparse point: $candidate. Use a normal local folder; no linked path will be written."
+                }
+            }
+            $parent = [IO.Directory]::GetParent($candidate)
+            if ($parent) { $candidate = $parent.FullName } else { $candidate = $null }
+        }
+    }
+    
+    function New-PrivateDirectory([string]$LiteralPath) {
+        Assert-PlainPath $LiteralPath
+        if (Test-Path -LiteralPath $LiteralPath) {
+            if (-not (Test-Path -LiteralPath $LiteralPath -PathType Container)) {
+                throw "Expected a directory: $LiteralPath"
+            }
+        } else {
+            [void][IO.Directory]::CreateDirectory($LiteralPath)
+        }
+        Assert-PlainPath $LiteralPath
+    }
+    
+    function Assert-FileHash([string]$LiteralPath, [string]$Expected) {
+        Assert-PlainPath $LiteralPath
+        if (-not (Test-Path -LiteralPath $LiteralPath -PathType Leaf)) {
+            throw "Missing runtime file: $LiteralPath"
+        }
+        # Core .NET is available with PowerShell 5.1 even when optional module
+        # discovery (and therefore Get-FileHash) is unavailable.
+        $algorithm = [Security.Cryptography.SHA256]::Create()
+        $stream = $null
+        try {
+            $stream = [IO.File]::Open($LiteralPath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+            $actual = [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '')
+        } finally {
+            if ($stream) { $stream.Dispose() }
+            $algorithm.Dispose()
+        }
+        if (-not [string]::Equals($actual, $Expected, [StringComparison]::OrdinalIgnoreCase)) {
+            throw "SHA-256 mismatch: $LiteralPath. Nothing from this file was executed. Remove ONLY the affected private runtime file/directory and retry; do not clear browser data."
+        }
+    }
+    
+    function Receive-RuntimeArchive([string]$Url, [string]$Destination, [string]$Expected) {
+        $uri = [Uri]$Url
+        if ($uri.Scheme -ne 'https' -or $uri.Host -ne 'nodejs.org' -or $uri.Port -ne 443 -or $uri.UserInfo -or $uri.Query -or $uri.Fragment) {
+            throw 'Only the fixed official Node.js HTTPS release URL is permitted.'
+        }
+        Assert-PlainPath $Destination
+        $temporary = $Destination + '.part-' + [Guid]::NewGuid().ToString('N')
+        $response = $null
+        $source = $null
+        $sink = $null
+        $request = $null
+        try {
+            Write-LaunchLog ('Downloading official runtime: ' + $Url)
+            # This changes TLS selection in this process only, not Windows policy.
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            $request = [Net.HttpWebRequest]::Create($uri)
+            $request.Method = 'GET'
+            $request.AllowAutoRedirect = $false
+            $request.Timeout = 30000
+            $request.ReadWriteTimeout = 30000
+            $request.UserAgent = 'JA21-Silicon-Console/2.3.0'
+            # Use Windows' configured proxy and normal certificate validation.
+            $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+            if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+            $response = $request.GetResponse()
+            if ([int]$response.StatusCode -ne 200) {
+                throw ('Download returned HTTP ' + [int]$response.StatusCode + '. Redirects are not followed.')
+            }
+            $maxBytes = 100MB
+            if ($response.ContentLength -gt $maxBytes) { throw 'Runtime download exceeds the 100 MiB limit.' }
+            $source = $response.GetResponseStream()
+            $sink = [IO.File]::Open($temporary, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+            $buffer = New-Object byte[] 65536
+            $total = [long]0
+            $lastProgress = [long]0
+            $clock = [Diagnostics.Stopwatch]::StartNew()
+            while (($count = $source.Read($buffer, 0, $buffer.Length)) -gt 0) {
+                $total += $count
+                if ($total -gt $maxBytes) { throw 'Runtime download exceeds the 100 MiB limit.' }
+                if ($clock.Elapsed.TotalSeconds -gt 300) { throw 'Runtime download exceeded its transfer deadline.' }
+                $sink.Write($buffer, 0, $count)
+                if (($total - $lastProgress) -ge 8MB) {
+                    Write-LaunchLog ('  Received {0:N1} MiB' -f ($total / 1MB))
+                    $lastProgress = $total
+                }
+            }
+            if ($total -eq 0 -or ($response.ContentLength -ge 0 -and $total -ne $response.ContentLength)) {
+                throw 'The runtime download was empty or incomplete.'
+            }
+            $sink.Dispose(); $sink = $null
+            Assert-FileHash $temporary $Expected
+            [IO.File]::Move($temporary, $Destination)
+            Write-LaunchLog 'Archive SHA-256 verified before extraction.'
+        } finally {
+            if ($sink) { $sink.Dispose() }
+            if ($source) { $source.Dispose() }
+            if ($response) { $response.Close() }
+            if ($request) { $request.Abort() }
+            if ([IO.File]::Exists($temporary)) { [IO.File]::Delete($temporary) }
+        }
+    }
+    
+    function Expand-MinimalRuntime([string]$ArchivePath, [string]$ExpectedFolder, [string]$StagePath) {
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $zip = [IO.Compression.ZipFile]::OpenRead($ArchivePath)
+        try {
+            # Extract ONLY these exact regular entries, never archive-provided paths.
+            foreach ($name in @('node.exe', 'LICENSE', 'README.md')) {
+                $fullName = $ExpectedFolder + '/' + $name
+                $matches = @($zip.Entries | Where-Object { $_.FullName -ceq $fullName })
+                if ($matches.Count -ne 1) { throw "Expected one archive entry: $fullName" }
+                $entry = $matches[0]
+                $limit = 128MB
+                if ($name -ne 'node.exe') { $limit = 2MB }
+                if ($entry.Length -le 0 -or $entry.Length -gt $limit) { throw "Invalid archive entry length: $fullName" }
+                $inputStream = $null
+                $outputStream = $null
+                try {
+                    $inputStream = $entry.Open()
+                    $target = Join-Path $StagePath $name
+                    $outputStream = [IO.File]::Open($target, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+                    $buffer = New-Object byte[] 65536
+                    $written = [long]0
+                    while (($read = $inputStream.Read($buffer, 0, $buffer.Length)) -gt 0) {
+                        $written += $read
+                        if ($written -gt $limit -or $written -gt $entry.Length) { throw "Oversized entry: $fullName" }
+                        $outputStream.Write($buffer, 0, $read)
+                    }
+                    if ($written -ne $entry.Length) { throw "Incomplete archive entry: $fullName" }
+                } finally {
+                    if ($outputStream) { $outputStream.Dispose() }
+                    if ($inputStream) { $inputStream.Dispose() }
+                }
+            }
+        } finally { $zip.Dispose() }
+    }
+    
+    function Resolve-WindowsRuntimeArchitecture([string]$NativeArchitecture) {
+        if ([string]::IsNullOrWhiteSpace($NativeArchitecture)) { throw 'Windows did not report its native architecture.' }
+        switch ($NativeArchitecture.ToUpperInvariant()) {
+            'X64' { return 'x64' }
+            'AMD64' { return 'x64' }
+            'ARM64' { return 'arm64' }
+            default { throw "Unsupported Windows architecture: $NativeArchitecture. This build requires x64 or ARM64 Windows." }
+        }
+    }
+    
+    function Get-WindowsRuntimeArchitecture {
+        # OSArchitecture refers to Windows itself, even when PowerShell runs under
+        # WOW64/emulation. Older .NET Framework installations may lack this type.
+        $nativeArchitecture = $null
+        try { $nativeArchitecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() } catch {}
+        if (-not $nativeArchitecture) {
+            $nativeArchitecture = $env:PROCESSOR_ARCHITEW6432
+            if (-not $nativeArchitecture) { $nativeArchitecture = $env:PROCESSOR_ARCHITECTURE }
+        }
+        return Resolve-WindowsRuntimeArchitecture $nativeArchitecture
+    }
+    
+    function Assert-RuntimeMachine([string]$NodePath, [string]$ExpectedArchitecture) {
+        Assert-PlainPath $NodePath
+        $expectedMachine = switch ($ExpectedArchitecture) {
+            'x64' { 0x8664 }
+            'arm64' { 0xAA64 }
+            default { throw "Unknown expected runtime architecture: $ExpectedArchitecture" }
+        }
+        $stream = $null
+        $reader = $null
+        try {
+            $stream = [IO.File]::Open($NodePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+            $reader = New-Object IO.BinaryReader($stream)
+            if ($stream.Length -lt 64 -or $reader.ReadUInt16() -ne 0x5A4D) { throw 'Runtime has no valid DOS/PE header.' }
+            $stream.Position = 0x3C
+            $peOffset = $reader.ReadUInt32()
+            if ($peOffset -lt 64 -or [long]$peOffset + 26 -gt $stream.Length) { throw 'Runtime PE header offset is outside the executable.' }
+            $stream.Position = $peOffset
+            if ($reader.ReadUInt32() -ne 0x00004550) { throw 'Runtime has no valid PE signature.' }
+            $machine = $reader.ReadUInt16()
+            $stream.Position = [long]$peOffset + 20
+            $optionalLength = $reader.ReadUInt16()
+            if ($optionalLength -lt 2 -or [long]$peOffset + 24 + $optionalLength -gt $stream.Length) { throw 'Runtime PE optional header is truncated.' }
+            $stream.Position = [long]$peOffset + 24
+            if ($reader.ReadUInt16() -ne 0x020B) { throw 'Runtime must use a 64-bit PE32+ executable header.' }
+            if ($machine -ne $expectedMachine) { throw ('Runtime PE machine 0x{0:X4} does not match Windows {1}.' -f $machine, $ExpectedArchitecture) }
+        } finally {
+            if ($reader) { $reader.Dispose() } elseif ($stream) { $stream.Dispose() }
+        }
+    }
+    
+    function Confirm-Runtime([string]$NodePath, [string]$ExpectedVersion, [string]$ExpectedArchitecture) {
+        Assert-RuntimeMachine $NodePath $ExpectedArchitecture
+        $info = New-Object Diagnostics.ProcessStartInfo
+        $info.FileName = $NodePath
+        $info.Arguments = '-p "JSON.stringify({version:process.version,arch:process.arch,platform:process.platform})"'
+        $info.UseShellExecute = $false
+        $info.CreateNoWindow = $true
+        $info.RedirectStandardOutput = $true
+        $info.RedirectStandardError = $true
+        $process = New-Object Diagnostics.Process
+        $process.StartInfo = $info
+        try {
+            if (-not $process.Start()) { throw 'Windows did not start the private Node.js executable.' }
+            $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+            $stderrTask = $process.StandardError.ReadToEndAsync()
+            if (-not $process.WaitForExit(15000)) {
+                try { $process.Kill() } catch {}
+                throw 'Private Node.js version probe timed out.'
+            }
+            $stdout = $stdoutTask.GetAwaiter().GetResult().Trim()
+            $stderr = $stderrTask.GetAwaiter().GetResult().Trim()
+            if ($process.ExitCode -ne 0) {
+                throw ('Private Node.js runtime probe failed. Exit={0}; stdout={1}; stderr={2}' -f $process.ExitCode, $stdout, $stderr)
+            }
+            try { $probe = $stdout | ConvertFrom-Json } catch { throw 'Private Node.js runtime probe did not return valid JSON.' }
+            if ($probe.version -cne ('v' + $ExpectedVersion) -or $probe.arch -cne $ExpectedArchitecture -or $probe.platform -cne 'win32') {
+                throw ('Private Node.js runtime identity mismatch. Expected v{0}/win32/{1}; stdout={2}' -f $ExpectedVersion, $ExpectedArchitecture, $stdout)
+            }
+            Write-LaunchLog ('Verified executable reports {0} / {1} / {2}' -f $probe.version, $probe.platform, $probe.arch)
+        } catch {
+            throw ('Private runtime could not run: ' + $_.Exception.Message + '. Security controls were not disabled. Check the Windows error and launcher log.')
+        } finally { $process.Dispose() }
+    }
+    
+    try {
+        if ($PSVersionTable.PSVersion -lt [Version]'5.1') { throw 'Windows PowerShell 5.1 or newer is required.' }
+        if ($ExecutionContext.SessionState.LanguageMode -ne 'FullLanguage') {
+            throw 'Windows has restricted PowerShell language features. This launcher will not bypass that policy. Ask the device administrator to approve this application.'
+        }
+        $root = [IO.Path]::GetFullPath($env:JA21_BOOTSTRAP_ROOT)
+        $mode = $env:JA21_BOOTSTRAP_MODE
+        if ([string]::IsNullOrWhiteSpace($mode)) { $mode = '--start' }
+        if ($mode -notin @('--start', '--verify', '--preflight')) { throw 'Usage: Start-Console.cmd [--verify | --preflight]' }
+        if ($env:JA21_BOOTSTRAP_EXTRA) { throw 'Unexpected argument. Usage: Start-Console.cmd [--verify | --preflight]' }
+        foreach ($required in @('package.json', 'src/version.js', 'scripts/serve.mjs', 'scripts/build.mjs', 'scripts/verify.mjs')) {
+            if (-not (Test-Path -LiteralPath (Join-Path $root $required) -PathType Leaf)) {
+                throw "Missing package file: $required. Put this launcher beside package.json in the fully extracted console folder, not beside the ZIP."
+            }
+        }
+        $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+        if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.3.0')) {
+            throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1 and 2.3.0 only.'
+        }
+        Set-Location -LiteralPath $root
+        [Environment]::CurrentDirectory = $root
+        $logs = Join-Path $root 'logs'
+        New-PrivateDirectory $logs
+        $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+        Write-LaunchLog ('JA21 launcher 2.3.0 | application ' + $package.version)
+        Write-LaunchLog ('Package: ' + $root)
+        Write-LaunchLog ('Log: ' + $script:LogPath)
+        # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+        foreach ($name in @('NODE_OPTIONS', 'NODE_PATH', 'NODE_EXTRA_CA_CERTS', 'NODE_ICU_DATA', 'NODE_REDIRECT_WARNINGS', 'NODE_V8_COVERAGE', 'OPENSSL_CONF', 'OPENSSL_MODULES', 'SSLKEYLOGFILE')) {
+            [Environment]::SetEnvironmentVariable($name, $null, [EnvironmentVariableTarget]::Process)
+        }
+        $port = 8788
+        if ($env:JA21_PORT) {
+            if (-not [int]::TryParse($env:JA21_PORT, [ref]$port) -or $port -lt 1024 -or $port -gt 65535) {
+                throw 'JA21_PORT must be an integer in 1024..65535. The default 8788 preserves the existing browser-storage origin.'
+            }
+        }
+        $arch = Get-WindowsRuntimeArchitecture
+        $nodeVersion = '24.21.0'
+        $pins = @{
+            x64 = @{
+                Archive = '158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541'
+                Exe = 'ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32'
+            }
+            arm64 = @{
+                Archive = '8779b1bde1d39f8d420e3b57aa657b39891af434d3de44a919044cec06785921'
+                Exe = 'dff59da18b6ffe1bf1ca99e1d2af4906080c481740619f5b5098c0fca28bd9b7'
+            }
+        }
+        $pin = $pins[$arch]
+        $runtimeRoot = Join-Path $root '.runtime'
+        New-PrivateDirectory $runtimeRoot
+        $lockPath = Join-Path $runtimeRoot 'bootstrap.lock'
+        Assert-PlainPath $lockPath
+        try {
+            $script:RuntimeLock = [IO.File]::Open($lockPath, [IO.FileMode]::OpenOrCreate, [IO.FileAccess]::ReadWrite, [IO.FileShare]::None)
+        } catch { throw 'Another launcher is provisioning the private runtime, or the runtime folder is not writable. Close the other startup window and retry.' }
+        $folder = 'node-v' + $nodeVersion + '-win-' + $arch
+        $runtime = Join-Path $runtimeRoot $folder
+        $node = Join-Path $runtime 'node.exe'
+        Assert-PlainPath $runtime
+        Write-LaunchLog ('Private runtime: Node.js ' + $nodeVersion + ' / Windows ' + $arch)
+        if (-not (Test-Path -LiteralPath $runtime)) {
+            $downloads = Join-Path $runtimeRoot 'downloads'
+            New-PrivateDirectory $downloads
+            $archiveName = $folder + '.zip'
+            $archive = Join-Path $downloads $archiveName
+            Assert-PlainPath $archive
+            if (-not (Test-Path -LiteralPath $archive -PathType Leaf)) {
+                if ($env:JA21_OFFLINE -eq '1') {
+                    throw "Offline mode: copy the official $archiveName into $downloads, then retry. The downloaded ZIP must match the pinned SHA-256."
+                }
+                $url = 'https://nodejs.org/download/release/v' + $nodeVersion + '/' + $archiveName
+                Receive-RuntimeArchive $url $archive $pin.Archive
+            }
+            Assert-FileHash $archive $pin.Archive
+            $script:StagePath = Join-Path $runtimeRoot ('stage-' + [Guid]::NewGuid().ToString('N'))
+            New-PrivateDirectory $script:StagePath
+            Expand-MinimalRuntime $archive $folder $script:StagePath
+            Assert-FileHash (Join-Path $script:StagePath 'node.exe') $pin.Exe
+            Assert-RuntimeMachine (Join-Path $script:StagePath 'node.exe') $arch
+            [IO.Directory]::Move($script:StagePath, $runtime)
+            $script:StagePath = $null
+            Write-LaunchLog 'Private runtime installed atomically; npm and global PATH were not used.'
+        }
+        Assert-FileHash $node $pin.Exe
+        Assert-PlainPath (Join-Path $runtime 'LICENSE')
+        if (-not (Test-Path -LiteralPath (Join-Path $runtime 'LICENSE') -PathType Leaf)) {
+            throw 'The private runtime is incomplete: its upstream LICENSE is missing. Remove only its .runtime/node-v... directory and retry.'
+        }
+        Confirm-Runtime $node $nodeVersion $arch
+        $script:RuntimeLock.Dispose(); $script:RuntimeLock = $null
+        Write-LaunchLog ('Runtime path: ' + $node)
+        if ($mode -eq '--preflight') {
+            Write-LaunchLog 'PREFLIGHT PASS: package files and private runtime verified. Server/browser were not started.'
+            $script:ExitCode = 0
+        } else {
+            if ($mode -eq '--verify') {
+                $nodeArguments = @((Join-Path $root 'scripts/verify.mjs'))
+                Write-LaunchLog 'Starting the application verification suite. Test output follows.'
+            } else {
+                $nodeArguments = @((Join-Path $root 'scripts/serve.mjs'), '--port', [string]$port)
+                if ($env:JA21_NO_OPEN -ne '1') { $nodeArguments += '--open' }
+                Write-LaunchLog 'Starting local host. Keep this window open; Ctrl+C stops the host.'
+            }
+            # Preserve the native exit status. In Windows PowerShell 5.1 stderr from
+            # a native program must not become an early terminating PowerShell error.
+            $ErrorActionPreference = 'Continue'
+            try {
+                & $node @nodeArguments
+                $script:ExitCode = $LASTEXITCODE
+            } finally { $ErrorActionPreference = 'Stop' }
+            if ($null -eq $script:ExitCode) { $script:ExitCode = 1 }
+            Write-LaunchLog ('Application exit code: ' + $script:ExitCode)
+        }
+    } catch {
+        $script:ExitCode = 1
+        $message = 'STARTUP/VERIFY FAILED: ' + $_.Exception.Message
+        Write-Host ''
+        try { Write-LaunchLog $message } catch { Write-Host $message }
+        Write-Host 'No firewall, antivirus, execution-policy, registry, or system PATH settings were changed.'
+        Write-Host 'The first private-runtime setup needs HTTPS access to nodejs.org, unless its exact ZIP is cached.'
+        Write-Host 'Do not disable Windows security or clear browser storage to fix a runtime startup error.'
+        if ($script:LogPath) { Write-Host ('Diagnostic log: ' + $script:LogPath) }
+    } finally {
+        if ($script:RuntimeLock) { $script:RuntimeLock.Dispose() }
+        if ($script:StagePath -and [IO.Directory]::Exists($script:StagePath)) {
+            try {
+                $stageFull = [IO.Path]::GetFullPath($script:StagePath)
+                $runtimeFull = [IO.Path]::GetFullPath($runtimeRoot)
+                if (-not [string]::Equals([IO.Path]::GetDirectoryName($stageFull), $runtimeFull, [StringComparison]::OrdinalIgnoreCase) -or [IO.Path]::GetFileName($stageFull) -notmatch '^stage-[0-9a-f]{32}$') {
+                    throw 'Refusing to remove a staging directory outside the private runtime root.'
+                }
+                Assert-PlainPath $script:StagePath
+                [IO.Directory]::Delete($script:StagePath, $true)
+            } catch { Write-Host ('Temporary runtime staging folder retained: ' + $script:StagePath) }
+        }
+    }
+    exit $script:ExitCode
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///D:/Codex/2026-10-13/pl/work/blank-console-arm64/project/JA21-Silicon-Console/applications/silicon/tests/launcher-contract.test.mjs:127:9)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: launcher/static: logs and native error status are retained
+ok 148 - launcher/static: logs and native error status are retained
+  ---
+  duration_ms: 0.2991
+  type: 'test'
+  ...
+# Subtest: RUSSL: all 16,384 authoritative corpus vectors agree with port, inverse and bit packing
+ok 149 - RUSSL: all 16,384 authoritative corpus vectors agree with port, inverse and bit packing
+  ---
+  duration_ms: 379.8844
+  type: 'test'
+  ...
+# Subtest: RUSSL: index domains reject booleans, fractions, strings, NaNs, oversize and negatives
+ok 150 - RUSSL: index domains reject booleans, fractions, strings, NaNs, oversize and negatives
+  ---
+  duration_ms: 1.6591
+  type: 'test'
+  ...
+# Subtest: RUSSL: exact rational normalized coordinates include anchors and endpoints
+ok 151 - RUSSL: exact rational normalized coordinates include anchors and endpoints
+  ---
+  duration_ms: 0.6112
+  type: 'test'
+  ...
+# Subtest: RUSSL: optional address ultrametric has distinct documented semantics
+ok 152 - RUSSL: optional address ultrametric has distinct documented semantics
+  ---
+  duration_ms: 4.3255
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array classic II exact sample bits
+ok 153 - TIFF: Uint8Array classic II exact sample bits
+  ---
+  duration_ms: 4.5451
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array classic MM exact sample bits
+ok 154 - TIFF: Uint8Array classic MM exact sample bits
+  ---
+  duration_ms: 1.2203
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array BigTIFF II exact sample bits
+ok 155 - TIFF: Uint8Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.4541
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array BigTIFF MM exact sample bits
+ok 156 - TIFF: Uint8Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.3339
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array classic II exact sample bits
+ok 157 - TIFF: Uint16Array classic II exact sample bits
+  ---
+  duration_ms: 1.0973
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array classic MM exact sample bits
+ok 158 - TIFF: Uint16Array classic MM exact sample bits
+  ---
+  duration_ms: 0.6667
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array BigTIFF II exact sample bits
+ok 159 - TIFF: Uint16Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.3669
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array BigTIFF MM exact sample bits
+ok 160 - TIFF: Uint16Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.2594
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array classic II exact sample bits
+ok 161 - TIFF: Float32Array classic II exact sample bits
+  ---
+  duration_ms: 0.3308
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array classic MM exact sample bits
+ok 162 - TIFF: Float32Array classic MM exact sample bits
+  ---
+  duration_ms: 0.2716
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array BigTIFF II exact sample bits
+ok 163 - TIFF: Float32Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.2218
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array BigTIFF MM exact sample bits
+ok 164 - TIFF: Float32Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.1542
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array classic II exact sample bits
+ok 165 - TIFF: Float64Array classic II exact sample bits
+  ---
+  duration_ms: 0.2419
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array classic MM exact sample bits
+ok 166 - TIFF: Float64Array classic MM exact sample bits
+  ---
+  duration_ms: 0.4711
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array BigTIFF II exact sample bits
+ok 167 - TIFF: Float64Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.2125
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array BigTIFF MM exact sample bits
+ok 168 - TIFF: Float64Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.2085
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-classic-le.tif
+ok 169 - TIFF: independently written u1-classic-le.tif
+  ---
+  duration_ms: 105.0991
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-classic-be.tif
+ok 170 - TIFF: independently written u1-classic-be.tif
+  ---
+  duration_ms: 24.8516
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-big-le.tif
+ok 171 - TIFF: independently written u1-big-le.tif
+  ---
+  duration_ms: 19.5849
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-big-be.tif
+ok 172 - TIFF: independently written u1-big-be.tif
+  ---
+  duration_ms: 22.1631
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-classic-le.tif
+ok 173 - TIFF: independently written u2-classic-le.tif
+  ---
+  duration_ms: 48.7688
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-classic-be.tif
+ok 174 - TIFF: independently written u2-classic-be.tif
+  ---
+  duration_ms: 21.9324
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-big-le.tif
+ok 175 - TIFF: independently written u2-big-le.tif
+  ---
+  duration_ms: 19.0963
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-big-be.tif
+ok 176 - TIFF: independently written u2-big-be.tif
+  ---
+  duration_ms: 22.1373
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-classic-le.tif
+ok 177 - TIFF: independently written f4-classic-le.tif
+  ---
+  duration_ms: 43.1088
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-classic-be.tif
+ok 178 - TIFF: independently written f4-classic-be.tif
+  ---
+  duration_ms: 22.2312
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-big-le.tif
+ok 179 - TIFF: independently written f4-big-le.tif
+  ---
+  duration_ms: 21.5002
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-big-be.tif
+ok 180 - TIFF: independently written f4-big-be.tif
+  ---
+  duration_ms: 24.3896
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-classic-le.tif
+ok 181 - TIFF: independently written f8-classic-le.tif
+  ---
+  duration_ms: 62.9648
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-classic-be.tif
+ok 182 - TIFF: independently written f8-classic-be.tif
+  ---
+  duration_ms: 23.9749
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-big-le.tif
+ok 183 - TIFF: independently written f8-big-le.tif
+  ---
+  duration_ms: 24.5916
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-big-be.tif
+ok 184 - TIFF: independently written f8-big-be.tif
+  ---
+  duration_ms: 21.0002
+  type: 'test'
+  ...
+# Subtest: TIFF: raw orientation is retained rather than silently normalized
+ok 185 - TIFF: raw orientation is retained rather than silently normalized
+  ---
+  duration_ms: 22.1692
+  type: 'test'
+  ...
+# Subtest: TIFF: strict BigTIFF alignment rejects external misaligned extra-value blocks
+ok 186 - TIFF: strict BigTIFF alignment rejects external misaligned extra-value blocks
+  ---
+  duration_ms: 20.2932
+  type: 'test'
+  ...
+# Subtest: TIFF rejects bad byte order
+ok 187 - TIFF rejects bad byte order
+  ---
+  duration_ms: 1.1314
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unknown TIFF version
+ok 188 - TIFF rejects unknown TIFF version
+  ---
+  duration_ms: 0.2641
+  type: 'test'
+  ...
+# Subtest: TIFF rejects IFD outside input
+ok 189 - TIFF rejects IFD outside input
+  ---
+  duration_ms: 0.2252
+  type: 'test'
+  ...
+# Subtest: TIFF rejects oversized tag count
+ok 190 - TIFF rejects oversized tag count
+  ---
+  duration_ms: 0.1817
+  type: 'test'
+  ...
+# Subtest: TIFF rejects duplicate tag
+ok 191 - TIFF rejects duplicate tag
+  ---
+  duration_ms: 0.1686
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unknown tag type
+ok 192 - TIFF rejects unknown tag type
+  ---
+  duration_ms: 0.389
+  type: 'test'
+  ...
+# Subtest: TIFF rejects multipage/cyclic chain
+ok 193 - TIFF rejects multipage/cyclic chain
+  ---
+  duration_ms: 0.1811
+  type: 'test'
+  ...
+# Subtest: TIFF rejects compression
+ok 194 - TIFF rejects compression
+  ---
+  duration_ms: 0.2093
+  type: 'test'
+  ...
+# Subtest: TIFF rejects palette interpretation
+ok 195 - TIFF rejects palette interpretation
+  ---
+  duration_ms: 0.1794
+  type: 'test'
+  ...
+# Subtest: TIFF rejects RGB sample count
+ok 196 - TIFF rejects RGB sample count
+  ---
+  duration_ms: 0.1964
+  type: 'test'
+  ...
+# Subtest: TIFF rejects signed sample format
+ok 197 - TIFF rejects signed sample format
+  ---
+  duration_ms: 0.3666
+  type: 'test'
+  ...
+# Subtest: TIFF rejects zero rows per strip
+ok 198 - TIFF rejects zero rows per strip
+  ---
+  duration_ms: 0.3122
+  type: 'test'
+  ...
+# Subtest: TIFF rejects planar channels
+ok 199 - TIFF rejects planar channels
+  ---
+  duration_ms: 0.2367
+  type: 'test'
+  ...
+# Subtest: TIFF rejects orientation outside domain
+ok 200 - TIFF rejects orientation outside domain
+  ---
+  duration_ms: 0.2122
+  type: 'test'
+  ...
+# Subtest: TIFF rejects dimension resource exhaustion
+ok 201 - TIFF rejects dimension resource exhaustion
+  ---
+  duration_ms: 0.2211
+  type: 'test'
+  ...
+# Subtest: TIFF rejects strip aliases IFD
+ok 202 - TIFF rejects strip aliases IFD
+  ---
+  duration_ms: 0.1766
+  type: 'test'
+  ...
+# Subtest: TIFF rejects strip past EOF
+ok 203 - TIFF rejects strip past EOF
+  ---
+  duration_ms: 0.359
+  type: 'test'
+  ...
+# Subtest: TIFF rejects strip length mismatch
+ok 204 - TIFF rejects strip length mismatch
+  ---
+  duration_ms: 0.999
+  type: 'test'
+  ...
+# Subtest: TIFF rejects embedded NUL description
+ok 205 - TIFF rejects embedded NUL description
+  ---
+  duration_ms: 0.3282
+  type: 'test'
+  ...
+# Subtest: TIFF rejects missing description terminator
+ok 206 - TIFF rejects missing description terminator
+  ---
+  duration_ms: 0.2041
+  type: 'test'
+  ...
+# Subtest: TIFF rejects metadata claims huge count
+ok 207 - TIFF rejects metadata claims huge count
+  ---
+  duration_ms: 0.1573
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unsupported ICC profile
+ok 208 - TIFF rejects unsupported ICC profile
+  ---
+  duration_ms: 0.2301
+  type: 'test'
+  ...
+# Subtest: TIFF rejects resolution denominator zero
+ok 209 - TIFF rejects resolution denominator zero
+  ---
+  duration_ms: 0.2
+  type: 'test'
+  ...
+# Subtest: TIFF: forged BigTIFF offset size, reserved word and uint64 precision fail closed
+ok 210 - TIFF: forged BigTIFF offset size, reserved word and uint64 precision fail closed
+  ---
+  duration_ms: 0.5373
+  type: 'test'
+  ...
+# Subtest: TIFF: truncated buffers, excessive files and incompatible sample shapes are rejected
+ok 211 - TIFF: truncated buffers, excessive files and incompatible sample shapes are rejected
+  ---
+  duration_ms: 0.4551
+  type: 'test'
+  ...
+# Subtest: TIFF: decoder rejects nonfinite float payload before exposing samples
+ok 212 - TIFF: decoder rejects nonfinite float payload before exposing samples
+  ---
+  duration_ms: 0.2854
+  type: 'test'
+  ...
+# Subtest: TIFF: decoded samples and retained original bytes cannot alias caller storage
+ok 213 - TIFF: decoded samples and retained original bytes cannot alias caller storage
+  ---
+  duration_ms: 0.2763
+  type: 'test'
+  ...
+# Subtest: TIFF: executable-looking metadata is opaque text, never run
+ok 214 - TIFF: executable-looking metadata is opaque text, never run
+  ---
+  duration_ms: 0.3002
+  type: 'test'
+  ...
+# Subtest: RUSSL: all 4,096 complex pixels map exactly, not nearest-neighbour upsampling
+ok 215 - RUSSL: all 4,096 complex pixels map exactly, not nearest-neighbour upsampling
+  ---
+  duration_ms: 34.3666
+  type: 'test'
+  ...
+# Subtest: RUSSL: capture/serialize/decode is read-only with exact f64 sample bits
+ok 216 - RUSSL: capture/serialize/decode is read-only with exact f64 sample bits
+  ---
+  duration_ms: 100.7047
+  type: 'test'
+  ...
+# Subtest: RUSSL: file, scalar and logical identities are separated across container variants
+ok 217 - RUSSL: file, scalar and logical identities are separated across container variants
+  ---
+  duration_ms: 62.2431
+  type: 'test'
+  ...
+# Subtest: RUSSL: checksum mutation is rejected even if the modified sample is finite
+ok 218 - RUSSL: checksum mutation is rejected even if the modified sample is finite
+  ---
+  duration_ms: 11.3182
+  type: 'test'
+  ...
+# Subtest: RUSSL: mismatched shape, unsupported version and invented metadata cannot silently import
+ok 219 - RUSSL: mismatched shape, unsupported version and invented metadata cannot silently import
+  ---
+  duration_ms: 36.9609
+  type: 'test'
+  ...
+# Subtest: RUSSL: non-atlas TIFF cannot be treated as an executable or live field
+ok 220 - RUSSL: non-atlas TIFF cannot be treated as an executable or live field
+  ---
+  duration_ms: 2.863
+  type: 'test'
+  ...
+# Subtest: RUSSL: edits are detached, report f32 rounding and recompute both derived slots
+ok 221 - RUSSL: edits are detached, report f32 rounding and recompute both derived slots
+  ---
+  duration_ms: 11.0997
+  type: 'test'
+  ...
+# Subtest: RUSSL: direct edits to derived slots and excessive values are rejected
+ok 222 - RUSSL: direct edits to derived slots and excessive values are rejected
+  ---
+  duration_ms: 3.8367
+  type: 'test'
+  ...
+# Subtest: RUSSL: tampered derived data is rejected even when re-encoding recalculates checksums
+ok 223 - RUSSL: tampered derived data is rejected even when re-encoding recalculates checksums
+  ---
+  duration_ms: 1.7845
+  type: 'test'
+  ...
+# Subtest: RUSSL: negative zero round trips exactly through field TIFF and HPU conversion
+ok 224 - RUSSL: negative zero round trips exactly through field TIFF and HPU conversion
+  ---
+  duration_ms: 13.8807
+  type: 'test'
+  ...
+# Subtest: RUSSL: bounded canonical metadata rejects deep nesting
+ok 225 - RUSSL: bounded canonical metadata rejects deep nesting
+  ---
+  duration_ms: 0.3185
+  type: 'test'
+  ...
+# Subtest: RUSSL service: failed import and stale edits preserve original TIFF and HPU
+ok 226 - RUSSL service: failed import and stale edits preserve original TIFF and HPU
+  ---
+  duration_ms: 44.7312
+  type: 'test'
+  ...
+# Subtest: RUSSL service: edit stays staged; explicit apply resets derived state and persists valid HPU2
+ok 227 - RUSSL service: edit stays staged; explicit apply resets derived state and persists valid HPU2
+  ---
+  duration_ms: 123.1446
+  type: 'test'
+  ...
+# Subtest: RUSSL service: quota failures cannot partially replace a TIFF or live field
+ok 228 - RUSSL service: quota failures cannot partially replace a TIFF or live field
+  ---
+  duration_ms: 47.7071
+  type: 'test'
+  ...
+# Subtest: RUSSL service: publication failure rolls back HPU and persisted field
+ok 229 - RUSSL service: publication failure rolls back HPU and persisted field
+  ---
+  duration_ms: 73.8538
+  type: 'test'
+  ...
+# Subtest: RUSSL migration: real baseline 2.1.1 HPU2 load stays valid and byte-for-byte unchanged by export
+ok 230 - RUSSL migration: real baseline 2.1.1 HPU2 load stays valid and byte-for-byte unchanged by export
+  ---
+  duration_ms: 92.9527
+  type: 'test'
+  ...
+# Subtest: RUSSL: shell exposes layout, captures, edits and applies without host paths
+ok 231 - RUSSL: shell exposes layout, captures, edits and applies without host paths
+  ---
+  duration_ms: 74.0242
+  type: 'test'
+  ...
+# Subtest: rational coordinates keep exact arithmetic at safe-integer domain boundary
+ok 232 - rational coordinates keep exact arithmetic at safe-integer domain boundary
+  ---
+  duration_ms: 0.1513
+  type: 'test'
+  ...
+# {"profile":"SEMISILI-CODEC-INDEPENDENT-ACCEPTANCE/1","status":"PASS","pixelVectors":34,"fieldWords":20480,"coordinateCases":4096,"stateRoundtrips":5,"tiffRoundtrips":8,"malformedRejections":72,"tiffOracleBytes":655360,"maximumAcceptedStateBytes":1475201,"runtime":"v24.21.0","finishedUTC":"2026-10-14T20:31:50.076Z","sourceSHA256":"a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5","testSHA256":"01ca56fb8c48f1cd3b363efc9cd056cbbfc0b624984285ece2da21c7c58d9313","adapterSHA256":{"tiff-codec.js":"c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936","state-codec.js":"591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a","buffer.js":"c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"},"limits":["Opaque uint32 storage preserves bits but does not validate neuron physics or float finiteness.","TIFF stores 20 uint8 samples per logical cell; no 160-bit display pixel claim.","CRC32 detects accidental corruption and provides no authenticity guarantee.","Browser persistence and GPU acceptance are separate integration gates."]}
+# Subtest: D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-codec.test.mjs
+ok 7 - D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-codec.test.mjs
+  ---
+  duration_ms: 3034.3974
+  type: 'test'
+  ...
+# {"profile":"SEMISILI-CORE-INDEPENDENT-ACCEPTANCE/1","status":"PASS","phaseCases":344580,"bitPlaneSamples":25440,"valuationCases":16384,"ultrametricTriples":98304,"neuronSamples":262208,"guardRejections":13,"runtime":"v24.21.0","finishedUTC":"2026-10-14T20:31:50.942Z","sourceSHA256":"3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7","limits":["Numerical CPU phase model; GPU integer confirmation and browser acceptance are separate gates.","Finite ring and bounded hierarchical CNN; no physical quantum/optical hardware or trained accuracy claim."]}
+# Subtest: D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-core.test.mjs
+ok 8 - D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-core.test.mjs
+  ---
+  duration_ms: 1148.4797
+  type: 'test'
+  ...
+# Subtest: every finite operation agrees across canonical residues and uint32 boundaries
+    # Subtest: 2 add
+    ok 1 - 2 add
+      ---
+      duration_ms: 23.4183
+      type: 'test'
+      ...
+    # Subtest: 2 sub
+    ok 2 - 2 sub
+      ---
+      duration_ms: 2.549
+      type: 'test'
+      ...
+    # Subtest: 2 mul
+    ok 3 - 2 mul
+      ---
+      duration_ms: 2.9595
+      type: 'test'
+      ...
+    # Subtest: 2 negate
+    ok 4 - 2 negate
+      ---
+      duration_ms: 2.4312
+      type: 'test'
+      ...
+    # Subtest: 2 complement
+    ok 5 - 2 complement
+      ---
+      duration_ms: 1.686
+      type: 'test'
+      ...
+    # Subtest: 3 add
+    ok 6 - 3 add
+      ---
+      duration_ms: 0.8734
+      type: 'test'
+      ...
+    # Subtest: 3 sub
+    ok 7 - 3 sub
+      ---
+      duration_ms: 0.7753
+      type: 'test'
+      ...
+    # Subtest: 3 mul
+    ok 8 - 3 mul
+      ---
+      duration_ms: 1.0086
+      type: 'test'
+      ...
+    # Subtest: 3 negate
+    ok 9 - 3 negate
+      ---
+      duration_ms: 2.1766
+      type: 'test'
+      ...
+    # Subtest: 3 complement
+    ok 10 - 3 complement
+      ---
+      duration_ms: 2.0593
+      type: 'test'
+      ...
+    # Subtest: 9 add
+    ok 11 - 9 add
+      ---
+      duration_ms: 2.5274
+      type: 'test'
+      ...
+    # Subtest: 9 sub
+    ok 12 - 9 sub
+      ---
+      duration_ms: 1.3482
+      type: 'test'
+      ...
+    # Subtest: 9 mul
+    ok 13 - 9 mul
+      ---
+      duration_ms: 1.0373
+      type: 'test'
+      ...
+    # Subtest: 9 negate
+    ok 14 - 9 negate
+      ---
+      duration_ms: 0.4677
+      type: 'test'
+      ...
+    # Subtest: 9 complement
+    ok 15 - 9 complement
+      ---
+      duration_ms: 0.5266
+      type: 'test'
+      ...
+    # Subtest: 16 add
+    ok 16 - 16 add
+      ---
+      duration_ms: 0.5444
+      type: 'test'
+      ...
+    # Subtest: 16 sub
+    ok 17 - 16 sub
+      ---
+      duration_ms: 1.3109
+      type: 'test'
+      ...
+    # Subtest: 16 mul
+    ok 18 - 16 mul
+      ---
+      duration_ms: 0.7911
+      type: 'test'
+      ...
+    # Subtest: 16 negate
+    ok 19 - 16 negate
+      ---
+      duration_ms: 1.1244
+      type: 'test'
+      ...
+    # Subtest: 16 complement
+    ok 20 - 16 complement
+      ---
+      duration_ms: 1.612
+      type: 'test'
+      ...
+    # Subtest: 257 add
+    ok 21 - 257 add
+      ---
+      duration_ms: 1.1305
+      type: 'test'
+      ...
+    # Subtest: 257 sub
+    ok 22 - 257 sub
+      ---
+      duration_ms: 0.8613
+      type: 'test'
+      ...
+    # Subtest: 257 mul
+    ok 23 - 257 mul
+      ---
+      duration_ms: 3.7407
+      type: 'test'
+      ...
+    # Subtest: 257 negate
+    ok 24 - 257 negate
+      ---
+      duration_ms: 1.8345
+      type: 'test'
+      ...
+    # Subtest: 257 complement
+    ok 25 - 257 complement
+      ---
+      duration_ms: 2.4407
+      type: 'test'
+      ...
+    # Subtest: 65536 add
+    ok 26 - 65536 add
+      ---
+      duration_ms: 0.9423
+      type: 'test'
+      ...
+    # Subtest: 65536 sub
+    ok 27 - 65536 sub
+      ---
+      duration_ms: 1.1903
+      type: 'test'
+      ...
+    # Subtest: 65536 mul
+    ok 28 - 65536 mul
+      ---
+      duration_ms: 1.064
+      type: 'test'
+      ...
+    # Subtest: 65536 negate
+    ok 29 - 65536 negate
+      ---
+      duration_ms: 1.155
+      type: 'test'
+      ...
+    # Subtest: 65536 complement
+    ok 30 - 65536 complement
+      ---
+      duration_ms: 0.9967
+      type: 'test'
+      ...
+    1..30
+ok 235 - every finite operation agrees across canonical residues and uint32 boundaries
+  ---
+  duration_ms: 79.5196
+  type: 'test'
+  ...
+# Subtest: highest uint32-safe product and negative residue use the expected finite semantics
+ok 236 - highest uint32-safe product and negative residue use the expected finite semantics
+  ---
+  duration_ms: 4.5234
+  type: 'test'
+  ...
+# Subtest: binary negation is identity while digit complement flips the bit
+ok 237 - binary negation is identity while digit complement flips the bit
+  ---
+  duration_ms: 1.2608
+  type: 'test'
+  ...
+# Subtest: 4096 samples and a partial final workgroup preserve every residue
+ok 238 - 4096 samples and a partial final workgroup preserve every residue
+  ---
+  duration_ms: 7.5562
+  type: 'test'
+  ...
+# Subtest: invalid shape, residue, operation and arithmetic bounds never request a GPU
+ok 239 - invalid shape, residue, operation and arithmetic bounds never request a GPU
+  ---
+  duration_ms: 2.9521
+  type: 'test'
+  ...
+# Subtest: invalid timeout and signal are rejected before hardware discovery
+ok 240 - invalid timeout and signal are rejected before hardware discovery
+  ---
+  duration_ms: 1.228
+  type: 'test'
+  ...
+# Subtest: unsupported API, insecure context, null adapter and request failures report no comparison
+ok 241 - unsupported API, insecure context, null adapter and request failures report no comparison
+  ---
+  duration_ms: 2.6233
+  type: 'test'
+  ...
+# Subtest: fallback and unknown adapter identity cannot become hardware proof
+ok 242 - fallback and unknown adapter identity cannot become hardware proof
+  ---
+  duration_ms: 2.0201
+  type: 'test'
+  ...
+# Subtest: insufficient or unknown adapter limits fail before device creation
+ok 243 - insufficient or unknown adapter limits fail before device creation
+  ---
+  duration_ms: 1.1097
+  type: 'test'
+  ...
+# Subtest: shader, allocation, scoped OOM and uncaptured errors destroy every owned resource
+ok 244 - shader, allocation, scoped OOM and uncaptured errors destroy every owned resource
+  ---
+  duration_ms: 3.098
+  type: 'test'
+  ...
+# Subtest: readback rejection, malformed range and submit failure never expose a result
+ok 245 - readback rejection, malformed range and submit failure never expose a result
+  ---
+  duration_ms: 1.2926
+  type: 'test'
+  ...
+# Subtest: every mismatch is counted and diagnostics stay bounded
+ok 246 - every mismatch is counted and diagnostics stay bounded
+  ---
+  duration_ms: 2.1874
+  type: 'test'
+  ...
+# Subtest: caller mutation while requestDevice waits does not change input, oracle or returned ownership
+ok 247 - caller mutation while requestDevice waits does not change input, oracle or returned ownership
+  ---
+  duration_ms: 0.39
+  type: 'test'
+  ...
+# Subtest: device loss interrupts a pending map and releases resources
+ok 248 - device loss interrupts a pending map and releases resources
+  ---
+  duration_ms: 0.5974
+  type: 'test'
+  ...
+# Subtest: typed-array subclass copy hooks cannot alias or replace owned input
+ok 249 - typed-array subclass copy hooks cannot alias or replace owned input
+  ---
+  duration_ms: 0.9307
+  type: 'test'
+  ...
+# Subtest: already aborted and mid-map abort never publish late output
+ok 250 - already aborted and mid-map abort never publish late output
+  ---
+  duration_ms: 28.7499
+  type: 'test'
+  ...
+# Subtest: timeout bounds discovery and destroys devices arriving after return
+ok 251 - timeout bounds discovery and destroys devices arriving after return
+  ---
+  duration_ms: 109.5195
+  type: 'test'
+  ...
+# Subtest: cleanup failures and cancellation during cleanup suppress confirmation
+ok 252 - cleanup failures and cancellation during cleanup suppress confirmation
+  ---
+  duration_ms: 1.237
+  type: 'test'
+  ...
+# Subtest: only the packaged literal shader is dispatched, regardless of extra input data
+ok 253 - only the packaged literal shader is dispatched, regardless of extra input data
+  ---
+  duration_ms: 0.3281
+  type: 'test'
+  ...
+# {"profile":"SEMISILI-MODEL-INDEPENDENT-ACCEPTANCE/1","status":"PASS","analyticSamples":4096,"stateRoundTrips":19,"tiffRoundTrips":6,"continuations":12,"guardRejections":16,"cachedCurrentHistoryCases":1,"finishedUTC":"2026-10-14T20:31:55.204Z","sourceSHA256":"c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305","codecSHA256":"a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5","limits":["Detached CPU preparation and canonical state/TIFF behavior only. Actual GPU confirmation, publication and browser persistence remain separate gates."]}
+# Subtest: D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-model.test.mjs
+ok 10 - D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-model.test.mjs
+  ---
+  duration_ms: 3487.2299
+  type: 'test'
+  ...
+# Subtest: XPU preview validates CPU results without a volume write or live field publication (storage/lock fixtures)
+ok 255 - XPU preview validates CPU results without a volume write or live field publication (storage/lock fixtures)
+  ---
+  duration_ms: 371.124
+  type: 'test'
+  ...
+# Subtest: required GPU absent never permits apply or changes the resident field (actual Node capability, storage/lock fixtures)
+ok 256 - required GPU absent never permits apply or changes the resident field (actual Node capability, storage/lock fixtures)
+  ---
+  duration_ms: 357.4802
+  type: 'test'
+  ...
+# Subtest: explicit CPU save and reboot restore exact model state and historical receipt (storage/lock fixtures)
+ok 257 - explicit CPU save and reboot restore exact model state and historical receipt (storage/lock fixtures)
+  ---
+  duration_ms: 682.4339
+  type: 'test'
+  ...
+# Subtest: a concurrent volume revision invalidates an otherwise valid XPU preview (storage/lock fixtures)
+ok 258 - a concurrent volume revision invalidates an otherwise valid XPU preview (storage/lock fixtures)
+  ---
+  duration_ms: 330.5824
+  type: 'test'
+  ...
+# Subtest: malformed model and receipt restores reject before any durable or live replacement (storage/lock fixtures)
+ok 259 - malformed model and receipt restores reject before any durable or live replacement (storage/lock fixtures)
+  ---
+  duration_ms: 477.887
+  type: 'test'
+  ...
+# Subtest: valid JSON receipt with wrong state digest or incoherent GPU status cannot be restored (storage/lock fixtures)
+ok 260 - valid JSON receipt with wrong state digest or incoherent GPU status cannot be restored (storage/lock fixtures)
+  ---
+  duration_ms: 500.758
+  type: 'test'
+  ...
+# Subtest: VFS quota exhaustion prevents apply without changing the prior volume or live field (quota fixture)
+ok 261 - VFS quota exhaustion prevents apply without changing the prior volume or live field (quota fixture)
+  ---
+  duration_ms: 674.5576
+  type: 'test'
+  ...
+# Subtest: IndexedDB write failure preserves the exact prior committed and resident state (failure fixture)
+ok 262 - IndexedDB write failure preserves the exact prior committed and resident state (failure fixture)
+  ---
+  duration_ms: 743.002
+  type: 'test'
+  ...
+# Subtest: cancel during run digest 0 prevents a late preview or write (digest/storage/lock fixtures)
+ok 263 - cancel during run digest 0 prevents a late preview or write (digest/storage/lock fixtures)
+  ---
+  duration_ms: 309.4601
+  type: 'test'
+  ...
+# Subtest: cancel during run digest 2 prevents a late preview or write (digest/storage/lock fixtures)
+ok 264 - cancel during run digest 2 prevents a late preview or write (digest/storage/lock fixtures)
+  ---
+  duration_ms: 348.7437
+  type: 'test'
+  ...
+# Subtest: cancelling apply before its final digest does not commit or publish (digest/storage/lock fixtures)
+ok 265 - cancelling apply before its final digest does not commit or publish (digest/storage/lock fixtures)
+  ---
+  duration_ms: 413.0588
+  type: 'test'
+  ...
+# Subtest: cancellation honestly reports a durable commit already underway (delayed IDB completion fixture)
+ok 266 - cancellation honestly reports a durable commit already underway (delayed IDB completion fixture)
+  ---
+  duration_ms: 407.7292
+  type: 'test'
+  ...
+# Subtest: cancel during GPU mapping prevents late preview and any state write (marked GPU/storage/lock fixtures)
+ok 267 - cancel during GPU mapping prevents late preview and any state write (marked GPU/storage/lock fixtures)
+  ---
+  duration_ms: 315.8492
+  type: 'test'
+  ...
+# Subtest: malformed cancellation RPC cannot interrupt a legitimate job (marked GPU/storage/lock fixtures)
+ok 268 - malformed cancellation RPC cannot interrupt a legitimate job (marked GPU/storage/lock fixtures)
+  ---
+  duration_ms: 377.4325
+  type: 'test'
+  ...
+# Subtest: local static host boundary
+    # Subtest: bind address is loopback
+    ok 1 - bind address is loopback
+      ---
+      duration_ms: 1.2582
+      type: 'test'
+      ...
+    # Subtest: HTML and CSP are served
+    ok 2 - HTML and CSP are served
+      ---
+      duration_ms: 115.2724
+      type: 'test'
+      ...
+    # Subtest: HEAD has no body
+    ok 3 - HEAD has no body
+      ---
+      duration_ms: 3.1936
+      type: 'test'
+      ...
+    # Subtest: Host rebinding
+    ok 4 - Host rebinding
+      ---
+      duration_ms: 1.8694
+      type: 'test'
+      ...
+    # Subtest: foreign Origin
+    ok 5 - foreign Origin
+      ---
+      duration_ms: 0.9709
+      type: 'test'
+      ...
+    # Subtest: cross-site fetch
+    ok 6 - cross-site fetch
+      ---
+      duration_ms: 1.0065
+      type: 'test'
+      ...
+    # Subtest: POST
+    ok 7 - POST
+      ---
+      duration_ms: 2.2365
+      type: 'test'
+      ...
+    # Subtest: traversal
+    ok 8 - traversal
+      ---
+      duration_ms: 0.8294
+      type: 'test'
+      ...
+    # Subtest: encoded traversal
+    ok 9 - encoded traversal
+      ---
+      duration_ms: 1.1423
+      type: 'test'
+      ...
+    # Subtest: double encoding
+    ok 10 - double encoding
+      ---
+      duration_ms: 1.2026
+      type: 'test'
+      ...
+    # Subtest: NUL
+    ok 11 - NUL
+      ---
+      duration_ms: 0.7465
+      type: 'test'
+      ...
+    # Subtest: backslash
+    ok 12 - backslash
+      ---
+      duration_ms: 0.5513
+      type: 'test'
+      ...
+    # Subtest: hidden dotfile
+    ok 13 - hidden dotfile
+      ---
+      duration_ms: 0.7914
+      type: 'test'
+      ...
+    # Subtest: root manifest
+    ok 14 - root manifest
+      ---
+      duration_ms: 2.2723
+      type: 'test'
+      ...
+    # Subtest: references not served
+    ok 15 - references not served
+      ---
+      duration_ms: 4.4816
+      type: 'test'
+      ...
+    # Subtest: legacy scaffold not served
+    ok 16 - legacy scaffold not served
+      ---
+      duration_ms: 2.789
+      type: 'test'
+      ...
+    # Subtest: JavaScript MIME
+    ok 17 - JavaScript MIME
+      ---
+      duration_ms: 139.3627
+      type: 'test'
+      ...
+    1..17
+ok 269 - local static host boundary
+  ---
+  duration_ms: 321.371
+  type: 'test'
+  ...
+# Subtest: static host rejects symlink traversal
+ok 270 - static host rejects symlink traversal # SKIP symlink creation not permitted
+  ---
+  duration_ms: 5.1669
+  type: 'test'
+  ...
+# Subtest: SIGINT cancels later sequence and conditional commands
+ok 271 - SIGINT cancels later sequence and conditional commands
+  ---
+  duration_ms: 49.0413
+  type: 'test'
+  ...
+# Subtest: exit ends a pipeline before another stage can mutate the filesystem
+ok 272 - exit ends a pipeline before another stage can mutate the filesystem
+  ---
+  duration_ms: 1.0694
+  type: 'test'
+  ...
+# Subtest: middle-stage redirection supplies empty input to its successor
+ok 273 - middle-stage redirection supplies empty input to its successor
+  ---
+  duration_ms: 2.3011
+  type: 'test'
+  ...
+# Subtest: capture counts UTF-8 bytes and overflow never replaces a destination
+ok 274 - capture counts UTF-8 bytes and overflow never replaces a destination
+  ---
+  duration_ms: 1.1131
+  type: 'test'
+  ...
+# Subtest: stderr has the same bounded terminal budget as stdout
+ok 275 - stderr has the same bounded terminal budget as stdout
+  ---
+  duration_ms: 0.6208
+  type: 'test'
+  ...
+# Subtest: management barrier delays mutations until the management commit completes
+ok 276 - management barrier delays mutations until the management commit completes
+  ---
+  duration_ms: 2.4563
+  type: 'test'
+  ...
+# Subtest: SIGINT cancels queued management-barrier work before it can mutate anything
+ok 277 - SIGINT cancels queued management-barrier work before it can mutate anything
+  ---
+  duration_ms: 11.6799
+  type: 'test'
+  ...
+# Subtest: backup envelopes enforce their actual UTF-8 byte cap
+ok 278 - backup envelopes enforce their actual UTF-8 byte cap
+  ---
+  duration_ms: 94.0541
+  type: 'test'
+  ...
+# Subtest: tab completion escapes shell syntax in virtual filenames
+ok 279 - tab completion escapes shell syntax in virtual filenames
+  ---
+  duration_ms: 1.6098
+  type: 'test'
+  ...
+# Subtest: environment count, bytes and unset tombstones are bounded atomically
+ok 280 - environment count, bytes and unset tombstones are bounded atomically
+  ---
+  duration_ms: 0.9328
+  type: 'test'
+  ...
+# Subtest: shell status remains writable when export exhausts environment slots
+ok 281 - shell status remains writable when export exhausts environment slots
+  ---
+  duration_ms: 0.7596
+  type: 'test'
+  ...
+# Subtest: word and command expansion reject amplification before command execution
+ok 282 - word and command expansion reject amplification before command execution
+  ---
+  duration_ms: 4.3318
+  type: 'test'
+  ...
+# Subtest: snapshot paths must remain addressable and import failure preserves the tree
+ok 283 - snapshot paths must remain addressable and import failure preserves the tree
+  ---
+  duration_ms: 0.9499
+  type: 'test'
+  ...
+# Subtest: moving into a deep directory never publishes an inaccessible combined path
+ok 284 - moving into a deep directory never publishes an inaccessible combined path
+  ---
+  duration_ms: 0.3317
+  type: 'test'
+  ...
+# Subtest: IndexedDB compare-and-swap rejects stale revisions without dropping previous data
+ok 285 - IndexedDB compare-and-swap rejects stale revisions without dropping previous data
+  ---
+  duration_ms: 2.6884
+  type: 'test'
+  ...
+# Subtest: checksummed hostile state containers fail their structural quotas
+ok 286 - checksummed hostile state containers fail their structural quotas
+  ---
+  duration_ms: 1.9856
+  type: 'test'
+  ...
+# Subtest: RamLink preserves RPC envelope, bounds pending requests and cleans clone failures
+ok 287 - RamLink preserves RPC envelope, bounds pending requests and cleans clone failures
+  ---
+  duration_ms: 1.1979
+  type: 'test'
+  ...
+# Subtest: RamLink rejects writes to closed terminals and isolates close callback errors
+ok 288 - RamLink rejects writes to closed terminals and isolates close callback errors
+  ---
+  duration_ms: 27.8245
+  type: 'test'
+  ...
+# Subtest: VT: restoring a cursor saved before shrinking cannot crash later output
+ok 289 - VT: restoring a cursor saved before shrinking cannot crash later output
+  ---
+  duration_ms: 1.7941
+  type: 'test'
+  ...
+# Subtest: VT: reset discards pending autowrap and the old saved cursor
+ok 290 - VT: reset discards pending autowrap and the old saved cursor
+  ---
+  duration_ms: 0.1833
+  type: 'test'
+  ...
+# Subtest: VT: clear scrollback resets its cell budget before later scrolling
+ok 291 - VT: clear scrollback resets its cell budget before later scrolling
+  ---
+  duration_ms: 0.3698
+  type: 'test'
+  ...
+# Subtest: VT: unsupported escape forms cannot alias erase, cursor, or color operations
+ok 292 - VT: unsupported escape forms cannot alias erase, cursor, or color operations
+  ---
+  duration_ms: 0.7453
+  type: 'test'
+  ...
+# Subtest: VT: malformed extended colors preserve the preceding valid pen
+ok 293 - VT: malformed extended colors preserve the preceding valid pen
+  ---
+  duration_ms: 0.2585
+  type: 'test'
+  ...
+# Subtest: VT: conceal never draws its glyph under the block cursor
+ok 294 - VT: conceal never draws its glyph under the block cursor
+  ---
+  duration_ms: 0.4191
+  type: 'test'
+  ...
+# Subtest: commands: translation handles supplementary Unicode code points
+ok 295 - commands: translation handles supplementary Unicode code points
+  ---
+  duration_ms: 6.1267
+  type: 'test'
+  ...
+# Subtest: commands: unsupported extra copy/move operands cannot silently mutate files
+ok 296 - commands: unsupported extra copy/move operands cannot silently mutate files
+  ---
+  duration_ms: 0.7851
+  type: 'test'
+  ...
+# Subtest: commands: find matches its root file and reports absent roots
+ok 297 - commands: find matches its root file and reports absent roots
+  ---
+  duration_ms: 1.6385
+  type: 'test'
+  ...
+# Subtest: VT: consecutive escapes restart the control sequence
+ok 298 - VT: consecutive escapes restart the control sequence
+  ---
+  duration_ms: 0.2365
+  type: 'test'
+  ...
+# Subtest: commands: repeated alias definitions have an atomic count and UTF-8 storage bound
+ok 299 - commands: repeated alias definitions have an atomic count and UTF-8 storage bound
+  ---
+  duration_ms: 18.0716
+  type: 'test'
+  ...
+# Subtest: shell poweroff cannot abort another session and lose its in-flight work
+ok 300 - shell poweroff cannot abort another session and lose its in-flight work
+  ---
+  duration_ms: 301.0185
+  type: 'test'
+  ...
+# Subtest: SIGINT during the shell power delay cancels the power operation
+ok 301 - SIGINT during the shell power delay cancels the power operation
+  ---
+  duration_ms: 222.0726
+  type: 'test'
+  ...
+# Subtest: TIFF management digest and commit exclude a command arriving during validation
+ok 302 - TIFF management digest and commit exclude a command arriving during validation
+  ---
+  duration_ms: 240.1207
+  type: 'test'
+  ...
+# Subtest: legal escaped-control content boots, exports and restores above the former 4 MiB cap
+ok 303 - legal escaped-control content boots, exports and restores above the former 4 MiB cap
+  ---
+  duration_ms: 740.3099
+  type: 'test'
+  ...
+# Subtest: real Node worker integration with explicit storage/lock test doubles
+    # Subtest: boot publishes consistent version and protocol
+    ok 1 - boot publishes consistent version and protocol
+      ---
+      duration_ms: 1.282
+      type: 'test'
+      ...
+    # Subtest: binary command input traverses parser and VFS
+    ok 2 - binary command input traverses parser and VFS
+      ---
+      duration_ms: 57.7308
+      type: 'test'
+      ...
+    # Subtest: command registry exposes descriptors
+    ok 3 - command registry exposes descriptors
+      ---
+      duration_ms: 15.827
+      type: 'test'
+      ...
+    # Subtest: all twenty modeled gates execute over transport
+    ok 4 - all twenty modeled gates execute over transport
+      ---
+      duration_ms: 894.573
+      type: 'test'
+      ...
+    # Subtest: byte command persists seven TIFFs and HPU state
+    ok 5 - byte command persists seven TIFFs and HPU state
+      ---
+      duration_ms: 63.9444
+      type: 'test'
+      ...
+    # Subtest: second window is blocked without modifying the volume
+    ok 6 - second window is blocked without modifying the volume
+      ---
+      duration_ms: 104.183
+      type: 'test'
+      ...
+    # Subtest: invalid acknowledgement closes only its session
+    ok 7 - invalid acknowledgement closes only its session
+      ---
+      duration_ms: 85.6047
+      type: 'test'
+      ...
+    # Subtest: legacy control version is rejected without a worker crash
+    ok 8 - legacy control version is rejected without a worker crash
+      ---
+      duration_ms: 25.8851
+      type: 'test'
+      ...
+    # Subtest: wrong sequence closes offending session
+    ok 9 - wrong sequence closes offending session
+      ---
+      duration_ms: 16.3283
+      type: 'test'
+      ...
+    # Subtest: null control record cannot crash worker
+    ok 10 - null control record cannot crash worker
+      ---
+      duration_ms: 40.2084
+      type: 'test'
+      ...
+    # Subtest: invalid restore is rejected without changing storage
+    ok 11 - invalid restore is rejected without changing storage
+      ---
+      duration_ms: 26.8076
+      type: 'test'
+      ...
+    # Subtest: poweroff stays halted and stops sessions
+    ok 12 - poweroff stays halted and stops sessions
+      ---
+      duration_ms: 16.8178
+      type: 'test'
+      ...
+    # Subtest: next boot restores the exact virtual file and XPU lanes
+    ok 13 - next boot restores the exact virtual file and XPU lanes
+      ---
+      duration_ms: 151.6796
+      type: 'test'
+      ...
+    # Subtest: validated restore keeps a previous committed volume
+    ok 14 - validated restore keeps a previous committed volume
+      ---
+      duration_ms: 232.1838
+      type: 'test'
+      ...
+    # Subtest: reboot emits reboot flag instead of silently powercycling
+    ok 15 - reboot emits reboot flag instead of silently powercycling
+      ---
+      duration_ms: 9.1629
+      type: 'test'
+      ...
+    1..15
+ok 304 - real Node worker integration with explicit storage/lock test doubles
+  ---
+  duration_ms: 1886.2709
+  type: 'test'
+  ...
+# Subtest: corrupt volume boot fails closed and raw backup remains available
+ok 305 - corrupt volume boot fails closed and raw backup remains available
+  ---
+  duration_ms: 208.6214
+  type: 'test'
+  ...
+# Subtest: read failure does not initialize over existing storage
+ok 306 - read failure does not initialize over existing storage
+  ---
+  duration_ms: 100.4055
+  type: 'test'
+  ...
+# Subtest: write failure prevents a falsely successful boot
+ok 307 - write failure prevents a falsely successful boot
+  ---
+  duration_ms: 89.5728
+  type: 'test'
+  ...
+# Subtest: RUSSL management RPC in real Node worker with explicit storage/lock doubles
+    # Subtest: capture requires revision token and writes a full f64 TIFF
+    ok 1 - capture requires revision token and writes a full f64 TIFF
+      ---
+      duration_ms: 66.4403
+      type: 'test'
+      ...
+    # Subtest: invalid imports and stale writes leave the staged TIFF unchanged
+    ok 2 - invalid imports and stale writes leave the staged TIFF unchanged
+      ---
+      duration_ms: 32.2057
+      type: 'test'
+      ...
+    # Subtest: edit is staged and explicit apply updates the HPU
+    ok 3 - edit is staged and explicit apply updates the HPU
+      ---
+      duration_ms: 114.9173
+      type: 'test'
+      ...
+    # Subtest: SHA-256 receipt and valid import traverse worker RPC
+    ok 4 - SHA-256 receipt and valid import traverse worker RPC
+      ---
+      duration_ms: 32.8224
+      type: 'test'
+      ...
+    # Subtest: staged TIFF and applied HPU survive a transactional reboot
+    ok 5 - staged TIFF and applied HPU survive a transactional reboot
+      ---
+      duration_ms: 170.9281
+      type: 'test'
+      ...
+    # Subtest: TIFF apply is blocked while a terminal command is running
+    ok 6 - TIFF apply is blocked while a terminal command is running
+      ---
+      duration_ms: 96.3292
+      type: 'test'
+      ...
+    1..6
+ok 308 - RUSSL management RPC in real Node worker with explicit storage/lock doubles
+  ---
+  duration_ms: 603.705
+  type: 'test'
+  ...
+1..308
+# tests 377
+# suites 0
+# pass 373
+# fail 1
+# cancelled 0
+# skipped 3
+# todo 0
+# duration_ms 67736.1537

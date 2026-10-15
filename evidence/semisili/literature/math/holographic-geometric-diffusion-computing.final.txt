@@ -1,0 +1,660 @@
+--- PAGE 1 ---
+Processable Holographic Computation:
+Simulating Geometric Diffusion through
+MHz-Rate Optical Field RAM-Sampling
+and Dynamic Pixel Relocation
+The paradigm of optical computing has historically been constrained by a persistent dichotomy
+between passive data storage—such as high-density holographic memory—and active, yet
+structurally rigid, matrix-vector multiplication architectures. A groundbreaking evolution in this
+domain is the emergence of the "processable hologram." This framework redefines the optical
+field not merely as a repository of static volumetric data, but as an active, massively parallel,
+and continuously evolving computational medium. This architectural leap represents a
+fundamental departure from classical von Neumann computational constraints, instead utilizing
+the physical properties of wave optics to compute solutions through the physical simulation of
+continuous geometric diffusion.
+The fundamental ethos of the processable hologram relies on abandoning the sequential,
+pipeline-driven processing characteristic of traditional digital logic. Instead, the system is
+designed to project all computational possibilities and all information-bearing pixels
+simultaneously. By representing the entire computational field in a single coherent state, the
+system evaluates all localized interactions in parallel through free-space diffraction and optical
+interference. Operating at an optimal Megahertz (MHz) refresh rate, this optical state space
+evolves rapidly. The computational loop is actively closed by RAM-sampling the resulting
+optical field and feeding the digitized optical state into a low-latency C# software harness.
+During this RAM-sampling phase, the software harness analyzes the optical readout, identifies
+specific information-bearing pixels, and dynamically relocates them across the spatial light
+modulator (SLM) array. This relocation ensures that the pixels project their phase and amplitude
+information from a different physical origin point, effectively mapping them to a different
+location within the simulated numerical space or topological shape that the hologram
+represents. The subsequent re-projection and re-sampling of these altered fields allow the
+system to simulate highly complex phenomena. Principally, this iterative relocation and
+projection cycle represents computation via geometric diffusion, where the relocation of
+information naturally follows the gradients of differential equations operating on arbitrary,
+evolving manifolds.
+This report provides an exhaustive, multi-disciplinary analysis of the theoretical physics,
+mathematical models, optoelectronic hardware, and software engineering mechanisms that
+govern the five-stage processable holographic compute cycle.
+1. The Ethos of Parallel State Representation
+The initial stage of the processable holographic cycle demands the simultaneous
+representation of the complete computational field. In classical digital systems, variables are
+
+--- PAGE 2 ---
+processed through discrete logic gates in a serialized pipeline, meaning that large state spaces
+must be explored iteratively or through highly energy-intensive cluster parallelism. In contrast,
+the processable hologram projects the complete field—comprising both the established data
+points (information-bearing pixels) and the untraversed solution space (encoded
+possibilities)—as a single complex amplitude distribution.
+1.1 Volumetric Encoding and the Superposition of Possibilities
+In volume holography, information is exclusively encoded within the spatial structure of optical
+fields
+1
+. While traditional volume holography focuses on ultra-high-density archival
+storage—approaching theoretical limits of petabits per cubic centimeter by multiplexing
+volume holograms with two-photon spectral hole-burning in specialized crystals
+1—the
+processable hologram utilizes this massive density for active, simultaneous computation.
+When a coherent light source illuminates a highly multiplexed Spatial Light Modulator (SLM), the
+resulting optical wavefront acts as a physical superposition of all possible computational states.
+Every pixel acts as an independent neuron or computational node, transmitting
+continuous-variable information via its phase and amplitude. As the light propagates through
+free space, these nodes interact with one another at the speed of light. The interference
+pattern generated at the focal plane or sampling plane represents a global evaluation of all
+localized interactions simultaneously.
+By representing the entire field together, the system projects every "possibility" as a distinct
+spatial frequency or phase modulation. The computation relies on how these possibilities
+constructively or destructively interfere, effectively executing a physical Fourier transform or a
+diffractive neural network forward pass in zero elapsed time, limited exclusively by the
+picosecond-scale time-of-flight of the photons
+2
+. The encoding of these possibilities relies on
+the precise calibration of the SLM, ensuring that the phase retardation introduced at each pixel
+accurately maps to the desired initial conditions of the simulated numerical space.
+1.2 Hardware Constraints: The Necessity of MHz-Rate Modulation
+To evolve this field dynamically, the system requires a mechanism to alter the spatial
+distribution of light at rates that can outpace or match high-speed electronic feedback loops.
+Conventional liquid-crystal-on-silicon (LCoS) SLMs suffer from intrinsically slow modulation
+mechanisms. Due to the physical relaxation times of nematic liquid crystal molecules and the
+limitations of electrical addressing circuits, traditional LCoS devices are typically capped at
+refresh rates between 60 Hz and a few kilohertz
+3
+. While Digital Micromirror Devices (DMDs)
+based on microelectromechanical systems (MEMS) offer faster mechanical actuation in the
+tens of kilohertz, they are generally limited to binary amplitude or binary phase modulation,
+which is insufficient for the continuous-variable mathematics required in geometric diffusion
+3
+.
+To achieve the optimal MHz operating rate required for continuous geometric diffusion
+simulation, the processable hologram must utilize advanced electro-optic materials governed
+by the Pockels effect. Materials such as barium titanate ( or BTO) exhibit massive
+electro-optic coefficients (e.g., ) and feature ultrafast response times in
+the sub-picosecond range
+6
+.
+
+--- PAGE 3 ---
+When BTO is embedded within a two-dimensional array of vertically oriented, one-sided
+microcavities (acting as Fabry-Perot resonators formed by Distributed Bragg Reflectors), an
+applied electric field shifts the refractive index of the BTO via the linear Pockels effect. This
+index shift detunes the resonant frequency of the microcavity, yielding a complete to
+phase shift in the reflected wavefront under CMOS-compatible voltages (typically less than
+10V)
+6
+.
+Because the Pockels effect relies on the displacement of electron clouds rather than the
+physical reorientation of molecules, these BTO-based phase-only SLMs can be driven at
+frequencies extending from the MHz regime up to 65 GHz
+6
+. In the context of the processable
+hologram, operating at an "optimal MHz rate" is a critical architectural choice. While the optical
+hardware can push into the multi-GHz regime, the MHz rate represents the optimal
+harmonization point between the physical evolution of the SLM and the electronic
+RAM-sampling latency required for the C# software harness to perform logical pixel
+relocations without dropping frames or inducing system desynchronization.
+SLM Technology Primary
+Modulation
+Mechanism
+Typical Refresh
+Rate Limit
+Suitability for
+Processable
+Holography
+Nematic LCoS Liquid crystal
+molecular rotation
+60 Hz - 1 kHz Low. Phase
+transition is too
+slow for real-time
+iterative diffusion
+loops
+3
+.
+Digital
+Micromirror
+(DMD)
+Mechanical tilting
+of micro-mirrors
+20 kHz - 50 kHz Moderate. Fast, but
+fundamentally
+limited to binary
+amplitude/phase
+modulation
+3
+.
+BTO Microcavity
+(Electro-Optic)
+Pockels effect
+(refractive index
+shift)
+10 MHz - 65 GHz High. Supports
+continuous MHz
+evolution with full
+to continuous
+phase modulation
+6
+.
+Phase-Change
+Materials (PCM)
+Reversible
+crystalline/amorpho
+us shifts
+~1 GHz High. Non-volatile
+nature reduces
+static energy
+
+--- PAGE 4 ---
+consumption
+significantly
+2
+.
+2. Evolving the Field via Free-Space Optical Operators
+Once the complete field is represented on the MHz-capable SLM, the second phase of the
+compute cycle involves the evolution of that field. This evolution is not computed
+algorithmically by a processor; rather, it occurs physically as the optical wavefront propagates
+through free space. The physics of optical diffraction act as the core computational engine,
+processing the highly parallel encoded possibilities.
+2.1 The Mathematics of the Angular Spectrum Method
+To accurately utilize free-space propagation as a computational operator, the physical
+transition of the wave must be modeled precisely. The most robust physical optics framework
+for this is the Angular Spectrum Method (ASM), which yields an exact solution to the
+homogeneous Helmholtz equation without relying on paraxial approximations (such as those
+found in Fresnel or Fraunhofer diffraction models)
+7
+.
+In the ASM framework, the complex optical field at the source plane (the SLM), denoted as
+, is decomposed into a superposition of infinite plane waves via a
+two-dimensional Fourier transform:
+where and represent the spatial frequencies corresponding to the directional cosines
+of the propagating waves
+8
+.
+Each decomposed plane wave is then propagated over a physical distance by applying a
+phase shift , where the axial wave number is given by and
+8
+. The evolved computational field at the sampling plane is subsequently recovered
+via an inverse Fourier transform:
+For the processable hologram, the ASM precisely dictates how the encoded possibilities
+
+--- PAGE 5 ---
+interfere to form a cohesive data structure at the destination plane. However, simulating
+arbitrary numerical shapes and spaces often requires shifting the optical data off-axis or
+modeling thick computational elements. Standard ASM suffers from strict Nyquist sampling
+limitations when the propagation angles become steep or when the destination plane is
+laterally shifted
+7
+.
+To counter this, advanced numerical propagators such as the Shifted Angular Spectrum
+Method (Shift-BEASM) or the Geometry-Aware Phase-Compensated ASM (GAPC-ASM) are
+mathematically simulated in the hardware alignment
+9
+. By utilizing shifted band-extended
+algorithms, the system can compute free-space diffraction between two parallel planes with
+an off-axis offset, effectively extending the bandwidth using a nonuniform fast Fourier
+transform9
+. This physical propagation computes the continuous interaction of all pixels,
+evaluating the global state of the simulated numerical space in the time it takes light to traverse
+the physical cavity.
+2.2 Optical Diffractive Neural Networks and Time-Lens
+Implementations
+The physical evolution of the field closely mirrors the architecture of Recurrent Diffractive Deep
+Neural Networks (RD2NNs) and time-lens optical neural networks (TL-ONNs)
+11
+. In an RD2NN,
+the spatially modulated signals are treated recursively in a loop, utilizing beam splitters to feed a
+portion of the evolved output back into the input SLM11
+. The processable hologram expands
+upon this by utilizing the MHz refresh rate of the SLM to multiplex the images in the
+time/frequency domain
+11
+.
+Similarly, time-lens algorithms employ second-order phase modulations in the time domain,
+transmitted through dispersive optical fibers, where temporal points act as neurons
+12
+. The
+processable hologram combines spatial diffraction and temporal multiplexing, allowing the field
+to evolve at the chosen numerical operating rate. The physical diffraction calculates the
+forward pass, effectively functioning as an ultra-high-speed analog processor where the matrix
+multiplications are performed at the speed of light, avoiding the severe latency typical of digital
+electronic MAC (Multiply-Accumulate) operations
+13
+.
+3. RAM-Sampling the Resident Field
+The processable hologram is fundamentally distinct from a static optical projector because its
+output is continuously monitored, digitized, and reintegrated into the compute cycle. This third
+step is achieved through high-speed RAM-sampling, wherein the optically evolved field is
+captured, digitized, and held in an electronic memory buffer to aid the performance of
+subsequent computations.
+3.1 Photonic Detection and Conversion Constraints
+To read information and identify which pixels require relocation, the continuous-wave optical
+field must be discretized by high-speed photodetector arrays coupled with Analog-to-Digital
+Converters (ADCs). In high-bandwidth photonic computing, the readout latency represents the
+primary bottleneck. The lowest achievable electronic latency is realized via Flash ADCs, which
+feature an estimated delay of approximately 80 picoseconds for their dynamic comparators
+
+--- PAGE 6 ---
+and 30 picoseconds for their encoding gates
+13
+.
+This physical limitation bounds strictly latency-dependent photonic feedback networks to
+operating speeds of approximately 10 Giga-Samples per second (GS/s)
+13
+. However, because
+the processable hologram operates optimally in the MHz regime to sync with the software
+harness, the ADCs are operating well within their maximum theoretical bandwidth. High-speed
+photodetectors capable of 32 Gb/s and ADCs capable of 32 GSPS are commercially mature
+technologies, ensuring that the inversion rate and sampling rate of the optical field are not
+limiting factors
+14
+.
+To sample at the target MHz regime effectively without dropping data, the optical field is
+focused onto the sensor arrays. Experimental photonic RAM architectures, which leverage
+phase-change materials (PCM) like GST alloys or ultra-low power nanocavities, allow for
+integrated optical buffers where the read speed is dictated merely by the photon's
+time-of-flight
+2
+. Nevertheless, to interact with the computational logic of the C# harness, this
+photonic data must cross into the electronic domain.
+3.2 Bypassing CPU Overhead with PCIe and DMA
+The RAM-sampling process converts the optical interference pattern—which represents the
+physically solved state of the current geometrical diffusion step—into an electronic numerical
+matrix. For the system to maintain its MHz operating rate, it cannot rely on traditional
+CPU-mediated data transfers. Standard interrupt-driven I/O protocols introduce substantial
+latency and jitter, which would instantly desynchronize the SLM projection from the software
+state.
+Instead, the hardware utilizes Direct Memory Access (DMA) over a high-bandwidth Peripheral
+Component Interconnect Express (PCIe) bus. A PCIe frame grabber or custom optical readout
+board equipped with a DMA controller handles the data transfer from the ADC directly into the
+system's physical RAM16
+. The DMA controller bypasses the Central Processing Unit entirely,
+executing zero-copy memory writes into pre-allocated memory buffers
+18
+.
+This architecture guarantees that the resident field is sampled and digitized with deterministic,
+microsecond-level latency. The resulting data structure in the RAM provides the C# software
+harness with a real-time, high-fidelity snapshot of the encoded possibilities and their
+interference patterns, ready for algorithmic evaluation.
+4. Pixel Relocation via the C# Harness
+With the optical field successfully RAM-sampled, the computation transitions from the
+continuous physical domain into the discrete software domain. The core objective of the C#
+harness in step four is to read the sampled information, evaluate it against the target
+computational state, and determine which specific pixels require relocation. The harness then
+alters the SLM coordinates of these pixels so they project their information from a different
+spatial location in the subsequent cycle.
+4.1 Unmanaged Memory and Real-Time C# Constraints
+C# is traditionally a managed, object-oriented language utilizing an automatic Garbage
+Collector (GC) to handle memory allocation and deallocation
+16
+. In high-performance, real-time
+control systems—such as an optical feedback loop operating at MHz rates—standard C#
+
+--- PAGE 7 ---
+memory management is theoretically catastrophic. The GC introduces non-deterministic
+pauses (often lasting several milliseconds) that would severely stall the computational pipeline,
+causing the SLM to idle or project stale frames.
+To circumvent the limitations of the managed environment, the software harness relies heavily
+on the unsafe code context within C# and utilizes Platform Invocation Services (P/Invoke).
+When the DMA controller writes the optical matrix into physical RAM, it deposits the data into
+pinned, unmanaged memory buffers
+16
+. By operating in an unsafe block, the C# application can
+utilize raw C-style pointers to directly access these memory addresses
+22
+.
+This approach completely bypasses the .NET Garbage Collector, allowing the harness to iterate
+over the massive pixel arrays in real-time. Modern SDKs designed for spatial light modulators,
+such as those integrated via the Bonsai API or specialized PCIe controllers, natively support
+these low-level memory operations, achieving processing times of less than 10 milliseconds
+even for complex per-pixel exposure control
+23
+.
+4.2 The Logic of Spatial Relocation
+The act of identifying which pixels to move around is the logical crucible of the processable
+hologram. In this paradigm, the pixels are not static image elements; they are active vectors of
+information carrying amplitude, phase, and physical coordinates.
+When the C# harness reads the unmanaged DMA buffer, it evaluates the local intensities and
+phase gradients of the sampled optical field. An algorithmic filter—such as a gradient descent
+solver or a topological clustering algorithm—identifies pixels that represent converged
+computational solutions, or conversely, those trapped in sub-optimal local minima.
+Once identified, the C# harness calculates new coordinates for these pixels based on the
+topological rules of whatever space or shape the hologram is simulating numerically. By issuing
+commands to the SLM SDK, the harness physically alters the origin point of that specific plane
+wave on the BTO microcavity array.
+This relocation fundamentally alters how that pixel's information will diffract and interfere in the
+next cycle. By moving a pixel to a new location on the SLM, its angular spectrum contribution is
+shifted
+9
+. If the hologram is simulating a specific numerical shape—such as a fluid dynamic
+containment field, an encrypted manifold, or a high-dimensional neural network parameter
+space—relocating the pixels effectively molds the boundaries and interior metrics of that
+shape
+9
+.
+A vital third-order insight reveals that this C# relocation acts as a mechanism for non-local
+topological interaction. While physical wave propagation is strictly local and bound by
+continuous free-space metrics, the software harness can instantaneously "teleport" a pixel
+from one side of the simulated numerical space to the other. This allows the computational
+system to bridge disjointed manifolds, escape thermodynamic equilibrium states rapidly, and
+inject macroscopic boundary changes that would be impossible in strictly continuous physical
+systems.
+5. Computation via Geometric Diffusion
+The culminating step of the cycle requires sampling the changed field again, allowing those
+relocations to influence subsequent computations. As explicitly established, this iterative loop
+
+--- PAGE 8 ---
+of projecting, evolving, sampling, and relocating represents computation via geometric
+diffusion. To rigorously unpack this, we must examine the mathematics of differential geometry
+and how dynamic pixel relocation serves as an exact numerical analog for geometric partial
+differential equations (PDEs).
+5.1 The Laplace-Beltrami Operator and Heat Kernels
+In both physics and computational mathematics, diffusion is defined as a process that
+equilibrates spatial variations in concentration, intensity, or information
+26
+. In a flat Euclidean
+space, isotropic diffusion is governed by the standard heat equation . However,
+when computation requires optimizing over complex, non-Euclidean data structures (such as a
+simulated 3D numerical shape or a curved topological manifold), the diffusion must be
+geometric.
+On a smooth surface or manifold , the equivalent of the Euclidean Laplacian is the
+Laplace-Beltrami operator,
+26
+. Geometric diffusion is formally described by the nonlinear
+parabolic PDE:
+where is the information density (or pixel intensity) at point and time
+27
+.
+The solution to this diffusion equation is governed by the heat kernel, , which
+represents the amount of information (or heat) transferred from point to point over time
+27
+. On a spherical manifold , for example, the heat kernel can be explicitly characterized
+using spherical harmonics and Gegenbauer polynomials:
+where is the diffusion constant and represents the Gegenbauer polynomial
+28
+.
+In the processable hologram, the free-space diffraction of light inherently and physically
+mimics this diffusion process. As light propagates, the Angular Spectrum spreads the spatial
+frequencies, acting as a physical smoothing operator perfectly analogous to the application of
+a heat kernel or a Gaussian filter on a Riemannian manifold
+26
+. The optical step physically
+
+--- PAGE 9 ---
+computes the forward pass of the Laplace-Beltrami operator instantly.
+5.2 Pixel Relocation as Mean Curvature Flow
+While the optical propagation calculates the raw diffusion of the field, the C# harness pixel
+relocation acts as the dynamic evolution of the manifold's geometry itself.
+In advanced surface processing and computer graphics, geometric diffusion is intimately linked
+to Mean Curvature Motion (MCM) or curvature flow. From differential geometry, the mean
+curvature vector equals the Laplace-Beltrami operator applied to the surface identity
+coordinates :
+where is the mean curvature (the sum of principal curvatures) and is the surface
+normal
+26
+.
+When the C# harness samples the optical field, it essentially evaluates the current curvature
+and gradient of the information concentration across the resident field. By deciding to relocate
+a pixel, the harness performs a discrete integration step of the geometric diffusion equation. It
+actively moves the data point along the gradient of the surface, simulating higher-order
+geometric flows such as the surface diffusion flow:
+where the normal velocity of the surface evolution is driven by the Laplacian of the mean
+curvature
+31
+.
+By altering the pixel's coordinate on the SLM, the software effectively alters the metric tensor
+and the resulting shape operator of the simulated numerical space
+26
+. The subsequent
+optical projection (Step 5) diffuses light according to this newly deformed manifold geometry.
+5.3 Overcoming Geometry-Physics Confounding
+A prominent failure mechanism when attempting to solve PDE dynamics across varying or
+evolving domains using standard neural operators is "geometry-physics confounding"
+33
+. When
+a PDE is expressed on a changing geometry, the geometric variations alter the governing
+differential operators. Isotropic physical diffusion on a curved surface can appear through
+spatially varying and anisotropic coefficients, making it highly difficult for a classical digital
+system to implicitly infer the physics from the geometry
+33
+.
+To solve a PDE like a reaction-diffusion equation on a changing
+
+--- PAGE 10 ---
+domain , classical methods must define a complex mapping and pull back
+the fields to a reference domain using the geometric diffusion factor
+33
+.
+The processable hologram gracefully bypasses this confounding. The geometry is intrinsically
+encoded in the spatial layout of the SLM pixels via the C# harness, and the physics (diffusion) is
+evaluated optically via actual wave mechanics (Helmholtz equation). The C# harness does not
+need to compute complex Jacobian matrix transformations ( ) to pull back the physics to a
+reference domain. Instead, by merely relocating the pixels, the harness dynamically
+reconfigures the physical geometry. The optical physics naturally computes the updated PDE
+state over the new geometry at the speed of light, ensuring precise, unconfounded calculation
+of the geometric diffusion.
+Processing
+Stage
+Domain Hardware /
+Software
+Primary
+Mechanism
+Mathematical
+Equivalent
+1.
+Representatio
+n
+Optical BTO SLM Pockels Effect Initialization of
+on
+manifold
+[cite: 6, 27]
+2. Evolution Optical Free Space Wave
+Diffraction
+(ASM)
+Heat Kernel
+application
+[cite: 7, 8]
+3.
+RAM-Samplin
+g
+Electronic Photodiode,
+ADC, PCIe
+Direct Memory
+Access (DMA)
+Digitization of
+field
+[cite: 13, 18]
+4. Relocation Software C# unsafe API Pixel
+coordinate
+shifting
+Mean
+Curvature Flow
+mapping
+[cite: 22, 26]
+5.
+Re-Sampling
+Hybrid SLM to
+Detector
+Feedback
+Loop
+Iterative PDE
+time-stepping
+3
+
+--- PAGE 11 ---
+1
+6. Systemic Implications and Broader Applications
+The integration of the five-step processable hologram cycle establishes a computational
+architecture that transcends traditional bounds. By framing computation as a geometric
+diffusion problem solved via the physical manipulation of light, several groundbreaking
+applications and systemic implications emerge.
+6.1 Optoelectronic Neuromorphic Accelerators
+Current optical computing systems, such as diffractive optical neural networks, generally
+feature fixed diffractive layers or rely on slow LCoS updates, rendering time-multiplexed
+recurrent architectures difficult to scale and adapt in real-time
+5
+. By incorporating MHz-rate
+BTO SLMs and the C# DMA feedback loop, the processable hologram functions as an
+ultra-high-speed optoelectronic recurrent neural network. The pixel relocations can be used to
+dynamically re-route optical weights and biases. When a pixel is relocated, its diffraction
+pattern interacts with different neighboring pixels, effectively re-wiring the neural network's
+topology on the fly based on the sampled gradient of the loss landscape.
+6.2 Bypassing the Von Neumann Bottleneck
+In conventional high-performance computing, the Von Neumann bottleneck restricts
+theoretical performance limits due to the limited data throughput between the CPU and the
+system RAM. The processor spends excessive clock cycles waiting for data fetches. The
+processable hologram bypasses this by utilizing the free-space optical cavity as both the
+processor and the volatile memory. The massive parallel calculation (the diffusion) occurs
+photonically. The electronic DMA-to-C# harness is only invoked for topological updates (pixel
+relocation). This drastically reduces electronic power consumption while providing processing
+speeds capped only by the temporal resolution of the optical-to-electronic conversion
+components
+5
+.
+6.3 Advanced Surface Processing and Encryption
+Because the system inherently calculates the Laplace-Beltrami operator, it is highly optimized
+for surface fairing, noise removal, and texture processing on 3D meshes
+26
+. Anisotropic
+geometric diffusion, which modifies the diffusion coefficient at geometric edges to preserve
+sharp features while smoothing planar regions, can be simulated effortlessly by programming
+the C# harness to restrict pixel relocation near high-intensity gradients
+26
+.
+Furthermore, random phase encoding in volume holographic storage is a unique technique for
+image encryption
+36
+. The dynamic relocation of pixels by the C# harness can serve as a
+continuously evolving cryptographic key. Because the interference pattern relies on the exact
+sub-wavelength position of millions of pixels, intercepting the RAM-sampled readout is useless
+without the real-time C# relocation algorithm that defines the topological geometry of the
+next cycle.
+7. Conclusion
+The processable hologram represents a sophisticated, multi-disciplinary synthesis of wave
+
+--- PAGE 12 ---
+optics, advanced materials science, high-speed electronic engineering, and differential
+geometry. By rejecting the static nature of classical holography, this paradigm embraces the
+optical field as an active, massively parallel compute space.
+Through the continuous projection of all encoded possibilities and information-bearing pixels,
+the system harnesses the deterministic, speed-of-light propagation of waves—governed by
+the Angular Spectrum Method—to naturally execute complex geometric diffusion operations.
+The integration of MHz-rate electro-optic SLMs, driven by the Pockels effect in barium titanate
+microcavities, ensures that this optical evolution occurs at a pace relevant for real-time,
+iterative computation.
+Crucially, it is the integration of the C# software harness via low-latency RAM-sampling and
+PCIe DMA that elevates this system from a simple optical calculator to a dynamic,
+topology-altering computational engine. By algorithmically identifying and relocating
+information-bearing pixels using unsafe unmanaged memory environments, the software
+actively molds the simulated numerical space. This relocation mimics the evolution of manifolds
+via Mean Curvature Flow and the Laplace-Beltrami operator, allowing the system to solve
+highly complex Partial Differential Equations on changing domains effortlessly, completely
+avoiding geometry-physics confounding.
+In essence, the ethos of the processable hologram is the absolute unification of physical optics
+and digital topology. It utilizes the C# software harness to dynamically shape the geometry,
+and relies on the physical diffraction of light to compute the diffusion. This iterative, non-local
+feedback loop opens a promising and highly scalable frontier for optoelectronic computing,
+establishing a robust foundation for the next generation of predictive PDE modeling,
+neuromorphic processing, and complex topological simulation.
+Works cited
+1. (PDF) ULTRAHIGH DENSITY OPTICAL DATA STORAGE,
+https://www.researchgate.net/publication/237239014_ULTRAHIGH_DENSITY_OPTI
+CAL_DATA_STORAGE
+2. Prospects and applications of photonic neural networks,
+https://www.queensu.ca/physics/shastrilab/sites/shastwww/files/uploaded_files/p
+ublications/journals/69_Huang_APX_prospects_2022.pdf
+3. What is a Spatial Light Modulator (SLM)? - GoPhotonics.com,
+https://www.gophotonics.com/community/what-is-a-spatial-light-modulator-slm
+4. Thorlabs · Spatial Light Modulators,
+https://www.thorlabs.com/spatial-light-modulators
+5. Free-space Optical Computing Systems, https://d-nb.info/1360967540/34
+6. High-Speed Phase-Only Spatial Light Modulators with Two,
+https://ntt-research.com/wp-content/uploads/2022/08/High-Speed-Phase-Only￾Spatial-Light-Modulators-with-Two-Dimensional-Tunable-Microcavity-Arrays.pdf
+7. Scalable angular spectrum propagation - Optica Publishing Group,
+https://opg.optica.org/abstract.cfm?uri=optica-10-11-1407
+8. 6.3: Angular Spectrum Method - Physics LibreTexts,
+https://phys.libretexts.org/Bookshelves/Optics/BSc_Optics_(Konijnenberg_Adam_
+
+--- PAGE 13 ---
+and_Urbach)/06%3A_Scalar_diffraction_optics/6.04%3A_Angular_Spectrum_Met
+hod
+9. Shifted angular spectrum method for off-axis numerical propagation.,
+https://www.semanticscholar.org/paper/Shifted-angular-spectrum-method-for-o
+ff-axis-Matsushima/69cd7f5613360b8c9c0a7b4cbb8a170d3aff2bee
+10. Geometry-aware phase compensation for sampling-efficient angular,
+https://opg.optica.org/oe/fulltext.cfm?uri=oe-34-8-15244
+11. Recurrent diffractive deep neural networks - Optica Publishing Group,
+https://opg.optica.org/oe/abstract.cfm?uri=oe-32-27-48093
+12. Optical Machine Learning Using Time-Lens Deep Neural NetWorks,
+https://www.mdpi.com/2304-6732/8/3/78
+13. Full article: Prospects and applications of photonic neural networks,
+https://www.tandfonline.com/doi/full/10.1080/23746149.2021.1981155
+14. Iterative photonic processor for fast complex-valued matrix inversion,
+https://opg.optica.org/prj/upcoming_pdf.cfm?id=468097
+15. Towards integrated magneto-photonic devices for all-optical reading,
+https://research.tue.nl/files/226578264/20221201_Demirer_hf.pdf
+16. GitHub - openoct/OCTSharp: Open Source C# Software for OCT,
+https://github.com/OCTSharpImaging/OCTSharp
+17. Coaxlink Octo - Allied Vision,
+https://www.alliedvision.com/en/products/frame-grabbers/coaxlink-octo
+18. Understanding Frame Grabbers in Vision Systems - Active Silicon,
+https://www.activesilicon.com/wp-content/uploads/ActiveSilicon-White-Paper-Un
+derstanding-Frame-Grabbers-in-Vision-Systems.pdf
+19. Interpol review of digital evidence for 2019–2022 - PMC,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10311174/
+20. Communications of the ACM - February 2020,
+https://redes.fi-b.unam.mx/fi_acm/2020/communications202002-dl.pdf
+21. OCTSharp: an open-source and real-time OCT imaging software,
+https://www.researchgate.net/publication/374987580_OCTSharp_An_Open-Sour
+ce_and_Real-time_OCT_Imaging_Software_Based_on_C
+22. Applications Handbook - United Electronic Industries,
+https://www.ueidaq.com/uploads/applications-handbook-12-13.pdf
+23. HSP1K: High-Speed Spatial Light Modulator - AVR Optics,
+https://www.avr-optics.com/catalog/spatial_light_modulators___scanning_system
+s/xy_slm/hsp1k
+24. A closed-loop, all-electronic pixel-wise adaptive imaging system for,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9957502/
+25. Spatial Light Modulator Software | Products | Santec AOC,
+https://aoc.santec.com/en/products/slm/software/
+26. Anisotropic Geometric Diffusion in Surface Processing,
+https://www.cs.jhu.edu/~misha/ReadingSeminar/Papers/Clarenz00.pdf
+27. Scale-Space Representation of Scalar Functions on 2D Manifolds,
+http://perception.inrialpes.fr/Publications/2011/ZBH11a/Spectral-Scalespace.pdf
+28. A Parameterization-Based Numerical Method for Isotropic and,
+
+--- PAGE 14 ---
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2773135/
+29. Spectral geometry of shapes,
+https://ucsp.edu.pe/sibgrapi2013/eproceedings/tutorials/T4-handouts.pdf
+30. Spherical Geometry Diffusion - Emergent Mind,
+https://www.emergentmind.com/topics/spherical-geometry-diffusion
+31. Discrete Surface Modelling Using Partial Differential Equations - PMC,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2760856/
+32. A Parameterization-based Numerical Method for Isotropic and,
+https://sipi.usc.edu/~ajoshi/ajoshi_tip_09_paper.pdf
+33. (PDF) Geometry-physics confounding impairs PDE learning across,
+https://www.researchgate.net/publication/415149922_Geometry-physics_confoun
+ding_impairs_PDE_learning_across_varying_domains
+34. Geometry–physics confounding impairs PDE learning across ... - arXiv,
+https://arxiv.org/html/2609.38623v1
+35. Direct electromagnetic information processing with planar diffractive,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11259158/
+36. holographic surveillance system: Topics by Science.gov,
+https://www.science.gov/topicpages/h/holographic+surveillance+system
+37. Michelson Interferometric Optical Complex Convolution ... - ProQuest,
+https://search.proquest.com/openview/25c93853de5c3e7532ed66e88f854680/1?
+pq-origsite=gscholar&cbl=18750&diss=y

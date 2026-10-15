@@ -1,0 +1,1101 @@
+{
+  "count": 219,
+  "errors": [],
+  "results": [
+    {
+      "path": ".vercel/output/functions/__server.func/_chunks/ssr-renderer.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/@tanstack/router-core+[...].mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/h3+rou3+srvx.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/h3-v2+rou3.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/lucide-react.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/tanstack__history.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/zod.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_runtime.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/empty-plugin-adapters-D9UWiqvJ.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/router-DtsPeCIW.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/routes-CcjgZtaB.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/ssr.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/start-5Z2QO8AU.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_tanstack-start-manifest_v-CGH5VLR1.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/index.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/static/assets/index-DoYQe0V_.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/static/assets/ram-worker-Brxi6haJ.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": ".vercel/output/static/assets/routes-CSig35Hj.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/scripts/build-playground.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/scripts/smoke-byte-pipeline.cjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/scripts/smoke-code-revision.cjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/scripts/smoke-fabrication.cjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/byte-pipeline.d.mts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/byte-pipeline.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/byte-pipeline.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/code-project-program.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/code-project-program.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/code-task-agents.d.mts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/code-task-agents.integration.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/code-task-agents.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip!/CartwheelBytePipeline-3.0.0/payload/apps/cartwheel/src/lib/code-task-agents.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/JA21-Blank-Console-main.zip!/JA21-Blank-Console-main/substrate/Technical_Institute/app/assets/data.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/JA21-Blank-Console-main.zip!/JA21-Blank-Console-main/substrate/Technical_Institute/app/assets/site.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/JA21-Blank-Console-main.zip!/JA21-Blank-Console-main/substrate/ui/app.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/JA21-Blank-Console-main.zip!/JA21-Blank-Console-main/substrate/ui/generated_state.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/tickets.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/ws.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/worker-link.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/connection.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/log.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/auth.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/server.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/config.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/gateway/origin.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/preload.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/renderer/renderer.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/renderer/vt/screen.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/renderer/vt/parser.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/renderer/vt/renderer-canvas.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/nav-policy.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/kernel.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/dfabric/runner.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/dfabric/locator.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/dfabric/policy.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/vfs.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/env.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/pipeline.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/line-reader.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/photon/client.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/photon/workflow.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/util.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/browser.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/coreutils.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/dfabric.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/system.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/index.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/fs.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/commands/photon.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/spiral/registry.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/ipc-guard.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/browser-pane.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/browser-adapter.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/src/main/main.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/protocol/bridge.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/protocol/codec.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/worker/fabric-lease.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/worker/core.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/worker/capabilities.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/worker/thread.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/worker/output-gate.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/worker/host.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/scripts/syntax-check.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/ui/browser.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/ui/client-units.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/gateway/e2e.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/gateway/config.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/gateway/ws-conformance.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/desktop-ipc/guard.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/chaos/review-fixes.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/chaos/lifecycle.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/load/bench.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/load/experiment.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/fabric/lease.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/fabric/fabric-ws.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/protocol/codec.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/protocol/bridge.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/worker/kernel.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/baseline/source_probe.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/vt/vt.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/helpers.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/security/authz.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/ram/v2-e2e.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/ram/descriptor.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tests/ram/ledger.test.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tools/verify.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tools/start-local.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/tools/mkprincipal.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/client/transport.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/client/ws-adapter.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/client/accessibility.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/client/ipc-adapter.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/client/boot.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/vendor/browser/index.example.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/ram/traffic.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/ram/residency.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/ram/descriptor.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/ram/allowance.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip!/ram/ledger.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "eslint.config.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/app-env-plugin.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/brand-check.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/brand-check.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/browser-guard.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/browser-smoke-verdict.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/browser-smoke-verdict.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/browser-smoke.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/check-auth-invariant.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/check-auth-invariant.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/grok-pwa-plugin.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/grok-pwa-plugin.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/grok-pwa-shared.d.mts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/grok-pwa-shared.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/migrate.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/migration-plan.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/migration-plan.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/preview-thumbnail.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/preview.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/preview.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/sign-out-plan.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/sign-out-plan.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/with-app-env.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/with-app-env.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/write-atomic.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "scripts/write-atomic.test.mjs",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "server/middleware/grok-pwa.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "server/virtual-grok-og-identity.d.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/components/console/Ja21Console.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/components/preview-host-bridge.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/app-data.test.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/client.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/errors.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/index.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/login.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/readiness-schedule.test.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/readiness-schedule.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/readiness.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/server-only.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/types.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/app-data/use-connector-readiness.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/client.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/email-password.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/gate-identity.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/gate-identity.test.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/gate-session-marker.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/gate-session.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/gates.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/isolation.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/middleware.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/pglite-dialect.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/popup.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/preview.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/provider.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/providers.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/sign-in-gate.test.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/sign-in-gate.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/use-current-user.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/auth/verify.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/db.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/env.server.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/error-component.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/multiplayer/index.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/multiplayer/p2p.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/preview-embedder-origin.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/preview-host-bridge.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/preview-path-prefix.test.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/preview-path-prefix.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/lib/ram-link.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/routeTree.gen.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/router.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/routes/index.tsx",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/events.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/ram-worker.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/buffer.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/byte-tables.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/chip-harness.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/browser.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/coreutils.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/fs.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/hpu.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/index.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/ram.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/system.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/commands/util.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/env.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/hpu.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/kernel.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/line-reader.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/pipeline.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/registry.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/ssd.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/spiral/vfs.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/vt/parser.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/vt/renderer-canvas.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/vt/screen.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "src/vendor/vws/frame.js",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    },
+    {
+      "path": "vite.config.ts",
+      "parser": "TypeScript 5.8.3",
+      "syntaxErrors": []
+    }
+  ]
+}

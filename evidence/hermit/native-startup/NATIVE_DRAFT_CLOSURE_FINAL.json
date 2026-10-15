@@ -1,0 +1,29 @@
+{
+  "status": "HASH_VERIFIED_NATIVE_TEST_CLOSURE",
+  "draft": {
+    "schema": "JA21/DRAFT_NATIVE_RUNTIME/1",
+    "status": "DRAFT_SEALED_CLOSURE_READY",
+    "consoleVersion": "1.4.0",
+    "engineVersion": "2.4.0",
+    "target": "D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\package\\DRAFT_NATIVE_RUNTIME-20261014T233042",
+    "runtimeSealedFiles": 358,
+    "baselineSha256": "d5b1561175609cd1b7adfae15bce384c1cb0887aa8b96d1295e79cbe09b1febc",
+    "reviewedOverlaySha256": "3ae5b818a55feecf79ef3362cf9cab0ad8e4da3308485406a86e0aa0957fadd5",
+    "runtimeManifestSha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6",
+    "extractedRuntimeHashes": "PASS",
+    "helperIncluded": true,
+    "qaIncluded": true,
+    "archiveWritten": false,
+    "releaseReadyIssued": false,
+    "scope": "Native validation-only closure extracted directly from exact fully merged, regenerated sealed bytes. Source/evidence may change after this draft; final release requires a new root-approved freeze."
+  },
+  "shortCopy": {
+    "status": "EXACT_SEALED_COPY_PASS",
+    "source": "D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\package\\DRAFT_NATIVE_RUNTIME-20261014T233042",
+    "target": "D:\\Codex\\hermit-native-validation\\draft-140-d",
+    "files": 358,
+    "runtimeManifestSha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6",
+    "purpose": "Compare native IndexedDB startup at a shorter isolated root; no user profile or volume reused"
+  },
+  "scope": "Exact runtime closure used by final native live QA and actual compiled entry process-relaunch tests after the final closed/removed status-poll guard."
+}

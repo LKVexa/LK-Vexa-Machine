@@ -1,0 +1,217 @@
+{
+  "schema": "JA21/HARDENING_FINDINGS/1",
+  "version": "2.2.1",
+  "sourceSha256": "802e2a7ed8838c49f5a93c5b149abc3f2cf0817a1b723687051d6210c6af74bf",
+  "createdUtc": "2026-10-14T03:22:49.861972+00:00",
+  "findings": [
+    {
+      "id": "H01",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "HPU command failure left numerical state and exported files partially mutated",
+      "fix": "Snapshot HPU and VFS, validate postconditions, roll back quota/numerical/publication failures and delay success output",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H02",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Zero-resident-amplitude phase retrieval could not create requested target amplitude",
+      "fix": "Seed deterministic zero phase when resident amplitude is undefined",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H03",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "OAM right boundary aliased the next row and inputs/counts silently coerced or wrapped",
+      "fix": "Bound spatial indices, enforce integer domains and saturating step budgets",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H04",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "Forged HPU recordings, counters and byte ledger claims were admitted",
+      "fix": "Validate paired recordings, integer counters, metadata and reproducible lane/cost ledgers",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H05",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Legal high-amplitude sampled intensities failed the generic Float32 state codec",
+      "fix": "Keep finite generic Float32 values and enforce role-specific HPU array bounds",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H06",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Mutable lookup tables and excessive Wigner requests altered or exhausted model behavior",
+      "fix": "Freeze tables/descriptors and bound finite coefficient/work domains",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H07",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "Canonical metadata accepted nonfinite/unsupported values and unsupported TIFF semantics were ignored",
+      "fix": "Enforce canonical JSON type/depth/budget constraints and reject tone/min-max/depth/CFA/DNG transforms",
+      "evidence": "tests/compute-hardening.test.mjs"
+    },
+    {
+      "id": "H08",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "SIGINT could execute later command-list branches, including destructive virtual operations",
+      "fix": "Cancel the full submitted command list and stop following stages after session exit",
+      "evidence": "tests/storage-hardening.test.mjs"
+    },
+    {
+      "id": "H09",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Middle-stage redirection forwarded stale earlier-stage pipeline input",
+      "fix": "Publish empty input to following stage when redirected output is consumed",
+      "evidence": "tests/storage-hardening.test.mjs"
+    },
+    {
+      "id": "H10",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Output limits counted UTF-16 units, and repeated variables/aliases could grow session memory without bound",
+      "fix": "Enforce UTF-8 capture/stderr quotas, environment/alias storage, expanded word/argument and pending-request limits",
+      "evidence": "tests/storage-hardening.test.mjs; tests/terminal-hardening.test.mjs"
+    },
+    {
+      "id": "H11",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "Filename completion could inject shell operators/variables and invalid paths could terminate the terminal",
+      "fix": "Escape filename syntax before insertion and contain completion path errors",
+      "evidence": "tests/storage-hardening.test.mjs"
+    },
+    {
+      "id": "H12",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "TIFF management commits could race arriving commands; poweroff could abort another session or survive SIGINT",
+      "fix": "Hold a command barrier through TIFF commit, reject power while other commands run, and honor aborted power commands",
+      "evidence": "tests/worker-hardening.test.mjs"
+    },
+    {
+      "id": "H13",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Imported/moved paths could exceed accessibility bounds and revision arithmetic could overflow",
+      "fix": "Validate complete paths/tree quotas, snapshot container budgets and safe SSD revision increments",
+      "evidence": "tests/storage-hardening.test.mjs"
+    },
+    {
+      "id": "H14",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Client/regex message failures left promises/timers pending",
+      "fix": "Bound requests and clean failed clone/send/worker/close lifecycles",
+      "evidence": "tests/storage-hardening.test.mjs"
+    },
+    {
+      "id": "H15",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Saved cursor after resize could crash output; reset/clear left stale wrap/scrollback budgets",
+      "fix": "Clamp restored cursor and reset cursor/wrap/history accounting",
+      "evidence": "tests/terminal-hardening.test.mjs"
+    },
+    {
+      "id": "H16",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Concealed glyphs could render under the cursor and appear in accessible transcript",
+      "fix": "Honor conceal in renderer, cursor and transcript; validate color channels and unsupported escape forms",
+      "evidence": "tests/terminal-hardening.test.mjs"
+    },
+    {
+      "id": "H17",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Command form accepted control bytes and Unicode translation/glob matching split supplementary characters",
+      "fix": "Reject all terminal controls in submitted forms and match/translate by code point",
+      "evidence": "tests/terminal-hardening.test.mjs"
+    },
+    {
+      "id": "H18",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Copy/move silently ignored extra operands and find did not match its own file root",
+      "fix": "Reject unsupported operand counts, match existing root files and report missing paths",
+      "evidence": "tests/terminal-hardening.test.mjs"
+    },
+    {
+      "id": "H19",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "Static URLs admitted Windows alternate streams/device/trailing-dot aliases",
+      "fix": "Reject Windows namespace aliases and ambiguous paths; bound asset reads and avoid reading HEAD bodies",
+      "evidence": "tests/host-hardening.test.mjs"
+    },
+    {
+      "id": "H20",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Host CLI accepted ambiguous duplicate flags and orphan numeric arguments",
+      "fix": "Validate a strict CLI before building or binding",
+      "evidence": "tests/host-hardening.test.mjs"
+    },
+    {
+      "id": "H21",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Build could follow linked sources/output and replace last good output before all preparation completed",
+      "fix": "Validate plain trees and use guarded staged publication with recovery of the previous distribution",
+      "evidence": "tests/host-hardening.test.mjs"
+    },
+    {
+      "id": "H22",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Windows hash cmdlet was unavailable; leaf-only reparse checks missed linked ancestors",
+      "fix": "Use core .NET stream SHA-256, check ancestors and constrain temporary cleanup",
+      "evidence": "tests/host-hardening.test.mjs"
+    },
+    {
+      "id": "H23",
+      "severity": "medium",
+      "status": "FIXED",
+      "problem": "Release gate could miss native syntax/import/version checks; Node default reporter broke TAP summaries",
+      "fix": "Check UI/package/launcher versions and generated payload, parse native PowerShell and require explicit bounded TAP output",
+      "evidence": "scripts/check.mjs; scripts/test.mjs; tests/launcher-contract.test.mjs"
+    },
+    {
+      "id": "H24",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "Legal VFS content with JSON escape expansion could save successfully then exceed its own reload/restore limit",
+      "fix": "Share a 32 MiB UTF-8 volume/backup envelope bound across save, reload, restore and UI while preserving the 2 MiB VFS quota",
+      "evidence": "tests/worker-hardening.test.mjs; tests/storage-hardening.test.mjs"
+    },
+    {
+      "id": "H25",
+      "severity": "high",
+      "status": "FIXED",
+      "problem": "A submitted command waiting for management release could ignore SIGINT and mutate afterward",
+      "fix": "Keep an abortable waiting-command controller and cancel before executing the queued list",
+      "evidence": "tests/storage-hardening.test.mjs; tests/worker-hardening.test.mjs"
+    }
+  ],
+  "residuals": [
+    "Production browser integration blocked by environment, never represented as PASS",
+    "Successful x64 preflight is distinct from browser application startup",
+    "ARM64 runtime execution and full fresh-machine startup remain unverified",
+    "Three dynamic link tests skipped because link creation unavailable",
+    "Native C# not compiled with a modern SDK",
+    "No physical silicon, GPU, optical or quantum hardware certification",
+    "Archived sources/nested binaries are preserved evidence, not executable dependencies"
+  ]
+}

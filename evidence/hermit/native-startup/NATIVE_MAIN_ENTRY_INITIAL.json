@@ -1,0 +1,19 @@
+{
+  "schema": "JA21/NATIVE_MAIN_ENTRY_DIAGNOSIS/1",
+  "status": "FAIL",
+  "root": "D:\\Codex\\hermit-native-validation\\draft-140-a",
+  "startedUtc": "2026-10-14T23:10:55.5346293Z",
+  "uacInvoked": false,
+  "processorActionsClicked": false,
+  "realProductionEntryInvoked": true,
+  "domInstrumentationInjected": false,
+  "securityFlagsModified": false,
+  "productionExitCode": 1,
+  "error": "Production main returned before Online capture.",
+  "finishedUtc": "2026-10-14T23:10:56.2121119Z",
+  "failureEvidence": {
+    "bootLog": "JA21 software CPU/XPU console native startup\r\n2026-10-14T23:10:55.6883601Z\tnative-entry\tsoftware CPU/XPU 2.4.0; compiled native presenter x64; WebView2 executes JavaScript; no Node or local server\r\n2026-10-14T23:10:55.9486373Z\tpreflight-pass\tsealed application and SDK verified; mapped directory D:\\Codex\\hermit-native-validation\\draft-140-a\\applications\\silicon\\dist\r\n2026-10-14T23:10:55.9689954Z\tlive-runtime-ready\tWebView2 155.0.4283.45\r\n2026-10-14T23:10:55.9844841Z\tpresenter-run\thttps://ja21-silicon.invalid/\r\n2026-10-14T23:10:56.2031779Z\tFAILED\tSystem.Exception: DF_Small descriptor is missing.\r\n   at VBJA21.DfSmallHelper..ctor(String root)\r\n   at VBJA21.Program.Run(String root)\r\n   at VBJA21.SiliconConsoleEntry.Main(String[] args)\r\n",
+    "diagnosis": "Draft runtime closure omitted mandatory DF_Small baseline files. This failure precedes UI creation and is distinct from the original composition-controller and deep-profile IndexedDB failures.",
+    "resolution": "Next draft runtime seal includes the full inherited helper/DF_Small tree; actual main entry requires rerun."
+  }
+}

@@ -1,0 +1,2430 @@
+{
+  "consoleVersion": "1.2.0",
+  "inputSha256": "7172231d18190d3cf4526cb399454d7f5b655ee96252d9484c433df94534720c",
+  "changes": [
+    {
+      "path": "applications/silicon/.gitignore",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cfb82330c1722a32942cbeb3b5fedcf4597be7b7747ebeb2b271c7b364ff0308"
+    },
+    {
+      "path": "applications/silicon/audit/ARM64_VALIDATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "320d21b31771f370a3936f89fb7c58ae20818d08d4ddf0e84c24e120031e6438"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.0/AUDIT_REPORT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "72908944d5510b3226f3e9a29333cc461f30991cfeba7f656e73a9b83624a660"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.0/DEPENDENCY_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5d2f973f53dd336a7a674a4530b459dc02e01bcce9ef3824ad5dcab48d31cb72"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.0/FILES_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5546e2ba918649c130e1f3a463d04663db4be4a47d48526f059f4788ad580599"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.0/RELEASE_CHECKS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a45c3d97b209b11d8f244e14f9abcc241c9d8e020288243172e7a8ec33f20998"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.0/TEST_RESULTS.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1fa2c63a3dedf785ba0621e61760148ae67f14ee8cf69389e500644da3eab094"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.0/VERIFICATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "05a9d35763eab19c1220f8560b1161c3e5e76ec3b6894a72213089a35b51a881"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.1/AUDIT_REPORT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8e7bdfa90357f1abf9aee7af6478ad5e1b4c7e8a9c6d4f3c9e8dfa32f1096f44"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.1/BROWSER_OFFLINE_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a301bc453279879eed94ce52950f476cc8db4db675dd749797acb1721f78f6e1"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.1/CODEC_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f20e9c6a7c54fa86f03b99a1714c9b487c3d2b6ff3d9a4d34dd663bdc9ca91ec"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.1/RELEASE_CHECKS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2caf3edccfca389de0029221710581410718560fd579ae36a17fbc34bd71f1e2"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.1/TEST_RESULTS.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "50e59f84e283b72555a501047ebc76a69d6dd6e811c4187484f6d237863b8d28"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.1.1/VERIFICATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d8370ab8d66a7329587ef75c62b1367d0bbc6c9d8f6492f8c6a31daec5fe41aa"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/AUDIT_REPORT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "65592291115d635a38c3f64a527ffa4ac77954a70aff9c91dc5c75710bebbf87"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/BROWSER_OFFLINE_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "05ddf6e007b9edece90951c2fd50c2185a6cd330f741a94dc370661951ade0ab"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/CODEC_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f20e9c6a7c54fa86f03b99a1714c9b487c3d2b6ff3d9a4d34dd663bdc9ca91ec"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/DEPENDENCY_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "34bbb249f54aad90d6fbcb77b350e3fc65894df9a68fb2c4e3d927568cddd16f"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/FILES_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0356c0a8c7d01f8e0cb92b87378ef4410601f591de8167b60a72f24867137cbb"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/RELEASE_CHECKS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3ef0acbd4a640f5d805fb55228b1a5f7a675be380d4b49efcc0aafa4445a24f"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/RUSSL_INTEROP_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "060c024acc19d50af143097093302077e60f5fed889b608e8d29bcc5dc0a9165"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/SHA256SUMS.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e4d57bdecedf07cf9d8323e21005c404ca33750c077c83701422f2a44b5d629b"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/TEST_RESULTS.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2b1394d7abe08ba946f1ac213554fbc76e33b08b4a99e65114a7f2c3f07e2539"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.0/VERIFICATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fa190885c60f0779bdf5dda36092a5649183dfd490cfd74bfd38d30b5f713c2f"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/AUDIT_REPORT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "748e14b51eb9c20cf9a416ee56af24ca4394974fc5bb90e35e05962bd5da1d61"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/BROWSER_PRODUCTION_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "28a832d6938fc5ee9fb372ce15a1dd00eaa8aa9142b5afd48078cf278fa2eeac"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/DEPENDENCY_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "28e81274e3f748e6604271d199096979d04c74ea68fde63aa0b7dde0be7f18da"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/FILES_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "665db7aa8f68a3b3fd2271d38463d382a8ef28ba3a30f547dcc3b1b9d5bfb750"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/NATIVE_ACCEPTANCE_2.2.1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "10d83dd41d690c797b3c23c02c33110a9f7885bef0b64b01ef381a76f93bb66c"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/RELEASE_CHECKS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "206aac47ed065585ae85a3e614c31b20de2c3b2999511cc1191735cbd8663488"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/SHA256SUMS.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "afbbcad6f5c704e98daea5b0bb03f0848e470de2f04ea0e13b78e0c4c502f7ac"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/TEST_RESULTS.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "67d14dee73fd0ae969a640877e4489bdf0f8362b64aeb93ad86811d667f81472"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-2.2.1/VERIFICATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d14dd6fcd95ce5edfa68b70dbefc5502623e479442569db76b1f90f9f7aa6c70"
+    },
+    {
+      "path": "applications/silicon/audit/baseline-install.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "af569ac6b1bfe191e1d9df72cf82aea2088695c887292f4466deaa45cec54103"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/direct-smoke-result.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "90d4ec11ac592c7502977783f85a8b47b64d7d5905a0c82f1a9b547b059ebd86"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/matched-direct-smoke-result.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e64471becb938194c5933f635d962e5c7198865ab1dbfaf13285536d3d5697e5"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/matched-provenance.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "67d913670d91581e552c61a6bdb9baeabc71a55975c231284e20ca702ef95885"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/matched-smoke-result.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "571924bcd5445303d717717c48477a59bf05a4c72d735993686d101ebccd71aa"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/official-matched-metadata.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fabbb413bc61deccd5ca5731a84737937dfaffafdb033c3f392db2964c96f98e"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/official-metadata.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5cbad1efebf7a7ad72042d9b1166429db9bf7a5f7f554c1587e929d19250c81a"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/provenance.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b66d72596bc037f3cc140dd052dab69a8e39ff7d15ae0a6c1c6b87311df0649e"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/RUNTIME_VALIDATION.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "605ad0b39db8834038c1d6059e78847ea9f9bea92140f3f7e84d320530e603ca"
+    },
+    {
+      "path": "applications/silicon/audit/browser-runtime-2.2.2/smoke-result.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3b03be9baf1ae4fe93dc7781cd3be550e8e588237bb8cb92de45b544e5e63e8d"
+    },
+    {
+      "path": "applications/silicon/audit/BROWSER_OFFLINE_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "05ddf6e007b9edece90951c2fd50c2185a6cd330f741a94dc370661951ade0ab"
+    },
+    {
+      "path": "applications/silicon/audit/BROWSER_PRODUCTION_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b388346932bbab2d5b2aea2a0ffd7168c8e42e8ab1d906b02a19c7f0cfaeae2e"
+    },
+    {
+      "path": "applications/silicon/audit/BROWSER_QA_KIT_CHECK_2.2.2.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "70f7d764db0345ff6dbe43b8e9c4c6c3f5a81d4546f53b21e4fe4ba5512ec73f"
+    },
+    {
+      "path": "applications/silicon/audit/codec-fixtures/expected-frames.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1430cd729433d37d328c2b585a17901f4d025807f1dd686054f1f2cd5f5fbe00"
+    },
+    {
+      "path": "applications/silicon/audit/codec-fixtures/expected-phase.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e7bc9504fabaccb3eea8ed981c96030cb0b1dd76d138c6fc92041b889d94b24e"
+    },
+    {
+      "path": "applications/silicon/audit/codec-fixtures/expected-random.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3a4a86de7a593fa7e3568df488cf855af6cc140a4abc38ddd726ddfd355fe669"
+    },
+    {
+      "path": "applications/silicon/audit/codec-fixtures/phase.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6ada9d50cbf6e2b558cdeb87fac25180770d45c8b97fd39bb0a214c47baf4149"
+    },
+    {
+      "path": "applications/silicon/audit/codec-fixtures/random.gif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0d7fbcf557c578d0c6d0b12dc5d8c5aa316b8481b16bbacfab0ac617ce86bfbb"
+    },
+    {
+      "path": "applications/silicon/audit/codec-fixtures/spool.gif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d103fa103610ec121b90fdf196bb25c810bf38bcb2c892049533079d78ebf120"
+    },
+    {
+      "path": "applications/silicon/audit/CODEC_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "938d4fc788937bb9dc6d5c071a1d239224188c1453cbbbc548ffd1bde3009a13"
+    },
+    {
+      "path": "applications/silicon/audit/ENVIRONMENT.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "78f1da16fbf035a1b1bf961b0330636cbccc9eb02a616bb0ad67e4e597fbc823"
+    },
+    {
+      "path": "applications/silicon/audit/FINAL_PARSE_2.2.2.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "83f3429157ce4cdeb5e709b1c1c8a3b8617f9e57e47576b6d8940eaabd814383"
+    },
+    {
+      "path": "applications/silicon/audit/FINAL_VERIFY.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4674a80359d888a4c71b1a03a27c63d2a85a1d5469e405c80a93219a2721df06"
+    },
+    {
+      "path": "applications/silicon/audit/FINAL_VERIFY_2.2.2.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "133152fb509f87c5d37ff15158292011eeb6474f45ab29d18a3ce68ad5d5e327"
+    },
+    {
+      "path": "applications/silicon/audit/FINDINGS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9eae9dcad5c7e7df9dc865fa3062095e36253e20d81df36c55771441dae5d880"
+    },
+    {
+      "path": "applications/silicon/audit/HARDENING_CHANGES_2.2.1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7c3d8a309f6f697608f1461a00e24902cf64955a5868b631bb4a093924224136"
+    },
+    {
+      "path": "applications/silicon/audit/HARDENING_CHANGES_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c3f09926394bdbad6e1ec66722a4fd5a07cbfa90afe0f34ca7d75a22d3229c38"
+    },
+    {
+      "path": "applications/silicon/audit/HARDENING_FINDINGS_2.2.1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "112338840bdacf868bc9f062fec557ebae04a7f7cf85e20529ebfcedd11a7ab9"
+    },
+    {
+      "path": "applications/silicon/audit/HARDENING_PATCH_2.2.1.diff",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "af3dd43a3bfa06669e39095db2686cb47c60c4afc612b1a7de1697ba6cf2b695"
+    },
+    {
+      "path": "applications/silicon/audit/HARDENING_PATCH_2.2.2.diff",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3e1464872e69510ecbda82e5a1b2180a67d7d16d3b19e6e350ed98407e3dc898"
+    },
+    {
+      "path": "applications/silicon/audit/INHERITED_EVIDENCE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "07dfb3602c8b7542fc059e731a37a4cc2684306c58fa7d448f6dc8e9d180a638"
+    },
+    {
+      "path": "applications/silicon/audit/INPUT_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d140312bf1500a1053cfa7e11da0922f8909776412c23f105457a7d9f2fe4c5b"
+    },
+    {
+      "path": "applications/silicon/audit/legacy-scaffold.zip",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "dbbb965fc1daa620c3c5c0bb7d9343230c2d6062d829540a157067b90f85bba6"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_ACCEPTANCE_2.2.1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "10d83dd41d690c797b3c23c02c33110a9f7885bef0b64b01ef381a76f93bb66c"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_ACCEPTANCE_x64.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0efb09f8c530e0e9d4fc09517f4ced8ecb19518d9c282d644f7c2eb2888bcb83"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_BROWSER_HOST.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c97dd43e3b27888abee868ded133750a373b7c9cf1555f7fd81f3a6465e2b289"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_BROWSER_PROBE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "dede4deb2eac56352a76ab8482a2e602998a2e1d8e0521d1ead2683d44bc0569"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_FINDINGS_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7e99b6dee5599e82a3f9a8ac2ec3521005c42f63545c293429140ec5d8e3dbf2"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_RESULTS_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8b780c8795b92db9d9746495d651e40f69de4cdda96a9eee650fdcba72b67b4f"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_RUNNER_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3ec5350e4f1e30847aa486b2500395ff68df1a4bd94cf51d3b59cdefd2b959a"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_RUNNER_FAILURE_PROBE_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "40de26caffc770ec8088b0fc2ef41d35173c09be2f2432641a2ebd3388c6ee23"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_SDK_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "293b3654efc49507994831adb068fa7c11c85be2c27034a6611e7a4c4ae44eb5"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_TIFF_RESULTS_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6c2c49da3f7bb2bd4634f581d0421f864cfa16104d5b0aea8f9c261589f8923f"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_CSHARP_VALIDATION_2.2.2.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8839e9eb544c79d9fac58fb5d9fe8607869e76820e13c5c794076033a734506e"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_PREFLIGHT_2.2.1.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a11adc499e0d8e131b96257302be9848f5bfeda05c2fcf29e5ff7e1bb161b21a"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_PREFLIGHT_OFFLINE_2.2.1.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fe493ca6070fcfbdc6e7f55c307085ea4ff4ae0079225a6c9c7775b04021ae4e"
+    },
+    {
+      "path": "applications/silicon/audit/NATIVE_VERIFY_2.2.1.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9c517278c5a1c251496568729b71f33d269c3858e4b7e81b6ad72410a5243243"
+    },
+    {
+      "path": "applications/silicon/audit/OFFICIAL_NODE_24.21.0_SHASUMS256.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f410428039e2c922a14058df067a4482691c9304a5c01a75847f9f3f2d3307f6"
+    },
+    {
+      "path": "applications/silicon/audit/offline-ui-export.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d5b0c4cd9e5537dcfde382defd7ff20bf7ca79c99c440654ce9ddba79e4ffeef"
+    },
+    {
+      "path": "applications/silicon/audit/OFFLINE_UI_DESKTOP.png",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7750c768300cdd92cf14d6d70818119a76013e8f1a31cedd4dbfa9f286fb0fac"
+    },
+    {
+      "path": "applications/silicon/audit/OFFLINE_UI_MOBILE.png",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d6c792794065c7c18dc6b175dedac8c0f60d0add83e94f13bc2481f84143838c"
+    },
+    {
+      "path": "applications/silicon/audit/original-runtime.zip",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "67d92bfe9bd9bf56a192873957108baeecf5f64f950e6dd5d242e49aecc349db"
+    },
+    {
+      "path": "applications/silicon/audit/PACKAGE_PROVENANCE_2.2.1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "903a68cdba49cb6e6b24128c56937a7b5a37cdd3a238fa922aad164a632db289"
+    },
+    {
+      "path": "applications/silicon/audit/PACKAGE_PROVENANCE_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4ea1c25d9c1cabe46bf8ae80d1913252ae67e4ee5a2249abfd051487c920b0d2"
+    },
+    {
+      "path": "applications/silicon/audit/pdf-reference-contact-sheet.png",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "291dfbfdd721316e969f4595c80dc164c0bdafe805955dd134d99634365a309c"
+    },
+    {
+      "path": "applications/silicon/audit/PDF_REFERENCE_PARSE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "29e7a048ce1672df9a540d4f42cd5fe32bf8c977db188d6d87751c739804b965"
+    },
+    {
+      "path": "applications/silicon/audit/PRODUCTION_BROWSER_ATTEMPT.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ff6ec4c59abe3bcc95a381ed92ec91d9b63274682c76260745c27c01200d2db6"
+    },
+    {
+      "path": "applications/silicon/audit/PRODUCTION_BROWSER_ATTEMPT_2.2.2.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f8ab4f798fd684063da58c97dec6f5d9071a4095345c6577ac03362be5367bbe"
+    },
+    {
+      "path": "applications/silicon/audit/PROVENANCE_CHECK.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d2f4d1d29a3480025103dab94ac87caddc2c9dcca1e6c8d98e68321526509934"
+    },
+    {
+      "path": "applications/silicon/audit/RECURSIVE_PARSE_INVENTORY.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "85d4ba3e8e7906a4aa3a3b7528f5603a0ef16253e8f40fb351c123c98d8f5132"
+    },
+    {
+      "path": "applications/silicon/audit/REFERENCES.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5c6fa2676da5816e41ea22ae207f11a19eb28366c8bf1844d692350afe083109"
+    },
+    {
+      "path": "applications/silicon/audit/RELEASE_ACCEPTANCE_2.2.2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e60dd968f46fabae09e4fbfa920fbbfec3a21db2f1c0303399abbb559d10c2f3"
+    },
+    {
+      "path": "applications/silicon/audit/RELEASE_CHECKS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6bfd8db1e18fdbe6a15dc2731fd8982dbd309cc46d8fb7fde112482b362b3372"
+    },
+    {
+      "path": "applications/silicon/audit/RUNTIME_CHANGES.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5e5b725d705ca1cb2f2088242e3dbbe99ee65fa438b12db7b94de90deb2c2b55"
+    },
+    {
+      "path": "applications/silicon/audit/RUNTIME_PATCH.diff",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5c5fc063020bb9b2cdd75003f5bb7c371d43b9803f0d82fbe3effb503dbcec70"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-field-f64le.bin",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "53ed3229beb7b03ab02c9851395e4082f2263f8d7bf6dda6d14018d8398700bc"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-phase.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "903a95fa6048162b013a5096d546fc730f488b9051e8c8e8922c0cb9e3db719d"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0df382fcfb41e529ad16fb60e56dfaf00d9cf5b4cd5297bd949b3a402df73e31"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-2.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "abd3a2adb3522526bdba0dcb7d4b3457d0052f314f754b00d8fbc79adf97483a"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-3.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0df382fcfb41e529ad16fb60e56dfaf00d9cf5b4cd5297bd949b3a402df73e31"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-4.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "00d78f0eeaa19beda2e79af957c7fbfdbfd09abf67378671312b66543799ed31"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-5.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cb113f74dc19a08fcacd246b84ca69e1dff17209792ea3bd8d1b34397f5eca92"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-6.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0df382fcfb41e529ad16fb60e56dfaf00d9cf5b4cd5297bd949b3a402df73e31"
+    },
+    {
+      "path": "applications/silicon/audit/russl-fixtures/expected-processor-7.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6bdc89e20b191aef32bcf49c43e13277520d7ddba7bee6eff3c4b0ac840884d6"
+    },
+    {
+      "path": "applications/silicon/audit/RUSSL_CORPUS_INTAKE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e14871352e79de59a696c23a96521c2a394377d779cac93b319aa9f8bd478dca"
+    },
+    {
+      "path": "applications/silicon/audit/RUSSL_INTEROP_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "577b244f4ae507f72381b2afe00203d1ed7cd162a3971ea832a3f4ce9c6859af"
+    },
+    {
+      "path": "applications/silicon/audit/RUSSL_UI_DESKTOP.png",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c4babd62805ba2fbdccb6020a606ef61f783acf1364730e881ce28e10351c189"
+    },
+    {
+      "path": "applications/silicon/audit/RUSSL_UI_EXPORT.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1dbe5f25e589e9b69045d8ad152ff74b43facf008401b7a246c8a43ed1812c7b"
+    },
+    {
+      "path": "applications/silicon/audit/RUSSL_UI_MOBILE.png",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1bcb42dc7a55d2605c9b653fd7a84fff2f0ebe78f280fdd93308e971d3d17315"
+    },
+    {
+      "path": "applications/silicon/audit/SOURCE_INTAKE_2.2.1.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c7ae7f4e7fc1e16ea5765570b49d3877409f9ccc64664d274dd34ae2c3992055"
+    },
+    {
+      "path": "applications/silicon/audit/SOURCE_PARSE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "48974fba7958b1de87ddfb227821091e08d2bea323290519147422d3fef8eba4"
+    },
+    {
+      "path": "applications/silicon/audit/STARTUP_REPAIR_CHANGES.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2dc934815b1b4c933d5775f56a52f8cac5b86958fee27d5d4dca250744359b6b"
+    },
+    {
+      "path": "applications/silicon/audit/STARTUP_REPAIR_SUMMARY.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c45afb0f57be3ad10a7c519482acc374b97705050da020d8b1ff1bd91def37ed"
+    },
+    {
+      "path": "applications/silicon/audit/TEST_RESULTS.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "54bbb279eeeb96fde10c96fcb68b6462984bfe2e4fc58b3e753cc662106af4ca"
+    },
+    {
+      "path": "applications/silicon/audit/TIFF_PYTHON_PARSE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2b1d4cf7ccd3c1dc097ca90c0736195dc6d749dd07c70f4af114fccde527c4ec"
+    },
+    {
+      "path": "applications/silicon/audit/TIFF_SOURCE_PROVENANCE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "79623ccb8e22487aea9ae9df491b6c3bf715a2de2e5f6ec03a8d1df79f85b06a"
+    },
+    {
+      "path": "applications/silicon/audit/TIFF_UPDATE_CHANGES.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6ea27ebfe9895fa0f8e9a415a3c798c16e19bea1bf0ab88747f34b794270932e"
+    },
+    {
+      "path": "applications/silicon/audit/TIFF_UPDATE_PATCH.diff",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4ad3186f5ac9725bcf8836e01bc1daeb86f006a3fc0880ec7b400cff6388f83f"
+    },
+    {
+      "path": "applications/silicon/audit/TIFF_UPDATE_SUMMARY.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0908ddb73e62ee63dc157438a01852244f257e70f646acf3a7e936f000f4393b"
+    },
+    {
+      "path": "applications/silicon/audit/VERIFICATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8b33ce6b309798d50b60f39bf05155702388baf59ef66860b1f9a58a67e21496"
+    },
+    {
+      "path": "applications/silicon/AUDIT_REPORT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6874fa4e553dfedbc885f0634db562167d5259b296d11ff49282fe0a707babe3"
+    },
+    {
+      "path": "applications/silicon/CHANGELOG.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "05f24380c59872e4bb8c5d9a8b9ae5ebdf2519a4e5f40edcdeb10f3ae5d5cbe0"
+    },
+    {
+      "path": "applications/silicon/COMMANDS.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "726f0e99606a052b8414a001058b5e3e53aae434e7108440bbbdc2a3ad040d76"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/COPYRIGHT",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "77a26d9efb7c4a899896f9b8e9bf4ebe0b0230c1476559c69789e3b27ba544c6"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/interoperability/OME_ZARR_PROFILE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cdd2387f6333e8f951c4a02007d1e91c85548a8a83a2843a25a7ed813c125bbe"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/interoperability/STORAGE_ADAPTER_CONTRACT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8d6737ee5a1c10fba97715169b2f572964d855d5ebd0e8bbd24842230c24038b"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/interoperability/TIFF_PROFILE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "bad2ed6bea33100fa0bf22f63f4fa84e1038f7c92ff6aae05c9a0fbb751e1aa8"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/LICENSE",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/machine/registries/fixed_shape_layout.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "472639aa87b56bd251b12fe588409697ee2b602a90a080978bac453778d5389d"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/NOTICE",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "195bb7eedea02c1664c3949fc18d43e76782818e8d46fe7e9f621faae905d555"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/README_START_HERE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cefe2dee76247a18b896b0e11341e9117bc12dc474a6b91bbd766c3b9df96e71"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/research/FIXED_SHAPE_INDEXING_PROFILE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0381d7b3be576dec0d159e3ed286045193fb48c0145c2960197a07cd23c9577d"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/spec/WP04_Penteract_Field_Specification.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "dcda2f6b813f408b9a4411ff68e51dbccfe1a18689f437cfea25093f3d040d5d"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/spec/WP14_RUSSL_Imaging_Profile.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3035f606cbeeafc501b98692c337cc9cc1bf6848387c44d6d7d12db149af7c2a"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/spec/WP17_Canonicalization_and_Cryptographic_Identity.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ac9625f59c537ad0a3b07ef1e3e7892239315a15b17d54d8ad1758edbea3108e"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/spec/WP23_TIFF_RUSS_Migration_Specification.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "131f4b05f4fbc3953ad84a7f92330aeaf07f5ee8fa423d415345f3761f56a9be"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/spec/WP24_OME_Zarr_RUSS_Interoperability_Specification.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a89a7028933ff090f5bf2022a284d8e4a6b1fb11fcca07e6373edcaca57bb637"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/tests/vectors/field/fixed_shape_index_vectors.jsonl",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "79050f2300a3e4413cf4bb6ab9ee182fc8e1e92578e66abeac4e640d3e7ec0e0"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/tooling/field_layout.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ef3d819534bc6ab66575d44a1b47f41ed10135a19c859ec8a0654d3379aa76d5"
+    },
+    {
+      "path": "applications/silicon/corpus/russl-2.0.0/UNRESOLVED_ISSUES.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "07d2371b6a61388cd040d7a75bb665eb329f25c3123b5b5c9f6349717215cc9e"
+    },
+    {
+      "path": "applications/silicon/DEPENDENCY_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e91f854e3a59aef9098f1038bd7dce69b4452559a18a9e7d9930f26980a4baaa"
+    },
+    {
+      "path": "applications/silicon/dist/favicon.svg",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "377c3acec6017ec29c2615963a0da292e14a5900c0b6408ab12df84b9818db6e"
+    },
+    {
+      "path": "applications/silicon/dist/index.html",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84"
+    },
+    {
+      "path": "applications/silicon/dist/release.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0d9c3436d80252cf74a01ce3a0435c15b4cc704fb827504e6e830410aafb9195"
+    },
+    {
+      "path": "applications/silicon/dist/src/app.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8e190b3ab159363cc1441fa8d44935c2394a17e12f4e7ba3f5d3630d95f892b9"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/ram-link.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "249072bf678f875aa596582e0baff7b70f6ec8fe9a33b2f3f3abcc0481c4913c"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/events.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "742029f9ba8d32f00865793de27ad46a247d157b58c85579ca6eba65b85d5219"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/ram-worker.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3357174672880e55969e09e5562f9875081957fbab4192b844a511f25f96f885"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/buffer.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/byte-tables.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3465b1a9e0d2279acebcaf81ee209f2bfb7fb2308d2ab4b061e4c0613aab02ce"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/chip-harness.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f6dbecfbdebe8246b39ffbffcf24e637776ebcf01592294a79f328622893f309"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/ChipHarness.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/browser.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "93b9f0f94955aeef9986c7bb8fbb58c081a47f60a07fee500d012fad89ce93f8"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/coreutils.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8d323a73e7ecd4332b6eab927e4276b2c33b02756cf515baffa9c4e80b5dbc9b"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/fs.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "002cac8351dde73a0036ff9c67ec94b5a9993bdc80ee42a382b359348acb79e1"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/hpu.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c7abdf3fa56f9a5ae3cc94a9ef75cc20a647e7c300193222f4e61cfb7425d511"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/index.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4e57c19ffa410bda22107b9511e2b09eeeaff65f8dc58b65a2298c8ce083ff0c"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/ram.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b51b9e2f4dc85f92cfee214c35b077eb8eb00a7fcb56e0e297d15684d005c5f2"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/russl.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "62b85a1defb484e9c6c9126878fc11ed99984616da975fd5f375f268796c5e08"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/system.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "510e6ced2ab16149c6e8e1935a5a33265f7e2e99c6eaa8f39f71d94f0f4c4f24"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/util.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7b2f824e8f10272ad741202417e167bc9162dffee77824a8feb49f7d52ce8fcf"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/env.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7df5d6e37cf1f18d49f0cfb63ee80c0d17fbc45296200d8eaace06c5b3278277"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/hpu.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8028591b199564fe8523603b494586a35ad6bff9725dc7443d59140fb373c7bc"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/kernel.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f86c8f65e9a3e6db6d9d4544b8b452e8b34dd562a34b5cc296f6ee44921ec1e2"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/line-reader.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d236bd9c98f6795a633d893242fa3d06096f7cd385c593f7c4e70ca0871807ba"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/pipeline.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e08ac0335207fa851f0df2e718ee48610b1a4b0f5e40282c6e4765266ee6e029"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/regex-evaluator.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b7639aa89a58b74ab4a1a0e7419f5631edf1b192a31da1de32e0c69a1c048d51"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/regex-worker.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "667009bb6d18b0bb030b3c7de1a78233d474c90bd19ddb0a0bccdbc22e4c2e47"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/registry.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e62bf307d0f75c079326e6543399534feabef52f96e8b9ce9808799aee5a4f68"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/russl-field.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "af9b9633a0dafd3b58718dc2489623481c3379d433c0bfe31ea736ec1000c65e"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/russl-service.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "68a63d6014f1d64fd0987d14ca685182b63acce1a75d13da3d26077462908c5a"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/safe-regex.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "72746ee03fb2a34b2564067dd6d9c890a74ed9c125e1ab11aa0503de89ef18cd"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/ssd.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "afc7727dcb6b02befa5044e56adef96518545a883e7b4dcff69b0f5010a832b2"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/state-codec.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/tiff-codec.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/vfs.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1cdbdb36a11d7b660abb2ea673c41ba0e63cb0892443a5c3f2b9c69b3a139b6e"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/volume-format.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e7a7b85f67ec51c37068104372281ff10d1f67a6ad4565d96c51aaad19da1c69"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/vt/parser.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6eb1c54bf16cc33413bcf71dc3cdbf16dd0ded0a263b131f8530c7f610f2ae0e"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/vt/renderer-canvas.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8cbb899f758f4b8fc9951a742b52abf7c102e9163281039740df053c4fb018b5"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/vt/screen.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e99683e9704817c89a35e281610ee53c6b6ab354c3d039b0e98e63c326145b8b"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/vws/flow.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0ff0d890d0dda2333f2b06af364850ee732ec4de5c86a3c72e55c86c3e619776"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/vws/frame.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8684b504c619c1114cb5753caf3d5bd3a922ded583e5092a17d7c704c2c6b964"
+    },
+    {
+      "path": "applications/silicon/dist/src/version.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e99868ecd0f464dacdbcbfc50d05b201ccf0c70f54ac37f3d15f00417275770b"
+    },
+    {
+      "path": "applications/silicon/dist/style.css",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a5ea5addb0d99f47bacc10037d636aac213085dbd4797e8716b9ccda087a5f2e"
+    },
+    {
+      "path": "applications/silicon/docs/RUSSL_PIXEL_PROFILE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b760df366d1b6e263e94a63bc1cb59e002f5e6f9bf6413a0a2aa80cd4c8d9049"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/ordinal-oracle.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "88f045525f64746e7ddd9091ddffb8391bfc9ff12df4aabf6a5a7774781110ea"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/phase.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8e26621d4ae552a700980398b862f055ab61def280247557bb945f0b89af0876"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-1.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b75b6c56ef12f5bc4cbf35b52dd83640e7d263510f9156c6c1227da30b06cfbe"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-2.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d609c1a5f032a6f0789f1371918f4b25d304183322bcef1e268e242f8b118e46"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-3.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "dcb5fd4c52f16a7bb5ccc036d09612e9b2bf49189a74967c560cf8f0153a8a8d"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-4.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-5.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-6.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b4423b9f98adfcef485ce82f6278f2c9ed14ae71c8111edad21a6b4a5fec8cea"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/processor-7.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f5b2c873bdd67fbb4ad146bce3bf2b09fb48ca19621fc23bd00ab8c9cb90610b"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/README.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c1e38a72d4de02d5c5b7cd16e20defae0340af0d9ef4078051558791fff41bda"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/russl-field-big-endian.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4db5853cdf38c798221962646c8b66502d48470d23a3eb9bcb88e9a3babbb7a9"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/russl-field-big-endian.tif.receipt.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7c25c48a024b3dab5129aa7ac78551c28b46e966897e933eabffce83ba3ca5c1"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/russl-field-bigtiff.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ca033fa491f1f903f4d570250f2431b4f4e35c8a825e3d52b5012ac0e0cae166"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/russl-field-bigtiff.tif.receipt.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f03f839ee5c47dcf6fa8693a910f2fcc55dfcd9c10e536d56916728fd4a644a7"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/russl-field.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0afd60a3f0f49261595e5f925308f593fae554fe96f3cbc26e6b2fb8b1b64aee"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/russl-field.tif.receipt.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9308a308bb785b4d709147ba217342447d0f5d822e02a961d7c30ffb32a4be6b"
+    },
+    {
+      "path": "applications/silicon/examples/tiffs/SHA256SUMS.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7a886b75fd0bf1449cdb267c34e0ff4ee4000d6c429c2b970b7009aa1beae9b2"
+    },
+    {
+      "path": "applications/silicon/FILES_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "532c698d6473bdef99f1957c42446d6f84e7c3867e5de2576d2ab42bab5a41e5"
+    },
+    {
+      "path": "applications/silicon/native/README.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f37515c78950de09630867949d3aa996e63054369997d38f0d8bebd9b136a31d"
+    },
+    {
+      "path": "applications/silicon/native/ReferenceTests/ChipHarness.ReferenceTests.csproj",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c2fb877e81e19d2d7835f115f654a84fd279476771effa53836debe61ab2d252"
+    },
+    {
+      "path": "applications/silicon/native/ReferenceTests/NuGet.Config",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "964302159308872b9729e1828a1ba897f30634f7bd751cde11ea8e6fed8cfb97"
+    },
+    {
+      "path": "applications/silicon/native/ReferenceTests/Program.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a8ebab0f3c4f6219519f25f2648627a40c6389ca3e54e5d560a6763569b7bf2d"
+    },
+    {
+      "path": "applications/silicon/native/Validate.ps1",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0bf584bbfe41b0b8c22e1b18b3695ece1bd1ea3b48b3fb9b700bce58b08b9a79"
+    },
+    {
+      "path": "applications/silicon/Native-Acceptance.cmd",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "571e565255434e0fccefaac277a508610293f941e9bd2b1dfc5a210f97336462"
+    },
+    {
+      "path": "applications/silicon/package-lock.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a7f3cda5329697d63eb9cc21f36f75c6aeff68024d8d215565ae24289466f55a"
+    },
+    {
+      "path": "applications/silicon/package.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "85518fe82132ca606b8c374960674b46c7cd6b4e0d734bda516d4b9f83487a76"
+    },
+    {
+      "path": "applications/silicon/QUICKSTART.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "024666693c47443933f008d7d846a8d727721ad1ded3597845480ea41d8b3bb7"
+    },
+    {
+      "path": "applications/silicon/README.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "407d748d6921086355614c82e3ffeeba2fe25ee8fd651ce0b97e1e03815f9772"
+    },
+    {
+      "path": "applications/silicon/references/1-Bit LAMB Unikernel Integration.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7d3e58e732429e90f09eb46e3a81469397af87d7136141d034b736cbbe89b31e"
+    },
+    {
+      "path": "applications/silicon/references/C# Hologram Computation Harness.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fb8be063efc9207ffd61e65f9ff01261aed5a3c11d8d756df82cd86d2c1238e1"
+    },
+    {
+      "path": "applications/silicon/references/C# Hologram Computation Harness.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2e0b1c8ce2572a5ccdde3dc1f129c5bc9c6cafda386cc36fb8ac1bdfd02f7e5c"
+    },
+    {
+      "path": "applications/silicon/references/CartwheelBytePipeline-3.0.0 (2).zip",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "eefeb3ae9ec339fd8366507400847ff16936646571fcc47b9e4af2195b7a0413"
+    },
+    {
+      "path": "applications/silicon/references/Columned Unikernel Research Analysis.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3cd3f3fef93489c70325fbe064bbf69b9eddbef3783a9ac95627e9aa09fb9d8"
+    },
+    {
+      "path": "applications/silicon/references/Future Data Center Memory Tech.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b9b282015c06982d70729afeb26c9abb9bdbb02179b02819147ca0a72c853b85"
+    },
+    {
+      "path": "applications/silicon/references/Future of Virtual Technologies.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8d05c576c0fa6611f3713625f776222916ddad56fe3df202bd729924fe1b59fe"
+    },
+    {
+      "path": "applications/silicon/references/hermit-ramws_2.0.0-ramws.1(3).zip",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Computation via Image Formats.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Computation via Image Formats.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "804c21318edf3d217808a64191e4612addfdf5ccd6bf27342ed4aaeddbaa13d5"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Geometric Diffusion Computing.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "519167f186c583cf9b714ac4ede46752ba039f7c92a7ab2d5074d9954ca453e9"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Image-Based Computation.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Image-Based Computation.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7b0302e5a83087d85d9864cceaf3eb1be86522330fa8b1b206e7394e073564a3"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Logical Reasoning Research.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5"
+    },
+    {
+      "path": "applications/silicon/references/Holographic Logical Reasoning Research.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "bd9bc1059e03978adf1e98c7dc78effe7dc3b7a12534e95f425d316f1cb59887"
+    },
+    {
+      "path": "applications/silicon/references/IdeaPad 5i RAM Sampling.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "818b873dda901a5f2d44cd6ec201b3898276d57428a5914e1fb0215ea7652808"
+    },
+    {
+      "path": "applications/silicon/references/JA21-Blank-Console-main.zip",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7172231d18190d3cf4526cb399454d7f5b655ee96252d9484c433df94534720c"
+    },
+    {
+      "path": "applications/silicon/references/Microscopic Quantum Paradigm GIF Research.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65"
+    },
+    {
+      "path": "applications/silicon/references/OAM Spatial Shifting Arithmetic.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96"
+    },
+    {
+      "path": "applications/silicon/references/p-Adic 1-Bit LAMB Architecture.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ba8ef879a5b7d988794a175cfa68b5891294e5ea95300ad96ebbc2602e5b37d2"
+    },
+    {
+      "path": "applications/silicon/references/p-adic Architecture in Image Formats.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ba276066b0ddaee5b41812cb7e286ce8de1ca0616146b8753f53cc92d5c0e42f"
+    },
+    {
+      "path": "applications/silicon/references/p-Adic Architecture Unification.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2ef3ff52c904d4f8b908dd23991ce50e668b327c0b330fab2f9c1f3011c8dcc2"
+    },
+    {
+      "path": "applications/silicon/references/p-adic Bit and Anti-bit.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a385a4b883c3fa4ab387e7094596ca4ba90821fcbaad487b2394c43b016fdc9b"
+    },
+    {
+      "path": "applications/silicon/references/P-adic Hologram Processing Architecture.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "76bd62a134cdbc3673ae06fede642595951fbc84fea5befda9e3640ea3f7617e"
+    },
+    {
+      "path": "applications/silicon/references/P-adic Holographic Simulations Research.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247"
+    },
+    {
+      "path": "applications/silicon/references/P-adic Penteract Simulation Research.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a"
+    },
+    {
+      "path": "applications/silicon/references/Penteract TIFF-GIF Storage Techniques.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0"
+    },
+    {
+      "path": "applications/silicon/references/Penteract TIFF-GIF Storage Techniques.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fe025be5024ee2cca9f92dc06cfeac83228bc98f4bf7a6d3c0629ad4ba5f62e5"
+    },
+    {
+      "path": "applications/silicon/references/Quantum Computation and Circuit Evolution.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d95b65cb7a4e773908937674efd2903f4763094b9780217ee8a4dab802f536c9"
+    },
+    {
+      "path": "applications/silicon/references/Quantum Computation Equations Overview.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "091c1c4b6d3532e11a3fe74b690f78a9b6747cc3b512ae97107e1521326f19e0"
+    },
+    {
+      "path": "applications/silicon/references/Quantum States Digital Holography.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "11df83705fa3baafa04f756a6a861bce4456ab0f24223a1509738d46252280ec"
+    },
+    {
+      "path": "applications/silicon/references/RAM Neural Operation Interfaces.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c7e727e4d012948618fe64a94383868a4c171a0e7cfc670a1248f33a61dbd783"
+    },
+    {
+      "path": "applications/silicon/references/RUSSL-Zarr-main.zip",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4adec0988b7e9de5e82d6c43d910112341373d18207545f4df2be431cbb66eb1"
+    },
+    {
+      "path": "applications/silicon/references/TIFF GIF Spatial-Temporal Encoding.pdf",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc"
+    },
+    {
+      "path": "applications/silicon/scripts/build.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "27b1f4d8d65bbe90bff75584a193ae4655c87d3e3824b77cea7f5e6dea363630"
+    },
+    {
+      "path": "applications/silicon/scripts/check.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "26478272493248f36ee8ce142f3589f400cd657d4c883d4889047567e9cd0b49"
+    },
+    {
+      "path": "applications/silicon/scripts/make-tiff-examples.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "775174b3e642aa7ccae25a767c0ba4d3a48ddb134e683d885ae5b1dbe965280c"
+    },
+    {
+      "path": "applications/silicon/scripts/serve.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "597ce12b9eabe74664d74abc7247c22a0dfa6d08c8587b2821cb751331339dc3"
+    },
+    {
+      "path": "applications/silicon/scripts/test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f66c20a3346bba82f8ac21f45dbb0e5bb159f74e575f273e83bd0df60176058c"
+    },
+    {
+      "path": "applications/silicon/scripts/verify.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cd8eed86182b115fb7d5a326c95eaa4b116f7e06dd14d5f266ef6398153b3f41"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/bootstrap.ps1",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "15c41f1e9a057d75cef17a976ba399406c42f2c80b2605c87acabf642bf51d31"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/build-launcher.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "30d3d4c594ff360880d0f09f812994fc8487973c1738286ecf1c1283e039220d"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/launcher-header.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5842861fb6830e7b8b06adcaab2e8a6fa427f5f0e9c6a8ade4c00404ff494050"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/native-acceptance.ps1",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1cfc5333d7628a65554b114144b55e61d786277cdc3ae42da80e003fe4be837a"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/runtime-lock.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "12eef9e1b2e436bdf9c614b7a78dd41befda8189da19f5fd2cc8a00abc0a0ce5"
+    },
+    {
+      "path": "applications/silicon/SECURITY.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cfdb96a7a8e7f76c3d96dfde21856d4c43cf4784de5fec370c67075944408aa5"
+    },
+    {
+      "path": "applications/silicon/SHA256SUMS.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0d0af097083d18f8df79c451ec8a4746b4db7619269b232c0e5b2106e85d32c4"
+    },
+    {
+      "path": "applications/silicon/src/app.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8e190b3ab159363cc1441fa8d44935c2394a17e12f4e7ba3f5d3630d95f892b9"
+    },
+    {
+      "path": "applications/silicon/src/lib/ram-link.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "249072bf678f875aa596582e0baff7b70f6ec8fe9a33b2f3f3abcc0481c4913c"
+    },
+    {
+      "path": "applications/silicon/src/vendor/events.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "742029f9ba8d32f00865793de27ad46a247d157b58c85579ca6eba65b85d5219"
+    },
+    {
+      "path": "applications/silicon/src/vendor/ram-worker.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3357174672880e55969e09e5562f9875081957fbab4192b844a511f25f96f885"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/buffer.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/byte-tables.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3465b1a9e0d2279acebcaf81ee209f2bfb7fb2308d2ab4b061e4c0613aab02ce"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/chip-harness.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f6dbecfbdebe8246b39ffbffcf24e637776ebcf01592294a79f328622893f309"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/ChipHarness.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/browser.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "93b9f0f94955aeef9986c7bb8fbb58c081a47f60a07fee500d012fad89ce93f8"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/coreutils.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8d323a73e7ecd4332b6eab927e4276b2c33b02756cf515baffa9c4e80b5dbc9b"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/fs.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "002cac8351dde73a0036ff9c67ec94b5a9993bdc80ee42a382b359348acb79e1"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/hpu.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c7abdf3fa56f9a5ae3cc94a9ef75cc20a647e7c300193222f4e61cfb7425d511"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/index.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4e57c19ffa410bda22107b9511e2b09eeeaff65f8dc58b65a2298c8ce083ff0c"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/ram.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b51b9e2f4dc85f92cfee214c35b077eb8eb00a7fcb56e0e297d15684d005c5f2"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/russl.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "62b85a1defb484e9c6c9126878fc11ed99984616da975fd5f375f268796c5e08"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/system.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "510e6ced2ab16149c6e8e1935a5a33265f7e2e99c6eaa8f39f71d94f0f4c4f24"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/util.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7b2f824e8f10272ad741202417e167bc9162dffee77824a8feb49f7d52ce8fcf"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/env.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7df5d6e37cf1f18d49f0cfb63ee80c0d17fbc45296200d8eaace06c5b3278277"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/hpu.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8028591b199564fe8523603b494586a35ad6bff9725dc7443d59140fb373c7bc"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/kernel.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f86c8f65e9a3e6db6d9d4544b8b452e8b34dd562a34b5cc296f6ee44921ec1e2"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/line-reader.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d236bd9c98f6795a633d893242fa3d06096f7cd385c593f7c4e70ca0871807ba"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/pipeline.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e08ac0335207fa851f0df2e718ee48610b1a4b0f5e40282c6e4765266ee6e029"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/regex-evaluator.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b7639aa89a58b74ab4a1a0e7419f5631edf1b192a31da1de32e0c69a1c048d51"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/regex-worker-node.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cc2fa0fab6a03015cba0e7420f7d693495929c27c1a6760db39fc62178031225"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/regex-worker.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "667009bb6d18b0bb030b3c7de1a78233d474c90bd19ddb0a0bccdbc22e4c2e47"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/registry.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e62bf307d0f75c079326e6543399534feabef52f96e8b9ce9808799aee5a4f68"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/russl-field.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "af9b9633a0dafd3b58718dc2489623481c3379d433c0bfe31ea736ec1000c65e"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/russl-service.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "68a63d6014f1d64fd0987d14ca685182b63acce1a75d13da3d26077462908c5a"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/safe-regex.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "72746ee03fb2a34b2564067dd6d9c890a74ed9c125e1ab11aa0503de89ef18cd"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/ssd.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "afc7727dcb6b02befa5044e56adef96518545a883e7b4dcff69b0f5010a832b2"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/state-codec.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/tiff-codec.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/vfs.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1cdbdb36a11d7b660abb2ea673c41ba0e63cb0892443a5c3f2b9c69b3a139b6e"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/volume-format.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e7a7b85f67ec51c37068104372281ff10d1f67a6ad4565d96c51aaad19da1c69"
+    },
+    {
+      "path": "applications/silicon/src/vendor/vt/parser.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6eb1c54bf16cc33413bcf71dc3cdbf16dd0ded0a263b131f8530c7f610f2ae0e"
+    },
+    {
+      "path": "applications/silicon/src/vendor/vt/renderer-canvas.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8cbb899f758f4b8fc9951a742b52abf7c102e9163281039740df053c4fb018b5"
+    },
+    {
+      "path": "applications/silicon/src/vendor/vt/screen.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e99683e9704817c89a35e281610ee53c6b6ab354c3d039b0e98e63c326145b8b"
+    },
+    {
+      "path": "applications/silicon/src/vendor/vws/flow.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "0ff0d890d0dda2333f2b06af364850ee732ec4de5c86a3c72e55c86c3e619776"
+    },
+    {
+      "path": "applications/silicon/src/vendor/vws/frame.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8684b504c619c1114cb5753caf3d5bd3a922ded583e5092a17d7c704c2c6b964"
+    },
+    {
+      "path": "applications/silicon/src/version.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e99868ecd0f464dacdbcbfc50d05b201ccf0c70f54ac37f3d15f00417275770b"
+    },
+    {
+      "path": "applications/silicon/Start-Console.cmd",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "64003877e0bbcedb0c27f62f59173658ad8d3d30db6b4c2abeb4eeb47bd8fa86"
+    },
+    {
+      "path": "applications/silicon/start.sh",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "305ea959d1a14cd1cc11436803cee0727867c2ba7953a7785e7225389c8045d4"
+    },
+    {
+      "path": "applications/silicon/tests/arm64-contract.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "080e0ca8ac7ddea5c101290346da3ebfb3ab8e7b4e2938f4388900cafffaebec"
+    },
+    {
+      "path": "applications/silicon/tests/browser-production.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ed6ffc31369631394ff5f268094ae4b1f69f7346e17eaa0694f5f524363479c0"
+    },
+    {
+      "path": "applications/silicon/tests/browser_offline.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ebdc21702cefb673c986c5f2be3e3a5c14b8aace21f8212b98688c2e5b3cdf67"
+    },
+    {
+      "path": "applications/silicon/tests/codecs.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2bc97668760dc3d0fb8a095fc7a2486304006cf24cc2f19970cfff33d9807dd2"
+    },
+    {
+      "path": "applications/silicon/tests/compute-hardening.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3af115f4904dde5a14213cd6886feb244e8083ee1396dbd961b0d7abe9d2d592"
+    },
+    {
+      "path": "applications/silicon/tests/core.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d2c232763e85987b67239fb14902c335e381787f08cd4c1531f6e97c909a8de1"
+    },
+    {
+      "path": "applications/silicon/tests/fake-idb.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b1c688875f0320e201c219dcb5cd9aaea867e1e78efa66e1d84225b986884365"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/HPU2-from-2.1.1.bin",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "28ad14ac1239e4b80ee7bd6aaa9d9ba075e452c80734434d4d7185278b2c136c"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/expected-f4.bin",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "329da3db75f9041c691761fe31d3a9a50c1f957467aa24df6f0baaaf0b6b50c0"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/expected-f8.bin",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "13587df36e3671082f6d6ef7f2a4af27a06ec2857abef55cde6500104c790421"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/expected-u1.bin",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "7071fc3188fde7e7e500d4768f1784bede1a22e991648dcab9dc3219acff1d4c"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/expected-u2.bin",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "062523a6607976aca0af57c5bf8327a6ebb2d716f34531554a1866911701bd02"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f4-big-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cad2d29395fb4db2336cdb9ab4466882808e5863893a4e06002484aafa0e4693"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f4-big-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "63610e5a0163a08cb2b3727eb814634d7f7163e229547c9cdb6198643d2234bb"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f4-classic-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "19fc8d035282febf548d361373363b74f9814ae0bc8ecd53d802df28bb02922f"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f4-classic-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "00243e11b7d6ce2b8e4f4219a6098c605c749ff8ff3949fd618ef356788d2b21"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f8-big-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b9c4ba7119f83dcfaec2939b1494796f1b5a6a546bd89de1bd52da66a11844f2"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f8-big-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "022943bd2052152ec45421749f725019d33c58890c23825e2e110bdd1eda640e"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f8-classic-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e2408c9030c0e83c31666df82066add33a01da3b6e73f43ac66bb93243d3d5aa"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/f8-classic-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f7b44383515644daa63ce7e664e6dcc50c15fe9e07cb34f07ae14221c649433c"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/manifest.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "fcd62239c72e34b15a0dc9f93df9c2242fd7a71bb1ef4c40692a03335125253c"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/orientation-6.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3e460876b1a300dfb03268420030c12b6398d687dfd58177b8ece6144ea14819"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u1-big-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "be1d85decd31b03b5e2355f5ca1c1b09db0f9139fc1fff54d768db677acd64af"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u1-big-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "556e1fa6959e7cb7c65f183d1fe10e44d833d4540aa0ef2f236a056a989bbeb1"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u1-classic-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9f017099b1999e8d49bc45e17246ff88385a753e7b76b8cdf6baa7bb43079864"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u1-classic-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "bd453fb2caa3a6ae7b4c5699ac68f4d1e7d59c439acc824a292083c7532453cf"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u2-big-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8dc8e28770db5a2fe7d87dc67e03ef0c23fe85f6ec428649df67c4eda3ddafec"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u2-big-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "30c001b7fde72ee6537173178dfa3c6e9d756c0b29251bc02f1f7657baf8669c"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u2-classic-be.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "63d52ed57e436ca52c934eb9b729db3d20cdeffb65c0ebfc139df8d7a3e5f438"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/u2-classic-le.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c9d461d67ce85cb1b8cac8e4b5ec273cd3f8f1187a046fb99f9228ba629b2e02"
+    },
+    {
+      "path": "applications/silicon/tests/fixtures/independent-tiff/unaligned-bigtiff.tif",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "93a947be230b6647e8b646e54e9f06c2a9c41689c26456bd28507ea66360e022"
+    },
+    {
+      "path": "applications/silicon/tests/host-hardening.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "91517f7518407913f86f52daf379726f53a3f0c50016ccd50749c84d63318c28"
+    },
+    {
+      "path": "applications/silicon/tests/launcher-contract.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "22130cf8df4cd49baf4107d1ab5d6f1c240a33c32a9ed73b977a9180362a4e0a"
+    },
+    {
+      "path": "applications/silicon/tests/MANUAL_ACCEPTANCE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ccf87d54e68b2ab9d5e4e475628e41a84e10211e40986b1f431ca2900fa70120"
+    },
+    {
+      "path": "applications/silicon/tests/native-tiff.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e0bd90b189cca4c57e4f03752e2bb1ee3bf01343ad1f48fb2b587e2d69a1f8d9"
+    },
+    {
+      "path": "applications/silicon/tests/native-vectors.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "648537ee6cb50fc1c4b26f6bc14d720c4ec26610cf325c86e6d01937cd074eb4"
+    },
+    {
+      "path": "applications/silicon/tests/offline-ui-link.js",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ca4376757cd4b8b7cbde7bef9edb09de4ce3e3fb29ef3568d8f74bb7f43580cb"
+    },
+    {
+      "path": "applications/silicon/tests/russl.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "298481df6632e58b0ad8d38a1d96042b49069a10a7d8a08ecc8320de1db94a3b"
+    },
+    {
+      "path": "applications/silicon/tests/russl_interop.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "295264ffba79d4b223c5f199c509880da32128586a7e281318312dbd2aa2f551"
+    },
+    {
+      "path": "applications/silicon/tests/server.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b590abb9748fe54807a9292fdfb8f9c942dee9262729cda42dfea704ae766f71"
+    },
+    {
+      "path": "applications/silicon/tests/storage-hardening.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ae15433af2fe5a89a86ee78936373f4b0074e72b64a86bd764af28781324f06c"
+    },
+    {
+      "path": "applications/silicon/tests/storage-race-adapter.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "632005c13c2de048aeca49a0a19f24de6b618e4b6cbd414bb34b5e4d795dc7c1"
+    },
+    {
+      "path": "applications/silicon/tests/terminal-hardening.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6e00cf8284576304d487110f02c4c960d77377cdfec339c4ea69295c92ffb045"
+    },
+    {
+      "path": "applications/silicon/tests/worker-adapter.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "13e4a7dc23bff480868a5766be050090180d7ba127e620fb2c121f052ea7ad4a"
+    },
+    {
+      "path": "applications/silicon/tests/worker-hardening.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "258d1d40d553a27a2c90f5735c3c571aeccd4756c33d98b8281eabecc77614c2"
+    },
+    {
+      "path": "applications/silicon/tests/worker.test.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1187994fd860e6d4b492857c10d4e8dc0b7f31d5ca651d907d943ada61da647c"
+    },
+    {
+      "path": "applications/silicon/THIRD_PARTY_NOTICES.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ae1c1dd8f1761e97eda808dfd3868390ae58e4c3dda72a5cfe3cb94c3f50e0f4"
+    },
+    {
+      "path": "applications/silicon/Verify.cmd",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "92f93d506f94a3f9d81baefffffb1800afa92fb2268cce9a5774f70c6b7741c3"
+    },
+    {
+      "path": "applications/silicon/VERSION",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "91930425f31d5132e78e0ad7195620e435121a2fdf87cf655f8323aa45ae0468"
+    },
+    {
+      "path": "applications/silicon/web/favicon.svg",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "377c3acec6017ec29c2615963a0da292e14a5900c0b6408ab12df84b9818db6e"
+    },
+    {
+      "path": "applications/silicon/web/index.html",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84"
+    },
+    {
+      "path": "applications/silicon/web/style.css",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a5ea5addb0d99f47bacc10037d636aac213085dbd4797e8716b9ccda087a5f2e"
+    },
+    {
+      "path": "applications/silicon/WINDOWS_STARTUP_FIX.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "362b9be4c0c084e177a764e4ce751fd848b3e980d90a5db00e4d78d98bf54de9"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "status": "modified",
+      "beforeSha256": "50afa2ad697260a360b53d513cf8b9deb58428a13455ff3a373532140eccd359",
+      "afterSha256": "9084a0ec271680bb67da0e3c8d9d7e05edc2baca78b9df7743a57ed0dc83c800"
+    },
+    {
+      "path": "console.json",
+      "status": "modified",
+      "beforeSha256": "505b46c8599c7b7a98ff713d558243c7f95fc786202ae2dc9097225b278e4b86",
+      "afterSha256": "2649a7887e76e7738f221efb925db9f800b33177930eec7833bd10d5a923c549"
+    },
+    {
+      "path": "CONSOLE_BUILD.json",
+      "status": "modified",
+      "beforeSha256": "6452aad39400526ecf6064bcb7b077ae60f2f9367e53649a1794c40c593479a3",
+      "afterSha256": "393c3c3e4a5d0b36a59286d6fbff6e4abfcfc447b49defa142b4a7fac16a167d"
+    },
+    {
+      "path": "CONSOLE_VERSION",
+      "status": "modified",
+      "beforeSha256": "7fbd210ebec11f65a97190ef900795c4b8da3805af3f5a1b8d1d272556b292ca",
+      "afterSha256": "a64708b010e2bcf628154ddc205ed49688a6347ef93a66a42492430f63f021b1"
+    },
+    {
+      "path": "docs/INTEGRATION-1.2.0.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "35bbf71c75f9c7d2a9501e92bc86c579f5004463b77b8cce38464fbb7a1bc6e3"
+    },
+    {
+      "path": "docs/SILICON-WEBVIEW2-ACCEPTANCE.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "80231e26a0c8da88c0d29c8c837b33d51e91d24086098823c63099d5986574d1"
+    },
+    {
+      "path": "engine/ja21/runtime.integrity.json",
+      "status": "modified",
+      "beforeSha256": "bfeee2023f00253dc4c404707c01627bb198b15ca2c7aee8390429520f29ab80",
+      "afterSha256": "10b82f4a5c41077a020351c49392421f48f4ea011831ce940c08d80b0f4cfae6"
+    },
+    {
+      "path": "evidence/integration-1.2.0/CONSOLE_TEST_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8c84a91508296784ad19bf2c98eb1afa21ba3d9c1104ecafe57e6c025b36c6f0"
+    },
+    {
+      "path": "evidence/integration-1.2.0/INPUT_PROVENANCE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "dd28afa9ce308c449eceecf97859bbeddcd067babf44e047f9afcd2deb9c994b"
+    },
+    {
+      "path": "evidence/integration-1.2.0/SILICON_OVERLAY.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "62f1ac800eb104fcdeace1e263d46d9152bbd123a985735d5beb3431374c688c"
+    },
+    {
+      "path": "evidence/integration-1.2.0/SOFTWARE_CONSOLE_LAUNCHER_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8637df8933baefbf256c536bad7f952958f8fe132d780312c6afecc586536c17"
+    },
+    {
+      "path": "evidence/integration-1.2.0/SOFTWARE_CONSOLE_NATIVE_PREFLIGHT.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4edc4829f7e2efdf533ead6d448090842baef5123237de8d25d056fd89e7cd07"
+    },
+    {
+      "path": "evidence/integration-1.2.0/WEBVIEW2_LIVE_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2ea2c5b63bfb1d4f9182d91ff24ebb04c80e5f31be779756606e6f0c217f52cc"
+    },
+    {
+      "path": "evidence/SILICON_NATIVE_BUILD_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c2f23a2b98bd688fa5b3c00eeac16b4381cf9582c82eb4457f04d4bf68cd6465"
+    },
+    {
+      "path": "evidence/SILICON_NATIVE_POLICY_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c649d479adda89291eced7797ee10b8401dd879b5a5ec863e629f5b464bf739d"
+    },
+    {
+      "path": "host/Build-SiliconConsole.cmd",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9d7478f820e87dc5eca8339eb66b62871281232a733d146c42730027a484cca4"
+    },
+    {
+      "path": "host/JA21VirtualBrowser.cs",
+      "status": "modified",
+      "beforeSha256": "d6e6b25629cf6b58834085d3c66d48aff0eebb747cf43b8bf30fd12879f0c1f4",
+      "afterSha256": "dd76a714f2b3b1478f985f872ad10041f9f0ef95dade20a426e72fae476785df"
+    },
+    {
+      "path": "host/LiveWebBridge.cs",
+      "status": "modified",
+      "beforeSha256": "cd961ff747d5ba8fbf9464b5fe44d6d8601ede0506b17910671e82181517e206",
+      "afterSha256": "d5ee976ad0b881762f498393b26a4dcc68c7d2f24997b8a291e6d58ab44d7bc9"
+    },
+    {
+      "path": "host/SiliconApp.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "86877788b6082e99792f5d41d0f8b45ad7e3530a7a2d2627271c85997e4de38c"
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e9bd313b98a1494172b24f408f69ebb838fb13e533fdf5a6aeea8161a133c11a"
+    },
+    {
+      "path": "host/Start-Console.ps1",
+      "status": "modified",
+      "beforeSha256": "7006c0f5b131baa52fbaf9f83faf965877bcd7d2df71094c62f0c20d34adb7ca",
+      "afterSha256": "3759800a54e05efdcb7b79c9747ab90ab08357a0f46dc4068c6fe3d6b9adce4d"
+    },
+    {
+      "path": "host/Start-JA21Browser.ps1",
+      "status": "modified",
+      "beforeSha256": "4b2f6397795fb69fb523ed22efa5746c3762c8a9864aa13823f07e5919807b20",
+      "afterSha256": "1c0e52d14a3daf7759832021a110a11700b29496048b2e8e98c85d8d853a31d6"
+    },
+    {
+      "path": "host/Verify-JA21Browser.ps1",
+      "status": "modified",
+      "beforeSha256": "e2dcda530e14b81aa8a64da94e54f0ae2a6a4e45d13f11a2f9a97429312ccb4d",
+      "afterSha256": "e76a1dd1b157ab2cfefd84af648f9a8e49dccdbaa8be50ad42e6b6f1eafea04d"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "60fd7f66b2ebe12d61d754613729979a99fed84ef52697f2658b4be9836ae12c"
+    },
+    {
+      "path": "LICENSING.md",
+      "status": "modified",
+      "beforeSha256": "3002073c0dba9408570b5b22eadf8f494a32e56a250153047befc1047f628d8f",
+      "afterSha256": "cb62c79096777adc0ebebe986ea73dae1902a203366dc193d7b622d6b39597b8"
+    },
+    {
+      "path": "package.integrity.json",
+      "status": "modified",
+      "beforeSha256": "7fe8df98c0b4cd02a77f190dd53796f8ed26b55cb6c276602bbcbc56fca5840e",
+      "afterSha256": "ccfbe06832452c25fcf3ce05e8d71d9856a90676c4cc383a92ae9bcdd3c9dbf5"
+    },
+    {
+      "path": "READ ME - Console.txt",
+      "status": "modified",
+      "beforeSha256": "ca343228b5925117a3d0bcc84fd923e709d03f948f6f69d35824c7ec045c90a3",
+      "afterSha256": "cb7c3df8312582a62102f3630cb814993ab43228df84d16f559a3514df599ca3"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "beforeSha256": "d0275f43ad5999e09cb0244ac8e009468bf4e58b48602e96f653ca9bba104047",
+      "afterSha256": "07debe64a84dd2eb4fa2ea9782a73b17f7ce76c15176765002cf86d34269651d"
+    },
+    {
+      "path": "Start Console.cmd",
+      "status": "modified",
+      "beforeSha256": "9e7fcacf73357c20a0dd35c06cadf1376437ffc76ce8d52fc9cc5202e67a8646",
+      "afterSha256": "d3c4bac4fe36b70237e2617625c46b0917394266f547f18c7707260decb1cd1f"
+    },
+    {
+      "path": "Start Console.vbs",
+      "status": "modified",
+      "beforeSha256": "579b2079e2761f2caf2949562dedd4c406aa4ff91d75dd88368b3e951f03ea36",
+      "afterSha256": "53154552c0948eb2dfa6dd4da0ef587e4a1608f8c4dba3f0eed9fa44d0e3606f"
+    },
+    {
+      "path": "Test Silicon CPU.cmd",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b3d6858bcee0a6bcab4345422fccc866ea183d72f3be04b9d6598f2d0db3b8cd"
+    },
+    {
+      "path": "tests/test_compile_hygiene_912.py",
+      "status": "modified",
+      "beforeSha256": "4770ce47ccbb9cd1b9a89b514c77dc0584e47a2922e929c1693d35450e9cfa99",
+      "afterSha256": "2d114b3d711988e71e821d25c227ba53b713d85082aac1261e665853bcf4b175"
+    },
+    {
+      "path": "tests/test_host_hardening.py",
+      "status": "modified",
+      "beforeSha256": "99c5375f731b2cc18497c2b7fb2f6b108893cd9472169a757511c2f91d84b739",
+      "afterSha256": "f408d3d666eeb7e49e9962ad37360a7a961ceb2c4dd978fd2fb66d0a8df947a6"
+    },
+    {
+      "path": "tests/test_silicon_integration.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4c387e57fe85190fe2e9a5ecb1236776a3369850a3c5d33e6ed5779705b21bc4"
+    },
+    {
+      "path": "tests/test_vec1_integration.py",
+      "status": "modified",
+      "beforeSha256": "956de66936280f9c60c5c1e89e4fb2160f0242fe410fde9f1a7174df05e94dde",
+      "afterSha256": "6e202fe36508d3c7cd84603f7d4eeb72850a625ff1b354dd6b53a802934ec989"
+    },
+    {
+      "path": "tools/Build-Silicon-Acceptance.cmd",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e706e7ae2db9e117f0189797cb7105b955813138bf47e224bee7eff5c7af39ed"
+    },
+    {
+      "path": "tools/package_paths.py",
+      "status": "modified",
+      "beforeSha256": "9f1e2fd3f20ead386e0a41251c558d06fc04cec616510836d49887ee8cc90eca",
+      "afterSha256": "f77d50b39da8e17da11a1c24fc3e17708d2731b24ebe3b29128803fd7b9b8587"
+    },
+    {
+      "path": "tools/reseal.py",
+      "status": "modified",
+      "beforeSha256": "1bcdb233560dbd19577a043513899483a175328b71536941ac6b99ee560ab37c",
+      "afterSha256": "e5dbf6cecb261e9a74c8808150c8053f445ceeca472a99286cb29730fe75e6b6"
+    },
+    {
+      "path": "tools/silicon_package.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "69e4b770bb6046620f1012ff72afe85f7f26c9fe97ebd50aa119c10365cd73f1"
+    },
+    {
+      "path": "tools/SiliconPolicyAcceptance.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d5fe8752f7c0bc086e73db16394b6bbdbcaf7b15767fd96a624ef34e36058209"
+    },
+    {
+      "path": "tools/SiliconWebView2Acceptance.cs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c30de6e16e8ea12b9c32ac04154a6589bb77ab8b994a9f30e5fb8b9910fd85bc"
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "07da3a9a6cf247e901d161e9ca6c842fc6906050bf7983a09a6ce9c0eca1e655"
+    },
+    {
+      "path": "tools/Test-SoftwareConsoleLauncher.ps1",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8809e7336554fb4e673e96ef08a190fdb9a3bf6dfd59895d0a8a18b9aff414fe"
+    },
+    {
+      "path": "tools/Verify-Console.ps1",
+      "status": "modified",
+      "beforeSha256": "16d384b2e34c20c62fcfa4e449cf27912a50d467fec03b0a624e572c895cef1c",
+      "afterSha256": "d6f772256da271b058ff5c81e79dedf029e2bfd28c5d26fdbaf3d3fa88fe5210"
+    },
+    {
+      "path": "tools/verify_package.py",
+      "status": "modified",
+      "beforeSha256": "3760180ed34b6e9524a6da8fdc22b053fa4581a88483dc7864e44e57c1014f5c",
+      "afterSha256": "2619d4fd4eb20952b3ca8bada1f8d9057d59eadd3f154309fa11529fb6a1d485"
+    },
+    {
+      "path": "VALIDATION.txt",
+      "status": "modified",
+      "beforeSha256": "515d41aae683c7ed84d1fa4b158b3e75b83485575dec7e66ee7a39d0218d4f59",
+      "afterSha256": "f0bee3b9820a9bcd30b3bb301709d595a1551140876c645698266962c1e57dc9"
+    }
+  ]
+}

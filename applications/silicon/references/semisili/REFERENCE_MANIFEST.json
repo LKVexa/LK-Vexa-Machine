@@ -1,0 +1,242 @@
+{
+  "schema": "JA21/SEMISILI_REFERENCES/1",
+  "sources": [
+    {
+      "source": "C:\\Users\\russe\\Downloads\\P-adic Hologram Processing Architecture.pdf",
+      "target": "applications/silicon/references/semisili/P-adic Hologram Processing Architecture.pdf",
+      "bytes": 224841,
+      "sha256": "76bd62a134cdbc3673ae06fede642595951fbc84fea5befda9e3640ea3f7617e",
+      "group": "math",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-adic Architecture in Image Formats.pdf",
+      "target": "applications/silicon/references/semisili/p-adic Architecture in Image Formats.pdf",
+      "bytes": 232297,
+      "sha256": "ba276066b0ddaee5b41812cb7e286ce8de1ca0616146b8753f53cc92d5c0e42f",
+      "group": "math",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Geometric Diffusion Computing.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Geometric Diffusion Computing.pdf",
+      "bytes": 342586,
+      "sha256": "519167f186c583cf9b714ac4ede46752ba039f7c92a7ab2d5074d9954ca453e9",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Quantum States Digital Holography.pdf",
+      "target": "applications/silicon/references/semisili/Quantum States Digital Holography.pdf",
+      "bytes": 369504,
+      "sha256": "11df83705fa3baafa04f756a6a861bce4456ab0f24223a1509738d46252280ec",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Quantum Computation and Circuit Evolution.pdf",
+      "target": "applications/silicon/references/semisili/Quantum Computation and Circuit Evolution.pdf",
+      "bytes": 459061,
+      "sha256": "d95b65cb7a4e773908937674efd2903f4763094b9780217ee8a4dab802f536c9",
+      "group": "math",
+      "pages": 19,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Quantum Computation Equations Overview.pdf",
+      "target": "applications/silicon/references/semisili/Quantum Computation Equations Overview.pdf",
+      "bytes": 549504,
+      "sha256": "091c1c4b6d3532e11a3fe74b690f78a9b6747cc3b512ae97107e1521326f19e0",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-adic Bit and Anti-bit.pdf",
+      "target": "applications/silicon/references/semisili/p-adic Bit and Anti-bit.pdf",
+      "bytes": 548843,
+      "sha256": "a385a4b883c3fa4ab387e7094596ca4ba90821fcbaad487b2394c43b016fdc9b",
+      "group": "math",
+      "pages": 19,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Black_Hole_Master_Equations.pdf",
+      "target": "applications/silicon/references/semisili/Black_Hole_Master_Equations.pdf",
+      "bytes": 111534,
+      "sha256": "579b2f4e3833b0207e06359caa85447cdcc705a65b61aadeee7022b52394a6f4",
+      "group": "math",
+      "pages": 4,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-Adic 1-Bit LAMB Architecture.pdf",
+      "target": "applications/silicon/references/semisili/p-Adic 1-Bit LAMB Architecture.pdf",
+      "bytes": 382705,
+      "sha256": "ba8ef879a5b7d988794a175cfa68b5891294e5ea95300ad96ebbc2602e5b37d2",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-Adic Architecture Unification.pdf",
+      "target": "applications/silicon/references/semisili/p-Adic Architecture Unification.pdf",
+      "bytes": 229813,
+      "sha256": "2ef3ff52c904d4f8b908dd23991ce50e668b327c0b330fab2f9c1f3011c8dcc2",
+      "group": "math",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\IdeaPad 5i RAM Sampling.pdf",
+      "target": "applications/silicon/references/semisili/IdeaPad 5i RAM Sampling.pdf",
+      "bytes": 310503,
+      "sha256": "818b873dda901a5f2d44cd6ec201b3898276d57428a5914e1fb0215ea7652808",
+      "group": "interfaces",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\RAM Neural Operation Interfaces.pdf",
+      "target": "applications/silicon/references/semisili/RAM Neural Operation Interfaces.pdf",
+      "bytes": 395963,
+      "sha256": "c7e727e4d012948618fe64a94383868a4c171a0e7cfc670a1248f33a61dbd783",
+      "group": "interfaces",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\C# Hologram Computation Harness.pdf",
+      "target": "applications/silicon/references/semisili/C# Hologram Computation Harness.pdf",
+      "bytes": 386429,
+      "sha256": "fb8be063efc9207ffd61e65f9ff01261aed5a3c11d8d756df82cd86d2c1238e1",
+      "group": "interfaces",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\1-Bit LAMB Unikernel Integration.pdf",
+      "target": "applications/silicon/references/semisili/1-Bit LAMB Unikernel Integration.pdf",
+      "bytes": 400735,
+      "sha256": "7d3e58e732429e90f09eb46e3a81469397af87d7136141d034b736cbbe89b31e",
+      "group": "interfaces",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Columned Unikernel Research Analysis.pdf",
+      "target": "applications/silicon/references/semisili/Columned Unikernel Research Analysis.pdf",
+      "bytes": 264881,
+      "sha256": "e3cd3f3fef93489c70325fbe064bbf69b9eddbef3783a9ac95627e9aa09fb9d8",
+      "group": "interfaces",
+      "pages": 10,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic LLM Weight Image Processing.pdf",
+      "target": "applications/silicon/references/semisili/Holographic LLM Weight Image Processing.pdf",
+      "bytes": 233531,
+      "sha256": "4d84604142df35209b83333e5f4eb87b73481cb6e12d98b9821a32459f7a1fa9",
+      "group": "interfaces",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\IdeaPad Silicon Computing Setup.txt",
+      "target": "applications/silicon/references/semisili/IdeaPad Silicon Computing Setup.txt",
+      "bytes": 34586,
+      "sha256": "f1c710b1ab52e9add575b50dc642a22bba910730f4a18b761cf0173b617de20c",
+      "group": "interfaces",
+      "pages": null,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Computation via Image Formats.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Computation via Image Formats.pdf",
+      "bytes": 415322,
+      "sha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82",
+      "group": "formats",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Image-Based Computation.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Image-Based Computation.pdf",
+      "bytes": 357973,
+      "sha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331",
+      "group": "formats",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Logical Reasoning Research.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Logical Reasoning Research.pdf",
+      "bytes": 423510,
+      "sha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5",
+      "group": "formats",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Microscopic Quantum Paradigm GIF Research.pdf",
+      "target": "applications/silicon/references/semisili/Microscopic Quantum Paradigm GIF Research.pdf",
+      "bytes": 370300,
+      "sha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65",
+      "group": "formats",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\OAM Spatial Shifting Arithmetic.pdf",
+      "target": "applications/silicon/references/semisili/OAM Spatial Shifting Arithmetic.pdf",
+      "bytes": 393867,
+      "sha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96",
+      "group": "formats",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\P-adic Holographic Simulations Research.pdf",
+      "target": "applications/silicon/references/semisili/P-adic Holographic Simulations Research.pdf",
+      "bytes": 258028,
+      "sha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247",
+      "group": "formats",
+      "pages": 13,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\P-adic Penteract Simulation Research.pdf",
+      "target": "applications/silicon/references/semisili/P-adic Penteract Simulation Research.pdf",
+      "bytes": 217140,
+      "sha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a",
+      "group": "formats",
+      "pages": 11,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Penteract TIFF-GIF Storage Techniques.pdf",
+      "target": "applications/silicon/references/semisili/Penteract TIFF-GIF Storage Techniques.pdf",
+      "bytes": 308573,
+      "sha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0",
+      "group": "formats",
+      "pages": 13,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\TIFF GIF Spatial-Temporal Encoding.pdf",
+      "target": "applications/silicon/references/semisili/TIFF GIF Spatial-Temporal Encoding.pdf",
+      "bytes": 315941,
+      "sha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc",
+      "group": "formats",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    }
+  ],
+  "sourceFiles": 26,
+  "pdfFiles": 25,
+  "scope": "Original user-provided reference bytes, not executable instruction authority. Files are outside the mapped web application."
+}

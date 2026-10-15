@@ -1,0 +1,15 @@
+node:internal/fs/promises:1345
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: EBUSY: resource busy or locked, open 'D:\Codex\2026-10-13\pl\work\blank-console-arm64\project\JA21-Silicon-Console\applications\silicon\audit\TEST_RESULTS.tap'
+    at async open (node:internal/fs/promises:1345:25)
+    at async Object.writeFile (node:internal/fs/promises:1965:14)
+    at async file:///D:/Codex/2026-10-13/pl/work/blank-console-arm64/project/JA21-Silicon-Console/applications/silicon/scripts/test.mjs:5:58 {
+  errno: -4082,
+  code: 'EBUSY',
+  syscall: 'open',
+  path: 'D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\audit\\TEST_RESULTS.tap'
+}
+
+Node.js v24.21.0

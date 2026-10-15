@@ -1,0 +1,24 @@
+{
+  "sourcePackage": "hermit-ramws_2.0.0-ramws.1(3).zip",
+  "sourceVersion": "2.0.0-ramws.1",
+  "protocol": "hermit.vws.v2",
+  "controlMaxUtf8Bytes": 65536,
+  "controlMaxDepth": 8,
+  "binary": {"headerBytes":7,"sequenceBits":48,"endian":"big","inputKind":1,"outputKind":2,"inputPayloadMaxBytes":8192,"outputPayloadMaxBytes":16384,"nonempty":true,"contiguousSequence":true},
+  "terminalGeometry": {"minCols":2,"maxCols":400,"minRows":1,"maxRows":200},
+  "sourceStorageProfile": "LOCAL_VOLATILE",
+  "sourceLicense": "Copyright (c) 2026 David Paul Russell; all rights reserved; copyright holder own use",
+  "recommendedArchitecture": "HERMIT VT and strict RAMWS codec around existing JA21 browser worker; optional exact-loopback real WebSocket broker forwards to the single browser XPU owner",
+  "preservedOwner": "JA21 browser worker owns CPU/GPU XPU field and IndexedDB persistence",
+  "adaptationFixes": [
+    {"id":"HERM-CLIENT-1","file":"client/ws-adapter.js","finding":"protoErr is referenced before initialization on malformed binary decode","fix":"declare before binary/text branches"},
+    {"id":"HERM-CLIENT-2","file":"client/ws-adapter.js","finding":"output gaps are delivered and credited","fix":"require exact next sequence before output publication"},
+    {"id":"HERM-CLIENT-3","file":"client/ws-adapter.js","finding":"session control epoch is not compared with live session","fix":"sid+epoch+hello epoch fence"},
+    {"id":"HERM-CLIENT-4","file":"client/ws-adapter.js","finding":"arbitrary paste sends without pending-byte or bufferedAmount bound","fix":"bounded pending input and send budget"},
+    {"id":"HERM-CLIENT-5","file":"client/ws-adapter.js","finding":"connect waits indefinitely for hello/session.opened","fix":"bounded open deadline"},
+    {"id":"HERM-CLIENT-6","file":"client/ws-adapter.js and client/transport.js","finding":"output is credited before consumer completion and barrier overflow may truncate","fix":"consume/credit only on delivery; explicit bounded overflow failure"},
+    {"id":"HERM-WS-1","file":"gateway/ws.js","finding":"100 code-unit close reason cap can exceed 123 UTF8 bytes","fix":"UTF8 byte-bounded truncation without splitting code point"}
+  ],
+  "evidenceBoundary": {"currentIntegrationVerified":false,"includedSourceTestOutputs":"historical provenance only","fakePeerProbe":"source behavior only","physicalResidency":"UNKNOWN on Windows/browser unless independently measured","browserHeapCap":"Node resourceLimits does not apply"},
+  "forbiddenImplicitCapabilities": ["independent Node XPU replacement","arbitrary host shell","DF fabric activation","public cloud deployment","public listener","automatic mutation replay","invented physical RAM residency"]
+}

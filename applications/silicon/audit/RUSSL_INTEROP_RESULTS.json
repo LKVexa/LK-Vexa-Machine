@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "decoder": "tifffile",
+  "version": "2026.9.20",
+  "numpy": "2.3.5",
+  "independentWriterFixtures": 16,
+  "results": [
+    {
+      "test": "russl-field.tif: all 16,384 f64 samples bit-exact through independent decoder",
+      "status": "PASS"
+    },
+    {
+      "test": "russl-field-bigtiff.tif: all 16,384 f64 samples bit-exact through independent decoder",
+      "status": "PASS"
+    },
+    {
+      "test": "russl-field-big-endian.tif: all 16,384 f64 samples bit-exact through independent decoder",
+      "status": "PASS"
+    },
+    {
+      "test": "phase: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-1: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-2: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-3: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-4: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-5: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-6: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "processor-7: all 4,096 u16 samples match in tifffile AND Pillow",
+      "status": "PASS"
+    },
+    {
+      "test": "all 16,384 ordinal TIFF samples checked against corpus fixture and independent Python helper",
+      "status": "PASS"
+    }
+  ],
+  "scope": "Bounded finite scalar subset; not general TIFF/OME-NGFF certification."
+}

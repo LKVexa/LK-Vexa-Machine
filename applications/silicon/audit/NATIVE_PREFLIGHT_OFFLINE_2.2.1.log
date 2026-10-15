@@ -1,0 +1,9 @@
+JA21 launcher 2.2.1 | application 2.2.1
+Package: D:\Codex\2026-10-13\pl\work\ja21-audit\JA21_Silicon_Console_2.2.0\
+Log: D:\Codex\2026-10-13\pl\work\ja21-audit\JA21_Silicon_Console_2.2.0\logs\launcher-20261014-031442-412-26200.log
+Private runtime: Node.js 24.21.0 / Windows x64
+Verified executable reports v24.21.0
+Runtime path: D:\Codex\2026-10-13\pl\work\ja21-audit\JA21_Silicon_Console_2.2.0\.runtime\node-v24.21.0-win-x64\node.exe
+PREFLIGHT PASS: package files and private runtime verified. Server/browser were not started.
+
+Launcher exit code: 0.

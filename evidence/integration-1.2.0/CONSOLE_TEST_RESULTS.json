@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "topLevelTests": 216,
+  "passed": 213,
+  "skipped": 3,
+  "failed": 0,
+  "nestedSubstrate": {
+    "tests": 30,
+    "passed": 29,
+    "skipped": 1,
+    "failed": 0
+  },
+  "scope": "Python tests including native compiled host probes and nested substrate gate; not live WebView2"
+}

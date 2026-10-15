@@ -1,0 +1,97 @@
+{
+  "schema": "JA21/NATIVE_MAIN_PROCESS_RELAUNCH/1",
+  "status": "PASS",
+  "consoleVersion": "1.4.0",
+  "engineVersion": "2.4.0",
+  "testedUTC": "2026-10-14T23:31:29.465Z",
+  "fixture": false,
+  "realProductionEntryInvoked": true,
+  "programRunReached": true,
+  "mainExitCodes": [
+    0,
+    0
+  ],
+  "nativeProcessIds": [
+    34068,
+    27352
+  ],
+  "distinctNativeProcesses": true,
+  "sameIsolatedDefaultWorkspace": true,
+  "indexedDbCommitAcknowledged": true,
+  "exactCommittedFileRestored": true,
+  "exactCommittedFieldPreviewRestored": true,
+  "threePanesObserved": true,
+  "finalPanes": [
+    {
+      "id": "pane-xpu-1",
+      "inputDisabled": false,
+      "kind": "xpu",
+      "left": 34,
+      "right": 472.9250183105469,
+      "session": "connected",
+      "visible": true
+    },
+    {
+      "id": "pane-xpu-2",
+      "inputDisabled": false,
+      "kind": "xpu",
+      "left": 486.9250183105469,
+      "right": 925.8625183105469,
+      "session": "connected",
+      "visible": true
+    },
+    {
+      "id": "pane-admin",
+      "inputDisabled": true,
+      "kind": "admin",
+      "left": 939.8624877929688,
+      "right": 1378.7999877929688,
+      "session": "disconnected",
+      "visible": true
+    }
+  ],
+  "productionExeSha256": "31697d8319d2ede0d103634cc7503493af6c99426d390c4c0f9a3330392a64b5",
+  "runtimeManifestSha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6",
+  "runtimeFiles": 358,
+  "adminUacStartup": "NOT_RUN",
+  "adminIpc": "BLOCKED_ENVIRONMENT",
+  "nativeGpuComputation": "NOT_RUN",
+  "browserRuntimeProcessExitVerified": false,
+  "sandboxDisabled": false,
+  "securityFlagsModified": false,
+  "scope": "Two distinct non-elevated diagnostic processes invoke the actual compiled SiliconConsoleEntry.Main and Program.Run. The first runs byte lanes and commits a known virtual file plus field through the real UI and IndexedDB. The second reopens the same isolated package workspace and verifies the exact virtual file plus both full field-preview arrays. The real SDK screenshot shows all three panes; both XPU sessions are connected and Administrator remains explicitly disconnected. Browser broker/process termination, power-loss durability, GPU work inside native WebView2 and Administrator elevation are separate untested gates.",
+  "artifacts": [
+    "NATIVE_MAIN_SEED_FINAL.json",
+    "NATIVE_MAIN_RESTART_FINAL.json",
+    "NATIVE_DOCUMENT_THREE_PANES.png",
+    "NATIVE_RUNTIME_MANIFEST_TESTED.json",
+    "NativeMainEntryProbe.cs"
+  ],
+  "artifactHashes": [
+    {
+      "path": "NATIVE_MAIN_SEED_FINAL.json",
+      "bytes": 109397,
+      "sha256": "1c9781cc0748d01b0fb1197ac7fe95556228c4c595691e23f782c49fcebc236f"
+    },
+    {
+      "path": "NATIVE_MAIN_RESTART_FINAL.json",
+      "bytes": 109250,
+      "sha256": "a8caa327ecb7490579d23960aa2eef9419ce2f24bcc8aec713cad422c0c7db67"
+    },
+    {
+      "path": "NATIVE_DOCUMENT_THREE_PANES.png",
+      "bytes": 109001,
+      "sha256": "32abd73b35890cb2b7cd5dd1b39d74c985131d31cf2b48b9d983bc922934a9a8"
+    },
+    {
+      "path": "NATIVE_RUNTIME_MANIFEST_TESTED.json",
+      "bytes": 64688,
+      "sha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6"
+    },
+    {
+      "path": "NativeMainEntryProbe.cs",
+      "bytes": 10787,
+      "sha256": "2bd45e989ffc8b1c80c291ef4148a7fbec89a7ba6bd7d71e13b98d0083c24df9"
+    }
+  ]
+}

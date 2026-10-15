@@ -1,0 +1,70 @@
+{
+  "mode": "OFFLINE_UI_FIXTURE",
+  "limitations": [
+    "No HTTP navigation; managed policy blocked it.",
+    "In-memory link adapter; real browser IndexedDB/Web Locks/production CSP/transport NOT verified."
+  ],
+  "tests": [
+    {
+      "test": "offline app startup / canvas renderer",
+      "status": "PASS"
+    },
+    {
+      "test": "form -> shell -> ANSI parser -> screen",
+      "status": "PASS"
+    },
+    {
+      "test": "XPU control updates actual software field",
+      "status": "PASS"
+    },
+    {
+      "test": "command library search and nonexecuting insertion",
+      "status": "PASS"
+    },
+    {
+      "test": "independent terminal creation and selection",
+      "status": "PASS"
+    },
+    {
+      "test": "virtual file list and explicit TIFF download",
+      "status": "PASS"
+    },
+    {
+      "test": "pixel lab captures all 16,384 samples without applying to live field",
+      "status": "PASS"
+    },
+    {
+      "test": "pixel lab reads and edits a staged component; live field unchanged",
+      "status": "PASS"
+    },
+    {
+      "test": "UI surfaces prohibited derived-plane edit without changing staged revision",
+      "status": "PASS"
+    },
+    {
+      "test": "apply confirmation can cancel; accepted apply updates the live XPU",
+      "status": "PASS"
+    },
+    {
+      "test": "pixel lab exports the actual edited TIFF bytes",
+      "status": "PASS"
+    },
+    {
+      "test": "local endian variant import succeeds; truncated replacement preserves valid stage",
+      "status": "PASS"
+    },
+    {
+      "test": "TIFF pixel lab at 430px has no horizontal page overflow",
+      "status": "PASS"
+    },
+    {
+      "test": "430px layout has no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "test": "offline power-off stays stopped, power-on works",
+      "status": "PASS"
+    }
+  ],
+  "page_errors": []
+}

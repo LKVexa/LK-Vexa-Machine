@@ -1,0 +1,315 @@
+{
+  "schema": "JA21-HOST-BENCHMARK/1",
+  "generatedAt": "2026-10-14T18:25:39.583Z",
+  "status": "PASS",
+  "runtime": {
+    "node": "v24.21.0",
+    "v8": "13.6.233.17-node.53",
+    "execPath": "D:\\Codex\\2026-10-13\\pl\\work\\ja21-audit\\JA21_Silicon_Console_2.2.0\\.runtime\\node-v24.21.0-win-x64\\node.exe",
+    "platform": "win32",
+    "architecture": "x64",
+    "operatingSystemRelease": "10.0.26200",
+    "cpuModel": "Intel(R) Core(TM) Ultra 7 255U",
+    "logicalCpuEntries": 14,
+    "parallelism": 14
+  },
+  "engine": {
+    "version": "2.2.2",
+    "engineRoot": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon",
+    "sourceSha256": "8028591b199564fe8523603b494586a35ad6bff9725dc7443d59140fb373c7bc"
+  },
+  "methodology": {
+    "timer": "Node performance.now() monotonic wall clock",
+    "cpuTimer": "process.cpuUsage() user plus system CPU time for this Node process",
+    "percentiles": "Nearest-rank percentiles of 25 measured batch-average operation times after three warmup batches.",
+    "deterministicSeed": 1245786673,
+    "fixtureDigest": "db6050200e80e684457570d158731a487e8a77ca26b806a1a1a584891b387938",
+    "initialFieldEnergy": 2050.3999991991327,
+    "all256InputBytesCovered": true,
+    "actualInputByteValues": 256,
+    "checksums": "SHA-256 of production numerical outputs outside timed region; excludes mutable timing telemetry.",
+    "totalTimeLimitSeconds": 45,
+    "elapsedSeconds": 2.9151624000000003,
+    "scope": "Direct production Hpu JavaScript functions in pinned Node on this host. No browser, live WebView2, worker transport, filesystem or hardware accelerator is measured.",
+    "exclusions": "No hardware cycle counter, clock-frequency measurement, GPU execution, FLOPS claim, power/thermal profiling, silicon authenticity proof, or cross-machine performance guarantee.",
+    "conditions": "Power mode, thermal state, foreground load and antivirus activity were not controlled. These results are local observations, not a calibrated hardware comparison.",
+    "cpuAccountingCaveat": "Windows process CPU accounting can be coarse at short durations. A zero CPU-time sample is an accounting-resolution effect, not evidence of zero computation. Wall-time results are the primary performance measurements.",
+    "memoryCaveat": "Memory values are snapshots for this Node process, including its runtime, temporary allocations and garbage collection. They are not whole-laptop memory requirements or a leak test."
+  },
+  "results": [
+    {
+      "name": "byte pipeline",
+      "operation": "restore two 4096-element Float32 fixture arrays; Hpu.bytes() samples intensity, runs six scalar and six batched byte lanes, checks equality, selects route, writes field phase",
+      "pointsPerOperation": 4096,
+      "laneLookupsPerOperation": 49152,
+      "simulatedCounters": {
+        "cpuCyclesPerLane": 16384,
+        "gpuWarpsPerLane": 128
+      },
+      "simulatedCounterWarning": "cpuCycles is defined as samples*4 and gpuWarps as samples/32. Neither is measured hardware activity.",
+      "warmupTrials": 3,
+      "measuredTrials": 25,
+      "plannedMeasuredTrials": 25,
+      "batchOperations": 16,
+      "measuredOperations": 400,
+      "complete": true,
+      "consistency": "PASS",
+      "uniqueChecksums": [
+        "01daf3b21d22f91f4f1ca7fa47bfe620872b4c0157a0155d5eef77bc596de02f"
+      ],
+      "wallTimeMsPerOperation": {
+        "p50": 0.7117187499999993,
+        "p95": 1.0575812500000001,
+        "minimum": 0.5046625000000002,
+        "maximum": 1.3061000000000007
+      },
+      "processCpuTimeMsPerOperation": {
+        "p50": 0.9375,
+        "p95": 1
+      },
+      "samplesMsPerOperation": [
+        0.5236749999999999,
+        0.5775187499999994,
+        0.506425000000001,
+        0.639524999999999,
+        0.5090687500000008,
+        0.6064125000000011,
+        0.5046625000000002,
+        0.7906499999999994,
+        0.699831249999999,
+        0.6716374999999992,
+        0.7212499999999995,
+        0.7166062499999999,
+        0.7812812499999993,
+        1.0575812500000001,
+        0.9809750000000008,
+        0.9454937500000007,
+        1.3061000000000007,
+        0.9988437499999989,
+        0.7044375000000009,
+        0.7501187499999986,
+        0.7117187499999993,
+        0.6645874999999997,
+        0.669062499999999,
+        0.7912312499999992,
+        0.7538062500000002
+      ],
+      "memoryBefore": {
+        "rss": 51318784,
+        "heapTotal": 11837440,
+        "heapUsed": 6463704,
+        "external": 4087892,
+        "arrayBuffers": 1703211
+      },
+      "memoryAfter": {
+        "rss": 51408896,
+        "heapTotal": 11837440,
+        "heapUsed": 7918640,
+        "external": 3805324,
+        "arrayBuffers": 1535291
+      }
+    },
+    {
+      "name": "complex field lens and propagation",
+      "operation": "restore two 4096-element Float32 fixture arrays; lens(0.05m); propagate(0.005m); propagate(-0.005m)",
+      "pointsPerOperation": 4096,
+      "fft2CallsPerOperation": 4,
+      "physicalInterpretation": "Numerical angular-spectrum optical field simulation; distances are model parameters, not measured laptop optics.",
+      "warmupTrials": 3,
+      "measuredTrials": 25,
+      "plannedMeasuredTrials": 25,
+      "batchOperations": 6,
+      "measuredOperations": 150,
+      "complete": true,
+      "consistency": "PASS",
+      "uniqueChecksums": [
+        "aaee4f7a34c50d4c0ed848fcdd19bec614439dc7ce6434872f6c7ae30f041291"
+      ],
+      "wallTimeMsPerOperation": {
+        "p50": 0.9938666666666714,
+        "p95": 1.29376666666667,
+        "minimum": 0.9473666666666626,
+        "maximum": 1.602550000000008
+      },
+      "processCpuTimeMsPerOperation": {
+        "p50": 0,
+        "p95": 2.6666666666666665
+      },
+      "samplesMsPerOperation": [
+        1.0324166666666674,
+        0.9620166666666611,
+        1.0836666666666683,
+        1.133733333333339,
+        1.105166666666662,
+        0.9803333333333247,
+        0.9857166666666709,
+        1.0502333333333336,
+        0.9887500000000008,
+        0.9618666666666608,
+        0.9986333333333354,
+        0.9938666666666714,
+        0.9473666666666626,
+        1.0594166666666638,
+        0.9912166666666735,
+        0.9601833333333426,
+        0.9731833333333194,
+        0.9933500000000018,
+        1.0048666666666577,
+        0.9695666666666701,
+        0.9539500000000013,
+        1.29376666666667,
+        1.0465666666666682,
+        1.602550000000008,
+        1.064266666666659
+      ],
+      "memoryBefore": {
+        "rss": 51269632,
+        "heapTotal": 12361728,
+        "heapUsed": 7042336,
+        "external": 3169420,
+        "arrayBuffers": 899387
+      },
+      "memoryAfter": {
+        "rss": 51572736,
+        "heapTotal": 12361728,
+        "heapUsed": 7249240,
+        "external": 3186828,
+        "arrayBuffers": 916795
+      }
+    },
+    {
+      "name": "seven byte-plane TIFF exports",
+      "operation": "Hpu.tiffPlane(1..7) from a fixed resident byte-pipeline result; seven 64x64 unsigned 16-bit TIFF buffers",
+      "pointsPerPlane": 4096,
+      "planesPerOperation": 7,
+      "warmupTrials": 3,
+      "measuredTrials": 25,
+      "plannedMeasuredTrials": 25,
+      "batchOperations": 6,
+      "measuredOperations": 150,
+      "complete": true,
+      "consistency": "PASS",
+      "uniqueChecksums": [
+        "f0c1fa5350cf69329fdafabcce0c582f7b026cc137132de628077bdcd0ba2ac5"
+      ],
+      "wallTimeMsPerOperation": {
+        "p50": 0.3057666666666705,
+        "p95": 0.5083166666666633,
+        "minimum": 0.24641666666665665,
+        "maximum": 0.9305500000000014
+      },
+      "processCpuTimeMsPerOperation": {
+        "p50": 0,
+        "p95": 5.166666666666667
+      },
+      "samplesMsPerOperation": [
+        0.5083166666666633,
+        0.46078333333332466,
+        0.9305500000000014,
+        0.4973666666666645,
+        0.4921666666666624,
+        0.3573499999999967,
+        0.3057666666666705,
+        0.3084166666666685,
+        0.29408333333333303,
+        0.40818333333334067,
+        0.2841666666666545,
+        0.287683333333329,
+        0.3651333333333279,
+        0.31806666666667144,
+        0.2704999999999889,
+        0.31280000000000047,
+        0.3821833333333302,
+        0.29213333333332986,
+        0.2881833333333172,
+        0.304049999999999,
+        0.24641666666665665,
+        0.28461666666665525,
+        0.28804999999999836,
+        0.27274999999999255,
+        0.2843333333333362
+      ],
+      "memoryBefore": {
+        "rss": 53358592,
+        "heapTotal": 12361728,
+        "heapUsed": 7347592,
+        "external": 4035628,
+        "arrayBuffers": 1765595
+      },
+      "memoryAfter": {
+        "rss": 53764096,
+        "heapTotal": 12361728,
+        "heapUsed": 8109160,
+        "external": 4796092,
+        "arrayBuffers": 2526059
+      }
+    },
+    {
+      "name": "HPU state encode and restore",
+      "operation": "Hpu.save() followed by Hpu.load() including production full-state validation; fixed stored state",
+      "sourceStateBytes": 111369,
+      "scope": "In-memory state serialization only; this does not exercise IndexedDB, browser reload or disk persistence.",
+      "warmupTrials": 3,
+      "measuredTrials": 25,
+      "plannedMeasuredTrials": 25,
+      "batchOperations": 6,
+      "measuredOperations": 150,
+      "complete": true,
+      "consistency": "PASS",
+      "uniqueChecksums": [
+        "ac6d50bae8d503c7e93d1080e3d1ea2d52748e7ed0683bb7b8468b2ed01c3f99"
+      ],
+      "wallTimeMsPerOperation": {
+        "p50": 13.07546666666667,
+        "p95": 15.152050000000012,
+        "minimum": 12.37551666666665,
+        "maximum": 15.747816666666685
+      },
+      "processCpuTimeMsPerOperation": {
+        "p50": 13,
+        "p95": 15.666666666666666
+      },
+      "samplesMsPerOperation": [
+        15.152050000000012,
+        15.747816666666685,
+        13.430016666666651,
+        13.143850000000006,
+        12.743650000000002,
+        12.89609999999997,
+        13.440383333333367,
+        12.71999999999999,
+        12.37551666666665,
+        13.1483833333333,
+        12.744333333333353,
+        13.07546666666667,
+        12.899833333333353,
+        12.657883333333302,
+        13.154800000000023,
+        12.918049999999994,
+        12.42786666666666,
+        13.33804999999999,
+        13.180299999999988,
+        12.934916666666672,
+        13.106883333333371,
+        13.114416666666633,
+        12.919549999999996,
+        14.679150000000012,
+        12.723166666666657
+      ],
+      "memoryBefore": {
+        "rss": 75206656,
+        "heapTotal": 25612288,
+        "heapUsed": 15368224,
+        "external": 10917252,
+        "arrayBuffers": 8647219
+      },
+      "memoryAfter": {
+        "rss": 106352640,
+        "heapTotal": 46039040,
+        "heapUsed": 25777032,
+        "external": 18628104,
+        "arrayBuffers": 16358071
+      }
+    }
+  ]
+}

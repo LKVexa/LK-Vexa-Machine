@@ -1,0 +1,54 @@
+{
+  "schema": "JA21/SOFTWARE_CONSOLE_NATIVE_PREFLIGHT/1",
+  "status": "PASS_NATIVE_HEADLESS_PREFLIGHT",
+  "recordedUtc": "2026-10-14T17:36:05.2547463Z",
+  "packageRoot": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console",
+  "consoleVersion": "1.2.0",
+  "siliconVersion": "2.2.2",
+  "hostArchitecture": "X64",
+  "processArchitecture": "X64",
+  "executable": {
+    "name": "JA21-Silicon-Console.exe",
+    "fileVersion": "1.2.0.0",
+    "sha256": "60fd7f66b2ebe12d61d754613729979a99fed84ef52697f2658b4be9836ae12c"
+  },
+  "cases": [
+    {
+      "command": "Start Console.cmd --preflight",
+      "status": "PASS",
+      "exitCode": 0,
+      "observed": "Native entry verified the sealed application and pinned WebView2 SDK; reported no browser window or network started."
+    },
+    {
+      "command": "Start Console.cmd --blank --preflight",
+      "status": "PASS",
+      "exitCode": 0,
+      "observed": "Native entry accepted explicit blank mode and completed the same headless verification."
+    },
+    {
+      "command": "Start Console.cmd --preflight --preflight",
+      "status": "PASS_REFUSAL",
+      "exitCode": 1,
+      "observed": "Usage returned before application execution."
+    },
+    {
+      "command": "Start Console.cmd --unknown",
+      "status": "PASS_REFUSAL",
+      "exitCode": 1,
+      "observed": "Usage returned before application execution."
+    }
+  ],
+  "childEnvironment": {
+    "JA21_DISABLE_LIVE_WEB": "1",
+    "JA21_NATIVE_ONLY": "1",
+    "JA21_NO_PAUSE": "1",
+    "JA21_HEADLESS": "1"
+  },
+  "limits": [
+    "Preflight validates sealed files, configuration, pinned SDK and portable paths; it does not initialize WPF/WebView2 or execute the JavaScript CPU.",
+    "Production browser persistence and full desktop startup are separate gates.",
+    "No ARM64 ISA or ARM64 operating-system execution is claimed.",
+    "Native entry created only package-local portable folders and its boot log."
+  ],
+  "contractReport": "SOFTWARE_CONSOLE_LAUNCHER_RESULTS.json"
+}

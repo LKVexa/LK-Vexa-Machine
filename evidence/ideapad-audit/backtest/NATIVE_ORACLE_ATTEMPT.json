@@ -1,0 +1,22 @@
+{
+  "profile": "JA21-IDEAPAD-NATIVE-INDEPENDENT-ORACLE-ATTEMPT/1",
+  "status": "NOT_RUN",
+  "projectPrepared": true,
+  "productionModified": false,
+  "attempts": [
+    {
+      "method": "Local .NET SDK build with project-local empty package sources",
+      "status": "BLOCKED_ENVIRONMENT",
+      "reason": "SDK tried to read protected C:\\Users\\russe\\AppData\\Roaming\\NuGet configuration; access denied.",
+      "exitCode": 1
+    },
+    {
+      "method": "Installed Roslyn C# compiler with installed 8.0.32 reference pack",
+      "status": "INTERRUPTED",
+      "reason": "Compilation remained pending for several minutes. Agent stopped only this supplementary compile attempt to bound work. No executable was produced and no native-oracle validation claim is made.",
+      "diagnostic": "CS2023: /noconfig in a response file is ignored. This work-only response file was corrected after interruption.",
+      "exitCode": 1
+    }
+  ],
+  "scope": "Supplementary independent native oracle only. This does not invalidate the passed production JavaScript backtests or separately recorded native reference tests."
+}

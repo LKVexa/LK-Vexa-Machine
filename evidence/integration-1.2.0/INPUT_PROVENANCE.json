@@ -1,0 +1,7 @@
+{
+  "consoleInputSha256": "7172231d18190d3cf4526cb399454d7f5b655ee96252d9484c433df94534720c",
+  "siliconInputSha256": "1b8854f0fa4ff0e6e812e15422afd9bc7ed36c8ae57f1b8525a69caf2b75ac4f",
+  "siliconFiles": 358,
+  "initialSiliconCopy": "byte-exact verified",
+  "userSelection": "JA21 software CPU/XPU 2.2.2, not ARM64 machine code or operating system"
+}

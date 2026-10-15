@@ -1,0 +1,65 @@
+{
+  "schema": "JA21/DEPENDENCY_MANIFEST/1",
+  "version": "2.1.0",
+  "profile": "LOCAL_BROWSER",
+  "formatNote": "Descriptive manifest, not an SPDX or CycloneDX certification",
+  "runtimeNpmPackages": [],
+  "buildNpmPackages": [],
+  "externalPrerequisites": [
+    {
+      "name": "Node.js",
+      "minimum": "22.12.0",
+      "tested": "22.16.0",
+      "recommendation": "current supported LTS patch"
+    },
+    {
+      "name": "browser",
+      "requiredAPIs": [
+        "module workers",
+        "MessageChannel",
+        "IndexedDB",
+        "Web Locks",
+        "Web Crypto",
+        "Canvas",
+        "secure context"
+      ]
+    }
+  ],
+  "sourceComponents": [
+    {
+      "name": "SPIRAL shell/VFS",
+      "location": "src/vendor/spiral",
+      "origin": "supplied archive, repaired"
+    },
+    {
+      "name": "HPU numerical simulator",
+      "location": "src/vendor/spiral/hpu.js",
+      "origin": "supplied archive, repaired"
+    },
+    {
+      "name": "VT parser/Canvas renderer",
+      "location": "src/vendor/vt",
+      "origin": "supplied archive, integrated"
+    },
+    {
+      "name": "wire v3 worker/client",
+      "location": "src/vendor/ram-worker.js; src/lib/ram-link.js",
+      "origin": "local hardening rewrite"
+    },
+    {
+      "name": "native-module UI and static host",
+      "location": "src/app.js; web; scripts",
+      "origin": "local release refactor"
+    }
+  ],
+  "excludedReferenceRoots": [
+    "references",
+    "audit/legacy-scaffold.zip",
+    "audit/original-runtime.zip"
+  ],
+  "originalDeclaredNpmCounts": {
+    "runtime": 56,
+    "development": 14
+  },
+  "licenseNote": "No blanket root license inferred; existing input notices retained. See THIRD_PARTY_NOTICES.md."
+}

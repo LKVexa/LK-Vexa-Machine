@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: strict codec rejects duplicate keys, wrong direction, depth, oversized controls and binary caps
+ok 1 - strict codec rejects duplicate keys, wrong direction, depth, oversized controls and binary caps
+  ---
+  duration_ms: 1.4171
+  type: 'test'
+  ...
+# Subtest: uint48 and monotonic owner channel are exact
+ok 2 - uint48 and monotonic owner channel are exact
+  ---
+  duration_ms: 0.6817
+  type: 'test'
+  ...
+# Subtest: localhost URL and UTF8 close reason byte caps
+ok 3 - localhost URL and UTF8 close reason byte caps
+  ---
+  duration_ms: 0.3222
+  type: 'test'
+  ...
+# Subtest: malformed binary fails closed without the original adapter temporal-dead-zone error
+ok 4 - malformed binary fails closed without the original adapter temporal-dead-zone error
+  ---
+  duration_ms: 6.6018
+  type: 'test'
+  ...
+# Subtest: output gap is not published or credited
+ok 5 - output gap is not published or credited
+  ---
+  duration_ms: 0.7929
+  type: 'test'
+  ...
+# Subtest: stale epoch ACK cannot erase pending inputs
+ok 6 - stale epoch ACK cannot erase pending inputs
+  ---
+  duration_ms: 0.95
+  type: 'test'
+  ...
+# Subtest: input waits for actual accepted ACK and excessive paste is refused before send
+ok 7 - input waits for actual accepted ACK and excessive paste is refused before send
+  ---
+  duration_ms: 0.9332
+  type: 'test'
+  ...
+# Subtest: split UTF8 output round trips and credit waits for consumer completion
+ok 8 - split UTF8 output round trips and credit waits for consumer completion
+  ---
+  duration_ms: 0.7717
+  type: 'test'
+  ...
+# Subtest: output beyond byte credit fails closed; callback failure grants no credit
+ok 9 - output beyond byte credit fails closed; callback failure grants no credit
+  ---
+  duration_ms: 1.4268
+  type: 'test'
+  ...
+# Subtest: open timeout closes a peer that never sends hello
+ok 10 - open timeout closes a peer that never sends hello
+  ---
+  duration_ms: 21.4824
+  type: 'test'
+  ...
+# Subtest: small input messages cannot evade metadata backpressure
+ok 11 - small input messages cannot evade metadata backpressure
+  ---
+  duration_ms: 1.5058
+  type: 'test'
+  ...
+# Subtest: cancelled ticket admission never opens a late WebSocket
+ok 12 - cancelled ticket admission never opens a late WebSocket
+  ---
+  duration_ms: 0.407
+  type: 'test'
+  ...
+# Subtest: owner reaches supplied XPU worker; ACK follows worker acceptance, not socket forwarding
+ok 13 - owner reaches supplied XPU worker; ACK follows worker acceptance, not socket forwarding
+  ---
+  duration_ms: 2.0978
+  type: 'test'
+  ...
+# Subtest: owner pause/resume controls worker credits and bounded exact output queue
+ok 14 - owner pause/resume controls worker credits and bounded exact output queue
+  ---
+  duration_ms: 0.5262
+  type: 'test'
+  ...
+# Subtest: owner output overflow closes session and clears owned queue
+ok 15 - owner output overflow closes session and clears owned queue
+  ---
+  duration_ms: 0.8026
+  type: 'test'
+  ...
+# Subtest: small paused output messages cannot evade owner queue metadata cap
+ok 16 - small paused output messages cannot evade owner queue metadata cap
+  ---
+  duration_ms: 1.101
+  type: 'test'
+  ...
+# Subtest: owner close settles a pending connection immediately
+ok 17 - owner close settles a pending connection immediately
+  ---
+  duration_ms: 0.9559
+  type: 'test'
+  ...
+# Subtest: owner stale epoch fails closed and never replays input; channel reuse rejected
+ok 18 - owner stale epoch fails closed and never replays input; channel reuse rejected
+  ---
+  duration_ms: 0.7002
+  type: 'test'
+  ...
+# Subtest: owner disconnect clears sessions and queued worker ACK cannot publish late
+ok 19 - owner disconnect clears sessions and queued worker ACK cannot publish late
+  ---
+  duration_ms: 0.4195
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 111.7425

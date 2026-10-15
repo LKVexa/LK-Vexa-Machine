@@ -1,0 +1,174 @@
+{
+  "baseline": "2.1.0",
+  "version": "2.1.1",
+  "files": [
+    {
+      "path": ".gitignore",
+      "change": "modified"
+    },
+    {
+      "path": "AUDIT_REPORT.md",
+      "change": "modified"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "change": "modified"
+    },
+    {
+      "path": "DEPENDENCY_MANIFEST.json",
+      "change": "modified"
+    },
+    {
+      "path": "QUICKSTART.txt",
+      "change": "modified"
+    },
+    {
+      "path": "README.md",
+      "change": "modified"
+    },
+    {
+      "path": "SECURITY.md",
+      "change": "modified"
+    },
+    {
+      "path": "Start-Console.cmd",
+      "change": "modified"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "change": "modified"
+    },
+    {
+      "path": "VERSION",
+      "change": "modified"
+    },
+    {
+      "path": "Verify.cmd",
+      "change": "modified"
+    },
+    {
+      "path": "WINDOWS_STARTUP_FIX.md",
+      "change": "added"
+    },
+    {
+      "path": "audit/ENVIRONMENT.json",
+      "change": "modified"
+    },
+    {
+      "path": "audit/INHERITED_EVIDENCE.md",
+      "change": "added"
+    },
+    {
+      "path": "audit/OFFLINE_UI_DESKTOP.png",
+      "change": "modified"
+    },
+    {
+      "path": "audit/OFFLINE_UI_MOBILE.png",
+      "change": "modified"
+    },
+    {
+      "path": "audit/RELEASE_CHECKS.json",
+      "change": "modified"
+    },
+    {
+      "path": "audit/STARTUP_REPAIR_SUMMARY.json",
+      "change": "added"
+    },
+    {
+      "path": "audit/TEST_RESULTS.tap",
+      "change": "modified"
+    },
+    {
+      "path": "audit/VERIFICATION.json",
+      "change": "modified"
+    },
+    {
+      "path": "audit/baseline-2.1.0/AUDIT_REPORT.md",
+      "change": "added"
+    },
+    {
+      "path": "audit/baseline-2.1.0/DEPENDENCY_MANIFEST.json",
+      "change": "added"
+    },
+    {
+      "path": "audit/baseline-2.1.0/RELEASE_CHECKS.json",
+      "change": "added"
+    },
+    {
+      "path": "audit/baseline-2.1.0/TEST_RESULTS.tap",
+      "change": "added"
+    },
+    {
+      "path": "audit/baseline-2.1.0/VERIFICATION.json",
+      "change": "added"
+    },
+    {
+      "path": "dist/index.html",
+      "change": "modified"
+    },
+    {
+      "path": "dist/release.json",
+      "change": "modified"
+    },
+    {
+      "path": "dist/src/vendor/spiral/commands/system.js",
+      "change": "modified"
+    },
+    {
+      "path": "dist/src/version.js",
+      "change": "modified"
+    },
+    {
+      "path": "package-lock.json",
+      "change": "modified"
+    },
+    {
+      "path": "package.json",
+      "change": "modified"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "scripts/windows/bootstrap.ps1",
+      "change": "added"
+    },
+    {
+      "path": "scripts/windows/build-launcher.mjs",
+      "change": "added"
+    },
+    {
+      "path": "scripts/windows/launcher-header.txt",
+      "change": "added"
+    },
+    {
+      "path": "scripts/windows/runtime-lock.json",
+      "change": "added"
+    },
+    {
+      "path": "src/vendor/spiral/commands/system.js",
+      "change": "modified"
+    },
+    {
+      "path": "src/version.js",
+      "change": "modified"
+    },
+    {
+      "path": "tests/MANUAL_ACCEPTANCE.md",
+      "change": "modified"
+    },
+    {
+      "path": "tests/launcher-contract.test.mjs",
+      "change": "added"
+    },
+    {
+      "path": "tests/worker.test.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "web/index.html",
+      "change": "modified"
+    }
+  ]
+}

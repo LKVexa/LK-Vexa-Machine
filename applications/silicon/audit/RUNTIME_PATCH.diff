@@ -1,0 +1,2434 @@
+--- a/src/vendor/ram-worker.js
++++ b/src/vendor/ram-worker.js
+@@ -1,559 +1,172 @@
+-// @ts-nocheck
+-/**
+- * SSD-backed virtual server.
+- * The worker holds the SPIRAL kernel and the page cache. The root filesystem
+- * is flushed to the local SSD (IndexedDB) and remounted on the next boot.
+- */
+-import { SpiralKernel } from "./spiral/kernel.js";
+-import { NODES } from "./spiral/commands/ram.js";
+-import { DEVICE, readVolume, writeVolume } from "./spiral/ssd.js";
+-import { Hpu } from "./spiral/hpu.js";
+-import { Buffer } from "./spiral/buffer.js";
+-import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from "./vws/frame.js";
+-
+-const VERSION = "2.0.0-ramws.1";
+-const PROFILE = "LOCAL_SSD";
+-const CREDIT_CAP = 262144;
+-const enc = new TextEncoder();
+-const startedAt = Date.now();
+-
+-let kernel = null;
+-let hpu = null;
+-let serverEpoch = "";
+-let seal = "";
+-let restored = false;
+-const bySid = new Map();
+-const diskMeta = {
+-  device: DEVICE,
+-  model: "JA21 NVMe",
+-  fs: "ssd",
+-  mount: "/",
+-  synced: false,
+-  restored: false,
+-  writtenAt: 0,
+-  error: "",
+-};
+-let epoch = 0;
+-let savedEpoch = 0;
+-let pending = null;
+-
+-function bytesOf(text) {
+-  return new TextEncoder().encode(text);
++import { VERSION, PROFILE } from '../version.js';
++import { SpiralKernel, validGeometry } from './spiral/kernel.js';
++import { VFS } from './spiral/vfs.js';
++import { NODES } from './spiral/commands/ram.js';
++import { DEVICE, readVolume, writeVolume, revisionOf } from './spiral/ssd.js';
++import { Hpu } from './spiral/hpu.js';
++import { Buffer } from './spiral/buffer.js';
++import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from './vws/frame.js';
++import { FlowWindow, MAX_QUEUE } from './vws/flow.js';
++const LIMITS={maxBytes:2*1024*1024,maxNodes:1500};
++const startedAt=Date.now(), serverEpoch=crypto.randomUUID(), enc=new TextEncoder();
++const connections=new Set(), bySid=new Map();
++let kernel, hpu, phase='booting', revision=0, dirty=0, savedDirty=0, pending=null, timer, releaseLock, ownsLock=false, factorySeal='', imageCache=null, rpcBusy=false;
++let lastRecord=null;
++const disk={device:DEVICE, model:'IndexedDB virtual volume (not NVMe)', fs:'virtual', mount:'/', synced:false, restored:false, writtenAt:0, error:''};
++function message(error) { return String(error?.message || error).slice(0,512); }
++async function hash(text) { const out=await crypto.subtle.digest('SHA-256',enc.encode(text)); return [...new Uint8Array(out)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
++function seed(k) {
++  k.vfs.mkdir('/var/hpu',{recursive:true}); k.vfs.mkdir('/usr/share/doc',{recursive:true}); k.vfs.mkdir('/df/nodes',{recursive:true});
++  k.vfs.writeFile('/etc/os-release',`NAME=JA21 Silicon Console\nVERSION=${VERSION}\nPROFILE=${PROFILE}\nIMPLEMENTATION=JavaScript-software-simulation\n`);
++  k.vfs.writeFile('/home/operator/README', 'JA21 software console. Commands operate inside a bounded virtual filesystem.\nUse help, disk, xpuinfo, hpu gate xor 1 0, hpu bytes, sync.\nNo native shell, hardware GPU/XPU, physical CXL, or quantum device is accessed.\nExport a backup before closing. Browser storage can be cleared or evicted.\n');
++  k.vfs.writeFile('/usr/share/doc/architecture.txt','Browser UI -> MessageChannel frames -> worker -> SPIRAL shell -> VFS / numerical HPU -> IndexedDB.\nThe local Node server only serves static files. No remote WebSocket, authentication service, native PTY, or arbitrary host command execution.\nimage verify compares canonical content with the current factory seed, not a trusted signature.\n');
++  for (const n of NODES) { k.vfs.mkdir(`/df/nodes/${n.node}`,{recursive:true}); k.vfs.writeFile(`/df/nodes/${n.node}/image.txt`,`${n.node}\nrole: ${n.role}\nstatus: descriptive virtual-node manifest only; no booted VM\n`); }
+ }
+-
+-async function sha256(text) {
+-  const buf = await crypto.subtle.digest("SHA-256", bytesOf(text));
+-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
++function markDirty() { dirty++; disk.synced=false; imageCache=null; clearTimeout(timer); timer=setTimeout(()=>{ flush().catch(e=>{ disk.error=message(e); }); },80); }
++async function makeRecord(snap,next) { return {v:2,device:DEVICE,version:VERSION,revision:next,writer:serverEpoch,writtenAt:Date.now(),snap,sha256:await hash(JSON.stringify(snap))}; }
++async function flush() {
++  if (!ownsLock || !kernel || !['ready','booting','stopping'].includes(phase)) throw new Error('volume is not writable');
++  clearTimeout(timer);
++  if (pending) { await pending; if(savedDirty===dirty) return; }
++  if (savedDirty===dirty && disk.synced) return;
++  pending=(async()=>{
++    try {
++      while(savedDirty!==dirty || !disk.synced) {
++        const target=dirty, record=await makeRecord(kernel.vfs.exportSnapshot(),revision+1);
++        revision=await writeVolume(record,revision); lastRecord=record; savedDirty=target;
++        disk.synced=(savedDirty===dirty); disk.writtenAt=record.writtenAt; disk.error='';
++      }
++    } catch(e) { disk.synced=false; disk.error=message(e); throw e; }
++  })();
++  try { await pending; } finally { pending=null; }
+ }
+-
+-function seedImage(k) {
+-  k.vfs.mkdir("/usr/share/doc", { recursive: true });
+-  k.vfs.mkdir("/df/nodes", { recursive: true });
+-  k.vfs.writeFile(
+-    "/etc/os-release",
+-    [
+-      "NAME=JA21 SSD Server",
+-      "ID=ja21",
+-      "VERSION=2.0.0-ramws.1",
+-      "CONSOLE=1.4.0",
+-      "PRESENTER=9.8.7",
+-      "VT=HERMIT",
+-      "PROTOCOL=hermit.vws.v2",
+-      "PROFILE=LOCAL_SSD",
+-      "STORAGE=nvme0n1",
+-      "",
+-    ].join("\n"),
+-  );
+-  k.vfs.writeFile(
+-    "/etc/ja21-console.json",
+-    JSON.stringify(
+-      {
+-        start_url: "about:blank",
+-        local_origins: ["http://127.0.0.1:8788", "http://127.0.0.1:8791", "ram://status"],
+-        mode: "blank-console",
+-      },
+-      null,
+-      2,
+-    ) + "\n",
+-  );
+-  k.vfs.writeFile(
+-    "/etc/boot-image.note",
+-    "The factory measurement lives in the boot controller, not in this file.\nRun `image` and `image verify`.\n",
+-  );
+-  k.vfs.writeFile(
+-    "/home/operator/README",
+-    [
+-      "JA21 console, HERMIT terminal, SPIRAL backend.",
+-      "This tree is the root filesystem on nvme0n1.",
+-      "Writes flush to the SSD. poweroff does not erase them.",
+-      "",
+-      "  disk             volume status",
+-      "  hpu gate xor 1 0 optical logic on the phase plane",
+-      "  image verify     compare the tree to the factory seal",
+-      "  cxl status       hot bytes vs unused quota",
+-      "  fabric topology  four node images on this volume",
+-      "  ls -l /etc",
+-      "  echo hi | rev",
+-      "  write /tmp/note hello",
+-      "",
+-    ].join("\n"),
+-  );
+-  k.vfs.writeFile(
+-    "/usr/share/doc/architecture.txt",
+-    [
+-      "The console is the JA21 blank host: a window with a local-origin policy",
+-      "and no toolbar. It loads one guest — this SSD server — instead of a page.",
+-      "",
+-      "The guest speaks hermit.vws.v2. Each terminal tab is its own socket.",
+-      "Input and output are binary frames (kind, uint48 sequence, bytes).",
+-      "The SPIRAL kernel is the machine: a filesystem flushed to nvme0n1,",
+-      "a command registry, pipelines, and a line editor that answers in ANSI.",
+-      "",
+-      "Power loss stops the worker. The next boot remounts the same SSD",
+-      "volume. The sealed image is only the factory tree, not the volume.",
+-      "",
+-    ].join("\n"),
+-  );
+-  k.vfs.writeFile(
+-    "/usr/share/doc/hpu.txt",
+-    [
+-      "Holographic processor. The field is a processable hologram.",
+-      "Five stages close the loop: project the whole complex field,",
+-      "evolve it by the band-limited angular spectrum, RAM-sample it,",
+-      "relocate information-bearing pixels one step along -grad I,",
+-      "and reproject that frame into the GIF spool.",
+-      "The GIF gray level is the bit line. Its complement is the anti-bit.",
+-      "V1-V2 > 0 reads logical 0. V1-V2 < 0 reads logical 1.",
+-      "Every bit flipped in the sample buffer is charged kT ln 2.",
+-      "The Bloch vector uses those populations and the mean carrier phase.",
+-      "hpu frame draws the Gaussian interaction frame: the TEM00",
+-      "displacement is removed, and the residual is a Kerr state whose",
+-      "Wigner function can go negative. hpu kuramoto syncs phase inside",
+-      "each 2-adic ball of the GIF gray, then redraws that frame.",
+-      "The penteract stamp is centroid x, y, cavity z, spool time, and v2.",
+-      "hpu record interferes the pattern with a 4 px reference tilt.",
+-      "The interferogram stays in the field array. hpu replay multiplies",
+-      "that weight by the reference in place, then drops the twin image.",
+-      "hpu oam places a charge-+1 helical well for each 1-bit. The LSB",
+-      "sits on the right. hpu shift left multiplies by 2. hpu shift right",
+-      "divides by 2. The helix is copied, so the charge does not change.",
+-      "hpu bytes samples the field into RAM. Processors 1–6 each run that",
+-      "sample as a scalar CPU and as a 32-wide GPU. The TIFF is kept only",
+-      "when the two lanes match. Processor 7 issues the byte that moved",
+-      "farthest. Ties keep the lowest index.",
+-      "ChipHarness.cs wraps the six TIFFs and writes the same seven planes.",
+-      "Phase leaves as a 16-bit TIFF. Intensity leaves as GIF89a.",
+-      "The live field is stored at /var/hpu/field.bin and remounts with the SSD.",
+-      "That file keeps the RAM sample with the lanes. A reload proves the",
+-      "CPU and GPU walks still match before it will claim they agree.",
+-      "",
+-      "  hpu",
+-      "  hpu cycle",
+-      "  hpu diffuse 4",
+-      "  hpu bit",
+-      "  hpu gate xor 1 0",
+-      "  hpu tiff",
+-      "  hpu gif",
+-      "",
+-    ].join("\n"),
+-  );
+-  k.vfs.writeFile(
+-    "/var/log/boot.log",
+-    "boot: factory image measured\nboot: block device nvme0n1 mounted\nboot: virtual websocket hermit.vws.v2 listening\n",
+-  );
+-  for (const n of NODES) {
+-    k.vfs.mkdir(`/df/nodes/${n.node}`, { recursive: true });
+-    k.vfs.writeFile(
+-      `/df/nodes/${n.node}/image.txt`,
+-      `${n.node}\nrole: ${n.role}\nmedium: ssd\npersistence: nvme0n1\n`,
+-    );
++async function validateRecord(record) {
++  if (!record || ![1,2].includes(record.v) || !record.snap) throw new Error('unsupported volume format');
++  if (JSON.stringify(record).length > 4*1024*1024) throw new Error('volume import exceeds 4 MiB');
++  if(record.v===2 && (typeof record.sha256!=='string' || record.sha256!==await hash(JSON.stringify(record.snap)))) throw new Error('volume checksum mismatch');
++  const vfs=new VFS({...LIMITS,seed:false}); vfs.importSnapshot(record.snap);
++  const processor=new Hpu();
++  if(vfs.exists('/var/hpu/field.bin') && !processor.load(vfs.readFile('/var/hpu/field.bin'))) throw new Error('invalid HPU snapshot; existing volume retained without writes');
++  return {vfs,processor};
++}
++function publishHolo() { if(hpu && phase==='ready') postMessage({type:'holo',epoch:serverEpoch,payload:hpu.preview()}); }
++async function image() { if(!imageCache) imageCache=hash(JSON.stringify(kernel.vfs.canonicalSnapshot())); return {seal:factorySeal,digest:await imageCache,epoch:serverEpoch,profile:PROFILE}; }
++function persistHpu() { kernel.vfs.mkdir('/var/hpu',{recursive:true}); kernel.vfs.writeFile('/var/hpu/field.bin',Buffer.from(hpu.save())); publishHolo(); }
++const browser={visible:false,url:'about:blank',engine:'built-in information pane; not a separate browser engine'};
++function openBrowser(url='about:blank') { if(!['about:blank','ram://status'].includes(url)) throw new Error('external navigation is disabled in the isolated local profile'); browser.visible=true; browser.url=url; postMessage({type:'browser',payload:{...browser}}); return {...browser}; }
++async function stop(reboot=false) {
++  if(phase!=='ready') throw new Error('server is not running');
++  // Refuse a UI power operation while a computation is in flight. A shell poweroff is its own one active command.
++  phase='stopping';
++  for (const c of [...connections]) c.close('power operation: quiescing');
++  try { await flush(); }
++  catch(error) { phase='ready'; throw error; }
++  phase='halted'; for(const c of [...connections]) c.close('server stopped');
++  releaseLock?.(); ownsLock=false; postMessage({type:'halt',reboot,epoch:serverEpoch});
++}
++async function boot() {
++  const host={version:()=>VERSION,profile:()=>PROFILE,disk:()=>({...disk}),sync:flush,afterCommand:flush,linkInfo:()=>({protocol:PROTOCOL,profile:PROFILE,epoch:serverEpoch}),image,
++    fabricRoster:()=>NODES.map(n=>({...n,present:true,built:false})),openBrowser,navigateBrowser:openBrowser,browserState:()=>({...browser}),closeBrowser:()=>{browser.visible=false;postMessage({type:'browser',payload:{...browser}});},
++    poweroff:()=>stop(false),reboot:()=>stop(true)};
++  kernel=new SpiralKernel({hostBridge:host,vfsLimits:LIMITS,limits:{captureBytes:524288,historyEntries:400},baseEnv:{HOST:'virtual0',PROFILE,CONSOLE:`JA21/${VERSION}`}});
++  seed(kernel); factorySeal=await hash(JSON.stringify(kernel.vfs.canonicalSnapshot()));
++  lastRecord=await readVolume(); revision=revisionOf(lastRecord);
++  hpu=new Hpu();
++  if(lastRecord!==null) { const recovered=await validateRecord(lastRecord); kernel.vfs=recovered.vfs; hpu=recovered.processor; disk.restored=true; disk.synced=true; disk.writtenAt=lastRecord.writtenAt || 0; }
++  host.hpu=hpu; host.hpuTouch=persistHpu;
++  kernel.vfs.onMutate=markDirty;
++  kernel.on('data',e=>bySid.get(e.sessionId)?.emit(e.chunk));
++  kernel.on('exit',e=>bySid.get(e.sessionId)?.close(e.reason || 'session closed',e.code));
++  if(lastRecord===null) { dirty=1; await flush(); }
++  phase='ready'; postMessage({type:'ready',epoch:serverEpoch,protocol:PROTOCOL,version:VERSION,restored:disk.restored}); publishHolo();
++}
++function bind(port) {
++  if(phase!=='ready' || connections.size>=8) { port.postMessage({type:'error',message:'server unavailable or session limit reached'}); port.close(); return; }
++  const flow=new FlowWindow();
++  const c={sid:null,closed:false,inSeq:0,outSeq:0,queue:[],queued:0,decoder:new TextDecoder('utf-8',{fatal:true}),windowAt:performance.now(),received:0,
++    send(o){ if(!c.closed) port.postMessage({v:3,epoch:serverEpoch,sid:c.sid,...o}); },
++    close(reason,code=0){ if(c.closed)return; c.send({type:'session.exit',payload:{reason,code}}); c.closed=true; clearTimeout(openTimer); bySid.delete(c.sid); connections.delete(c); kernel?.closeSession(c.sid,reason); c.queue=[]; c.queued=0; port.close(); },
++    emit(text){ const u=enc.encode(text); if(c.queued+u.length>MAX_QUEUE) {c.close('output queue limit exceeded',1);return;} for(let i=0;i<u.length;i+=16384) c.queue.push(u.slice(i,i+16384)); c.queued+=u.length; c.pump(); },
++    pump(){ while(c.queue.length && flow.canSend(c.queue[0].length)) {const u=c.queue.shift();c.queued-=u.length;flow.send(u.length);const frame=encodeData(KIND_OUTPUT,++c.outSeq,u);port.postMessage(frame,[frame.buffer]);} }
++  };
++  connections.add(c); const openTimer=setTimeout(()=>{if(!c.sid)c.close('open timeout');},5000);
++  port.onmessageerror=()=>c.close('message decode failure',1);
++  port.onmessage=async e=>{
++    try {
++      if(c.closed || phase!=='ready')return;
++      if(performance.now()-c.windowAt>1000){c.windowAt=performance.now();c.received=0;}
++      if(++c.received>2048) throw new Error('message rate limit');
++      const m=e.data;
++      if(m instanceof ArrayBuffer || m instanceof Uint8Array) {
++        const f=decodeData(m);if(!c.sid || f.kind!==KIND_INPUT || f.seq!==c.inSeq+1 || f.payload.length>8192) throw new Error('invalid input frame');
++        const text=c.decoder.decode(f.payload,{stream:true});c.inSeq=f.seq;
++        kernel.write(c.sid,text);c.send({type:'input.ack',payload:{acceptedSeq:c.inSeq}});return;
++      }
++      if(!m || typeof m!=='object' || Array.isArray(m) || m.v!==3 || m.epoch!==serverEpoch || typeof m.type!=='string' || JSON.stringify(m).length>2048) throw new Error('invalid control record');
++      if(c.sid && m.sid!==c.sid) throw new Error('session mismatch');
++      const q=m.payload || {};
++      if(m.type==='session.open') {if(c.sid) throw new Error('session already open'); if(!validGeometry(q.cols,q.rows))throw new Error('invalid geometry'); const opened=kernel.openSession({cols:q.cols,rows:q.rows,deferStart:true});c.sid=opened.sessionId;bySid.set(c.sid,c);clearTimeout(openTimer);c.send({type:'session.opened',rid:m.rid,payload:opened});return;}
++      if(!c.sid) throw new Error('session not open');
++      switch(m.type) {
++        case 'session.start':kernel.startSession(c.sid);break;
++        case 'flow.ack':flow.acknowledge(q.consumedBytes);c.pump();break;
++        case 'terminal.resize':if(!kernel.resize(c.sid,q.cols,q.rows))throw new Error('invalid geometry');break;
++        case 'terminal.signal':if(q.signal!=='SIGINT')throw new Error('unsupported signal');kernel.signal(c.sid,'SIGINT');break;
++        case 'session.close':c.close('client closed');break;
++        case 'session.status':c.send({type:'session.status',rid:m.rid,payload:{...kernel.status(c.sid),...await image(),uptimeMs:Date.now()-startedAt,version:VERSION,epoch:serverEpoch}});break;
++        default:throw new Error('unsupported control record');
++      }
++    } catch(error) { c.send({type:'error',message:message(error)}); c.close(message(error),1); }
++  };
++  port.start();c.send({type:'hello',payload:{protocol:PROTOCOL}});
++}
++async function rpc(m) {
++  if(typeof m.id!=='string' || m.id.length>64 || typeof m.op!=='string')throw new Error('bad RPC');
++  if(m.op==='backup') {if(phase==='ready')await flush();const record=await readVolume(!!m.previous);if(!record)throw new Error('no saved volume');return JSON.stringify(record,null,2);}
++  if(m.op==='restore') {
++    if(!ownsLock || !['ready','failed'].includes(phase))throw new Error('writer lock required for restore');
++    if(kernel && [...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for running commands before restore');
++    if(typeof m.text!=='string' || m.text.length>4*1024*1024)throw new Error('backup size limit');
++    const record=JSON.parse(m.text), checked=await validateRecord(record);
++    if(kernel && [...kernel.sessions.values()].some(s=>s.running))throw new Error('a command started during validation; retry when idle');
++    const priorPhase=phase; phase='stopping';
++    for(const c of [...connections])c.close('restore: quiescing');
++    try {
++      clearTimeout(timer);if(pending)await pending;
++      if(priorPhase==='ready')await flush(); // Keep the latest pre-restore state as the atomic previous revision.
++      const next=await makeRecord(checked.vfs.exportSnapshot(),revision+1);
++      await writeVolume(next,revision); revision=next.revision;lastRecord=next;
++    } catch(error) { phase=priorPhase; throw error; }
++    phase='halted';for(const c of [...connections])c.close('volume restored'); releaseLock?.();ownsLock=false;
++    return {restart:true};
++  }
++  if(phase!=='ready')throw new Error('server not ready');
++  switch(m.op){
++    case 'sync':await flush();return {...disk};
++    case 'commands':return kernel.registry.list().map(d=>({name:d.name,summary:d.summary,usage:d.usage,aliases:d.aka || []}));
++    case 'preview':return hpu.preview();
++    case 'files':return kernel.vfs.readdir(m.path || '/');
++    case 'file': {const st=kernel.vfs.stat(m.path);if(st.type!=='file' || st.size>LIMITS.maxBytes)throw new Error('not an exportable file');const contents=kernel.vfs.readFile(m.path);return {path:m.path,bytes:contents instanceof Uint8Array ? new Uint8Array(contents) : enc.encode(contents)};}
++    case 'power':if([...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for commands or interrupt before power operation');await stop(!!m.reboot);return {stopped:true};
++    default:throw new Error('unsupported RPC');
+   }
+ }
+-
+-const browser = { visible: false, url: "about:blank", engine: "VB-JA21/9.8.7" };
+-
+-function publishBrowser() {
+-  postMessage({ type: "browser", payload: { ...browser } });
+-}
+-
+-function linkInfo() {
+-  return { protocol: PROTOCOL, profile: PROFILE, epoch: serverEpoch };
+-}
+-
+-function noteDirty() {
+-  epoch += 1;
+-  diskMeta.synced = false;
+-  void kick();
+-}
+-
+-function kick() {
+-  if (pending) return pending;
+-  pending = (async () => {
+-    try {
+-      while (kernel && savedEpoch !== epoch) {
+-        const target = epoch;
+-        const usage = kernel.vfs.usage();
+-        const snap = kernel.vfs.exportSnapshot();
+-        const writtenAt = Date.now();
+-        await writeVolume({
+-          v: 1,
+-          device: DEVICE,
+-          snap,
+-          writtenAt,
+-          bytes: usage.bytes,
+-          nodes: usage.nodes,
+-        });
+-        if (epoch === target) {
+-          savedEpoch = target;
+-          diskMeta.synced = true;
+-          diskMeta.writtenAt = writtenAt;
+-          diskMeta.error = "";
+-        }
+-      }
+-    } catch (err) {
+-      diskMeta.synced = false;
+-      diskMeta.error = String(err && err.message ? err.message : err);
+-    } finally {
+-      pending = null;
+-      if (kernel && savedEpoch !== epoch && !diskMeta.error) void kick();
+-    }
+-  })();
+-  return pending;
+-}
+-
+-function publishHolo(open) {
+-  if (!hpu) return;
+-  const preview = hpu.preview();
+-  postMessage({ type: "holo", payload: { ...preview, open: Boolean(open) } });
+-}
+-
+-function persistHpu() {
+-  if (!kernel || !hpu) return;
+-  kernel.vfs.mkdir("/var/hpu", { recursive: true });
+-  kernel.vfs.writeFile("/var/hpu/field.bin", Buffer.from(hpu.save()));
+-  publishHolo(true);
+-}
+-
+-async function flushNow() {
+-  if (!kernel) return;
+-  if (pending) await pending;
+-  if (savedEpoch === epoch && diskMeta.synced) return;
+-  if (savedEpoch === epoch) epoch += 1;
+-  diskMeta.synced = false;
+-  await kick();
+-  if (!diskMeta.synced) throw new Error(diskMeta.error || "ssd flush failed");
+-}
+-
+-async function boot() {
+-  serverEpoch = crypto.randomUUID();
+-  const host = {
+-    version: () => VERSION,
+-    openBrowser(url) {
+-      browser.visible = true;
+-      browser.url = normalizeUrl(url || "about:blank");
+-      publishBrowser();
+-      return { ...browser };
+-    },
+-    navigateBrowser(url) {
+-      browser.url = normalizeUrl(url);
+-      publishBrowser();
+-      return { ...browser };
+-    },
+-    closeBrowser() {
+-      browser.visible = false;
+-      publishBrowser();
+-    },
+-    browserState: () => ({ ...browser }),
+-    fabricRoster: () => NODES.map((n) => ({ ...n, present: true, built: true })),
+-    profile: () => PROFILE,
+-    disk: () => ({ ...diskMeta }),
+-    sync: () => flushNow(),
+-    afterCommand: () => flushNow(),
+-    async poweroff() {
+-      await flushNow();
+-      postMessage({ type: "halt", reason: "poweroff" });
+-    },
+-    linkInfo,
+-    image: async () => ({
+-      seal,
+-      digest: await sha256(JSON.stringify(kernel.vfs.exportSnapshot())),
+-      epoch: serverEpoch,
+-      profile: PROFILE,
+-    }),
+-  };
+-  kernel = new SpiralKernel({
+-    hostBridge: host,
+-    vfsLimits: { maxBytes: 2 * 1024 * 1024, maxNodes: 1500 },
+-    limits: { historyEntries: 400, captureBytes: 1024 * 1024 },
+-    baseEnv: {
+-      HOST: "ssd0",
+-      USER: "operator",
+-      PROFILE: PROFILE,
+-      CONSOLE: "JA21/1.4.0",
+-    },
+-  });
+-  seedImage(kernel);
+-  seal = await sha256(JSON.stringify(kernel.vfs.exportSnapshot()));
+-  try {
+-    const saved = await readVolume();
+-    if (saved && saved.v === 1 && saved.snap) {
+-      kernel.vfs.importSnapshot(saved.snap);
+-      restored = true;
+-      diskMeta.restored = true;
+-      diskMeta.writtenAt = saved.writtenAt || 0;
+-      diskMeta.synced = true;
+-    }
+-  } catch (err) {
+-    restored = false;
+-    diskMeta.error = String(err && err.message ? err.message : err);
++self.onmessage=e=>{
++  const m=e.data;
++  if(m?.type==='attach' && e.ports?.length===1){bind(e.ports[0]);return;}
++  if(m?.type==='rpc') {
++    if(rpcBusy){postMessage({type:'rpc',id:m.id,error:'another management request is active'});return;}
++    rpcBusy=true;rpc(m).then(result=>postMessage({type:'rpc',id:m.id,result}),error=>postMessage({type:'rpc',id:m.id,error:message(error)})).finally(()=>{rpcBusy=false;});
+   }
+-  kernel.vfs.onMutate = () => noteDirty();
+-  if (!restored) await flushNow();
+-  hpu = new Hpu();
+-  try {
+-    if (kernel.vfs.exists("/var/hpu/field.bin")) {
+-      const raw = kernel.vfs.readFile("/var/hpu/field.bin");
+-      if (!hpu.load(raw)) hpu = new Hpu();
+-    }
+-  } catch {
+-    hpu = new Hpu();
+-  }
+-  host.hpu = hpu;
+-  host.hpuTouch = persistHpu;
+-  kernel.on("data", (e) => {
+-    const conn = bySid.get(e.sessionId);
+-    if (conn) conn.emitText(e.chunk);
+-  });
+-  kernel.on("command-complete", (e) => {
+-    const conn = bySid.get(e.sessionId);
+-    if (conn) conn.executedSeq = conn.inSeq;
+-  });
+-  kernel.on("exit", (e) => {
+-    const conn = bySid.get(e.sessionId);
+-    if (!conn || conn.exited) return;
+-    conn.exited = true;
+-    conn.send({
+-      v: 2,
+-      type: "session.exit",
+-      sid: e.sessionId,
+-      payload: { code: e.code | 0, reason: e.reason || "closed" },
+-    });
+-    bySid.delete(e.sessionId);
+-  });
+-  postMessage({
+-    type: "ready",
+-    epoch: serverEpoch,
+-    seal,
+-    restored,
+-    device: DEVICE,
+-    protocol: PROTOCOL,
+-    version: VERSION,
+-    startedAt,
+-  });
+-  publishHolo(false);
+-}
+-
+-function normalizeUrl(url) {
+-  const raw = String(url || "").trim();
+-  if (!raw) return "about:blank";
+-  return raw;
+-}
+-
+-function bind(port) {
+-  const conn = {
+-    sid: null,
+-    inSeq: 0,
+-    executedSeq: 0,
+-    outSeq: 0,
+-    credit: 0,
+-    sent: 0,
+-    queue: [],
+-    exited: false,
+-    decoder: new TextDecoder("utf-8", { fatal: false }),
+-    send(obj) {
+-      port.postMessage(JSON.stringify(obj));
+-    },
+-    emitText(text) {
+-      const bytes = enc.encode(text);
+-      for (let i = 0; i < bytes.length; i += 16384) {
+-        conn.queue.push(bytes.subarray(i, Math.min(bytes.length, i + 16384)));
+-      }
+-      conn.pump();
+-    },
+-    pump() {
+-      while (conn.queue.length) {
+-        const next = conn.queue[0];
+-        if (conn.sent + next.length > conn.credit) return;
+-        conn.queue.shift();
+-        conn.outSeq += 1;
+-        conn.sent += next.length;
+-        const frame = encodeData(KIND_OUTPUT, conn.outSeq, next);
+-        port.postMessage(frame, [frame.buffer]);
+-      }
+-    },
+-  };
+-
+-  port.onmessage = (ev) => {
+-    const data = ev.data;
+-    if (typeof data !== "string") {
+-      let frame;
+-      try {
+-        frame = decodeData(new Uint8Array(data));
+-      } catch {
+-        conn.send({ v: 2, type: "error", payload: { code: "BAD_MESSAGE", message: "bad data frame", retryable: false } });
+-        return;
+-      }
+-      if (frame.kind !== KIND_INPUT || !conn.sid) return;
+-      if (frame.seq !== conn.inSeq + 1) {
+-        conn.send({
+-          v: 2,
+-          type: "error",
+-          sid: conn.sid,
+-          payload: { code: "BAD_SEQ", message: `expected input ${conn.inSeq + 1}`, retryable: false },
+-        });
+-        return;
+-      }
+-      conn.inSeq = frame.seq;
+-      const text = conn.decoder.decode(frame.payload, { stream: true });
+-      if (text) {
+-        try {
+-          kernel.write(conn.sid, text);
+-        } catch (err) {
+-          conn.send({
+-            v: 2,
+-            type: "error",
+-            sid: conn.sid,
+-            payload: { code: "INPUT", message: String(err && err.message ? err.message : err), retryable: false },
+-          });
+-        }
+-      }
+-      conn.send({
+-        v: 2,
+-        type: "input.ack",
+-        sid: conn.sid,
+-        payload: { acceptedSeq: conn.inSeq, executedSeq: conn.executedSeq },
+-      });
+-      return;
+-    }
+-    let msg;
+-    try {
+-      msg = JSON.parse(data);
+-    } catch {
+-      return;
+-    }
+-    handle(conn, msg);
+-  };
+-
+-  conn.send({
+-    v: 2,
+-    type: "hello",
+-    payload: {
+-      protocol: PROTOCOL,
+-      serverEpoch,
+-      profile: PROFILE,
+-      version: VERSION,
+-      limits: { maxCreditWindowBytes: CREDIT_CAP },
+-    },
++};
++async function main(){
++  if(!self.isSecureContext || !navigator.locks || !self.indexedDB || !crypto.subtle) throw new Error('secure context, Web Locks, IndexedDB and Web Crypto are required');
++  await navigator.locks.request('ja21-ssd:nvme0n1:writer-v2',{ifAvailable:true},async lock=>{
++    if(!lock)throw new Error('another window owns this volume; close it and retry');
++    ownsLock=true;
++    const held=new Promise(resolve=>{releaseLock=resolve;});
++    try{await boot();}catch(error){phase='failed';disk.error=message(error);postMessage({type:'error',message:disk.error,phase});}
++    await held;
+   });
+ }
+-
+-function handle(conn, msg) {
+-  switch (msg.type) {
+-    case "session.open": {
+-      if (conn.sid) return;
+-      const cols = msg.payload?.cols | 0;
+-      const rows = msg.payload?.rows | 0;
+-      let opened;
+-      try {
+-        opened = kernel.openSession({ cols, rows, deferStart: true });
+-      } catch (err) {
+-        conn.send({
+-          v: 2,
+-          type: "error",
+-          rid: msg.rid,
+-          payload: { code: "OPEN", message: String(err.message || err), retryable: true },
+-        });
+-        return;
+-      }
+-      conn.sid = opened.sessionId;
+-      conn.credit = Math.min(CREDIT_CAP, msg.payload?.creditBytes | 0 || CREDIT_CAP);
+-      bySid.set(conn.sid, conn);
+-      conn.send({
+-        v: 2,
+-        type: "session.opened",
+-        rid: msg.rid,
+-        sid: conn.sid,
+-        epoch: serverEpoch,
+-        payload: { cols: opened.cols, rows: opened.rows, restored: false },
+-      });
+-      return;
+-    }
+-    case "session.start": {
+-      if (conn.sid) kernel.startSession(conn.sid);
+-      return;
+-    }
+-    case "flow.credit": {
+-      const next = msg.payload?.creditBytes | 0;
+-      if (next >= conn.credit) conn.credit = next;
+-      conn.pump();
+-      return;
+-    }
+-    case "terminal.resize": {
+-      if (conn.sid) kernel.resize(conn.sid, msg.payload?.cols | 0, msg.payload?.rows | 0);
+-      return;
+-    }
+-    case "terminal.signal": {
+-      if (conn.sid) kernel.signal(conn.sid, msg.payload?.signal || "SIGINT");
+-      return;
+-    }
+-    case "session.close": {
+-      if (conn.sid) kernel.closeSession(conn.sid, msg.payload?.reason || "closed");
+-      return;
+-    }
+-    case "session.status": {
+-      if (!conn.sid) return;
+-      const st = kernel.status(conn.sid);
+-      kernel.host
+-        .image()
+-        .then((image) => {
+-          conn.send({
+-            v: 2,
+-            type: "session.status",
+-            rid: msg.rid,
+-            sid: conn.sid,
+-            payload: {
+-              ...st,
+-              seal: image.seal,
+-              digest: image.digest,
+-              drifted: image.digest !== image.seal,
+-              epoch: serverEpoch,
+-              uptimeMs: Date.now() - startedAt,
+-              protocol: PROTOCOL,
+-              version: VERSION,
+-            },
+-          });
+-        })
+-        .catch(() => {});
+-      return;
+-    }
+-    case "heartbeat.ping": {
+-      conn.send({ v: 2, type: "heartbeat.pong", rid: msg.rid, payload: { nonce: msg.payload?.nonce || "" } });
+-      return;
+-    }
+-    default:
+-      return;
+-  }
+-}
+-
+-self.onmessage = (ev) => {
+-  const data = ev.data;
+-  if (data && data.type === "holo-peek") {
+-    publishHolo(false);
+-    return;
+-  }
+-  if (data && data.type === "attach" && ev.ports && ev.ports[0]) bind(ev.ports[0]);
+-};
+-
+-boot().catch((err) => {
+-  postMessage({ type: "error", message: String(err && err.message ? err.message : err) });
+-});
++main().catch(error=>{phase='failed';postMessage({type:'error',message:message(error),phase});});
+--- a/src/vendor/spiral/ChipHarness.cs
++++ b/src/vendor/spiral/ChipHarness.cs
+@@ -1,13 +1,13 @@
+ namespace Spiral.Hpu;
+ 
+ /// <summary>
+-/// Wraparound for six general byte processors and the seventh controller.
+-/// Each of the six owns a 64×64 gray TIFF built from the same RAM sample.
+-/// Each of the six is a CPU and a GPU equivalent of the same mask.
+-/// The scalar CPU retires fetch, decode, execute, and writeback.
+-/// The GPU retires the same byte in warps of 32. Sample keeps a plane
+-/// only when those two lanes match. Processor 7 issues the byte that
+-/// moves farthest. A tie keeps the lowest index. The lanes are not chained.
++/// Scalar and 32-wide batched CPU reference loops for six lookup-table lanes.
++/// Gpu is a retained compatibility method name; no GPU API is called.
++/// Six table identities represent four distinct byte transformations.
++/// Sample verifies equality of both software loops; a seventh selector chooses
++/// the largest absolute byte change, resolving ties to the lowest lane index.
++/// TIFF exports carry the computed data; the images do not execute themselves.
++/// This source is not compiled or invoked by the browser application.
+ /// </summary>
+ public sealed class ChipHarness
+ {
+@@ -88,7 +88,7 @@
+             var gpu = Gpu(s, ram);
+             for (int i = 0; i < ram.Length; i++)
+                 if (cpu[i] != gpu[i])
+-                    throw new System.InvalidOperationException("CPU and GPU lanes diverged.");
++                    throw new System.InvalidOperationException("Scalar and batched software lanes diverged.");
+             Planes[s] = cpu;
+         }
+         for (int i = 0; i < ram.Length; i++)
+--- a/src/vendor/spiral/chip-harness.js
++++ b/src/vendor/spiral/chip-harness.js
+@@ -1 +1 @@
+-export const HARNESS_SOURCE = "namespace Spiral.Hpu;\n\n/// <summary>\n/// Wraparound for six general byte processors and the seventh controller.\n/// Each of the six owns a 64×64 gray TIFF built from the same RAM sample.\n/// Each of the six is a CPU and a GPU equivalent of the same mask.\n/// The scalar CPU retires fetch, decode, execute, and writeback.\n/// The GPU retires the same byte in warps of 32. Sample keeps a plane\n/// only when those two lanes match. Processor 7 issues the byte that\n/// moves farthest. A tie keeps the lowest index. The lanes are not chained.\n/// </summary>\npublic sealed class ChipHarness\n{\n    public const int Width = 64;\n    public const int Height = 64;\n    public const int Processors = 6;\n    public const int Warp = 32;\n\n    static readonly byte[][] Tables =\n    {\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1,255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255 },\n        new byte[] { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 }\n    };\n\n    public byte[][] Planes { get; private set; } = new byte[Processors][];\n    public byte[] Route { get; private set; } = System.Array.Empty<byte>();\n    public byte[] Chip { get; private set; } = System.Array.Empty<byte>();\n\n    public static int RouteOf(byte sample)\n    {\n        int best = -1;\n        int pick = 0;\n        for (int s = 0; s < Processors; s++)\n        {\n            int delta = System.Math.Abs(Tables[s][sample] - sample);\n            if (delta > best)\n            {\n                best = delta;\n                pick = s;\n            }\n        }\n        return pick;\n    }\n\n    public byte[] Cpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\");\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        for (int i = 0; i < ram.Length; i++)\n            lane[i] = table[ram[i]];\n        return lane;\n    }\n\n    public byte[] Gpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\");\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        int warps = ram.Length / Warp;\n        for (int warp = 0; warp < warps; warp++)\n        {\n            int start = warp * Warp;\n            for (int laneId = 0; laneId < Warp; laneId++)\n            {\n                int i = start + laneId;\n                lane[i] = table[ram[i]];\n            }\n        }\n        return lane;\n    }\n\n    public void Sample(byte[] ram)\n    {\n        if (ram == null || ram.Length != Width * Height)\n            throw new System.ArgumentException(\"RAM sample must be 4096 bytes.\");\n        Route = new byte[ram.Length];\n        Chip = new byte[ram.Length];\n        for (int s = 0; s < Processors; s++)\n        {\n            var cpu = Cpu(s, ram);\n            var gpu = Gpu(s, ram);\n            for (int i = 0; i < ram.Length; i++)\n                if (cpu[i] != gpu[i])\n                    throw new System.InvalidOperationException(\"CPU and GPU lanes diverged.\");\n            Planes[s] = cpu;\n        }\n        for (int i = 0; i < ram.Length; i++)\n        {\n            int pick = RouteOf(ram[i]);\n            Route[i] = (byte)(pick + 1);\n            Chip[i] = Planes[pick][i];\n        }\n    }\n\n    /// <summary>Index 1–6 is that processor's TIFF. Index 7 is the controller route.</summary>\n    public byte[] Tiff(int index)\n    {\n        if (Planes[0] == null) throw new System.InvalidOperationException(\"Call Sample first.\");\n        if (index < 1 || index > 7) throw new System.ArgumentOutOfRangeException(nameof(index));\n        var samples = new ushort[Width * Height];\n        if (index == 7)\n        {\n            for (int i = 0; i < samples.Length; i++)\n            {\n                int r = Route[i];\n                samples[i] = (ushort)((r << 8) | r);\n            }\n        }\n        else\n        {\n            var lane = Planes[index - 1];\n            for (int i = 0; i < samples.Length; i++)\n                samples[i] = (ushort)(lane[i] * 257);\n        }\n        return EncodeGray16(Width, Height, samples);\n    }\n\n    /// <summary>Sample the RAM bytes and return the seven TIFF payloads.</summary>\n    public byte[][] Wrap(byte[] ram)\n    {\n        Sample(ram);\n        var all = new byte[7][];\n        for (int i = 0; i < 7; i++) all[i] = Tiff(i + 1);\n        return all;\n    }\n\n    static byte[] EncodeGray16(int width, int height, ushort[] samples)\n    {\n        int[][] tags =\n        {\n            new[] { 256, 4, 1, width },\n            new[] { 257, 4, 1, height },\n            new[] { 258, 3, 1, 16 },\n            new[] { 259, 3, 1, 1 },\n            new[] { 262, 3, 1, 1 },\n            new[] { 273, 4, 1, 0 },\n            new[] { 277, 3, 1, 1 },\n            new[] { 278, 4, 1, height },\n            new[] { 279, 4, 1, width * height * 2 },\n            new[] { 282, 5, 1, 0 },\n            new[] { 283, 5, 1, 0 },\n            new[] { 296, 3, 1, 2 },\n        };\n        int ifd = 8;\n        int nTags = tags.Length;\n        int ifdBytes = 2 + nTags * 12 + 4;\n        int xres = ifd + ifdBytes;\n        int yres = xres + 8;\n        int strip = yres + 8;\n        var outb = new byte[strip + width * height * 2];\n        void U16(int at, int value) { outb[at] = (byte)value; outb[at + 1] = (byte)(value >> 8); }\n        void U32(int at, int value)\n        {\n            outb[at] = (byte)value;\n            outb[at + 1] = (byte)(value >> 8);\n            outb[at + 2] = (byte)(value >> 16);\n            outb[at + 3] = (byte)(value >> 24);\n        }\n        U16(0, 0x4949);\n        U16(2, 42);\n        U32(4, ifd);\n        U16(ifd, nTags);\n        tags[5][3] = strip;\n        tags[9][3] = xres;\n        tags[10][3] = yres;\n        int p = ifd + 2;\n        foreach (var tag in tags)\n        {\n            U16(p, tag[0]);\n            U16(p + 2, tag[1]);\n            U32(p + 4, tag[2]);\n            if (tag[1] == 3) U16(p + 8, tag[3]);\n            else U32(p + 8, tag[3]);\n            p += 12;\n        }\n        U32(p, 0);\n        U32(xres, 3175);\n        U32(xres + 4, 1);\n        U32(yres, 3175);\n        U32(yres + 4, 1);\n        for (int i = 0; i < samples.Length; i++) U16(strip + i * 2, samples[i]);\n        return outb;\n    }\n}\n";
++export const HARNESS_SOURCE = "namespace Spiral.Hpu;\n\n/// <summary>\n/// Scalar and 32-wide batched CPU reference loops for six lookup-table lanes.\n/// Gpu is a retained compatibility method name; no GPU API is called.\n/// Six table identities represent four distinct byte transformations.\n/// Sample verifies equality of both software loops; a seventh selector chooses\n/// the largest absolute byte change, resolving ties to the lowest lane index.\n/// TIFF exports carry the computed data; the images do not execute themselves.\n/// This source is not compiled or invoked by the browser application.\n/// </summary>\npublic sealed class ChipHarness\n{\n    public const int Width = 64;\n    public const int Height = 64;\n    public const int Processors = 6;\n    public const int Warp = 32;\n\n    static readonly byte[][] Tables =\n    {\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1,255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255 },\n        new byte[] { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 }\n    };\n\n    public byte[][] Planes { get; private set; } = new byte[Processors][];\n    public byte[] Route { get; private set; } = System.Array.Empty<byte>();\n    public byte[] Chip { get; private set; } = System.Array.Empty<byte>();\n\n    public static int RouteOf(byte sample)\n    {\n        int best = -1;\n        int pick = 0;\n        for (int s = 0; s < Processors; s++)\n        {\n            int delta = System.Math.Abs(Tables[s][sample] - sample);\n            if (delta > best)\n            {\n                best = delta;\n                pick = s;\n            }\n        }\n        return pick;\n    }\n\n    public byte[] Cpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\");\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        for (int i = 0; i < ram.Length; i++)\n            lane[i] = table[ram[i]];\n        return lane;\n    }\n\n    public byte[] Gpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\");\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        int warps = ram.Length / Warp;\n        for (int warp = 0; warp < warps; warp++)\n        {\n            int start = warp * Warp;\n            for (int laneId = 0; laneId < Warp; laneId++)\n            {\n                int i = start + laneId;\n                lane[i] = table[ram[i]];\n            }\n        }\n        return lane;\n    }\n\n    public void Sample(byte[] ram)\n    {\n        if (ram == null || ram.Length != Width * Height)\n            throw new System.ArgumentException(\"RAM sample must be 4096 bytes.\");\n        Route = new byte[ram.Length];\n        Chip = new byte[ram.Length];\n        for (int s = 0; s < Processors; s++)\n        {\n            var cpu = Cpu(s, ram);\n            var gpu = Gpu(s, ram);\n            for (int i = 0; i < ram.Length; i++)\n                if (cpu[i] != gpu[i])\n                    throw new System.InvalidOperationException(\"Scalar and batched software lanes diverged.\");\n            Planes[s] = cpu;\n        }\n        for (int i = 0; i < ram.Length; i++)\n        {\n            int pick = RouteOf(ram[i]);\n            Route[i] = (byte)(pick + 1);\n            Chip[i] = Planes[pick][i];\n        }\n    }\n\n    /// <summary>Index 1–6 is that processor's TIFF. Index 7 is the controller route.</summary>\n    public byte[] Tiff(int index)\n    {\n        if (Planes[0] == null) throw new System.InvalidOperationException(\"Call Sample first.\");\n        if (index < 1 || index > 7) throw new System.ArgumentOutOfRangeException(nameof(index));\n        var samples = new ushort[Width * Height];\n        if (index == 7)\n        {\n            for (int i = 0; i < samples.Length; i++)\n            {\n                int r = Route[i];\n                samples[i] = (ushort)((r << 8) | r);\n            }\n        }\n        else\n        {\n            var lane = Planes[index - 1];\n            for (int i = 0; i < samples.Length; i++)\n                samples[i] = (ushort)(lane[i] * 257);\n        }\n        return EncodeGray16(Width, Height, samples);\n    }\n\n    /// <summary>Sample the RAM bytes and return the seven TIFF payloads.</summary>\n    public byte[][] Wrap(byte[] ram)\n    {\n        Sample(ram);\n        var all = new byte[7][];\n        for (int i = 0; i < 7; i++) all[i] = Tiff(i + 1);\n        return all;\n    }\n\n    static byte[] EncodeGray16(int width, int height, ushort[] samples)\n    {\n        int[][] tags =\n        {\n            new[] { 256, 4, 1, width },\n            new[] { 257, 4, 1, height },\n            new[] { 258, 3, 1, 16 },\n            new[] { 259, 3, 1, 1 },\n            new[] { 262, 3, 1, 1 },\n            new[] { 273, 4, 1, 0 },\n            new[] { 277, 3, 1, 1 },\n            new[] { 278, 4, 1, height },\n            new[] { 279, 4, 1, width * height * 2 },\n            new[] { 282, 5, 1, 0 },\n            new[] { 283, 5, 1, 0 },\n            new[] { 296, 3, 1, 2 },\n        };\n        int ifd = 8;\n        int nTags = tags.Length;\n        int ifdBytes = 2 + nTags * 12 + 4;\n        int xres = ifd + ifdBytes;\n        int yres = xres + 8;\n        int strip = yres + 8;\n        var outb = new byte[strip + width * height * 2];\n        void U16(int at, int value) { outb[at] = (byte)value; outb[at + 1] = (byte)(value >> 8); }\n        void U32(int at, int value)\n        {\n            outb[at] = (byte)value;\n            outb[at + 1] = (byte)(value >> 8);\n            outb[at + 2] = (byte)(value >> 16);\n            outb[at + 3] = (byte)(value >> 24);\n        }\n        U16(0, 0x4949);\n        U16(2, 42);\n        U32(4, ifd);\n        U16(ifd, nTags);\n        tags[5][3] = strip;\n        tags[9][3] = xres;\n        tags[10][3] = yres;\n        int p = ifd + 2;\n        foreach (var tag in tags)\n        {\n            U16(p, tag[0]);\n            U16(p + 2, tag[1]);\n            U32(p + 4, tag[2]);\n            if (tag[1] == 3) U16(p + 8, tag[3]);\n            else U32(p + 8, tag[3]);\n            p += 12;\n        }\n        U32(p, 0);\n        U32(xres, 3175);\n        U32(xres + 4, 1);\n        U32(yres, 3175);\n        U32(yres + 4, 1);\n        for (int i = 0; i < samples.Length; i++) U16(strip + i * 2, samples[i]);\n        return outb;\n    }\n}\n";
+--- a/src/vendor/spiral/commands/coreutils.js
++++ b/src/vendor/spiral/commands/coreutils.js
+@@ -1,4 +1,5 @@
+ // @ts-nocheck
++import { isolatedGrep } from '../safe-regex.js';
+ import { Buffer } from '../buffer.js';
+ import { gatherInput, toLines, fail } from './util.js';
+ 
+@@ -74,7 +75,8 @@
+     usage: 'head [-n count] [file...]',
+     parse: { valued: ['n'] },
+     async run(ctx) {
+-      const n = parseInt(ctx.flags.n, 10) || 10;
++      const n = ctx.flags.n === undefined ? 10 : Number(ctx.flags.n);
++      if (!Number.isSafeInteger(n) || n < 0 || n > 100000) return fail(ctx, 'count', 'count must be 0..100000');
+       const lines = toLines(await gatherInput(ctx)).slice(0, n);
+       ctx.stdout.write(lines.join('\n') + (lines.length ? '\n' : ''));
+       return 0;
+@@ -87,7 +89,8 @@
+     usage: 'tail [-n count] [file...]',
+     parse: { valued: ['n'] },
+     async run(ctx) {
+-      const n = parseInt(ctx.flags.n, 10) || 10;
++      const n = ctx.flags.n === undefined ? 10 : Number(ctx.flags.n);
++      if (!Number.isSafeInteger(n) || n < 0 || n > 100000) return fail(ctx, 'count', 'count must be 0..100000');
+       const all = toLines(await gatherInput(ctx));
+       const lines = all.slice(Math.max(0, all.length - n));
+       ctx.stdout.write(lines.join('\n') + (lines.length ? '\n' : ''));
+@@ -101,7 +104,7 @@
+     usage: 'wc [-l] [-w] [-c] [file...]',
+     async run(ctx) {
+       const text = await gatherInput(ctx);
+-      const lines = toLines(text).length;
++      const lines = (text.match(/\n/g) || []).length;
+       const words = (text.match(/\S+/g) || []).length;
+       const bytes = Buffer.byteLength(text);
+       const only = ctx.flags.l || ctx.flags.w || ctx.flags.c;
+@@ -123,33 +126,12 @@
+       if (!ctx.args.length) return fail(ctx, 'grep', 'usage: grep PATTERN [file...]');
+       const pattern = ctx.args[0];
+       ctx.args = ctx.args.slice(1); // remaining are files
+-      const flags = 'g' + (ctx.flags.i ? 'i' : '');
+-      const lim = ctx.limits || {};
+-      if (lim.regexChars && pattern.length > lim.regexChars) return fail(ctx, 'grep', `pattern longer than ${lim.regexChars} characters`, 2);
+-      let re;
+-      try { re = new RegExp(pattern, flags); } catch (e) { return fail(ctx, 'grep', e.message, 2); }
+-      const invert = !!ctx.flags.v;
+-      const lines = toLines(await gatherInput(ctx));
+-      let matched = 0;
+-      const out = [];
+-      lines.forEach((line, idx) => {
+-        if (lim.regexLineChars && line.length > lim.regexLineChars) line = line.slice(0, lim.regexLineChars);
+-        re.lastIndex = 0;
+-        const hit = re.test(line);
+-        if (hit !== invert) {
+-          matched++;
+-          if (ctx.flags.c) return;
+-          let shown = line;
+-          if (!invert) {
+-            re.lastIndex = 0;
+-            shown = line.replace(re, (m) => `\x1b[1;31m${m}\x1b[0m`);
+-          }
+-          out.push((ctx.flags.n ? `\x1b[32m${idx + 1}\x1b[0m:` : '') + shown);
+-        }
+-      });
+-      if (ctx.flags.c) ctx.stdout.write(matched + '\n');
+-      else if (out.length) ctx.stdout.write(out.join('\n') + '\n');
+-      return matched ? 0 : 1;
++      const text = await gatherInput(ctx);
++      try {
++        const result = await isolatedGrep({ pattern, text, ignoreCase: !!ctx.flags.i, invert: !!ctx.flags.v, numbers: !!ctx.flags.n, count: !!ctx.flags.c }, ctx.signal);
++        ctx.stdout.write(result.output); return result.matched ? 0 : 1;
++      } catch (e) { return fail(ctx, 'grep', e.message, 2); }
++
+     }
+   },
+ 
+@@ -227,18 +209,18 @@
+       let first = 1, incr = 1, last;
+       if (nums.length === 1) [last] = nums;
+       else if (nums.length === 2) [first, last] = nums;
+-      else if (nums.length >= 3) [first, incr, last] = nums;
++      else if (nums.length === 3) [first, incr, last] = nums;
+       else return fail(ctx, 'seq', 'usage: seq [first [incr]] last');
+       if (![first, incr, last].every(Number.isFinite)) return fail(ctx, 'seq', 'arguments must be finite numbers');
+       const max = (ctx.limits && ctx.limits.seqItems) || 1000000;
+-      const count = incr === 0 ? 0 : Math.floor((last - first) / incr) + 1;
++      if (incr === 0 || (first !== last && first + incr === first)) return fail(ctx, 'seq', 'increment is zero or not representable');
++      const count = Math.max(0, Math.floor((last - first) / incr) + 1);
+       if (count > max) return fail(ctx, 'seq', `sequence of ${count} items exceeds the limit of ${max}`);
+       // Stream in bounded batches instead of building one string of the whole sequence (RAMWS kit R12/R15):
+       // memory is O(batch), and a paused consumer pauses the producer between batches.
+       let out = [];
+       const flush = async () => { if (out.length) { ctx.stdout.write(out.join('\n') + '\n'); out = []; if (ctx.yield) await ctx.yield(); } if (ctx.signal && ctx.signal.aborted) throw new Error('interrupted'); };
+-      if (incr > 0) for (let i = first; i <= last; i += incr) { out.push(i); if (out.length >= 1000) await flush(); }
+-      else if (incr < 0) for (let i = first; i >= last; i += incr) { out.push(i); if (out.length >= 1000) await flush(); }
++      for (let i = 0; i < count; i++) { out.push(first + i * incr); if (out.length >= 1000) await flush(); }
+       await flush();
+       return 0;
+     }
+@@ -252,10 +234,14 @@
+     summary: 'delay for a number of seconds',
+     usage: 'sleep SECONDS',
+     async run(ctx) {
+-      const secs = parseFloat(ctx.args[0]) || 0;
++      const secs = Number(ctx.args[0]);
++      if (ctx.args.length !== 1 || !Number.isFinite(secs) || secs < 0 || secs > 3600) return fail(ctx, 'sleep', 'seconds must be 0..3600');
+       await new Promise((res, rej) => {
+-        const t = setTimeout(res, secs * 1000);
+-        ctx.signal.addEventListener('abort', () => { clearTimeout(t); rej(new Error('interrupted')); }, { once: true });
++        if (ctx.signal.aborted) { rej(new Error('interrupted')); return; }
++        const finish = () => { ctx.signal.removeEventListener('abort', abort); res(); };
++        const t = setTimeout(finish, secs * 1000);
++        const abort = () => { clearTimeout(t); ctx.signal.removeEventListener('abort', abort); rej(new Error('interrupted')); };
++        ctx.signal.addEventListener('abort', abort, { once: true });
+       });
+       return 0;
+     }
+@@ -263,9 +249,4 @@
+ ];
+ 
+ // tr should only read stdin (its args are the SETs, not files)
+-async function gatherInput_stdinOnly(ctx) {
+-  if (ctx.stdin && !ctx.stdin.isTTY) return ctx.stdin.readAll();
+-  let out = '';
+-  for (;;) { const l = await ctx.stdin.readLine(''); if (l === null) break; out += l + '\n'; }
+-  return out;
+-}
++async function gatherInput_stdinOnly(ctx) { return gatherInput({ ...ctx, args: [] }); }
+--- a/src/vendor/spiral/commands/fs.js
++++ b/src/vendor/spiral/commands/fs.js
+@@ -112,8 +112,9 @@
+     parse: { valued: ['name', 'type'] },
+     async run(ctx) {
+       const root = ctx.resolve(ctx.args[0] || '.');
+-      const namePat = ctx.flags.name ? new RegExp('^' + String(ctx.flags.name).replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.') + '$') : null;
++      const namePat = ctx.flags.name === undefined ? null : { test: name => globMatch(String(ctx.flags.name),name) };
+       const typeF = ctx.flags.type;
++      if (typeF && !['f','d'].includes(typeF)) return fail(ctx,'find','type must be f or d');
+       const results = [];
+       const walk = (abs) => {
+         let entries;
+@@ -189,8 +190,7 @@
+       if (!ctx.args.length) return fail(ctx, 'touch', 'missing file operand');
+       for (const a of ctx.args) {
+         const abs = ctx.resolve(a);
+-        if (ctx.vfs.exists(abs)) { const n = ctx.vfs._walk(abs); n.mtime = Date.now(); }
+-        else ctx.vfs.writeFile(abs, '');
++        ctx.vfs.touch(abs);
+       }
+       return 0;
+     }
+@@ -205,7 +205,7 @@
+       const src = ctx.resolve(ctx.args[0]);
+       const data = ctx.vfs.readFile(src);
+       let dst = ctx.resolve(ctx.args[1]);
+-      if (ctx.vfs.isDir(dst)) dst = dst + '/' + ctx.args[0].split('/').pop();
++      if (ctx.vfs.isDir(dst)) dst = dst + '/' + src.split('/').pop();
+       ctx.vfs.writeFile(dst, data);
+       return 0;
+     }
+@@ -254,3 +254,15 @@
+     }
+   }
+ ];
++
++/** Bounded dynamic-programming glob matcher. No user-generated RegExp. */
++export function globMatch(pattern, text) {
++  if (pattern.length > 256 || text.length > 255) throw new Error('glob length limit');
++  let prev = new Uint8Array(text.length + 1); prev[0] = 1;
++  for (const c of pattern) {
++    const next = new Uint8Array(text.length + 1); next[0] = c === '*' ? prev[0] : 0;
++    for (let j = 1; j <= text.length; j++) next[j] = c === '*' ? (prev[j] || next[j-1]) : (prev[j-1] && (c === '?' || c === text[j-1]));
++    prev = next;
++  }
++  return !!prev[text.length];
++}
+--- a/src/vendor/spiral/commands/hpu.js
++++ b/src/vendor/spiral/commands/hpu.js
+@@ -16,7 +16,9 @@
+ 
+ function num(s, fallback) {
+   const n = Number(s);
+-  return Number.isFinite(n) ? n : fallback;
++  if (s === undefined) return fallback;
++  if (!Number.isFinite(n)) throw new Error('expected a finite numeric argument');
++  return n;
+ }
+ 
+ function chipPath(ctx, arg, fallback, ext) {
+@@ -67,8 +69,8 @@
+       `  sample   : ${r.info} info pixels  ·  harness ${us(r.stepUs || r.sampleUs)}`,
+       `  relocate : ${r.moved} carriers along −∇I`,
+       `  bit line : ${r.logical0} logical 0   anti-bit : ${r.logical1} logical 1`,
+-      `  Landauer : ${aj(r.landauer)} cumulative  ·  ${r.erased} bits erased`,
+-      `  Bloch    : ${b[0].toFixed(2)}  ${b[1].toFixed(2)}  ${b[2].toFixed(2)}   purity ${r.purity.toFixed(2)}`,
++      `  Flip proxy: ${aj(r.landauer)} cumulative  ·  ${r.erased} bit transitions (not measured heat)`,
++      `  Bloch proxy: ${b[0].toFixed(2)}  ${b[1].toFixed(2)}  ${b[2].toFixed(2)}   purity ${r.purity.toFixed(2)}`,
+       `  2-adic   : ⟨v₂⟩ ${r.padic.toFixed(2)}  on the GIF gray`,
+       "",
+     ].join("\n"),
+@@ -78,7 +80,7 @@
+ export default [
+   {
+     name: "hpu",
+-    summary: "run the TIFF–GIF holographic processor",
++    summary: "run the software TIFF/GIF field and byte-lane simulator",
+     usage: "hpu [pattern|prop|gs|gate|cycle|diffuse|bit|tiff|gif|reset]",
+     async run(ctx) {
+       const hpu = hpuOf(ctx);
+@@ -98,7 +100,7 @@
+               p.gate ? `  gate    : ${p.gate} → ${p.bit}` : "",
+               p.nmse != null ? `  nmse    : ${p.nmse.toFixed(3)}` : "",
+               p.cycles
+-                ? `  carriers: ${p.moved}  info ${p.info}  Landauer ${(p.landauerJ * 1e18).toFixed(2)} aJ`
++                ? `  carriers: ${p.moved}  info ${p.info}  flip proxy ${(p.landauerJ * 1e18).toFixed(2)} aJ`
+                 : "",
+               "  pattern aperture|grating|vortex|twin",
+               "  prop [mm]    angular spectrum",
+@@ -110,7 +112,7 @@
+               "  replay       multiply that weight in place and drop the twin",
+               "  oam <0-255>  place charge-+1 wells, LSB on the right",
+               "  shift <left|right> [k]   ×2^k or integer ÷2^k",
+-              "  bytes [pattern]  six processors as CPU and GPU, TIFF if they agree",
++              "  bytes [pattern]  six LUTs via scalar and batched JS, no GPU",
+               "  kuramoto [n] sync phases inside 2-adic balls",
+               "  diffuse [n]  walk carriers along −∇I",
+               "  bit | bloch | padic",
+@@ -120,7 +122,6 @@
+               .filter((line) => line !== "")
+               .join("\n") + "\n",
+           );
+-          touch(ctx);
+           return 0;
+         }
+         if (sub === "pattern") {
+@@ -223,7 +224,7 @@
+               `\x1b[1mRECORD\x1b[0m  ${r.name}`,
+               "  reference : 4 px tilt, interfered in the field array",
+               "  weight    : real interferogram, one cell per pixel",
+-              "  bus       : 0 bytes moved",
++              "  memory    : JavaScript allocations; no host-device transfer API",
+               "",
+             ].join("\n"),
+           );
+@@ -237,7 +238,7 @@
+             [
+               `\x1b[1mREPLAY\x1b[0m  ${r.name}`,
+               `  MAC      : ${r.macOps.toLocaleString()} in-array products`,
+-              "  bus      : 0 bytes moved",
++              "  memory   : JavaScript allocations; no host-device transfer API",
+               `  fidelity : ${r.fidelity.toFixed(3)} overlap with the recorded object`,
+               "  twin     : rejected by the low-pass",
+               "",
+@@ -289,7 +290,7 @@
+           if (ctx.args[1]) hpu.pattern(ctx.args[1]);
+           const r = hpu.bytes();
+           ctx.vfs.mkdir("/var/hpu", { recursive: true });
+-          const lines = [`\x1b[1mBYTES\x1b[0m  ${hpu.n * hpu.n} RAM samples · CPU≡GPU`];
++          const lines = [`\x1b[1mBYTES\x1b[0m  ${hpu.n * hpu.n} RAM samples · scalar JS ≡ batched JS (CPU only)`];
+           for (let i = 1; i <= 7; i++) {
+             const plane = hpu.tiffPlane(i);
+             if (!plane) return fail(ctx, "hpu", "processor plane was not produced");
+@@ -298,7 +299,7 @@
+             const stage = r.stages[i - 1];
+             const note = stage.same ? ` · same table as ${stage.same}` : "";
+             const metal = stage.cpuCycles
+-              ? `CPU ${stage.cpuCycles.toLocaleString()} cyc · GPU ${stage.gpuWarps} warps`
++              ? `modeled scalar steps ${stage.cpuCycles.toLocaleString()} · JS batches ${stage.gpuWarps}`
+               : "issues the agreeing byte";
+             lines.push(`  ${stage.name}  ${metal}`);
+             lines.push(`    owns ${stage.owned.toLocaleString()}  ${stage.changed.toLocaleString()} changed${note}`);
+--- a/src/vendor/spiral/commands/index.js
++++ b/src/vendor/spiral/commands/index.js
+@@ -6,4 +6,7 @@
+ import ram from "./ram.js";
+ import hpu from "./hpu.js";
+ 
+-export default [...system, ...fsCmds, ...coreutils, ...browser, ...ram, ...hpu];
++export default [...system, ...fsCmds, ...coreutils, ...browser, ...ram, ...hpu,
++  { name: "sync", summary: "flush and verify the IndexedDB write transaction", usage: "sync", async run(ctx) { if (!ctx.host.sync) throw new Error("persistence unavailable"); await ctx.host.sync(); ctx.stdout.write("Volume transaction committed. Keep an exported backup.\n"); return 0; } },
++  { name: "xpuinfo", summary: "show actual execution backend and simulation limits", usage: "xpuinfo", async run(ctx) { ctx.stdout.write("Backend: JavaScript CPU software simulator\nField: 64 x 64 complex Float32 samples\nByte paths: scalar loop and 32-wide batched loop; neither uses a GPU API\nSix LUT identities, four distinct transformations, one deterministic selector\nFLOP-equivalent, Landauer, Bloch, and logical-cycle values are models, not measured hardware throughput or heat\n"); return 0; } }
++];
+--- a/src/vendor/spiral/commands/ram.js
++++ b/src/vendor/spiral/commands/ram.js
+@@ -1,6 +1,6 @@
+ // @ts-nocheck
+ /**
+- * Storage and fabric commands. The four fabric nodes are images on the SSD
++ * Storage and fabric commands. The four fabric nodes are images on the virtual volume
+  * volume, not a RAM-only machine and not a second disk.
+  */
+ import { fail } from "./util.js";
+@@ -40,12 +40,12 @@
+       const disk = (ctx.host.disk && ctx.host.disk()) || {};
+       ctx.stdout.write(
+         [
+-          "\x1b[1mLOCAL_SSD ledger\x1b[0m",
++          "\x1b[1mLOCAL_BROWSER ledger\x1b[0m",
+           `  volume    : ${fmt(u.bytes)} / ${fmt(u.maxBytes)}  (${pct}%)`,
+           `  nodes     : ${u.nodes} / ${u.maxNodes}`,
+-          `  block dev : ${disk.device || "nvme0n1"}  (${disk.model || "JA21 NVMe"})`,
++          `  store key : ${disk.device || "nvme0n1"}  (${disk.model || "IndexedDB virtual volume"})`,
+           `  sync      : ${disk.synced ? "clean" : "dirty"}${disk.error ? "  " + disk.error : ""}`,
+-          "  cache     : worker page cache — the volume itself is the SSD",
++          "  cache     : worker heap; durable copy is browser-managed IndexedDB",
+           "",
+         ].join("\n"),
+       );
+@@ -54,7 +54,7 @@
+   },
+   {
+     name: "image",
+-    summary: "show or verify the sealed boot image",
++    summary: "compare content against the factory seed (not a signature)",
+     usage: "image [verify]",
+     async run(ctx) {
+       const info = await imageOf(ctx);
+@@ -63,11 +63,11 @@
+       if (sub === "verify") {
+         const ok = info.digest === info.seal;
+         if (ok) {
+-          ctx.stdout.write(`\x1b[38;5;79mSEAL OK\x1b[0m  ${info.seal}\n  runtime tree matches the boot image\n`);
++          ctx.stdout.write(`\x1b[38;5;79mCONTENT MATCH\x1b[0m  ${info.seal}\n  runtime tree matches the boot image\n`);
+           return 0;
+         }
+         ctx.stdout.write(
+-          `\x1b[33mDRIFT\x1b[0m\n  boot ${info.seal}\n  now  ${info.digest}\n  the SSD volume differs from the sealed factory image\n`,
++          `\x1b[33mDRIFT\x1b[0m\n  boot ${info.seal}\n  now  ${info.digest}\n  the virtual volume volume differs from the sealed factory image\n`,
+         );
+         return 1;
+       }
+@@ -78,7 +78,7 @@
+           `  profile : ${info.profile}`,
+           `  epoch   : ${info.epoch}`,
+           `  seal    : ${info.seal}`,
+-          "  medium  : SSD nvme0n1 — poweroff flushes, it does not erase",
++          "  medium  : virtual volume nvme0n1 — poweroff flushes, it does not erase",
+           "",
+         ].join("\n"),
+       );
+@@ -87,7 +87,7 @@
+   },
+   {
+     name: "disk",
+-    summary: "show the SSD volume this server is mounted from",
++    summary: "show the virtual volume volume this server is mounted from",
+     usage: "disk",
+     async run(ctx) {
+       const disk = (ctx.host.disk && ctx.host.disk()) || null;
+@@ -101,7 +101,7 @@
+           `  state   : ${disk.synced ? "synced" : "dirty"}${disk.restored ? "  (remounted)" : ""}`,
+           `  written : ${when}`,
+           disk.error ? `  error   : ${disk.error}` : "",
+-          "  note    : poweroff and reload remount this volume",
++          "  note    : storage may be evicted or cleared; keep exported backups",
+           "",
+         ]
+           .filter((line) => line !== "")
+@@ -115,7 +115,7 @@
+     summary: "show the only filesystem mount",
+     usage: "mount",
+     async run(ctx) {
+-      ctx.stdout.write("/dev/nvme0n1 on / type ssd (rw,noatime,local_ssd)\n");
++      ctx.stdout.write("indexeddb:ja21-ssd/nvme0n1 on / type virtual (rw,origin-scoped)\n");
+       return 0;
+     },
+   },
+@@ -143,7 +143,7 @@
+   },
+   {
+     name: "df",
+-    summary: "fabric roster stored on the SSD",
++    summary: "fabric roster stored on the virtual volume",
+     usage: "df [status|nodes|where]",
+     async run(ctx) {
+       const sub = ctx.args[0] || "status";
+@@ -156,7 +156,7 @@
+         ctx.stdout.write("\x1b[1mDF fabric\x1b[0m  on nvme0n1\n");
+         for (const n of nodes) {
+           ctx.stdout.write(
+-            `  ${n.present ? "\x1b[38;5;79m●\x1b[0m" : "○"} ${n.node.padEnd(10)} ${n.role}  ${n.built ? "image built" : "cold"}\n`,
++            `  ${n.present ? "\x1b[38;5;79m●\x1b[0m" : "○"} ${n.node.padEnd(10)} ${n.role}  ${n.built ? "manifest only" : "cold"}\n`,
+           );
+         }
+         return 0;
+@@ -186,7 +186,7 @@
+       }
+       if (sub === "status") {
+         const up = nodes.filter((n) => n.present && n.built).length;
+-        ctx.stdout.write(`fabric  ${up}/${nodes.length} node images resident · root /df\n`);
++        ctx.stdout.write(`fabric  ${up}/${nodes.length} node manifests resident · root /df\n`);
+         return 0;
+       }
+       return fail(ctx, "fabric", "usage: fabric [status|topology]");
+@@ -213,8 +213,8 @@
+       ctx.stdout.write(
+         [
+           "\x1b[1mvirtual websocket\x1b[0m",
+-          `  protocol : ${info.protocol || "hermit.vws.v2"}`,
+-          `  profile  : ${info.profile || "LOCAL_SSD"}`,
++          `  protocol : ${info.protocol || "hermit.vws.v3"}`,
++          `  profile  : ${info.profile || "LOCAL_BROWSER"}`,
+           `  epoch    : ${info.epoch || "—"}`,
+           "  path     : worker message port (one socket per session)",
+           "  frames   : 7-byte header, kind 1 input / kind 2 output, uint48 seq",
+@@ -226,7 +226,7 @@
+   },
+   {
+     name: "poweroff",
+-    summary: "flush the SSD and cut power",
++    summary: "flush the virtual volume and cut power",
+     usage: "poweroff",
+     aka: ["halt", "shutdown"],
+     async run(ctx) {
+@@ -236,7 +236,7 @@
+       } catch (e) {
+         return fail(ctx, "poweroff", e.message || "flush failed");
+       }
+-      ctx.stdout.write("\x1b[33mcutting power — the volume stays on the SSD\x1b[0m\n");
++      ctx.stdout.write("\x1b[33mcutting power — the volume stays on the virtual volume\x1b[0m\n");
+       await new Promise((r) => setTimeout(r, 40));
+       if (ctx.host.poweroff) await ctx.host.poweroff();
+       return 0;
+@@ -244,7 +244,7 @@
+   },
+   {
+     name: "reboot",
+-    summary: "flush the SSD and remount it",
++    summary: "flush the virtual volume and remount it",
+     usage: "reboot",
+     async run(ctx) {
+       ctx.stdout.write("\x1b[33mflushing nvme0n1 — remounting the same volume\x1b[0m\n");
+@@ -254,7 +254,7 @@
+         return fail(ctx, "reboot", e.message || "flush failed");
+       }
+       await new Promise((r) => setTimeout(r, 40));
+-      if (ctx.host.poweroff) await ctx.host.poweroff();
++      if (ctx.host.reboot) await ctx.host.reboot();
+       return 0;
+     },
+   },
+--- a/src/vendor/spiral/commands/system.js
++++ b/src/vendor/spiral/commands/system.js
+@@ -37,7 +37,7 @@
+       if (!ctx.args.length) return fail(ctx, 'man', 'what manual page do you want?');
+       const d = ctx.registry.resolve(ctx.args[0]);
+       if (!d) return fail(ctx, 'man', `no manual entry for ${ctx.args[0]}`);
+-      const bars = '─'.repeat(Math.min(60, (ctx.cols || 80) - 4));
++      const bars = '─'.repeat(Math.max(0, Math.min(60, (ctx.cols || 80) - 4)));
+       ctx.stdout.write(
+         `\x1b[1m${d.name.toUpperCase()}(1)\x1b[0m\n${bars}\n\n` +
+         `\x1b[1mNAME\x1b[0m\n    ${d.name} — ${d.summary}\n\n` +
+@@ -62,26 +62,14 @@
+         return '  │' + body + ' '.repeat(Math.max(0, W - [...body].length)) + '│';
+       };
+       ctx.stdout.write([
+-        `\x1b[1mJA21 SSD server\x1b[0m v${v}  \x1b[2m— HERMIT virtual terminal\x1b[0m`,
+-        '',
+-        '  \x1b[38;5;44mArchitecture\x1b[0m',
+-        '  ┌' + '─'.repeat(W) + '┐',
+-        row('console', 'JA21 1.4.0 blank host · presenter 9.8.7'),
+-        row('vt', 'HERMIT parser · screen · canvas renderer'),
+-        row('link', 'hermit.vws.v2 virtual websocket'),
+-        row('SPIRAL', 'session kernel · SSD volume · pipes'),
+-        row('image', 'sealed factory image, measured at format'),
+-        row('storage', 'nvme0n1 · LOCAL_SSD, flushed on write'),
+-        row('optics', 'processable hologram · TIFF · GIF'),
+-        '  └' + '─'.repeat(W) + '┘',
+-        '',
+-        '  The root filesystem is the SSD volume. A power cycle remounts it.',
+-        '  Files you write are still there after poweroff and a reload.',
+-        '  `image verify` only reports drift from the sealed factory tree.',
+-        '',
+-        '  \x1b[2mTry:\x1b[0m  disk  ·  write /tmp/note kept  ·  image verify  ·  poweroff',
+-        ''
+-      ].join('\n') + '\n');
++        'JA21 Silicon Console — version ' + (ctx.host.version ? ctx.host.version() : '2.1.0'),
++        'Local browser worker, SPIRAL shell, ANSI terminal, bounded virtual filesystem.',
++        'IndexedDB provides origin-scoped storage; export backups before clearing site data.',
++        'The XPU/HPU is a JavaScript software model. Both byte-processing paths run on CPU.',
++        'No native GPU, quantum hardware, CXL memory pool, VM boot, or native PTY is provided.',
++        'The Node host serves static files only. MessageChannel transports terminal frames.',
++        'Type help, xpuinfo, disk, image verify, or hpu gate xor 1 0.', ''
++      ].join('\n'));
+       return 0;
+     }
+   },
+@@ -157,7 +145,7 @@
+       for (const a of ctx.args) {
+         const eq = a.indexOf('=');
+         if (eq < 0) { const v = ctx.aliases[a]; ctx.stdout.write(v ? `alias ${a}='${v}'\n` : ''); continue; }
+-        ctx.aliases[a.slice(0, eq)] = a.slice(eq + 1).replace(/^['"]|['"]$/g, '');
++        ctx.aliases[a.slice(0, eq)] = a.slice(eq + 1);
+       }
+       return 0;
+     }
+--- a/src/vendor/spiral/commands/util.js
++++ b/src/vendor/spiral/commands/util.js
+@@ -8,27 +8,12 @@
+  * concatenate their VFS contents; otherwise drain stdin. Returns a string.
+  */
+ async function gatherInput(ctx) {
+-  if (ctx.args.length) {
+-    let out = '';
+-    for (const a of ctx.args) {
+-      const p = ctx.resolve(a);
+-      out += ctx.vfs.readFile(p);
+-    }
+-    return out;
+-  }
+-  if (ctx.stdin && typeof ctx.stdin.readAll === 'function') {
+-    // static input
+-    if (!ctx.stdin.isTTY) return ctx.stdin.readAll();
+-    // interactive: read until EOF (Ctrl-D)
+-    let out = '';
+-    for (;;) {
+-      const line = await ctx.stdin.readLine('');
+-      if (line === null) break;
+-      out += line + '\n';
+-    }
+-    return out;
+-  }
+-  return '';
++  let out = ''; const limit = ctx.limits?.captureBytes || 524288;
++  const append = (s) => { s = String(s); if (ctx.signal?.aborted) throw new Error('interrupted'); if (out.length + s.length > limit) throw new Error('input capture limit exceeded'); out += s; };
++  if (ctx.args.length) for (const a of ctx.args) append(ctx.vfs.readFile(ctx.resolve(a)));
++  else if (ctx.stdin && !ctx.stdin.isTTY) append(ctx.stdin.readAll());
++  else if (ctx.stdin) for (;;) { const line = await ctx.stdin.readLine(''); if (line === null) break; append(line + '\n'); }
++  return out;
+ }
+ 
+ /** Split text into lines, preserving semantics of a trailing newline. */
+--- a/src/vendor/spiral/env.js
++++ b/src/vendor/spiral/env.js
+@@ -29,17 +29,17 @@
+   }
+ 
+   unset(name) {
+-    return this.vars.delete(name);
++    const existed = this.has(name); this.vars.set(name, undefined); return existed;
+   }
+ 
+   has(name) {
+-    return this.vars.has(name) || (this.parent ? this.parent.has(name) : false);
++    return this.get(name) !== undefined;
+   }
+ 
+   /** Flattened view (child values shadow parent). */
+   toObject() {
+-    const base = this.parent ? this.parent.toObject() : {};
+-    for (const [k, v] of this.vars) base[k] = v;
++    const base = this.parent ? this.parent.toObject() : Object.create(null);
++    for (const [k, v] of this.vars) { if (v === undefined) delete base[k]; else base[k] = v; }
+     return base;
+   }
+ 
+--- a/src/vendor/spiral/hpu.js
++++ b/src/vendor/spiral/hpu.js
+@@ -1,3 +1,4 @@
++import { encodeState, decodeState } from './state-codec.js';
+ // @ts-nocheck
+ /**
+  * TIFF–GIF holographic processor.
+@@ -100,8 +101,9 @@
+ }
+ 
+ export function v2(x) {
++  if (!Number.isInteger(x) || x < 0 || x > 0xffffffff) throw new RangeError('valuation requires uint32');
+   let n = x >>> 0;
+-  if (!n) return 0;
++  if (!n) return Infinity;
+   let v = 0;
+   while ((n & 1) === 0) {
+     n >>>= 1;
+@@ -157,6 +159,7 @@
+ 
+ /** Kerr on a coherent state: the non-Gaussian residual of the interaction frame. */
+ export function kerrCoherent(betaRe, betaIm, chi) {
++  if (![betaRe,betaIm,chi].every(Number.isFinite) || Math.hypot(betaRe,betaIm) > 8 || Math.abs(chi) > 100) throw new RangeError('Kerr model parameter limit');
+   const amp2 = betaRe * betaRe + betaIm * betaIm;
+   const norm = Math.exp(-amp2 / 2);
+   const cs = [];
+@@ -172,6 +175,10 @@
+     bi = br * betaIm + bi * betaRe;
+     br = nr;
+   }
++  const retained = cs.reduce((a,c) => a + c.re*c.re + c.im*c.im, 0);
++  const scale = Math.sqrt(retained);
++  for (const c of cs) { c.re /= scale; c.im /= scale; }
++  Object.defineProperty(cs, 'truncationLoss', { value: Math.max(0, 1-retained) });
+   return cs;
+ }
+ 
+@@ -294,6 +301,7 @@
+   }
+ 
+   clear() {
++    this._invalidateBytes();
+     this.re.fill(0);
+     this.im.fill(0);
+   }
+@@ -368,6 +376,8 @@
+   }
+ 
+   lens(f) {
++    this._invalidateBytes();
++    if (!Number.isFinite(f) || Math.abs(f) < 1e-9 || Math.abs(f) > 1) throw new RangeError('invalid focal length');
+     const n = this.n;
+     const mid = n >> 1;
+     const k = (2 * Math.PI) / this.lambda;
+@@ -395,8 +405,10 @@
+     }
+   }
+ 
+-  /** Band-limited angular spectrum. z in metres. Evanescent orders are dropped. */
++  /** Sampled angular spectrum (not an anti-alias band-limit). z in metres. Evanescent orders are dropped. */
+   propagate(z) {
++    if (!Number.isFinite(z) || Math.abs(z) > .08 || !Number.isFinite(this.z + z)) throw new RangeError('propagation must be finite, within 80 mm per step');
++    this._invalidateBytes();
+     this.wigner = null;
+     const n = this.n;
+     fft2(this.re, this.im, n, 1);
+@@ -487,6 +499,7 @@
+   }
+ 
+   _swapAmp(amp) {
++    this._invalidateBytes();
+     for (let i = 0; i < this.re.length; i++) {
+       const m = Math.hypot(this.re[i], this.im[i]) || 1;
+       const s = amp[i] / m;
+@@ -555,6 +568,7 @@
+    * Bits that flip in the sample buffer are charged at kT ln 2.
+    */
+   sample() {
++    this._invalidateBytes();
+     const t0 = performance.now();
+     const gif = this._intensityBytes();
+     const n = gif.length;
+@@ -621,6 +635,7 @@
+    * add as complex amplitudes.
+    */
+   relocate() {
++    this._invalidateBytes();
+     const n = this.n;
+     const I = this.ramI || this.intensity();
+     let sum = 0;
+@@ -763,6 +778,7 @@
+ 
+   /** Kuramoto step inside each 2-adic ball of the GIF gray, then a new frame. */
+   kuramoto(steps) {
++    this._invalidateBytes();
+     const count = Math.max(1, Math.min(12, steps | 0 || 1));
+     const n = this.n;
+     const gif = this._intensityBytes();
+@@ -881,6 +897,7 @@
+    * inside the field array. The weight never leaves those cells.
+    */
+   record(name) {
++    this._invalidateBytes();
+     const kept = this.pattern(name || "aperture");
+     const n = this.n;
+     this.objectRe = Float32Array.from(this.re);
+@@ -915,6 +932,7 @@
+    * back into the field. Nothing is copied out to a separate ALU.
+    */
+   replay() {
++    this._invalidateBytes();
+     if (!this.recorded || !this.objectRe) return null;
+     const n = this.n;
+     const k = (2 * Math.PI) / 4;
+@@ -967,6 +985,7 @@
+ 
+   /** Eight OAM wells. LSB is the rightmost. A lit well is topological charge +1. */
+   oam(value) {
++    this._invalidateBytes();
+     const n = this.n;
+     const v = Math.max(0, Math.min(255, value | 0));
+     this.clear();
+@@ -1005,6 +1024,7 @@
+    * The helical phase is copied, not rewritten, so the charge stays.
+    */
+   shift(dir, steps) {
++    this._invalidateBytes();
+     if (this.oamValue == null) return null;
+     const n = this.n;
+     const k = Math.max(1, Math.min(7, steps | 0 || 1));
+@@ -1343,7 +1363,47 @@
+     return encodeGifGray(this.n, this.n, frames);
+   }
+ 
+-  save() {
++  save() { this._validateState(this); return encodeState(this); }
++
++  load(bytes) {
++    try {
++      if (!(bytes instanceof Uint8Array) || bytes.length > 1048588) return false;
++      const next = new Hpu();
++      if (bytes[0] === 72 && bytes[1] === 80 && bytes[2] === 85 && bytes[3] === 50) {
++        const state = decodeState(bytes); next._validateState(state); Object.assign(next, state);
++      } else if (!next._loadLegacy(bytes)) return false;
++      next._validateState(next);
++      Object.assign(this, next); return true;
++    } catch { return false; }
++  }
++
++  _validateState(s) {
++    const keys = Object.keys(newStateShape());
++    if (!s || Object.keys(s).length !== keys.length || keys.some(k => !Object.hasOwn(s,k))) throw new Error('state schema mismatch');
++    if (s.n !== N || s.pitch !== PITCH || s.lambda !== LAMBDA) throw new Error('field geometry mismatch');
++    const exact = (x,C,n) => x instanceof C && x.length === n;
++    for (const k of ['re','im']) if (!exact(s[k],Float32Array,N*N)) throw new Error('invalid complex field');
++    for (const k of ['ramI','objectRe','objectIm']) if (s[k] !== null && !exact(s[k],Float32Array,N*N)) throw new Error('invalid auxiliary field');
++    for (const k of ['gifRam','byteRoute']) if (s[k] !== null && !exact(s[k],Uint8Array,N*N)) throw new Error('invalid byte field');
++    if (!Array.isArray(s.frames) || s.frames.length > 24 || s.frames.some(x => !exact(x,Uint8Array,N*N))) throw new Error('invalid spool');
++    if (!Array.isArray(s.bloch) || s.bloch.length !== 3 || s.bloch.some(x => typeof x !== 'number' || Math.abs(x) > 1.000001)) throw new Error('invalid Bloch proxy');
++    if (![null,0,1].includes(s.bit) || (s.wigner !== null && (!exact(s.wigner,Uint8Array,1600) || s.wignerN !== 40))) throw new Error('invalid model metadata');
++    for (const k of ['op','stage','gateLabel','recorded','oamBits']) if (typeof s[k] !== 'string' || s[k].length > 128) throw new Error('invalid field text');
++    for (const k of ['n','pitch','lambda','z','cycles','detector','info','moved','logical1','erased','landauer','sampleUs','stepUs','padic','margin','purity','wignerN','wMin','wNeg','gifAlpha','gifChi','gifNbar','orderR','macOps','oamCharge','oamRem','oamOverflow','byteWritten']) if (typeof s[k] !== 'number' || !Number.isFinite(s[k])) throw new Error('invalid field number');
++    for (const k of ['nmse','fidelity','oamValue']) if (s[k] !== null && (typeof s[k] !== 'number' || !Number.isFinite(s[k]))) throw new Error('invalid optional field number');
++    if (s.penteract !== null && (!s.penteract || Object.keys(s.penteract).sort().join(',') !== 'p,t,x,y,z' || Object.values(s.penteract).some(v => !Number.isFinite(v)))) throw new Error('invalid penteract coordinates');
++    if (s.byteLanes !== null || s.byteStages !== null || s.byteRoute !== null) {
++      if (!s.gifRam || !s.byteRoute || !Array.isArray(s.byteLanes) || s.byteLanes.length !== 6 || s.byteLanes.some(x => !exact(x,Uint8Array,N*N)) || !Array.isArray(s.byteStages) || s.byteStages.length !== 7 || !lanesAgree(s.gifRam,s.byteLanes,s.byteRoute)) throw new Error('byte lane verification failed');
++      const owners = Array(6).fill(0); for (const r of s.byteRoute) owners[r-1]++;
++      s.byteStages.forEach((b,i) => { if (b.id !== `processor-${i+1}` || typeof b.name !== 'string' || typeof b.same !== 'string' || !Number.isInteger(b.changed) || b.changed < 0 || b.changed > N*N || !Number.isInteger(b.unique) || b.unique < 1 || b.unique > 256 || b.owned !== (i === 6 ? N*N : owners[i])) throw new Error('invalid processor ledger'); });
++    }
++    encodeState(s); // All other values are bounded, finite and non-executable.
++    return true;
++  }
++
++  _invalidateBytes() { this.byteLanes = null; this.byteStages = null; this.byteRoute = null; this.byteWritten = 0; this.ramI = null; }
++
++  _saveLegacy() {
+     const n = this.n;
+     const frames = this.frames;
+     const enc = new TextEncoder();
+@@ -1409,7 +1469,7 @@
+     return out;
+   }
+ 
+-  load(bytes) {
++  _loadLegacy(bytes) {
+     const u = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+     if (u.byteLength < 32) return false;
+     const v = new DataView(u.buffer, u.byteOffset, u.byteLength);
+@@ -1417,7 +1477,7 @@
+     const n = v.getUint32(4, true);
+     if (n !== this.n) return false;
+     this.z = v.getFloat32(8, true);
+-    if (!Number.isFinite(this.z)) this.z = 0;
++    if (!Number.isFinite(this.z)) return false;
+     const count = v.getUint32(12, true);
+     if (count > 24) return false;
+     let o = 32;
+@@ -1434,13 +1494,13 @@
+     }
+     this.op = new TextDecoder().decode(u.subarray(16, 32)).replace(/\0/g, "") || "restored";
+     for (let i = 0; i < this.re.length; i++) {
+-      if (!Number.isFinite(this.re[i])) this.re[i] = 0;
+-      if (!Number.isFinite(this.im[i])) this.im[i] = 0;
++      if (!Number.isFinite(this.re[i]) || !Number.isFinite(this.im[i]) || Math.abs(this.re[i]) > 1e12 || Math.abs(this.im[i]) > 1e12) return false;
+     }
+     this.byteRoute = null;
+     this.byteLanes = null;
+     this.byteStages = null;
+     this.byteWritten = 0;
++    if (o !== u.byteLength && (o + 8 > u.byteLength || v.getUint32(o, true) !== 0x42395437)) return false;
+     if (o + 8 <= u.byteLength && v.getUint32(o, true) === 0x42395437) {
+       const end = u.byteLength;
+       let p = o + 4;
+@@ -1473,7 +1533,7 @@
+       }
+       const cells = n * n;
+       if (!ok || p + cells * 7 > end) {
+-        this.byteStages = null;
++        return false;
+       } else {
+         const route = u.slice(p, p + cells);
+         p += cells;
+@@ -1484,7 +1544,7 @@
+           lanes.push(u.slice(p, p + cells));
+           p += cells;
+         }
+-        if (routeOk && p + cells <= end && lanesAgree(u.subarray(p, p + cells), lanes, route)) {
++        if (routeOk && p + cells === end && lanesAgree(u.subarray(p, p + cells), lanes, route)) {
+           this.byteRoute = route;
+           this.byteLanes = lanes;
+           this.byteStages = stages;
+@@ -1499,7 +1559,7 @@
+               stage.equivalent = true;
+             }
+           }
+-        } else if (routeOk && p === end) {
++        } else if (false) { // Legacy lanes without their sample cannot be verified.
+           this.byteRoute = route;
+           this.byteLanes = lanes;
+           this.byteStages = stages;
+@@ -1508,11 +1568,14 @@
+         }
+       }
+     }
++    if (u.byteLength > need && (!this.byteRoute || !this.gifRam)) return false;
+     return true;
+   }
+ }
+ 
+ export function encodeTiffGray16(width, height, samples) {
++  checkImage(width,height);
++  if (!(samples instanceof Uint16Array) || samples.length !== width*height) throw new Error('TIFF sample shape mismatch');
+   const tags = [
+     [256, 4, 1, width],
+     [257, 4, 1, height],
+@@ -1615,6 +1678,8 @@
+ }
+ 
+ export function encodeGifGray(width, height, frames) {
++  checkImage(width,height);
++  if (!Array.isArray(frames) || frames.length < 1 || frames.length > 24 || frames.some(f => !(f instanceof Uint8Array) || f.length !== width*height)) throw new Error('GIF frame shape mismatch');
+   const out = [];
+   const push = (...xs) => out.push(...xs);
+   push(0x47, 0x49, 0x46, 0x38, 0x39, 0x61);
+@@ -1640,3 +1705,8 @@
+   push(0x3b);
+   return Uint8Array.from(out);
+ }
++
++const STATE_KEYS = {"bit": 1, "bloch": 1, "byteLanes": 1, "byteRoute": 1, "byteStages": 1, "byteWritten": 1, "cycles": 1, "detector": 1, "erased": 1, "fidelity": 1, "frames": 1, "gateLabel": 1, "gifAlpha": 1, "gifChi": 1, "gifNbar": 1, "gifRam": 1, "im": 1, "info": 1, "lambda": 1, "landauer": 1, "logical1": 1, "macOps": 1, "margin": 1, "moved": 1, "n": 1, "nmse": 1, "oamBits": 1, "oamCharge": 1, "oamOverflow": 1, "oamRem": 1, "oamValue": 1, "objectIm": 1, "objectRe": 1, "op": 1, "orderR": 1, "padic": 1, "penteract": 1, "pitch": 1, "purity": 1, "ramI": 1, "re": 1, "recorded": 1, "sampleUs": 1, "stage": 1, "stepUs": 1, "wMin": 1, "wNeg": 1, "wigner": 1, "wignerN": 1, "z": 1};
++function newStateShape() { return STATE_KEYS; }
++
++function checkImage(w,h) { if (!Number.isInteger(w) || !Number.isInteger(h) || w < 1 || h < 1 || w > 512 || h > 512 || w*h > 262144) throw new RangeError('image geometry limit'); }
+--- a/src/vendor/spiral/kernel.js
++++ b/src/vendor/spiral/kernel.js
+@@ -3,7 +3,7 @@
+ import { VFS, resolvePath, basename, dirname } from './vfs.js';
+ import { CommandRegistry, parseFlags } from './registry.js';
+ import { Environment } from './env.js';
+-import { parse } from './pipeline.js';
++import { parse, expandWord } from './pipeline.js';
+ import { LineReader } from './line-reader.js';
+ import builtins from './commands/index.js';
+ 
+@@ -42,10 +42,10 @@
+ 
+ const GEOMETRY = Object.freeze({ minCols: 2, maxCols: 400, minRows: 1, maxRows: 200 });
+ const DEFAULT_LIMITS = Object.freeze({
+-  captureBytes: 8 * 1024 * 1024, // per pipeline stage capture (string length, UTF-16 units as a proxy)
++  captureBytes: 512 * 1024, // per pipeline stage capture (string length, UTF-16 units as a proxy)
+   lineChars: 4096,               // interactive input line
+   historyEntries: 1000,
+-  seqItems: 1000000,             // `seq` element count
++  seqItems: 100000,             // `seq` element count
+   regexChars: 256,               // user-supplied RegExp source length
+   regexLineChars: 16384          // longest line a user RegExp is applied to
+ });
+@@ -131,6 +131,7 @@
+   /* ---- session lifecycle ---------------------------------------------- */
+ 
+   openSession(opts = {}) {
++    if (this.sessions.size >= 8) throw new Error('maximum 8 sessions');
+     const cols = opts.cols === undefined ? 80 : opts.cols;
+     const rows = opts.rows === undefined ? 24 : opts.rows;
+     if (!validGeometry(cols, rows)) throw new RangeError(`invalid geometry ${String(cols).slice(0, 12)}x${String(rows).slice(0, 12)}`);
+@@ -223,7 +224,7 @@
+     if (signal !== 'SIGINT' && signal !== 'INT') return;
+     s.typeahead = '';
+     if (s.running) s.running.abort('SIGINT');
+-    else if (s.pending) s.pending.feed('\x03');
++    if (s.pending) s.pending.feed('\x03');
+   }
+ 
+   _emit(session, chunk) {
+@@ -253,6 +254,7 @@
+       try {
+         await this._executeLine(session, text);
+       } catch (err) {
++        session.env.set('?', '2');
+         this._emit(session, `\x1b[31mspiral: ${err.message}\x1b[0m\r\n`);
+       }
+       if (this.host.afterCommand) {
+@@ -318,9 +320,9 @@
+       '',
+       `  ${C}⌜${R}                                                        ${C}⌝${R}`,
+       `        ${G}▪${R}      ${G}▪${R}      ${G}▪${R}        ${B}${I}HERMIT${R}  ${G}/${R}  ${C}${B}JA21${R}`,
+-      `          ${G}╲  ┆  ╱${R}              ${D}SSD server · hermit.vws.v2 · v${v}${R}`,
+-      `        ${G}▪ ┄┄ ${R}${C}◆${R}${G} ┄┄ ▪${R}            ${D}SPIRAL on nvme0n1 · writes stay on disk${R}`,
+-      `          ${G}╱  ┆  ╲${R}              ${D}JA21 console host · profile LOCAL_SSD${R}`,
++      `          ${G}╲  ┆  ╱${R}              ${D}Software server · hermit.vws.v3 · v${v}${R}`,
++      `        ${G}▪ ┄┄ ${R}${C}◆${R}${G} ┄┄ ▪${R}            ${D}SPIRAL · IndexedDB virtual volume${R}`,
++      `          ${G}╱  ┆  ╲${R}              ${D}JA21 shell · no physical XPU attached${R}`,
+       `        ${G}▪${R}      ${G}▪${R}      ${G}▪${R}`,
+       `  ${C}⌞${R}                                                        ${C}⌟${R}`,
+       '',
+@@ -352,14 +354,14 @@
+       commands: this.registry.list().length,
+       ram: this.vfs.usage(),
+       disk: this.host.disk ? this.host.disk() : null,
+-      profile: (this.host.profile && this.host.profile()) || 'LOCAL_SSD'
++      profile: (this.host.profile && this.host.profile()) || 'LOCAL_BROWSER'
+     };
+   }
+ 
+   /* ---- execution ------------------------------------------------------- */
+ 
+   async _executeLine(session, line) {
+-    const segments = parse(line, session.env);
++    const segments = parse(line, session.env, { deferExpansion: true });
+     let lastCode = 0;
+     for (const seg of segments) {
+       if (seg.op === '&&' && lastCode !== 0) continue;
+@@ -369,6 +371,7 @@
+       if (this.host.flow) { await new Promise((res) => defer(res)); if (this.host.flow.paused()) await new Promise((res) => this.host.flow.onDrain(res)); }
+       if (!session.alive) break;
+       lastCode = await this._runPipeline(session, seg.pipeline);
++      session.env.set('?', String(lastCode));
+     }
+     session.env.set('?', String(lastCode));
+     return lastCode;
+@@ -383,19 +386,21 @@
+ 
+     try {
+       for (let k = 0; k < pipeline.length; k++) {
+-        const cmd = pipeline[k];
++        const raw = pipeline[k];
++        const cmd = { argv: raw.argv.map(t => expandWord(t, session.env)), redirects: raw.redirects.map(r => ({ ...r, target: expandWord(r.target, session.env) })) };
+         const isLast = k === pipeline.length - 1;
+         let argv = cmd.argv.slice();
+         let name = argv.shift();
+         if (name == null) continue;
+ 
+-        // alias expansion (guarded against recursion)
++        // Aliases are a single quoted command, not a second control-language parser.
+         const seen = new Set();
+-        while (name != null && session.aliases[name] && !seen.has(name)) {
++        while (name != null && session.aliases[name]) {
++          if (seen.has(name) || seen.size >= 16) throw new Error('alias recursion limit');
+           seen.add(name);
+-          const exp = session.aliases[name].split(/\s+/).filter(Boolean);
+-          name = exp.shift();
+-          argv = exp.concat(argv);
++          const plan = parse(session.aliases[name], session.env);
++          if (plan.length !== 1 || plan[0].pipeline.length !== 1 || plan[0].pipeline[0].redirects.length) throw new Error('alias must be one command without redirects');
++          const exp = plan[0].pipeline[0].argv.slice(); name = exp.shift(); argv = exp.concat(argv);
+         }
+ 
+         const descriptor = this.registry.resolve(name);
+@@ -430,7 +435,8 @@
+           if (capture.length + s.length > limit) { controller.abort('CAPTURE_LIMIT'); throw new CaptureLimitError(limit); }
+           capture += s;
+         } };
+-        const toTerminal = { write: (s) => this._emit(session, String(s).replace(/\r?\n/g, '\r\n')) };
++        let emitted = 0;
++        const toTerminal = { write: (s) => { s = String(s); emitted += s.length; if (emitted > limit) { controller.abort('OUTPUT_LIMIT'); throw new CaptureLimitError(limit); } this._emit(session, s.replace(/\r?\n/g, '\r\n')); } };
+         const stdout = outRe ? toCapture : (isLast ? toTerminal : toCapture);
+         const stderr = { write: (s) => this._emit(session, String(s).replace(/\r?\n/g, '\r\n')) };
+ 
+--- a/src/vendor/spiral/line-reader.js
++++ b/src/vendor/spiral/line-reader.js
+@@ -23,7 +23,7 @@
+ 
+ /** Visible width of a string, ignoring SGR/ANSI escape sequences. */
+ function visibleWidth(s) {
+-  return s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').length;
++  return [...s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '')].length;
+ }
+ 
+ class LineReader {
+@@ -72,7 +72,7 @@
+   _repaint() {
+     // Clear the whole line, rewrite prompt + buffer, then reposition cursor.
+     this.write('\r' + CSI + '2K' + this.prompt + this.buf);
+-    const col = visibleWidth(this.prompt) + this.cur;
++    const col = visibleWidth(this.prompt) + [...this.buf.slice(0,this.cur)].length;
+     this.write('\r');
+     if (col > 0) this.write(CSI + col + 'C');
+   }
+@@ -140,13 +140,13 @@
+ 
+   _key(name) {
+     switch (name) {
+-      case 'left': if (this.cur > 0) { this.cur--; this._repaint(); } break;
+-      case 'right': if (this.cur < this.buf.length) { this.cur++; this._repaint(); } break;
++      case 'left': if (this.cur > 0) { this.cur = previous(this.buf,this.cur); this._repaint(); } break;
++      case 'right': if (this.cur < this.buf.length) { this.cur = following(this.buf,this.cur); this._repaint(); } break;
+       case 'home': this.cur = 0; this._repaint(); break;
+       case 'end': this.cur = this.buf.length; this._repaint(); break;
+       case 'delete':
+         if (this.cur < this.buf.length) {
+-          this.buf = this.buf.slice(0, this.cur) + this.buf.slice(this.cur + 1);
++          this.buf = this.buf.slice(0, this.cur) + this.buf.slice(following(this.buf,this.cur));
+           this._repaint();
+         }
+         break;
+@@ -167,8 +167,9 @@
+       case '\x7f': // backspace
+       case '\x08':
+         if (this.cur > 0) {
+-          this.buf = this.buf.slice(0, this.cur - 1) + this.buf.slice(this.cur);
+-          this.cur--;
++          const prev = previous(this.buf,this.cur);
++          this.buf = this.buf.slice(0, prev) + this.buf.slice(this.cur);
++          this.cur = prev;
+           this._repaint();
+         }
+         return;
+@@ -246,3 +247,6 @@
+ }
+ 
+ export { LineReader, visibleWidth };
++
++function previous(s,i) { return Math.max(0,i-(i>1 && /[\uDC00-\uDFFF]/.test(s[i-1]) && /[\uD800-\uDBFF]/.test(s[i-2]) ? 2 : 1)); }
++function following(s,i) { return Math.min(s.length,i+(s.codePointAt(i)>65535 ? 2 : 1)); }
+--- a/src/vendor/spiral/pipeline.js
++++ b/src/vendor/spiral/pipeline.js
+@@ -1,173 +1,81 @@
+-// @ts-nocheck
+-
+-
+-/**
+- * SPIRAL — Command-line parser
+- * ---------------------------------------------------------------------------
+- * Turns a raw command line into an executable plan:
+- *
+- *   line   := andor (";" andor)*
+- *   andor  := pipeline (("&&" | "||") pipeline)*
+- *   pipeline := command ("|" command)*
+- *   command  := word+ redirection*
+- *
+- * Supports single/double quotes, backslash escapes, `$VAR` / `${VAR}` expansion
+- * (double-quoted and unquoted), `~` home expansion, and the redirections
+- * `>`, `>>`, `<`. Expansion happens after tokenization so quoting is honored.
+- */
+-
+-/* --------------------------------------------------------------------------
+- * tokenizer
+- * ------------------------------------------------------------------------ */
+-
+-const OPERATORS = ['&&', '||', '>>', ';', '|', '>', '<'];
+-
+-function tokenize(line) {
+-  const tokens = [];
+-  let i = 0;
+-  const n = line.length;
+-
+-  while (i < n) {
+-    const ch = line[i];
+-
+-    // whitespace
+-    if (ch === ' ' || ch === '\t') { i++; continue; }
+-
+-    // comment to end of line
+-    if (ch === '#') break;
+-
+-    // operators (longest match first)
+-    let matchedOp = null;
+-    for (const op of OPERATORS) {
+-      if (line.startsWith(op, i)) { matchedOp = op; break; }
++/** Bounded shell grammar. No eval, process execution, substitution or glob expansion. */
++const OPS = ['&&', '||', '>>', ';', '|', '>', '<'];
++const MAX_LINE = 4096;
++export function tokenize(line) {
++  if (typeof line !== 'string' || line.length > MAX_LINE || /[\0\r\n]/.test(line)) throw new SyntaxError('invalid or overlong command line');
++  const tokens = []; let i = 0;
++  while (i < line.length) {
++    if (/\s/.test(line[i])) { i++; continue; }
++    if (line[i] === '#') break;
++    const op = OPS.find(o => line.startsWith(o, i));
++    if (op) { tokens.push({type:'op', value:op}); i += op.length; continue; }
++    const parts = []; let started = false;
++    const add = (text, expand, quoted) => { parts.push({text, expand, quoted}); started = true; };
++    while (i < line.length && !/\s/.test(line[i]) && !OPS.some(o => line.startsWith(o, i))) {
++      const c = line[i++];
++      if (c === '\\') {
++        if (i === line.length) throw new SyntaxError('unfinished escape');
++        add(line[i++], false, true);
++      } else if (c === "'" || c === '"') {
++        const q = c; let s = ''; let closed = false;
++        while (i < line.length) {
++          const ch = line[i++];
++          if (ch === q) { closed = true; break; }
++          if (q === '"' && ch === '\\' && '"\\$`'.includes(line[i] || '\0')) {
++            if (s) add(s, true, true);
++            s = ''; add(line[i++], false, true);
++          } else s += ch;
++        }
++        if (!closed) throw new SyntaxError('unclosed quote');
++        add(s, q === '"', true);
++      } else add(c, true, false);
+     }
+-    if (matchedOp) {
+-      tokens.push({ type: 'op', value: matchedOp });
+-      i += matchedOp.length;
+-      continue;
++    if (started) {
++      // Merge adjacent fragments with identical quote/expansion semantics.
++      const merged = [];
++      for (const p of parts) {
++        const last = merged[merged.length-1];
++        if (last && last.expand === p.expand && last.quoted === p.quoted) last.text += p.text;
++        else merged.push({...p});
++      }
++      tokens.push({type:'word', value:parts.map(p=>p.text).join(''), quoted:parts.some(p=>p.quoted), parts:merged});
+     }
+-
+-    // a word (possibly with embedded quotes); track whether any part was quoted
+-    let word = '';
+-    let quotedAny = false;
+-    while (i < n) {
+-      const c = line[i];
+-      if (c === ' ' || c === '\t' || c === '#') break;
+-      if (OPERATORS.some((op) => line.startsWith(op, i))) break;
+-
+-      if (c === '\\') {
+-        word += line[i + 1] != null ? line[i + 1] : '';
+-        i += 2;
+-        continue;
+-      }
+-      if (c === "'") {
+-        quotedAny = true;
+-        i++;
+-        while (i < n && line[i] !== "'") { word += line[i++]; }
+-        i++; // closing quote
+-        continue;
+-      }
+-      if (c === '"') {
+-        quotedAny = true;
+-        i++;
+-        while (i < n && line[i] !== '"') {
+-          if (line[i] === '\\' && '"\\$`'.includes(line[i + 1])) {
+-            word += line[i + 1]; i += 2;
+-          } else {
+-            word += line[i++];
+-          }
+-        }
+-        i++; // closing quote
+-        continue;
+-      }
+-      word += c;
+-      i++;
+-    }
+-    tokens.push({ type: 'word', value: word, quoted: quotedAny });
++    if (tokens.length > 512) throw new SyntaxError('too many tokens');
+   }
+   return tokens;
+ }
+-
+-/* --------------------------------------------------------------------------
+- * expansion
+- * ------------------------------------------------------------------------ */
+-
+-function expandWord(token, env) {
+-  let s = token.value;
+-
+-  // ~ home expansion only for a leading, unquoted tilde
+-  if (!token.quoted && (s === '~' || s.startsWith('~/'))) {
+-    const home = env.get('HOME') || '/home/operator';
+-    s = home + s.slice(1);
++export function expandWord(token, env) {
++  const parts = token.parts || [{text:token.value, expand:!token.quoted, quoted:!!token.quoted}];
++  return parts.map((p,i) => {
++    let s = p.text;
++    if (i === 0 && !p.quoted && (s === '~' || s.startsWith('~/'))) s = (env.get('HOME') || '/home/operator') + s.slice(1);
++    if (p.expand) s = s.replace(/\$\{([A-Za-z_][A-Za-z0-9_]*|\?)\}|\$([A-Za-z_][A-Za-z0-9_]*|\?)/g, (_, a, b) => String(env.get(a || b) ?? ''));
++    return s;
++  }).join('');
++}
++export function parse(line, env, {deferExpansion = false} = {}) {
++  const tokens = tokenize(line); const segments = [];
++  let seg = {op:null, pipeline:[]}; let cmd = {argv:[], redirects:[]};
++  const word = t => deferExpansion ? t : expandWord(t, env);
++  const command = () => {
++    if (!cmd.argv.length) throw new SyntaxError('missing command');
++    seg.pipeline.push(cmd); cmd = {argv:[], redirects:[]};
++  };
++  for (let i = 0; i < tokens.length; i++) {
++    const t = tokens[i];
++    if (t.type === 'word') { cmd.argv.push(word(t)); continue; }
++    if (['>', '>>', '<'].includes(t.value)) {
++      const target = tokens[++i];
++      if (!target || target.type !== 'word') throw new SyntaxError('missing redirect target');
++      const type = t.value === '<' ? 'in' : t.value === '>>' ? 'append' : 'out';
++      if (cmd.redirects.some(r => (r.type === 'in') === (type === 'in'))) throw new SyntaxError('duplicate redirection');
++      cmd.redirects.push({type, target:word(target)}); continue;
++    }
++    command();
++    if (t.value !== '|') { segments.push(seg); seg = {op:t.value === ';' ? null : t.value, pipeline:[]}; }
++    if (i === tokens.length-1 && t.value !== ';') throw new SyntaxError('trailing operator');
+   }
+-
+-  // $VAR and ${VAR}
+-  s = s.replace(/\$\{([A-Za-z_][A-Za-z0-9_]*)\}|\$([A-Za-z_][A-Za-z0-9_]*)|\$\?/g,
+-    (m, braced, bare) => {
+-      if (m === '$?') return String(env.get('?') ?? '0');
+-      const name = braced || bare;
+-      const v = env.get(name);
+-      return v == null ? '' : v;
+-    });
+-
+-  return s;
+-}
+-
+-/* --------------------------------------------------------------------------
+- * parser
+- * ------------------------------------------------------------------------ */
+-
+-/**
+- * @returns {Array<{op: ';'|'&&'|'||'|null, pipeline: Array<Command>}>}
+- * where Command = { argv: string[], redirects: Array<{fd,type,target}> }
+- */
+-function parse(line, env) {
+-  const tokens = tokenize(line);
+-  const segments = [];
+-  let current = { op: null, pipeline: [] };
+-  let cmd = { argv: [], redirects: [] };
+-
+-  const flushCmd = () => {
+-    if (cmd.argv.length || cmd.redirects.length) current.pipeline.push(cmd);
+-    cmd = { argv: [], redirects: [] };
+-  };
+-  const flushSeg = (nextOp) => {
+-    flushCmd();
+-    if (current.pipeline.length) segments.push(current);
+-    current = { op: nextOp, pipeline: [] };
+-  };
+-
+-  for (let t = 0; t < tokens.length; t++) {
+-    const tok = tokens[t];
+-    if (tok.type === 'word') {
+-      cmd.argv.push(expandWord(tok, env));
+-      continue;
+-    }
+-    // operator
+-    switch (tok.value) {
+-      case '|': flushCmd(); break;
+-      case ';': flushSeg(null); break;
+-      case '&&': flushSeg('&&'); break;
+-      case '||': flushSeg('||'); break;
+-      case '>':
+-      case '>>':
+-      case '<': {
+-        const next = tokens[++t];
+-        if (!next || next.type !== 'word') throw new Error(`syntax error near '${tok.value}'`);
+-        cmd.redirects.push({
+-          type: tok.value === '<' ? 'in' : (tok.value === '>>' ? 'append' : 'out'),
+-          target: expandWord(next, env)
+-        });
+-        break;
+-      }
+-      default: break;
+-    }
+-  }
+-  flushSeg(null);
+-
+-  // Re-thread the leading op of each segment onto the *previous* segment's
+-  // join semantics: segment[k].op describes how it connects to segment[k-1].
++  if (cmd.argv.length || cmd.redirects.length) command();
++  if (seg.pipeline.length) segments.push(seg);
+   return segments;
+ }
+-
+-export { tokenize, parse, expandWord };
+--- a/src/vendor/spiral/registry.js
++++ b/src/vendor/spiral/registry.js
+@@ -92,44 +92,26 @@
+  * `spec.valued` lists short flags that consume the next token as a value.
+  */
+ function parseFlags(argv, spec = {}) {
+-  const valued = new Set(spec.valued || []);
+-  const flags = {};
+-  const args = [];
+-  let i = 0;
+-  let noMore = false;
+-
+-  while (i < argv.length) {
++  const valued = new Set(spec.valued || []), flags = Object.create(null), args = [];
++  let ended = false;
++  const take = (i, key) => { if (i + 1 >= argv.length) throw new Error(`missing value for ${key}`); return argv[i + 1]; };
++  for (let i = 0; i < argv.length; i++) {
+     const tok = argv[i];
+-    if (noMore || tok === '-' || tok[0] !== '-') {
+-      args.push(tok);
+-      i++;
+-      continue;
+-    }
+-    if (tok === '--') { noMore = true; i++; continue; }
+-
++    if (typeof tok !== 'string') throw new TypeError('argument must be a string');
++    if (ended || tok === '-' || !tok.startsWith('-') || /^-(?:\d|\.\d)/.test(tok)) { args.push(tok); continue; }
++    if (tok === '--') { ended = true; continue; }
++    const body = tok.replace(/^--?/, '');
+     if (tok.startsWith('--')) {
+-      const body = tok.slice(2);
+       const eq = body.indexOf('=');
+       if (eq >= 0) flags[body.slice(0, eq)] = body.slice(eq + 1);
++      else if (valued.has(body)) { flags[body] = take(i, body); i++; }
+       else flags[body] = true;
+-      i++;
+-      continue;
++    } else if (valued.has(body)) { flags[body] = take(i, body); i++; }
++    else for (let j = 0; j < body.length; j++) {
++      const key = body[j];
++      if (valued.has(key)) { flags[key] = body.slice(j + 1) || take(i++, key); break; }
++      flags[key] = true;
+     }
+-
+-    // short cluster
+-    const chars = tok.slice(1).split('');
+-    for (let c = 0; c < chars.length; c++) {
+-      const ch = chars[c];
+-      if (valued.has(ch)) {
+-        const rest = chars.slice(c + 1).join('');
+-        if (rest) { flags[ch] = rest; }
+-        else { flags[ch] = argv[++i]; }
+-        break;
+-      } else {
+-        flags[ch] = true;
+-      }
+-    }
+-    i++;
+   }
+   return { flags, args };
+ }
+--- a/src/vendor/spiral/ssd.js
++++ b/src/vendor/spiral/ssd.js
+@@ -1,50 +1,51 @@
+-// @ts-nocheck
+-/**
+- * Local SSD. IndexedDB is the block device: it outlives the worker, a power
+- * cycle, and a reload. The VFS is only the page cache in front of this volume.
+- */
+-export const DEVICE = "nvme0n1";
+-
+-const DB_NAME = "ja21-ssd";
+-const STORE = "volumes";
+-
+-function openDb() {
+-  return new Promise((resolve, reject) => {
+-    const req = indexedDB.open(DB_NAME, 1);
+-    req.onupgradeneeded = () => {
+-      const db = req.result;
+-      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE);
+-    };
+-    req.onerror = () => reject(req.error || new Error("ssd open failed"));
+-    req.onsuccess = () => resolve(req.result);
++/** Same-origin IndexedDB virtual volume; NOT a physical NVMe/block device. */
++export const DEVICE = 'nvme0n1'; // Stable legacy key: changing it would hide existing user data.
++const DB_NAME = 'ja21-ssd', STORE = 'volumes';
++async function openDb() {
++  return new Promise((resolve,reject) => {
++    let done = false;
++    const req = indexedDB.open(DB_NAME,1);
++    const timer = setTimeout(() => end(new Error('volume open timed out; existing data was not overwritten')),5000);
++    function end(error, db) { if (done) { db?.close(); return; } done = true; clearTimeout(timer); error ? reject(error) : resolve(db); }
++    req.onupgradeneeded = () => { if (!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE); };
++    req.onerror = () => end(req.error || new Error('volume open failed'));
++    req.onblocked = () => end(new Error('volume upgrade blocked by another window'));
++    req.onsuccess = () => { const db = req.result; db.onversionchange = () => db.close(); end(null,db); };
+   });
+ }
+-
+-export async function readVolume() {
++async function transaction(mode, action) {
+   const db = await openDb();
+   try {
+-    return await new Promise((resolve, reject) => {
+-      const tx = db.transaction(STORE, "readonly");
+-      const req = tx.objectStore(STORE).get(DEVICE);
+-      req.onsuccess = () => resolve(req.result || null);
+-      req.onerror = () => reject(req.error || new Error("ssd read failed"));
++    return await new Promise((resolve,reject) => {
++      const tx = db.transaction(STORE,mode); let value, explicitError;
++      const timer = setTimeout(() => { explicitError = new Error('volume transaction timed out'); try { tx.abort(); } catch { reject(explicitError); } },5000);
++      tx.oncomplete = () => { clearTimeout(timer); resolve(value); };
++      tx.onerror = tx.onabort = () => { clearTimeout(timer); reject(explicitError || tx.error || new Error('volume transaction aborted')); };
++      try { action(tx.objectStore(STORE), v => { value = v; }, error => { explicitError = error; tx.abort(); }); }
++      catch(error) { explicitError = error; tx.abort(); }
+     });
+-  } finally {
+-    db.close();
+-  }
++  } finally { db.close(); }
+ }
+-
+-export async function writeVolume(record) {
+-  const db = await openDb();
+-  try {
+-    await new Promise((resolve, reject) => {
+-      const tx = db.transaction(STORE, "readwrite");
+-      tx.objectStore(STORE).put(record, DEVICE);
+-      tx.oncomplete = () => resolve();
+-      tx.onerror = () => reject(tx.error || new Error("ssd write failed"));
+-      tx.onabort = () => reject(tx.error || new Error("ssd write aborted"));
+-    });
+-  } finally {
+-    db.close();
+-  }
++export function readVolume(previous = false) {
++  return transaction('readonly', (store,set) => { const req=store.get(previous ? DEVICE + ':previous' : DEVICE); req.onsuccess=() => set(req.result ?? null); });
+ }
++export function revisionOf(record) {
++  if (record === null || record === undefined) return 0;
++  if (record.v === 1) return 0;
++  if (record.v === 2 && Number.isSafeInteger(record.revision) && record.revision >= 1) return record.revision;
++  throw new Error('unsupported volume revision; raw recovery export is available');
++}
++export function writeVolume(record, expectedRevision) {
++  if (!record || record.v !== 2 || !Number.isSafeInteger(expectedRevision) || expectedRevision < 0 || record.revision !== expectedRevision+1) throw new Error('invalid volume revision');
++  return transaction('readwrite', (store,set,abort) => {
++    const req=store.get(DEVICE);
++    req.onsuccess=() => {
++      try {
++        const old=req.result ?? null;
++        if (revisionOf(old) !== expectedRevision) throw new Error('volume changed concurrently; refusing overwrite');
++        if (old !== null) store.put(old,DEVICE + ':previous');
++        store.put(record,DEVICE); set(record.revision);
++      } catch(error) { abort(error); }
++    };
++  });
++}
+--- a/src/vendor/spiral/vfs.js
++++ b/src/vendor/spiral/vfs.js
+@@ -14,6 +14,9 @@
+  */
+ 
+ const SEP = '/';
++const MAX_DEPTH = 64;
++function validName(n) { return typeof n === 'string' && n.length > 0 && n.length <= 255 && n !== '.' && n !== '..' && !/[\/\\\x00-\x1f\x7f]/.test(n); }
++function normal(p) { if (typeof p !== 'string' || !p.startsWith('/')) throw new VFSError('EINVAL', 'absolute path required'); return resolvePath('/', p); }
+ 
+ /* --------------------------------------------------------------------------
+  * path utilities
+@@ -26,12 +29,15 @@
+ /** Resolve `input` against `cwd` into a normalized absolute path. */
+ function resolvePath(cwd, input) {
+   const raw = String(input == null ? '' : input);
++  if (raw.length > 4096 || /[\\\x00-\x1f\x7f]/.test(raw)) throw new VFSError('EINVAL', 'invalid path');
+   const startAbs = raw.startsWith(SEP);
+   const parts = startAbs ? [] : splitPath(cwd);
+   for (const seg of splitPath(raw)) {
+     if (seg === '.') continue;
+     if (seg === '..') { parts.pop(); continue; }
++    if (!validName(seg)) throw new VFSError('EINVAL', 'invalid path component');
+     parts.push(seg);
++    if (parts.length > MAX_DEPTH) throw new VFSError('EINVAL', 'path too deep');
+   }
+   return SEP + parts.join(SEP);
+ }
+@@ -87,17 +93,17 @@
+ class VFS {
+   /**
+    * @param {object} [limits]
+-   * @param {number} [limits.maxBytes]  total file-content bytes (default unlimited: LOCAL profile)
++   * @param {number} [limits.maxBytes]  total file-content bytes (default 2 MiB)
+    * @param {number} [limits.maxNodes]  total files + directories, root included
+    */
+   constructor(limits = {}) {
+-    this.maxBytes = Number.isFinite(limits.maxBytes) ? limits.maxBytes : Infinity;
+-    this.maxNodes = Number.isFinite(limits.maxNodes) ? limits.maxNodes : Infinity;
++    this.maxBytes = Number.isFinite(limits.maxBytes) ? limits.maxBytes : 2 * 1024 * 1024;
++    this.maxNodes = Number.isFinite(limits.maxNodes) ? limits.maxNodes : 1500;
+     this.usedBytes = 0;
+     this.nodeCount = 1;
+     this.root = dirNode();
+     this.onMutate = () => {};
+-    this._seed();
++    if (limits.seed !== false) this._seed();
+   }
+ 
+   /** Reserve quota or throw before any mutation happens (atomic accounting). */
+@@ -113,13 +119,18 @@
+   /* ---- traversal ------------------------------------------------------- */
+ 
+   _walk(absPath, { parents = false } = {}) {
+-    const parts = splitPath(absPath);
++    const parts = splitPath(normal(absPath));
+     let node = this.root;
+     for (let i = 0; i < parts.length; i++) {
+       if (node.type !== 'dir') throw new VFSError('ENOTDIR', `not a directory: ${parts[i - 1]}`);
+       let next = node.children.get(parts[i]);
+       if (!next) {
+-        if (parents) { this._reserve(0, 1); next = dirNode(); node.children.set(parts[i], next); }
++        if (parents) {
++          // Reserve the entire missing suffix before committing any directory.
++          this._reserve(0, parts.length - i);
++          for (; i < parts.length; i++) { next = dirNode(); node.children.set(parts[i], next); node = next; }
++          return node;
++        }
+         else throw new VFSError('ENOENT', `no such file or directory: ${absPath}`);
+       }
+       node = next;
+@@ -151,16 +162,19 @@
+   readFile(absPath) {
+     const node = this._walk(absPath);
+     if (node.type !== 'file') throw new VFSError('EISDIR', `is a directory: ${absPath}`);
+-    return node.contents;
++    return Buffer.isBuffer(node.contents) ? Buffer.from(node.contents) : node.contents;
+   }
+ 
+   writeFile(absPath, contents, { append = false } = {}) {
++    absPath = normal(absPath);
++    if (absPath === '/') throw new VFSError('EPERM', 'cannot replace root');
+     const parent = this._walk(dirname(absPath));
+     if (parent.type !== 'dir') throw new VFSError('ENOTDIR', `not a directory: ${dirname(absPath)}`);
+     const name = basename(absPath);
+     const existing = parent.children.get(name);
+     if (existing && existing.type === 'dir') throw new VFSError('EISDIR', `is a directory: ${absPath}`);
+-    if (!Buffer.isBuffer(contents)) contents = String(contents == null ? '' : contents);
++    if (contents instanceof Uint8Array) contents = Buffer.from(contents);
++    else contents = String(contents == null ? '' : contents);
+     if (existing && append && existing.type === 'file') {
+       this._reserve(contentBytes(contents), 0);
+       existing.contents = concatContents(existing.contents, contents);
+@@ -177,7 +191,9 @@
+   /* ---- directories ----------------------------------------------------- */
+ 
+   mkdir(absPath, { recursive = false } = {}) {
+-    if (recursive) { this._walk(absPath, { parents: true }); this.onMutate(); return true; }
++    absPath = normal(absPath);
++    if (absPath === '/' && !recursive) throw new VFSError('EEXIST', 'root exists');
++    if (recursive) { const node = this._walk(absPath, { parents: true }); if (node.type !== 'dir') throw new VFSError('ENOTDIR', `not a directory: ${absPath}`); this.onMutate(); return true; }
+     const parent = this._walk(dirname(absPath));
+     if (parent.type !== 'dir') throw new VFSError('ENOTDIR', `not a directory: ${dirname(absPath)}`);
+     const name = basename(absPath);
+@@ -201,6 +217,7 @@
+   }
+ 
+   remove(absPath, { recursive = false } = {}) {
++    absPath = normal(absPath);
+     if (absPath === SEP) throw new VFSError('EPERM', 'cannot remove root');
+     const parent = this._walk(dirname(absPath));
+     const name = basename(absPath);
+@@ -218,6 +235,8 @@
+   }
+ 
+   move(fromAbs, toAbs) {
++    fromAbs = normal(fromAbs); toAbs = normal(toAbs);
++    if (fromAbs === "/") throw new VFSError("EPERM", "cannot move root");
+     const node = this._walk(fromAbs);
+     const destExistsDir = this.isDir(toAbs);
+     const finalPath = destExistsDir ? resolvePath(toAbs, basename(fromAbs)) : toAbs;
+@@ -226,12 +245,25 @@
+     const destParent = this._walk(dirname(finalPath));
+     if (destParent.type !== 'dir') throw new VFSError('ENOTDIR', `not a directory: ${dirname(finalPath)}`);
+     const replaced = destParent.children.get(basename(finalPath));
++    if (replaced && replaced.type !== node.type) throw new VFSError('EINVAL', 'incompatible destination type');
++    if (replaced && replaced.type === 'dir' && replaced.children.size) throw new VFSError('ENOTEMPTY', 'destination directory not empty');
+     if (replaced) { const c = subtreeCost(replaced); this.usedBytes -= c.bytes; this.nodeCount -= c.nodes; }
+     destParent.children.set(basename(finalPath), node);
+     const srcParent = this._walk(dirname(fromAbs));
+     srcParent.children.delete(basename(fromAbs));
+     this.onMutate();
+     return finalPath;
++  }
++
++  touch(absPath) {
++    absPath = normal(absPath);
++    if (!this.exists(absPath)) return this.writeFile(absPath, '');
++    const n = this._walk(absPath); n.mtime = Date.now(); this.onMutate(); return true;
++  }
++
++  canonicalSnapshot() {
++    const scrub = (n) => { const o = { ...n }; delete o.t; if (o.ch) o.ch = o.ch.map(([k,v]) => [k,scrub(v)]).sort((a,b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0); return o; };
++    return { v: 1, root: scrub(this.exportSnapshot().root) };
+   }
+ 
+   /* ---- quiescent snapshot (series I038) -------------------------------- */
+@@ -250,19 +282,22 @@
+     let bytes = 0, nodes = 0;
+     const dec = (o, depth) => {
+       if (depth > 64) throw new VFSError('EINVAL', 'snapshot too deep');
++      if (!o || !Number.isInteger(o.m) || o.m < 0 || o.m > 0o7777 || !Number.isSafeInteger(o.t) || o.t < 0) throw new VFSError('EINVAL', 'bad node metadata');
+       nodes++;
+       if (nodes > this.maxNodes) throw new VFSError('EDQUOT', 'snapshot node quota');
+       if (o && o.k === 'f') {
+         if (typeof o.c !== 'string' || (o.e !== 'utf8' && o.e !== 'b64')) throw new VFSError('EINVAL', 'bad file record');
++        if (o.c.length > Math.ceil(this.maxBytes / 3) * 4 + 4) throw new VFSError('EDQUOT', 'encoded content quota');
++        if (o.e === 'b64' && (o.c.length % 4 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(o.c))) throw new VFSError('EINVAL', 'invalid base64');
+         const contents = o.e === 'b64' ? Buffer.from(o.c, 'base64') : o.c;
+         bytes += contentBytes(contents);
+         if (bytes > this.maxBytes) throw new VFSError('EDQUOT', 'snapshot byte quota');
+-        const n = fileNode(contents); n.mode = o.m | 0; n.mtime = Number(o.t) || Date.now(); return n;
++        const n = fileNode(contents); n.mode = o.m; n.mtime = o.t; return n;
+       }
+       if (o && o.k === 'd' && Array.isArray(o.ch)) {
+-        const n = dirNode(); n.mode = o.m | 0; n.mtime = Number(o.t) || Date.now();
++        const n = dirNode(); n.mode = o.m; n.mtime = o.t;
+         for (const pair of o.ch) {
+-          if (!Array.isArray(pair) || typeof pair[0] !== 'string' || !pair[0] || pair[0] === '.' || pair[0] === '..' || pair[0].includes(SEP) || pair[0].length > 255) throw new VFSError('EINVAL', 'bad entry name');
++          if (!Array.isArray(pair) || pair.length !== 2 || !validName(pair[0])) throw new VFSError('EINVAL', 'bad entry name');
+           if (n.children.has(pair[0])) throw new VFSError('EINVAL', 'duplicate entry');
+           n.children.set(pair[0], dec(pair[1], depth + 1));
+         }
+@@ -272,6 +307,7 @@
+     };
+     const root = dec(snap.root, 0);
+     this.root = root; this.usedBytes = bytes; this.nodeCount = nodes;
++    this.onMutate();
+     return this.usage();
+   }
+ 
+@@ -284,7 +320,7 @@
+     this.mkdir('/var/log', { recursive: true });
+     this.mkdir('/tmp', { recursive: true });
+     this.writeFile('/etc/hermit.conf',
+-      '# HERMIT runtime configuration\nbackend = SPIRAL\nvt = internal\nbrowser = VB-JA21/9.8.7\n');
++      '# HERMIT runtime configuration\nbackend = SPIRAL\nvt = internal\nbrowser = host-browser\n');
+     this.writeFile('/home/operator/README',
+       'Welcome to HERMIT — a virtual terminal on the SPIRAL backend.\n' +
+       'Type `help` for the command index, `about` for the architecture.\n');
+--- a/src/vendor/vt/parser.js
++++ b/src/vendor/vt/parser.js
+@@ -40,6 +40,7 @@
+   }
+ 
+   reset() {
++    this.oscOverflow = false;
+     this.state = S.GROUND;
+     this.params = this.intermediates = this.osc = this.printBuf = '';
+   }
+--- a/src/vendor/vws/frame.js
++++ b/src/vendor/vws/frame.js
+@@ -1,26 +1,29 @@
+-// @ts-nocheck
+-/** hermit.vws.v2 data frame: [kind:u8][seq:uint48 BE][payload]. */
+-export const PROTOCOL = "hermit.vws.v2";
+-export const KIND_INPUT = 1;
+-export const KIND_OUTPUT = 2;
+-
++/** hermit.vws.v3: [kind:u8][sequence:uint48 BE][nonempty payload]. */
++export const PROTOCOL = 'hermit.vws.v3';
++export const KIND_INPUT = 1, KIND_OUTPUT = 2;
++export const MAX_SEQ = 2 ** 48 - 1;
++export const MAX_PAYLOAD = 16384;
++function bytes(value) {
++  if (value instanceof Uint8Array) return value;
++  if (value instanceof ArrayBuffer) return new Uint8Array(value);
++  throw new TypeError('expected Uint8Array or ArrayBuffer');
++}
+ export function encodeData(kind, seq, payload) {
+-  const body = payload instanceof Uint8Array ? payload : new Uint8Array(payload);
+-  const m = new Uint8Array(7 + body.length);
+-  m[0] = kind;
++  if (kind !== KIND_INPUT && kind !== KIND_OUTPUT) throw new RangeError('invalid frame kind');
++  if (!Number.isSafeInteger(seq) || seq < 1 || seq > MAX_SEQ) throw new RangeError('invalid frame sequence');
++  const body = bytes(payload);
++  if (!body.length || body.length > MAX_PAYLOAD) throw new RangeError('invalid frame size');
++  const out = new Uint8Array(7 + body.length); out[0] = kind;
+   let n = seq;
+-  for (let i = 6; i >= 1; i--) {
+-    m[i] = n & 0xff;
+-    n = Math.floor(n / 256);
+-  }
+-  m.set(body, 7);
+-  return m;
++  for (let i = 6; i >= 1; i--) { out[i] = n % 256; n = Math.floor(n / 256); }
++  out.set(body, 7); return out;
+ }
+-
+-export function decodeData(buf) {
+-  const u = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
+-  if (u.length < 8) throw new Error("short data frame");
++export function decodeData(value) {
++  const u = bytes(value);
++  if (u.length < 8 || u.length > MAX_PAYLOAD + 7) throw new RangeError('invalid frame size');
++  if (u[0] !== KIND_INPUT && u[0] !== KIND_OUTPUT) throw new RangeError('invalid frame kind');
+   let seq = 0;
+   for (let i = 1; i <= 6; i++) seq = seq * 256 + u[i];
+-  return { kind: u[0], seq, payload: u.subarray(7) };
++  if (seq < 1 || seq > MAX_SEQ) throw new RangeError('invalid frame sequence');
++  return {kind:u[0], seq, payload:u.subarray(7)};
+ }

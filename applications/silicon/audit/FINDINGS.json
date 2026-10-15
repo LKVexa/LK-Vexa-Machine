@@ -1,0 +1,173 @@
+[
+  {
+    "id": "F01",
+    "severity": "High",
+    "finding": "Volume recovery could proceed from failed/invalid state into new writes",
+    "locations": "src/vendor/ram-worker.js; src/vendor/spiral/ssd.js",
+    "disposition": "Fail-closed startup; detached validation; raw backup path; no implicit factory overwrite",
+    "evidence": "corrupt volume boot; read failure; write failure",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F02",
+    "severity": "High",
+    "finding": "Multiple windows and nontransactional save completion risked lost updates",
+    "locations": "src/vendor/ram-worker.js; src/vendor/spiral/ssd.js",
+    "disposition": "Exclusive same-origin writer lock; revision compare-and-swap; transaction-complete saves; previous committed record",
+    "evidence": "second window blocked; restore/previous revision; reboot restore",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F03",
+    "severity": "High",
+    "finding": "HPU save/restore omitted state and accepted insufficiently validated data",
+    "locations": "src/vendor/spiral/hpu.js; src/vendor/spiral/state-codec.js",
+    "disposition": "HPU2 complete typed state with length/CRC; strict bounds; detached load; bounded legacy migration",
+    "evidence": "HPU round-trips; legacy and malformed state tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F04",
+    "severity": "High",
+    "finding": "Virtual transport trusted malformed controls, credit and session/sequence values",
+    "locations": "src/vendor/ram-worker.js; src/lib/ram-link.js; src/vendor/vws",
+    "disposition": "Wire v3; validated envelopes, geometry, kinds, sequences, flow acknowledgements, size/session/rate limits",
+    "evidence": "frame/flow tests; invalid ack/sequence/null/legacy control integration",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F05",
+    "severity": "High",
+    "finding": "Arbitrary regular expressions could occupy the shell execution thread",
+    "locations": "src/vendor/spiral/safe-regex.js; src/vendor/spiral/regex-*; commands/coreutils.js",
+    "disposition": "Disposable worker with 750 ms deadline; bounded pattern/input/output; interrupt support",
+    "evidence": "pathological-regex timeout and ordinary grep tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F06",
+    "severity": "High",
+    "finding": "Filesystem operations could corrupt root/tree relationships or expose mutable byte aliases",
+    "locations": "src/vendor/spiral/vfs.js",
+    "disposition": "Root/cycle/destination guards; quota reservation; byte copies; detached validated snapshots",
+    "evidence": "VFS root/cycle/quota/aliasing/import regression cases",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F07",
+    "severity": "Medium",
+    "finding": "Shell quoting, comments, variable expansion and aliases changed user command meaning",
+    "locations": "src/vendor/spiral/pipeline.js; kernel.js; commands/system.js",
+    "disposition": "Fragment-aware parser; deferred expansion; preserved single quotes/empty arguments; bounded single-command aliases",
+    "evidence": "quoting matrix; multi-command expansion; alias tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F08",
+    "severity": "Medium",
+    "finding": "Environment unset/prototype handling and flag parsing were inconsistent",
+    "locations": "src/vendor/spiral/env.js; registry.js",
+    "disposition": "Parent-shadowing unset; null-prototype flattened maps; negative arguments and valued option validation",
+    "evidence": "environment/prototype/flag tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F09",
+    "severity": "Medium",
+    "finding": "Core utilities had edge-case correctness and resource-limit failures",
+    "locations": "src/vendor/spiral/commands/coreutils.js; commands/fs.js",
+    "disposition": "Zero-line head/tail; newline wc; finite seq/sleep; bounded glob matching; corrected file operations",
+    "evidence": "core utility command tests and glob bounds",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F10",
+    "severity": "Medium",
+    "finding": "SIGINT, client disposal and power-state transitions could leave work or sessions alive",
+    "locations": "src/lib/ram-link.js; src/vendor/ram-worker.js; spiral/kernel.js",
+    "disposition": "Pending promise settlement; generation guards; session close/abort; quiesced off/reboot/restore",
+    "evidence": "SIGINT read tests; worker halt/reboot/restore; offline UI power test",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F11",
+    "severity": "Medium",
+    "finding": "Touch did not reliably trigger persistence and factory hashes included incidental timestamps",
+    "locations": "src/vendor/spiral/vfs.js; src/vendor/ram-worker.js",
+    "disposition": "Mutation notification and deterministic canonical content digest",
+    "evidence": "touch accounting and canonical snapshot tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F12",
+    "severity": "Medium",
+    "finding": "HPU numeric edge cases and cached views could be invalid or stale",
+    "locations": "src/vendor/spiral/hpu.js; commands/hpu.js",
+    "disposition": "Finite/range checks; v2(0) convention; normalized truncated Kerr coefficients; cache invalidation",
+    "evidence": "numeric/field/round-trip tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F13",
+    "severity": "Medium",
+    "finding": "Image encoders lacked strict public input/geometry validation",
+    "locations": "src/vendor/spiral/hpu.js",
+    "disposition": "Typed input and bounded dimension/frame checks; exact TIFF/GIF decode validation",
+    "evidence": "Node encoder guards; Pillow pixel comparisons",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F14",
+    "severity": "Medium",
+    "finding": "Reported GPU, NVMe, CXL, optical/quantum and throughput labels exceeded implemented hardware evidence",
+    "locations": "src/app.js; web/index.html; ram-worker.js; spiral/commands; ChipHarness.cs",
+    "disposition": "Explicit CPU software backend; modeled-counter labels; no physical hardware or autonomous-image claims",
+    "evidence": "source inspection; xpuinfo; LUT/gate tests; offline UI",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F15",
+    "severity": "Medium",
+    "finding": "Cloud/auth/database scaffolding expanded the build/runtime surface without supplying the virtual compute engine",
+    "locations": "package.json; scripts; original scaffold archived",
+    "disposition": "Native-module local UI and Node-core static host; zero npm runtime/build packages; unused scaffold outside dist",
+    "evidence": "clean static build; local import/dependency checks; HTTP isolation tests",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F16",
+    "severity": "Medium",
+    "finding": "No dedicated hardened local static host / clear Windows start workflow",
+    "locations": "scripts/serve.mjs; Start-Console.cmd; Verify.cmd",
+    "disposition": "Loopback-only static host; Host/Origin/method/path checks; CSP/headers; no admin/security-policy changes",
+    "evidence": "real Node HTTP boundary tests; launcher text review only",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F17",
+    "severity": "Low",
+    "finding": "UI command discovery, exports, restore confirmation and lifecycle controls were incomplete",
+    "locations": "src/app.js; web/index.html; web/style.css",
+    "disposition": "60-command searchable catalog; virtual file downloads; current/previous backups; explicit restore; off/reboot distinction",
+    "evidence": "8 offline browser UI scenarios",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F18",
+    "severity": "Low",
+    "finding": "Versions and release evidence were inconsistent or absent",
+    "locations": "VERSION; src/version.js; package files; audit; scripts/verify.mjs",
+    "disposition": "Unified product 2.1.0; protocol v3; reproducible checks; manifests, patch, provenance and explicit test gaps",
+    "evidence": "version checks and provenance reconstruction",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  },
+  {
+    "id": "F19",
+    "severity": "Informational",
+    "finding": "Reference packages contain development keys, binary toolchains and deep custom-language material",
+    "locations": "references; audit/legacy-scaffold.zip",
+    "disposition": "Retained byte-for-byte but inert, unserved, and not certified safe to execute; dev-only key called out",
+    "evidence": "recursive inventory; original-file hash preservation",
+    "status": "IMPLEMENTED; evidence scope as listed"
+  }
+]

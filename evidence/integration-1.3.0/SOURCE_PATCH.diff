@@ -1,0 +1,1154 @@
+--- 1.2.1/CONSOLE_BUILD.json
++++ 1.3.0/CONSOLE_BUILD.json
+@@ -1,6 +1,6 @@
+ {
+   "product": "JA21 Software CPU Console",
+-  "console_version": "1.2.1",
++  "console_version": "1.3.0",
+   "base_browser_version": "9.8.7",
+   "starts_blank": false,
+   "visible_tabs": false,
+@@ -15,110 +15,72 @@
+     360
+   ],
+   "original_backup_preserved": true,
+-  "simulation_integration": "Embedded specialized JA21 JavaScript field-and-byte model 2.2.2 at a secure local WebView2 origin",
++  "simulation_integration": "Embedded JA21 software CPU/XPU 2.3.0 at a secure local WebView2 origin",
+   "source_integrity": "Active runtime verified; 191 pre-existing absent legacy references recorded in provenance/source-audit.json",
+   "release_date": "2026-10-14",
+   "license": "GPL-3.0-only",
+   "copyright": "Copyright (C) 2026 RUSSELL PHILIP SMITHSON",
+   "validation": {
+     "date": "2026-10-14",
+-    "status": "SOFTWARE_COMPUTATION_VERIFIED_LIVE_BROWSER_BLOCKED",
+-    "current_core": {
+-      "status": "PASS_WITH_ENVIRONMENT_RERUNS",
+-      "total": 311,
+-      "passed": 308,
++    "status": "NUMERICAL_AND_LIVE_GPU_VERIFIED_WITH_RESTART_GATE",
++    "current_semisili_report": "evidence/semisili/RELEASE_VALIDATION.json",
++    "regression": {
++      "tests": 381,
++      "passed": 378,
+       "failed": 0,
+       "skipped": 3,
+-      "method": "Initial full run plus exact unchanged affected-file reruns after network permission and isolated startup preparation; raw initial failures retained. See CORE_FINAL_RESULTS.json.",
+-      "scope": "Fresh engine tests; not a live WebView2 acceptance."
++      "cancelled": 0,
++      "evidence": "evidence/semisili/engine-audit/TEST_RESULTS.tap"
+     },
+-    "current_native_reference": {
++    "liveBrowser": {
+       "status": "PASS",
+-      "assertions": 598,
+-      "laneInputComparisons": 368640,
+-      "selectorSamples": 20480,
+-      "concurrentWraps": 128,
+-      "independentNativeTiffs": 35,
+-      "independentJsTiffs": 35,
+-      "scope": "Fresh C# reference compilation and execution on Windows x64; C# is not invoked by the browser engine."
++      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
++      "origin": "http://127.0.0.1:28431",
++      "adapter": {
++        "vendor": "intel",
++        "architecture": "xe-lpg",
++        "device": "",
++        "description": ""
++      },
++      "arithmeticSamples": 24576,
++      "operations": [
++        "add",
++        "sub",
++        "mul",
++        "negate",
++        "complement"
++      ],
++      "moduli": [
++        65536,
++        6561
++      ],
++      "fixture": false,
++      "fallback": false,
++      "mismatches": 0,
++      "reloadRecovery": "PASS",
++      "writerLock": "PASS",
++      "tiffRoundTrip": "PASS",
++      "invalidRestoreRetention": "PASS",
++      "oddPrimeGpuCommit": "PASS",
++      "oddPrimeGpuReceiptReload": "PASS",
++      "startupPanelRecovery": "PASS",
++      "persistedStorageGrant": false,
++      "fullApplicationRestart": "NOT_RUN",
++      "nativeWebView2Ui": "NOT_RUN_FOR_1.3.0",
++      "nativeArm64Startup": "NOT_RUN"
+     },
+-    "current_native_console": {
+-      "status": "PASS",
+-      "compilation": {
+-        "productionExe": "PASS",
+-        "liveAcceptanceExe": "PASS",
+-        "headlessPolicyExe": "PASS",
+-        "warnings": 0,
+-        "errors": 0,
+-        "warningsAsErrors": true,
+-        "platform": "x64"
+-      },
+-      "defaultPreflight": "PASS",
+-      "blankPreflight": "PASS",
+-      "policyChecks": 28,
+-      "runtimeFiles": 113,
+-      "mappedIntegrity": "PASS",
+-      "scope": "Current console 1.2.1 native/static gate. No successful GUI CPU execution is implied."
+-    },
+-    "current_backtest": {
+-      "status": "PASS",
+-      "exhaustiveLaneComparisons": 1536,
+-      "exhaustiveSelectorComparisons": 256,
+-      "rawRAMDatasets": 73,
+-      "rawLaneByteComparisons": 1794048,
+-      "rawSelectorByteComparisons": 299008,
+-      "fieldDatasets": 40,
+-      "fieldSampleByteComparisons": 163840,
+-      "fieldLaneByteComparisons": 983040,
+-      "fieldSelectorByteComparisons": 163840,
+-      "stateRoundTrips": 113,
+-      "malformedStateRejections": 27,
+-      "rejectionStateUnchangedChecks": 26,
+-      "tiffPixelsDecoded": 258048,
+-      "tiffsForIndependentReader": 63,
+-      "oamRoundTrips": 256,
+-      "oamShiftCases": 3584,
+-      "gateTruthCases": 20,
+-      "analyticPropagationCases": 28,
+-      "propagationReversibilityCases": 12,
+-      "resetCases": 40,
+-      "deterministicReplayCases": 12,
+-      "scope": "Software regression, independent analytic/selector checks, state replay and independent TIFF decoding; not IndexedDB persistence."
+-    },
+-    "webview2_live": {
+-      "status": "BLOCKED_ENVIRONMENT",
+-      "browserValidationPassed": false,
+-      "cpuOnlineObserved": false,
+-      "sandboxDisabled": false,
+-      "error": "System.TimeoutException: Production bridge initialization and mapping timed out after 30000 ms.\r\n   at VBJA21.SiliconWebView2Acceptance.PumpUntil(Func`1 done, Int32 timeout, String label)\r\n   at VBJA21.SiliconWebView2Acceptance.Run(String root, String work)",
+-      "scope": "Fresh production WebView2 acceptance blocked before worker and storage checks."
+-    },
+-    "current_gate_evidence": "evidence/integration-1.2.1; evidence/ideapad-audit",
+-    "prior_console_1_2_0": {
+-      "evidence": "evidence/integration-1.2.0",
+-      "python_total": 216,
+-      "python_passed": 213,
+-      "python_skipped": 3,
+-      "python_failed": 0,
+-      "launcher_contract_checks": 15,
+-      "scope": "Historical baseline validation. These are not fresh 1.2.1 full-suite results."
+-    }
++    "prior_validation": "Historical baseline evidence preserved byte-exact under integration1.2.x and ideapad-audit."
+   },
+   "publication_policy": "Complete source and original component evidence; mutable workspace, caches and transient QA files excluded",
+   "software_cpu": {
+-    "version": "2.2.2",
++    "version": "2.3.0",
+     "folder": "applications/silicon",
+     "origin": "https://ja21-silicon.invalid/",
+     "engine": "JavaScript module worker",
+     "runtime": "WebView2 inside native console",
+     "node_required_for_launch": false,
+-    "arm64_os_boot_required": false,
+-    "classification": "Specialized JavaScript software processor model; no general-purpose ISA, ARM decoder or physical JA21 silicon CPU",
+-    "lut_identities": 6,
+-    "distinct_lut_transformations": 4,
+-    "selector_output": "255 for input bytes 0–127; 0 for 128–255",
+-    "host_processor_required": true
++    "arm64_os_boot_required": false
+   },
+   "software_cpu_console": true,
+-  "silicon_version": "2.2.2"
++  "silicon_version": "2.3.0"
+ }
+--- 1.2.1/applications/silicon/CHANGELOG.md
++++ 1.3.0/applications/silicon/CHANGELOG.md
+@@ -1,4 +1,10 @@
+ # Changelog
++
++## 2.3.0 - 2026-10-14 - Finite phase/neuron XPU and actual GPU confirmation
++
++Add five exact residue-ring operations, guarded numerical phase readout, independent BigInt checks, bounded p-adic congruence-ball neuron updates and packed 64-sample bit planes. Store five canonical 32-bit words per neuron in bounded state and TIFF byte carriage. Dispatch a literal WebGPU integer shader and compare every result; fallback, fixtures and unknown adapter identity never meet the hardware requirement.
++
++Keep runs detached until an explicit Save, validate Float32 publication, reject stale previews and quota failures, protect the commit point from misleading cancellation, and treat restored receipts as historical. Add an isolated browser kit for real worker/storage/GPU tests. Existing byte processors, optical models and native reference harness retain their earlier semantics.
+ 
+ ## 2.2.2 - 2026-10-13 - Native reference and startup validation
+ 
+--- 1.2.1/applications/silicon/README.md
++++ 1.3.0/applications/silicon/README.md
+@@ -1,7 +1,9 @@
+-# JA21 Silicon Console 2.2.2
++# JA21 Silicon Console 2.3.0
+ ## Audited local edition of the supplied silicon-computing virtual console
+ 
+-A browser console with a SPIRAL command interpreter, Canvas terminal, virtual filesystem, transactional IndexedDB persistence, and a 64 × 64 complex-field / byte-lane software XPU simulator. **The XPU runs JavaScript on the CPU. It does not invoke a hardware GPU, a quantum device, a native hypervisor, or a host operating-system shell.** TIFF and GIF files are data exports, not independently executing processors.
++A browser console with a SPIRAL command interpreter, Canvas terminal, virtual filesystem, transactional IndexedDB persistence, and a 64 × 64 complex-field / byte-lane numerical processor. The new **Semi-sili XPU** tab adds finite p-adic phase arithmetic, bounded neuron evolution, packed bulk-bit sampling, Pixel160 state and independent hardware WebGPU arithmetic confirmation. CPU phase/neuron models and GPU confirmation have separately reported coverage. TIFF and GIF retain data; browser code processes it.
++
++Select **Require hardware GPU confirmation**, run a preview and save its checked result. An absent, fallback, unknown or mismatching GPU cannot qualify. Explicit **CPU preview and validation** works without GPU confirmation. Saved results survive transactional recovery, but a restored receipt is historical until a new run. See `docs/SEMISILI-XPU.md` for the finite model and reference mapping. `validate.html` runs live browser acceptance in an isolated test volume.
+ 
+ The active local application has **zero third-party npm runtime or build dependencies**. The browser remains a prerequisite. On Windows the launcher downloads and maintains its own hash-verified Node.js runtime; no system Node.js installation is required. Runtime binaries are not bundled in the ZIP, so first setup needs internet access or an exact cached official runtime archive. The source, rebuild script, tests, provenance archives, research references, and audit evidence are included.
+ 
+--- 1.2.1/applications/silicon/Start-Console.cmd
++++ 1.3.0/applications/silicon/Start-Console.cmd
+@@ -22,7 +22,7 @@
+ if not "%JA21_NO_PAUSE%"=="1" pause
+ exit /b 1
+ #==JA21_POWERSHELL_PAYLOAD==
+-# JA21 Silicon Console 2.2.2 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.3.0 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -108,7 +108,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.2.2'
++        $request.UserAgent = 'JA21-Silicon-Console/2.3.0'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -287,15 +287,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.2.2')) {
+-        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1 and 2.2.2 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.2.2', '2.3.0')) {
++        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1, 2.2.2 and 2.3.0 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.2.2 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.3.0 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+--- 1.2.1/applications/silicon/dist/index.html
++++ 1.3.0/applications/silicon/dist/index.html
+@@ -1,11 +1,11 @@
+ <!doctype html>
+-<html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name="referrer" content="no-referrer"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.2</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
++<html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name="referrer" content="no-referrer"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.3.0</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
+ <body>
+-<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.2</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
+-<nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL BROWSER · SOFTWARE XPU</span></nav>
++<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.3.0</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
++<nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="xpu" aria-pressed="false">Semi-sili XPU</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL · CPU + WEBGPU VALIDATION</span></nav>
+ <div id="notice" role="status" aria-live="polite" hidden></div>
+ <main>
+-<section id="console" class="view active"><div class="console-grid"><div class="terminal-card"><div class="toolbar"><div id="tabs" aria-label="Terminal sessions"></div><button id="add-tab" aria-label="Open terminal">+ Terminal</button></div><div id="terminal-container"></div><form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" aria-label="Command" placeholder="Type help, xpuinfo, or hpu bytes" maxlength="4096" spellcheck="false"><button type="submit">Run</button><button id="interrupt" type="button">Interrupt</button></form><div class="terminal-footer"><span id="session-status">Waiting for worker</span><span>Ctrl+C interrupts · no host shell</span></div></div><aside class="processor-card"><div class="eyebrow">FIELD PROCESSOR</div><h1>Software XPU</h1><p class="muted">64 × 64 complex field · JavaScript CPU</p><div class="field-pair"><figure><canvas id="phase" width="64" height="64" aria-label="Simulated phase field"></canvas><figcaption>PHASE / TIFF</figcaption></figure><figure><canvas id="intensity" width="64" height="64" aria-label="Simulated intensity field"></canvas><figcaption>INTENSITY / GIF</figcaption></figure></div><dl class="metrics"><div><dt>Operation</dt><dd id="operation">—</dd></div><div><dt>Spool</dt><dd id="spool">0 / 24</dd></div><div><dt>Propagation</dt><dd id="z">0 mm</dd></div><div><dt>Execution</dt><dd>CPU · no GPU API</dd></div></dl><div class="actions"><button data-command="hpu cycle">Run cycle</button><button data-command="hpu bytes">Run byte lanes</button><button data-command="hpu gate xor 1 0">Test XOR</button><button data-command="hpu reset">Reset field</button><button data-command="hpu tiff">Export TIFF to VFS</button><button data-command="hpu gif">Export GIF to VFS</button></div><p class="fine">LUT equivalence is checked between two software loops. Simulated operations are not hardware FLOPS. TIFF and GIF are data exports, not independently executing processors.</p></aside></div><details class="transcript"><summary>Accessible terminal transcript (current screen)</summary><pre id="transcript" aria-live="off"></pre></details></section>
++<section id="console" class="view active"><div class="console-grid"><div class="terminal-card"><div class="toolbar"><div id="tabs" aria-label="Terminal sessions"></div><button id="add-tab" aria-label="Open terminal">+ Terminal</button></div><div id="terminal-container"></div><form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" aria-label="Command" placeholder="Type help, xpuinfo, or hpu bytes" maxlength="4096" spellcheck="false"><button type="submit">Run</button><button id="interrupt" type="button">Interrupt</button></form><div class="terminal-footer"><span id="session-status">Waiting for worker</span><span>Ctrl+C interrupts · no host shell</span></div></div><aside class="processor-card"><div class="eyebrow">FIELD PROCESSOR</div><h1>Software XPU</h1><p class="muted">64 × 64 complex field · JavaScript CPU</p><div class="field-pair"><figure><canvas id="phase" width="64" height="64" aria-label="Simulated phase field"></canvas><figcaption>PHASE / TIFF</figcaption></figure><figure><canvas id="intensity" width="64" height="64" aria-label="Simulated intensity field"></canvas><figcaption>INTENSITY / GIF</figcaption></figure></div><dl class="metrics"><div><dt>Operation</dt><dd id="operation">—</dd></div><div><dt>Spool</dt><dd id="spool">0 / 24</dd></div><div><dt>Propagation</dt><dd id="z">0 mm</dd></div><div><dt>Execution</dt><dd>CPU field model · GPU check in XPU lab</dd></div></dl><div class="actions"><button data-command="hpu cycle">Run cycle</button><button data-command="hpu bytes">Run byte lanes</button><button data-command="hpu gate xor 1 0">Test XOR</button><button data-command="hpu reset">Reset field</button><button data-command="hpu tiff">Export TIFF to VFS</button><button data-command="hpu gif">Export GIF to VFS</button></div><p class="fine">LUT equivalence is checked between two software loops. Simulated operations are not hardware FLOPS. TIFF and GIF are data exports, not independently executing processors.</p></aside></div><details class="transcript"><summary>Accessible terminal transcript (current screen)</summary><pre id="transcript" aria-live="off"></pre></details></section>
+ <section id="russl" class="view"><div class="section-heading"><div class="eyebrow">RUSSL CORPUS 2.0.0 · SCOPED PIXEL ADAPTER</div><h1>One field. Every pixel addressed.</h1><p>4 × 4 × 4 × 16 × 16 scalar sites, stored in a 128 × 128 Float64 TIFF atlas. Capture and edit a staged image; only Apply changes the live XPU.</p></div>
+ <div class="storage-actions"><button id="russl-capture">Capture live field</button><button id="russl-refresh">Refresh</button><button id="russl-export">Download field TIFF</button><button id="russl-import">Import field TIFF…</button><button id="russl-apply">Apply to live XPU…</button><button id="russl-receipt">Download SHA-256 receipt</button><input type="file" id="russl-file" accept=".tif,.tiff,image/tiff" hidden></div>
+ <p id="russl-status" role="status" class="fine">Refresh to inspect the staged TIFF.</p>
+@@ -14,8 +14,22 @@
+ <article><h2>Field record</h2><pre id="russl-summary" class="russl-output">No staged TIFF loaded.</pre></article>
+ <article><h2>Sample-exact versus visual exports</h2><p>The atlas stores real and imaginary Float32 samples widened exactly into Float64 slots, plus derived intensity and phase. No pixels are padding. Ordinary phase.tif remains a quantized unsigned 16-bit visualization and now declares that loss in its metadata.</p><p>Applying an atlas resets the GIF spool, recordings, byte lanes, counters and derived caches. Export a full volume backup before replacing a session you need to retain.</p></article>
+ <article><h2>Format and execution boundary</h2><p>Bounded, finite grayscale TIFF: little/big endian, classic TIFF or small BigTIFF, uncompressed strips. Atlas imports require the exact declared placement profile and matching sample checksum. Unsupported metadata, compression or page stacking is rejected.</p><p>The corpus's language, mechanics and OME-Zarr proposals remain separate. This adapter does not execute metadata or turn TIFF pixels into independent silicon, optical hardware, or a complete RUSSL/MSSL runtime.</p></article></div></section>
++<section id="xpu" class="view"><div class="section-heading"><div class="eyebrow">RAM-RESIDENT PHASE AND NEURON PIPELINE</div><h1>Semi-sili XPU</h1><p>Sample the live field, evolve a finite p-adic neuron bank, then read its numerical phase. GPU-required runs confirm every arithmetic result through WebGPU before Save is enabled.</p></div>
++<div class="system-grid"><article><h2>Run a checked preview</h2><form id="xpu-form"><div class="russl-indices">
++<label>Prime <select id="xpu-prime"><option value="2">2</option><option value="3">3</option><option value="5">5</option></select></label>
++<label>Precision <input id="xpu-precision" type="number" min="1" max="16" step="1" value="8" required></label>
++<label>Operation <select id="xpu-operation"><option value="add">Add</option><option value="sub">Subtract</option><option value="mul">Multiply</option><option value="negate">Negate</option><option value="complement">Digit complement</option></select></label>
++<label>Operand <input id="xpu-operand" type="number" min="0" max="65535" step="1" value="1" required></label>
++<label>Neuron steps <input id="xpu-steps" type="number" min="1" max="32" step="1" value="4" required></label></div>
++<div class="russl-edit-row"><label>Input <select id="xpu-source"><option value="field">Sample live field</option><option value="bank">Continue saved bank</option></select></label><label>Validation <select id="xpu-mode"><option value="gpu">Require hardware GPU confirmation</option><option value="cpu">CPU preview and validation</option></select></label></div>
++<p class="fine">The modulus prime raised to precision must be at most 65,536. The operand must be smaller than that modulus. Negation and digit complement are separate operations.</p>
++<button type="submit">Run preview</button><button id="xpu-cancel" type="button" disabled>Cancel run</button><button id="xpu-apply" type="button" disabled>Save result</button></form>
++<p id="xpu-status" role="status">No run yet.</p><p id="xpu-saved" class="fine">No saved neuron bank.</p></article>
++<article><h2>Sampled preview</h2><div class="field-pair"><figure><canvas id="xpu-phase" width="64" height="64" aria-label="Checked numerical phase preview"></canvas><figcaption>PHASE</figcaption></figure><figure><canvas id="xpu-intensity" width="64" height="64" aria-label="Numerical neuron amplitude preview"></canvas><figcaption>INTENSITY</figcaption></figure></div><p>The CPU models wave phases and finite neuron evolution. GPU confirmation covers exact ring arithmetic. Saving publishes the checked Float32 field and its neuron bank together.</p><p class="fine">Neuron amplitude is a numerical coupling. Quantum, optical and physical in-DRAM operations are research models; this pipeline uses the laptop's existing CPU and available GPU.</p></article>
++<article><h2>Keep and inspect a result</h2><div class="storage-actions"><button id="xpu-refresh">Refresh saved bank</button><button id="xpu-export">Download Pixel160 TIFF</button><button id="xpu-import">Import Pixel160 TIFF…</button><button id="xpu-receipt">Download run receipt</button><input type="file" id="xpu-file" accept=".tif,.tiff,image/tiff" hidden></div><p>Each logical cell has five exact 32-bit words: residue, activation, amplitude, real field and imaginary field. A TIFF byte raster retains those 20 bytes; the five logical coordinate axes are declared in its metadata.</p><p class="fine">Up to eight prior frames are retained in the saved bank. TIFF carries one frame. Imported files are checked before Save; their old GPU status is never treated as a fresh measurement. Export a full volume backup from Virtual storage.</p></article>
++<article><h2>Run receipt</h2><pre id="xpu-results" class="russl-output">No run yet.</pre></article></div></section>
+ <section id="commands" class="view"><div class="section-heading"><div class="eyebrow">REFERENCE</div><h1>Every command, one place.</h1><p>Search the live registry. “Insert” fills the command line without executing anything.</p></div><input type="search" id="search-commands" placeholder="Search names, descriptions, or usage" aria-label="Search commands"><div id="command-count" class="fine"></div><div id="command-list" class="command-list"></div></section>
+ <section id="storage" class="view"><div class="section-heading"><div class="eyebrow">ORIGIN-SCOPED STORAGE</div><h1>Your virtual volume.</h1><p>Two MiB of file contents, up to 1,500 nodes. Browser storage is not a backup and may be cleared or evicted.</p></div><div class="storage-actions"><button id="sync">Sync volume</button><button id="backup">Download backup</button><button id="previous-backup">Previous committed backup</button><button id="restore">Restore backup…</button><button id="persist">Request persistent storage</button><input id="restore-file" type="file" accept="application/json,.json" hidden></div><p id="storage-status" class="fine">No volume status yet.</p><form id="path-form"><label for="path">VFS path</label><input id="path" value="/var/hpu" maxlength="4096"><button>Open directory</button><button id="parent" type="button">Parent</button></form><div id="file-list"></div><p class="fine">Paths here belong to the virtual filesystem, not C:\ or D:\. Only selected exports are downloaded to your computer. Restore replaces the virtual volume after validation and preserves its previous committed revision.</p></section>
+-<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>The native console opens this application through a sealed local WebView2 mapping. Its JavaScript module worker performs the computation on the Windows host CPU. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No local Node server or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software processor model</h2><p>This specialized JavaScript field-and-byte model computes Fourier propagation, optical gates, phase retrieval, GIF spooling, and lookup-table transformations. It has no general-purpose CPU instruction set or ARM decoder and creates no physical silicon CPU. The native console and WebView2 execute on the machine's host processor.</p><p>Six table identities contain four distinct byte transformations; tables 1, 3 and 6 are identical. The deterministic byte selector produces 255 for input bytes 0–127 and 0 for 128–255. Scalar and 32-wide batched loops both run in JavaScript on CPU. Modeled steps and batches are not measured hardware clock cycles or GPU throughput.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.2</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>This embedded console uses the installed Microsoft WebView2 runtime and the included pinned SDK adapter. No Node.js runtime is required for this launch. Console 1.2.1 corrects execution descriptions; the software engine remains 2.2.2. Live worker execution and persistence remain unverified until the acceptance runner passes in a normal Windows session.</p></article></div></section>
+-</main><footer><span>JA21 2.2.2 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
++<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>The compiled native presenter opens this browser application through WebView2. The optional developer launcher uses a local static server. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>CPU models and measured GPU confirmation</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. Legacy “GPU” byte loops remain batched CPU loops. The Semi-sili XPU tab dispatches a separate WebGPU integer kernel and records actual readback confirmation when available.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.3.0</h2><p><a href="/validate.html">Open the browser validation kit</a>. It uses an isolated test volume and exports CPU, GPU and persistence results.</p><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. The native console requires WebView2 and uses the existing CPU/GPU. The optional developer launcher provisions a hash-verified private Node.js runtime.</p></article></div></section>
++</main><footer><span>JA21 2.3.0 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
+ </body></html>
+--- 1.2.1/applications/silicon/dist/release.json
++++ 1.3.0/applications/silicon/dist/release.json
+@@ -1,5 +1,5 @@
+ {
+-  "version": "2.2.2",
++  "version": "2.3.0",
+   "profile": "LOCAL_BROWSER",
+   "runtimeDependencies": 0
+ }
+--- 1.2.1/applications/silicon/dist/src/app.js
++++ 1.3.0/applications/silicon/dist/src/app.js
+@@ -9,8 +9,8 @@
+ $('version').textContent=VERSION;
+ function notice(text) {$('notice').textContent=text;$('notice').hidden=!text;}
+ function fault(error){notice(error?.message || String(error));}
+-function setRunning(on,label){if(!on){russlRevision=null;russlPresent=false;}for(const button of document.querySelectorAll('#russl button'))button.disabled=!on;running=on;$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
+-function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);if(name==='russl' && running)refreshRussl().catch(fault);}
++function setRunning(on,label){if(!on){russlRevision=null;russlPresent=false;xpuToken=null;}for(const button of document.querySelectorAll('#russl button'))button.disabled=!on;running=on;xpuControls();$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
++function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);if(name==='russl' && running)refreshRussl().catch(fault);if(name==='xpu'&&running&&!xpuBusy)refreshXpu().catch(fault);}
+ for(const b of document.querySelectorAll('nav button'))b.addEventListener('click',()=>view(b.dataset.view));
+ function render(t){if(!t || t!==active)return;t.renderer.render();$('transcript').textContent=t.screen.grid.map(row=>row.map(c=>c.hidden?' ':c.ch).join('').trimEnd()).join('\n');}
+ function choose(t){active=t;for(const item of terminals){item.canvas.hidden=item!==t;item.canvas.style.display=item===t?'block':'none';item.button.classList.toggle('current',item===t);}fit();render(t);}
+@@ -37,7 +37,7 @@
+   catch(error){remove(t);throw error;}
+   fit();return t;
+ }
+-async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();if($('russl').classList.contains('active'))await refreshRussl();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
++async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();if($('russl').classList.contains('active'))await refreshRussl();if($('xpu').classList.contains('active'))await refreshXpu();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
+ function sendCommand(command){if(!active?.socket || !running)throw new Error('no active terminal');if(typeof command!=='string' || command.length>4096 || /[\x00-\x1f\x7f-\x9f]/.test(command))throw new Error('enter one command line, up to 4096 characters, without terminal control characters');active.socket.write('\x15'+command+'\r');}
+ $('command-form').addEventListener('submit',e=>{e.preventDefault();const input=$('command');if(!input.value.trim())return;try{sendCommand(input.value);input.value='';notice('');}catch(error){fault(error);}});
+ $('command').addEventListener('keydown',e=>{if(e.ctrlKey && e.key.toLowerCase()==='c'){e.preventDefault();try{active?.socket?.signal();}catch(error){fault(error);}}});
+@@ -82,4 +82,26 @@
+ $('russl-import').addEventListener('click',()=>$('russl-file').click());
+ $('russl-file').addEventListener('change',async()=>{const input=$('russl-file'),file=input.files[0];input.value='';if(!file)return;try{if(file.size>192*1024)throw new Error('field TIFF exceeds 192 KiB');if(russlRevision===null)await refreshRussl();if(russlPresent&&!confirm('Replace the staged TIFF with the selected local file? The live XPU is not changed.'))return;const bytes=new Uint8Array(await file.arrayBuffer());await russlAction('import',{bytes});notice('TIFF validated and staged. Apply explicitly to change the live XPU.');}catch(error){fault(error);}});
+ 
++// Semi-sili computation runs in a detached preview; Save publishes a validated volume transaction.
++let xpuToken=null,xpuBusy=false;
++function xpuControls(){for(const b of document.querySelectorAll('#xpu button'))b.disabled=!running||xpuBusy;$('xpu-cancel').disabled=!running||!xpuBusy;$('xpu-apply').disabled=!running||xpuBusy||!xpuToken;}
++function showXpu(result){
++  xpuToken=result.canApply?result.token:null;
++  const receipt=result.receipt;
++  $('xpu-status').textContent=receipt?`${receipt.status} · ${receipt.summary.samples.toLocaleString()} samples · ${receipt.gpu.status}`:'No run yet.';
++  $('xpu-results').textContent=JSON.stringify(receipt??result,null,2);
++  if(result.preview){pixels('xpu-phase',result.preview.phase);pixels('xpu-intensity',result.preview.intensity);}
++  xpuControls();
++}
++async function refreshXpu(){const info=await link.rpc('xpu',{action:'info'});xpuToken=info.draft?.canApply?info.draft.token:null;$('xpu-saved').textContent=info.present?`Saved neuron bank · ${info.ring} · sequence ${info.sequence} · ${info.historyFrames} history frames`:'No saved neuron bank.';if(info.savedReceipt&&!info.draft){$('xpu-status').textContent=info.savedReceipt.historical?'Saved receipt is historical. Run again for fresh CPU/GPU confirmation.':`${info.savedReceipt.status} · saved this session · ${info.savedReceipt.gpu.status}`;$('xpu-results').textContent=JSON.stringify(info.savedReceipt,null,2);}xpuControls();return info;}
++async function xpuAction(action,args={}){if(xpuBusy)throw new Error('wait for the current XPU operation');xpuBusy=true;xpuToken=null;xpuControls();try{return await link.rpc('xpu',{action,args});}finally{xpuBusy=false;xpuControls();}}
++$('xpu-form').addEventListener('submit',async e=>{e.preventDefault();try{if(!$('xpu-form').reportValidity())return;$('xpu-status').textContent='Sampling and checking the numerical field…';const result=await xpuAction('run',{prime:Number($('xpu-prime').value),precision:Number($('xpu-precision').value),operation:$('xpu-operation').value,operand:Number($('xpu-operand').value),steps:Number($('xpu-steps').value),source:$('xpu-source').value,requireGpu:$('xpu-mode').value==='gpu'});showXpu(result);notice(result.canApply?'Preview checked. Save result to retain the neuron bank and publish its field.':'GPU requirement unmet. Details are in the run receipt.');}catch(error){fault(error);$('xpu-status').textContent='Run stopped; saved state retained.';}});
++$('xpu-cancel').addEventListener('click',()=>{xpuToken=null;link.rpc('xpu-cancel').then(result=>notice(result.commitInProgress?'The volume transaction is already committing. Refresh to see its result.':'Cancellation requested; no preview will be saved.')).catch(fault);});
++$('xpu-apply').addEventListener('click',async()=>{try{if(!xpuToken)throw new Error('run a checked preview first');const token=xpuToken;const result=await xpuAction('apply',{token});$('xpu-results').textContent=JSON.stringify(result.receipt,null,2);$('xpu-status').textContent=`${result.receipt.status} · saved`;await refreshXpu();notice('Neuron bank and live field saved in one volume transaction.');}catch(error){fault(error);}});
++$('xpu-refresh').addEventListener('click',()=>refreshXpu().catch(fault));
++$('xpu-receipt').addEventListener('click',()=>{try{const text=$('xpu-results').textContent;if(!text||text==='No run yet.')throw new Error('run or load a receipt first');JSON.parse(text);download('JA21-semisili-receipt.json',text,'application/json');}catch(error){fault(error);}});
++$('xpu-export').addEventListener('click',async()=>{try{const result=await xpuAction('export');download('JA21-Pixel160-neuron-field.tif',result.bytes,'image/tiff');}catch(error){fault(error);}});
++$('xpu-import').addEventListener('click',()=>$('xpu-file').click());
++$('xpu-file').addEventListener('change',async()=>{const file=$('xpu-file').files[0];$('xpu-file').value='';if(!file)return;try{if(file.size>192*1024)throw new Error('Pixel160 TIFF exceeds 192 KiB');showXpu(await xpuAction('import',{bytes:new Uint8Array(await file.arrayBuffer())}));notice('Pixel160 field checked. Import has CPU validation; run its saved bank to obtain GPU arithmetic confirmation.');}catch(error){fault(error);}});
++
+ start();
+--- 1.2.1/applications/silicon/dist/src/lib/ram-link.js
++++ 1.3.0/applications/silicon/dist/src/lib/ram-link.js
+@@ -1,10 +1,11 @@
+ import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from '../vendor/vws/frame.js';
+ export class RamLink extends EventTarget {
+-  constructor() { super(); this.worker=null;this.epoch=null;this.ready=null;this.sockets=new Set();this.pending=new Map();this.sequence=0;this.generation=0; }
++  constructor({validation=false}={}) { super(); if(typeof validation!=='boolean')throw new TypeError('validation profile must be boolean');this.validation=validation;this.worker=null;this.epoch=null;this.ready=null;this.sockets=new Set();this.pending=new Map();this.sequence=0;this.generation=0; }
+   event(type,detail) { this.dispatchEvent(new CustomEvent(type,{detail})); }
+   start() {
+     this.destroy('restarting'); const generation=++this.generation;
+-    const worker=new Worker(new URL('../vendor/ram-worker.js',import.meta.url),{type:'module'});this.worker=worker;
++    const workerUrl=new URL('../vendor/ram-worker.js',import.meta.url);if(this.validation)workerUrl.search='?validation=semisili-v1';
++    const worker=new Worker(workerUrl,{type:'module'});this.worker=worker;
+     this.ready=new Promise((resolve,reject)=>{
+       let settled=false;
+       const settle=(error,value)=>{if(settled)return;settled=true;clearTimeout(timer);this.bootReject=null;error?reject(error):resolve(value);};
+@@ -62,7 +63,7 @@
+     if(!this.worker)return Promise.reject(new Error('worker not available'));
+     if(this.pending.size>=64)return Promise.reject(new Error('too many pending management requests'));
+     if(!options || typeof options!=='object' || Array.isArray(options))return Promise.reject(new Error('invalid management options'));
+-    return new Promise((resolve,reject)=>{const id=`r${++this.sequence}`;const timer=setTimeout(()=>{this.pending.delete(id);reject(new Error(`${op} timed out`));},15000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({...options,type:'rpc',id,op});}catch(error){clearTimeout(timer);this.pending.delete(id);reject(error);}});
++    return new Promise((resolve,reject)=>{const id=`r${++this.sequence}`;const timer=setTimeout(()=>{this.pending.delete(id);if(op==='xpu'&&options.action==='run')this.worker?.postMessage({type:'rpc',id:`cancel-${id}`,op:'xpu-cancel'});reject(new Error(`${op} timed out`));},15000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({...options,type:'rpc',id,op});}catch(error){clearTimeout(timer);this.pending.delete(id);reject(error);}});
+   }
+   destroy(reason='client stopped') {
+     const error=new Error(reason);this.bootReject?.(error);this.bootReject=null;for(const s of [...this.sockets])s.close(reason);for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error);}this.pending.clear();this.worker?.terminate();this.worker=null;this.epoch=null;this.ready=null;this.generation++;
+--- 1.2.1/applications/silicon/dist/src/vendor/ram-worker.js
++++ 1.3.0/applications/silicon/dist/src/vendor/ram-worker.js
+@@ -3,25 +3,28 @@
+ import { SpiralKernel, validGeometry } from './spiral/kernel.js';
+ import { VFS } from './spiral/vfs.js';
+ import { NODES } from './spiral/commands/ram.js';
+-import { DEVICE, readVolume, writeVolume, revisionOf } from './spiral/ssd.js';
++import { DEVICE, VALIDATION_PROFILE, readVolume, writeVolume, revisionOf } from './spiral/ssd.js';
+ import { assertBackupSize } from './spiral/volume-format.js';
+ import { Hpu } from './spiral/hpu.js';
+ import { Buffer } from './spiral/buffer.js';
+ import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from './vws/frame.js';
+ import { FlowWindow, MAX_QUEUE } from './vws/flow.js';
++import { prepareModel, loadModel, saveModel, modelField, exportModelTiff, importModelTiff, STATE_PATH, RECEIPT_PATH } from '../lib/semisili-model.js';
++import { confirmFiniteGpu } from '../lib/semisili-gpu.js';
+ const LIMITS={maxBytes:2*1024*1024,maxNodes:1500};
+ const startedAt=Date.now(), serverEpoch=crypto.randomUUID(), enc=new TextEncoder();
+ const connections=new Set(), bySid=new Map();
+ let kernel, hpu, phase='booting', revision=0, dirty=0, savedDirty=0, pending=null, timer, releaseLock, ownsLock=false, factorySeal='', imageCache=null, rpcBusy=false;
+ let lastRecord=null;
++let xpuDraft=null, xpuJob=null, xpuCancelEpoch=0, xpuCommitting=false, xpuProof=null;
+ const disk={device:DEVICE, model:'IndexedDB virtual volume (not NVMe)', fs:'virtual', mount:'/', synced:false, restored:false, writtenAt:0, error:''};
+ function message(error) { return String(error?.message || error).slice(0,512); }
+ async function hash(text) { const out=await crypto.subtle.digest('SHA-256',enc.encode(text)); return [...new Uint8Array(out)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
+ function seed(k) {
+   k.vfs.mkdir('/var/hpu',{recursive:true}); k.vfs.mkdir('/usr/share/doc',{recursive:true}); k.vfs.mkdir('/df/nodes',{recursive:true});
+   k.vfs.writeFile('/etc/os-release',`NAME=JA21 Silicon Console\nVERSION=${VERSION}\nPROFILE=${PROFILE}\nIMPLEMENTATION=JavaScript-software-simulation\n`);
+-  k.vfs.writeFile('/home/operator/README', 'JA21 software console. Commands operate inside a bounded virtual filesystem.\nUse help, disk, xpuinfo, hpu gate xor 1 0, hpu bytes, sync.\nNo native shell, hardware GPU/XPU, physical CXL, or quantum device is accessed.\nExport a backup before closing. Browser storage can be cleared or evicted.\n');
+-  k.vfs.writeFile('/usr/share/doc/architecture.txt','Browser UI -> MessageChannel frames -> worker -> SPIRAL shell -> VFS / numerical HPU -> IndexedDB.\nThe local Node server only serves static files. No remote WebSocket, authentication service, native PTY, or arbitrary host command execution.\nimage verify compares canonical content with the current factory seed, not a trusted signature.\n');
++  k.vfs.writeFile('/home/operator/README', 'JA21 RAM-resident numerical console. Use the Semi-sili XPU tab for finite p-adic phase arithmetic and neuron sampling.\nGPU-required runs dispatch WebGPU and compare every arithmetic result; CPU preview is available explicitly.\nUse help, disk, xpuinfo, hpu gate xor 1 0, hpu bytes, sync. Legacy hpu bytes remains CPU-only.\nExport a backup before closing. Browser storage can be cleared or evicted.\n');
++  k.vfs.writeFile('/usr/share/doc/architecture.txt','Browser UI -> MessageChannel frames -> worker -> bounded numerical HPU / semi-sili model -> IndexedDB.\nThe native presenter or local static server serves the same application. WebGPU confirms finite ring arithmetic when supported. Phase and neuron evolution run on the CPU.\nNo native shell or arbitrary host command execution. image verify compares canonical content with the current factory seed, not a trusted signature.\n');
+   for (const n of NODES) { k.vfs.mkdir(`/df/nodes/${n.node}`,{recursive:true}); k.vfs.writeFile(`/df/nodes/${n.node}/image.txt`,`${n.node}\nrole: ${n.role}\nstatus: descriptive virtual-node manifest only; no booted VM\n`); }
+ }
+ function markDirty() { dirty++; disk.synced=false; imageCache=null; clearTimeout(timer); timer=setTimeout(()=>{ flush().catch(e=>{ disk.error=message(e); }); },80); }
+@@ -53,11 +56,110 @@
+   const vfs=new VFS({...LIMITS,seed:false}); vfs.importSnapshot(record.snap);
+   const processor=new Hpu();
+   if(vfs.exists('/var/hpu/field.bin') && !processor.load(vfs.readFile('/var/hpu/field.bin'))) throw new Error('invalid HPU snapshot; existing volume retained without writes');
++  if(vfs.exists(STATE_PATH))loadModel(String(vfs.readFile(STATE_PATH)));
++  if(vfs.exists(RECEIPT_PATH))await validatedReceipt(vfs);
+   return {vfs,processor};
+ }
+ function publishHolo() { if(hpu && phase==='ready') postMessage({type:'holo',epoch:serverEpoch,payload:hpu.preview()}); }
+ async function image() { if(!imageCache) imageCache=hash(JSON.stringify(kernel.vfs.canonicalSnapshot())); return {seal:factorySeal,digest:await imageCache,epoch:serverEpoch,profile:PROFILE}; }
+-function persistHpu() { kernel.vfs.mkdir('/var/hpu',{recursive:true}); kernel.vfs.writeFile('/var/hpu/field.bin',Buffer.from(hpu.save())); publishHolo(); }
++function persistHpu() { xpuDraft=null;xpuProof=null; kernel.vfs.mkdir('/var/hpu',{recursive:true}); kernel.vfs.writeFile('/var/hpu/field.bin',Buffer.from(hpu.save())); publishHolo(); }
++
++function xpuPrior(){return kernel.vfs.exists(STATE_PATH)?loadModel(String(kernel.vfs.readFile(STATE_PATH))):null;}
++async function validatedReceipt(vfs){
++  if(!vfs.exists(STATE_PATH))throw new Error('XPU receipt has no neuron bank');
++  const text=String(vfs.readFile(RECEIPT_PATH));if(enc.encode(text).length>65536)throw new Error('XPU receipt exceeds limit');
++  const r=JSON.parse(text),digest=/^[a-f0-9]{64}$/;
++  if(!r||typeof r!=='object'||Array.isArray(r)||r.schema!=='JA21-SEMISILI-RUN/1'||
++    !['CPU_VALIDATED','CPU_AND_GPU_CONFIRMED'].includes(r.status)||r.publication!=='COMMITTED'||
++    typeof r.engine!=='string'||!/^\d+\.\d+\.\d+$/.test(r.engine)||r.engine.length>32||
++    typeof r.serverEpoch!=='string'||r.serverEpoch.length>64||typeof r.job!=='string'||r.job.length>64||
++    !Number.isSafeInteger(r.createdAt)||r.createdAt<0||!Number.isSafeInteger(r.committedAt)||r.committedAt<r.createdAt||
++    !digest.test(r.sourceFieldSha256)||!digest.test(r.stateSha256)||!r.summary||r.summary.samples!==4096||r.summary.cpu?.status!=='PASS'||
++    typeof r.gpu?.status!=='string'||r.gpu.status.length>64||typeof r.gpu?.gpu?.hardwareConfirmed!=='boolean'||
++    !Array.isArray(r.coverage?.cpu)||!Array.isArray(r.coverage?.gpu))throw new Error('invalid saved XPU receipt');
++  const model=loadModel(String(vfs.readFile(STATE_PATH))),modulus=model.config.prime**model.config.precision;
++  if(r.status==='CPU_AND_GPU_CONFIRMED'&&(r.gpu.schema!=='JA21-FINITE-GPU-CONFIRMATION/1'||r.gpu.fixture!==false||
++    r.gpu.status!=='GPU_CONFIRMED'||r.gpu.gpu.hardwareConfirmed!==true||r.gpu.gpu.apiConfirmed!==true||r.gpu.gpu.fallback!==false||
++    r.gpu.comparison?.status!=='PASS'||r.gpu.comparison?.mismatches!==0||r.gpu.comparison?.elements!==4096||
++    r.gpu.coverage?.stage!=='finite-arithmetic'||r.gpu.coverage?.samples!==4096||r.gpu.coverage?.modulus!==modulus||
++    r.gpu.coverage?.operation!==model.config.operation||r.summary.operation!==model.config.operation||r.summary.modulus!==modulus||
++    r.summary.cpu.comparisonElements!==4096||r.coverage.gpu.length!==1||r.coverage.gpu[0]!=='finite ring arithmetic'))throw new Error('incoherent saved GPU receipt');
++  if(r.status==='CPU_VALIDATED'&&(r.gpu.gpu.hardwareConfirmed!==false||r.coverage.gpu.length!==0))throw new Error('incoherent saved CPU receipt');
++  if(r.stateSha256!==await hash(String(vfs.readFile(STATE_PATH))))throw new Error('XPU receipt state checksum mismatch');
++  return r;
++}
++async function fieldDigest(){const data=hpu.save();const out=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(out)].map(b=>b.toString(16).padStart(2,'0')).join('');}
++function xpuInfo(){
++  const prior=xpuPrior();let receipt=null;
++  if(kernel.vfs.exists(RECEIPT_PATH)){
++    const text=String(kernel.vfs.readFile(RECEIPT_PATH));if(text.length>65536)throw new Error('XPU receipt exceeds limit');
++    receipt=JSON.parse(text);
++  }
++  const currentProof=!!receipt&&xpuProof!==null&&xpuProof.stateText===String(kernel.vfs.readFile(STATE_PATH))&&xpuProof.receiptText===String(kernel.vfs.readFile(RECEIPT_PATH));
++  return {present:!!prior,path:STATE_PATH,sequence:prior?.current.sequence??0,historyFrames:prior?.frames.length??0,
++    ring:prior?`${prior.config.prime}^${prior.config.precision}`:null,revision:String(revision),
++    capability:{secureContext:self.isSecureContext,webGpuApi:!!navigator.gpu,hardwareGpu:'requires successful dispatch and readback'},
++    savedReceipt:receipt?{...receipt,historical:!currentProof,freshHardwareConfirmation:currentProof&&receipt.status==='CPU_AND_GPU_CONFIRMED'}:null,
++    draft:xpuDraft?{token:xpuDraft.token,canApply:xpuDraft.canApply,receipt:xpuDraft.receipt}:null};
++}
++async function xpuOperation(action,args={},cancelEpoch=xpuCancelEpoch){
++  if(!['info','run','apply','export','import'].includes(action))throw new Error('unsupported XPU action');
++  if(!args||typeof args!=='object'||Array.isArray(args))throw new Error('invalid XPU arguments');
++  if(action==='info')return xpuInfo();
++  if(action==='export'){const prior=xpuPrior();if(!prior)throw new Error('no saved neuron field');return {bytes:exportModelTiff(prior)};}
++  const baseRevision=revision,baseDigest=await fieldDigest();
++  if(action==='run'||action==='import'){
++    if(cancelEpoch!==xpuCancelEpoch)throw new Error('XPU run cancelled before startup');
++    xpuDraft=null;
++    const controller=new AbortController(),job={id:crypto.randomUUID(),controller};xpuJob=job;
++    try{
++      let candidate,confirmation;
++      if(action==='run'){
++        candidate=prepareModel({re:hpu.re,im:hpu.im,prior:xpuPrior(),args});
++        if(candidate.state.config.requireGpu)confirmation=await confirmFiniteGpu({a:candidate.a,b:candidate.b,modulus:candidate.ring.modulus,operation:candidate.state.config.operation,expected:candidate.expected},{signal:controller.signal,timeoutMs:10000});
++      }else{
++        if(Object.keys(args).some(k=>k!=='bytes')||!(args.bytes instanceof Uint8Array)||args.bytes.length>192*1024)throw new Error('select a bounded Pixel160 TIFF');
++        const state=importModelTiff(args.bytes),text=saveModel(state);
++        candidate={state,text,summary:{samples:4096,operation:'import',cpu:{status:'PASS',arithmetic:'not rerun; finite profile and phase readout validated'},canonicalFrameBytes:81920,stateBytes:enc.encode(text).length}};
++      }
++      if(controller.signal.aborted||xpuJob!==job||phase!=='ready')throw new Error('XPU run cancelled');
++      if(baseRevision!==revision||baseDigest!==await fieldDigest())throw new Error('resident state changed during XPU validation; retry');
++      const required=action==='run'&&candidate.state.config.requireGpu;
++      const canApply=!required||confirmation?.receipt.gpu.hardwareConfirmed===true;
++      const receipt={schema:'JA21-SEMISILI-RUN/1',engine:VERSION,serverEpoch,job:job.id,createdAt:Date.now(),
++        sourceFieldSha256:baseDigest,stateSha256:await hash(candidate.text),summary:candidate.summary,
++        gpu:confirmation?.receipt??{status:'NOT_RUN',gpu:{hardwareConfirmed:false}},
++        coverage:{cpu:['phase arithmetic','Float32 phase readout','finite neuron update','Pixel160 state validation'],gpu:confirmation?.receipt.gpu.hardwareConfirmed?['finite ring arithmetic']:[]},
++        status:canApply?(required?'CPU_AND_GPU_CONFIRMED':'CPU_VALIDATED'):'GPU_REQUIREMENT_UNMET',publication:'PREVIEW'};
++      if(controller.signal.aborted||xpuJob!==job)throw new Error('XPU run cancelled');
++      xpuDraft={...candidate,receipt,canApply,token:job.id,baseRevision,baseDigest};
++      return {token:job.id,canApply,receipt,preview:previewModel(candidate.state)};
++    }finally{if(xpuJob===job)xpuJob=null;}
++  }
++  if(Object.keys(args).some(k=>k!=='token')||typeof args.token!=='string'||!xpuDraft||args.token!==xpuDraft.token)throw new Error('run and review a new XPU preview before saving');
++  const draft=xpuDraft;
++  if(!draft.canApply)throw new Error('required hardware GPU confirmation was not completed');
++  if(draft.baseRevision!==revision||draft.baseDigest!==await fieldDigest())throw new Error('XPU preview is stale; run again before saving');
++  // Prepare a detached, quota-checked volume and processor before the atomic volume transaction.
++  const nextVfs=new VFS({...LIMITS,seed:false});nextVfs.importSnapshot(kernel.vfs.exportSnapshot());
++  const field=modelField(draft.state),processor=new Hpu();processor.re.set(field.re);processor.im.set(field.im);
++  processor.op=`semi-sili ${draft.state.config.operation}`;processor.stage='semisili';processor.margin=draft.receipt.summary.cpu.float32MinimumMargin??0;
++  const fieldBytes=processor.save(),receipt={...draft.receipt,publication:'COMMITTED',committedAt:Date.now()};
++  nextVfs.mkdir('/var/xpu',{recursive:true});nextVfs.mkdir('/var/hpu',{recursive:true});
++  const receiptText=JSON.stringify(receipt);
++  nextVfs.writeFile(STATE_PATH,draft.text);nextVfs.writeFile(RECEIPT_PATH,receiptText);nextVfs.writeFile('/var/hpu/field.bin',Buffer.from(fieldBytes));
++  const record=await makeRecord(nextVfs.exportSnapshot(),revision+1);
++  if(cancelEpoch!==xpuCancelEpoch||xpuDraft!==draft)throw new Error('XPU save cancelled before commit');
++  xpuCommitting=true;
++  try{
++  revision=await writeVolume(record,revision);lastRecord=record;
++  // No GPU await remains between durable acceptance and live publication.
++  kernel.vfs=nextVfs;kernel.vfs.onMutate=markDirty;hpu=processor;kernel.host.hpu=hpu;
++  savedDirty=dirty;disk.synced=true;disk.writtenAt=record.writtenAt;disk.error='';imageCache=null;xpuDraft=null;xpuProof={stateText:draft.text,receiptText};publishHolo();
++  return {saved:true,receipt,...xpuInfo()};
++  }finally{xpuCommitting=false;}
++}
++function previewModel(state){const field=modelField(state),processor=new Hpu();processor.re.set(field.re);processor.im.set(field.im);return processor.preview();}
+ const browser={visible:false,url:'about:blank',engine:'built-in information pane; not a separate browser engine'};
+ function openBrowser(url='about:blank') { if(!['about:blank','ram://status'].includes(url)) throw new Error('external navigation is disabled in the isolated local profile'); browser.visible=true; browser.url=url; postMessage({type:'browser',payload:{...browser}}); return {...browser}; }
+ async function stop(reboot=false) {
+@@ -153,6 +255,11 @@
+   switch(m.op){
+     case 'sync':await flush();return {...disk};
+     case 'commands':return kernel.registry.list().map(d=>({name:d.name,summary:d.summary,usage:d.usage,aliases:d.aka || []}));
++    case 'xpu': {
++      if(!ownsLock||[...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for active commands before XPU operations');
++      const resume=kernel.holdCommands(),cancelEpoch=xpuCancelEpoch;
++      try{await flush();return await xpuOperation(m.action,m.args??{},cancelEpoch);}finally{resume();}
++    }
+     case 'russl': {
+       if(!ownsLock || [...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for active commands before TIFF operations');
+       const operation=m.action;
+@@ -177,13 +284,19 @@
+   if(m?.type==='attach') { if(e.ports?.length===1)bind(e.ports[0]);else for(const port of e.ports || [])port.close();return; }
+   for(const port of e.ports || [])port.close();
+   if(m?.type==='rpc') {
++    // Cancellation has a separate, literal control path so it can interrupt an awaited GPU run.
++    if(m.op==='xpu-cancel'){
++      if(typeof m.id!=='string'||m.id.length>64){postMessage({type:'rpc',id:typeof m.id==='string'?m.id.slice(0,64):'',error:'bad RPC'});return;}
++      if(xpuCommitting){postMessage({type:'rpc',id:m.id,result:{cancelled:false,commitInProgress:true}});return;}
++      xpuCancelEpoch++;xpuJob?.controller.abort();xpuDraft=null;postMessage({type:'rpc',id:m.id,result:{cancelled:true}});return;
++    }
+     if(rpcBusy){postMessage({type:'rpc',id:m.id,error:'another management request is active'});return;}
+     rpcBusy=true;rpc(m).then(result=>postMessage({type:'rpc',id:m.id,result}),error=>postMessage({type:'rpc',id:m.id,error:message(error)})).finally(()=>{rpcBusy=false;});
+   }
+ };
+ async function main(){
+   if(!self.isSecureContext || !navigator.locks || !self.indexedDB || !crypto.subtle) throw new Error('secure context, Web Locks, IndexedDB and Web Crypto are required');
+-  await navigator.locks.request('ja21-ssd:nvme0n1:writer-v2',{ifAvailable:true},async lock=>{
++  await navigator.locks.request(VALIDATION_PROFILE?'ja21-semisili-validation-v1:writer':'ja21-ssd:nvme0n1:writer-v2',{ifAvailable:true},async lock=>{
+     if(!lock)throw new Error('another window owns this volume; close it and retry');
+     ownsLock=true;
+     const held=new Promise(resolve=>{releaseLock=resolve;});
+--- 1.2.1/applications/silicon/dist/src/vendor/spiral/commands/system.js
++++ 1.3.0/applications/silicon/dist/src/vendor/spiral/commands/system.js
+@@ -67,8 +67,8 @@
+         'Local browser worker, SPIRAL shell, ANSI terminal, bounded virtual filesystem.',
+         'IndexedDB provides origin-scoped storage; export backups before clearing site data.',
+         'The XPU/HPU is a JavaScript software model. Both byte-processing paths run on CPU.',
+-        'No native GPU, quantum hardware, CXL memory pool, VM boot, or native PTY is provided.',
+-        'The Node host serves static files only. MessageChannel transports terminal frames.',
++        'Use the Semi-sili XPU tab for phase/neuron computation and actual WebGPU integer confirmation.',
++        'The native presenter or static developer host serves the app. MessageChannel transports terminal frames.',
+         'Type help, xpuinfo, disk, image verify, or hpu gate xor 1 0.', ''
+       ].join('\n'));
+       return 0;
+--- 1.2.1/applications/silicon/dist/src/vendor/spiral/ssd.js
++++ 1.3.0/applications/silicon/dist/src/vendor/spiral/ssd.js
+@@ -1,6 +1,8 @@
+ /** Same-origin IndexedDB virtual volume; NOT a physical NVMe/block device. */
+ export const DEVICE = 'nvme0n1'; // Stable legacy key: changing it would hide existing user data.
+-const DB_NAME = 'ja21-ssd', STORE = 'volumes';
++// A literal browser acceptance profile gets its own volume; ordinary console data stays in ja21-ssd.
++export const VALIDATION_PROFILE=globalThis.location?.search==='?validation=semisili-v1';
++const DB_NAME = VALIDATION_PROFILE?'ja21-semisili-validation-v1':'ja21-ssd', STORE = 'volumes';
+ async function openDb() {
+   return new Promise((resolve,reject) => {
+     let done = false;
+--- 1.2.1/applications/silicon/dist/src/version.js
++++ 1.3.0/applications/silicon/dist/src/version.js
+@@ -1,3 +1,3 @@
+-export const VERSION = "2.2.2";
++export const VERSION = "2.3.0";
+ export const PRODUCT = "JA21 Silicon Console";
+ export const PROFILE = "LOCAL_BROWSER";
+--- 1.2.1/applications/silicon/package-lock.json
++++ 1.3.0/applications/silicon/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.2.2",
++  "version": "2.3.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "ja21-silicon-console",
+-      "version": "2.2.2",
++      "version": "2.3.0",
+       "engines": {
+         "node": ">=22.12.0"
+       },
+--- 1.2.1/applications/silicon/package.json
++++ 1.3.0/applications/silicon/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.2.2",
++  "version": "2.3.0",
+   "private": true,
+   "type": "module",
+   "description": "Local browser virtual console and software XPU reference simulator",
+--- 1.2.1/applications/silicon/scripts/windows/bootstrap.ps1
++++ 1.3.0/applications/silicon/scripts/windows/bootstrap.ps1
+@@ -1,4 +1,4 @@
+-# JA21 Silicon Console 2.2.2 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.3.0 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -84,7 +84,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.2.2'
++        $request.UserAgent = 'JA21-Silicon-Console/2.3.0'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -263,15 +263,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.2.2')) {
+-        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1 and 2.2.2 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.2.2', '2.3.0')) {
++        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1, 2.2.2 and 2.3.0 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.2.2 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.3.0 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+--- 1.2.1/applications/silicon/scripts/windows/runtime-lock.json
++++ 1.3.0/applications/silicon/scripts/windows/runtime-lock.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "JA21/WINDOWS_RUNTIME_LOCK/1",
+-  "consoleVersion": "2.2.2",
++  "consoleVersion": "2.3.0",
+   "nodeVersion": "24.21.0",
+   "lts": "Krypton",
+   "verifiedDate": "2026-10-13",
+--- 1.2.1/applications/silicon/src/app.js
++++ 1.3.0/applications/silicon/src/app.js
+@@ -9,8 +9,8 @@
+ $('version').textContent=VERSION;
+ function notice(text) {$('notice').textContent=text;$('notice').hidden=!text;}
+ function fault(error){notice(error?.message || String(error));}
+-function setRunning(on,label){if(!on){russlRevision=null;russlPresent=false;}for(const button of document.querySelectorAll('#russl button'))button.disabled=!on;running=on;$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
+-function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);if(name==='russl' && running)refreshRussl().catch(fault);}
++function setRunning(on,label){if(!on){russlRevision=null;russlPresent=false;xpuToken=null;}for(const button of document.querySelectorAll('#russl button'))button.disabled=!on;running=on;xpuControls();$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
++function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);if(name==='russl' && running)refreshRussl().catch(fault);if(name==='xpu'&&running&&!xpuBusy)refreshXpu().catch(fault);}
+ for(const b of document.querySelectorAll('nav button'))b.addEventListener('click',()=>view(b.dataset.view));
+ function render(t){if(!t || t!==active)return;t.renderer.render();$('transcript').textContent=t.screen.grid.map(row=>row.map(c=>c.hidden?' ':c.ch).join('').trimEnd()).join('\n');}
+ function choose(t){active=t;for(const item of terminals){item.canvas.hidden=item!==t;item.canvas.style.display=item===t?'block':'none';item.button.classList.toggle('current',item===t);}fit();render(t);}
+@@ -37,7 +37,7 @@
+   catch(error){remove(t);throw error;}
+   fit();return t;
+ }
+-async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();if($('russl').classList.contains('active'))await refreshRussl();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
++async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();if($('russl').classList.contains('active'))await refreshRussl();if($('xpu').classList.contains('active'))await refreshXpu();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
+ function sendCommand(command){if(!active?.socket || !running)throw new Error('no active terminal');if(typeof command!=='string' || command.length>4096 || /[\x00-\x1f\x7f-\x9f]/.test(command))throw new Error('enter one command line, up to 4096 characters, without terminal control characters');active.socket.write('\x15'+command+'\r');}
+ $('command-form').addEventListener('submit',e=>{e.preventDefault();const input=$('command');if(!input.value.trim())return;try{sendCommand(input.value);input.value='';notice('');}catch(error){fault(error);}});
+ $('command').addEventListener('keydown',e=>{if(e.ctrlKey && e.key.toLowerCase()==='c'){e.preventDefault();try{active?.socket?.signal();}catch(error){fault(error);}}});
+@@ -82,4 +82,26 @@
+ $('russl-import').addEventListener('click',()=>$('russl-file').click());
+ $('russl-file').addEventListener('change',async()=>{const input=$('russl-file'),file=input.files[0];input.value='';if(!file)return;try{if(file.size>192*1024)throw new Error('field TIFF exceeds 192 KiB');if(russlRevision===null)await refreshRussl();if(russlPresent&&!confirm('Replace the staged TIFF with the selected local file? The live XPU is not changed.'))return;const bytes=new Uint8Array(await file.arrayBuffer());await russlAction('import',{bytes});notice('TIFF validated and staged. Apply explicitly to change the live XPU.');}catch(error){fault(error);}});
+ 
++// Semi-sili computation runs in a detached preview; Save publishes a validated volume transaction.
++let xpuToken=null,xpuBusy=false;
++function xpuControls(){for(const b of document.querySelectorAll('#xpu button'))b.disabled=!running||xpuBusy;$('xpu-cancel').disabled=!running||!xpuBusy;$('xpu-apply').disabled=!running||xpuBusy||!xpuToken;}
++function showXpu(result){
++  xpuToken=result.canApply?result.token:null;
++  const receipt=result.receipt;
++  $('xpu-status').textContent=receipt?`${receipt.status} · ${receipt.summary.samples.toLocaleString()} samples · ${receipt.gpu.status}`:'No run yet.';
++  $('xpu-results').textContent=JSON.stringify(receipt??result,null,2);
++  if(result.preview){pixels('xpu-phase',result.preview.phase);pixels('xpu-intensity',result.preview.intensity);}
++  xpuControls();
++}
++async function refreshXpu(){const info=await link.rpc('xpu',{action:'info'});xpuToken=info.draft?.canApply?info.draft.token:null;$('xpu-saved').textContent=info.present?`Saved neuron bank · ${info.ring} · sequence ${info.sequence} · ${info.historyFrames} history frames`:'No saved neuron bank.';if(info.savedReceipt&&!info.draft){$('xpu-status').textContent=info.savedReceipt.historical?'Saved receipt is historical. Run again for fresh CPU/GPU confirmation.':`${info.savedReceipt.status} · saved this session · ${info.savedReceipt.gpu.status}`;$('xpu-results').textContent=JSON.stringify(info.savedReceipt,null,2);}xpuControls();return info;}
++async function xpuAction(action,args={}){if(xpuBusy)throw new Error('wait for the current XPU operation');xpuBusy=true;xpuToken=null;xpuControls();try{return await link.rpc('xpu',{action,args});}finally{xpuBusy=false;xpuControls();}}
++$('xpu-form').addEventListener('submit',async e=>{e.preventDefault();try{if(!$('xpu-form').reportValidity())return;$('xpu-status').textContent='Sampling and checking the numerical field…';const result=await xpuAction('run',{prime:Number($('xpu-prime').value),precision:Number($('xpu-precision').value),operation:$('xpu-operation').value,operand:Number($('xpu-operand').value),steps:Number($('xpu-steps').value),source:$('xpu-source').value,requireGpu:$('xpu-mode').value==='gpu'});showXpu(result);notice(result.canApply?'Preview checked. Save result to retain the neuron bank and publish its field.':'GPU requirement unmet. Details are in the run receipt.');}catch(error){fault(error);$('xpu-status').textContent='Run stopped; saved state retained.';}});
++$('xpu-cancel').addEventListener('click',()=>{xpuToken=null;link.rpc('xpu-cancel').then(result=>notice(result.commitInProgress?'The volume transaction is already committing. Refresh to see its result.':'Cancellation requested; no preview will be saved.')).catch(fault);});
++$('xpu-apply').addEventListener('click',async()=>{try{if(!xpuToken)throw new Error('run a checked preview first');const token=xpuToken;const result=await xpuAction('apply',{token});$('xpu-results').textContent=JSON.stringify(result.receipt,null,2);$('xpu-status').textContent=`${result.receipt.status} · saved`;await refreshXpu();notice('Neuron bank and live field saved in one volume transaction.');}catch(error){fault(error);}});
++$('xpu-refresh').addEventListener('click',()=>refreshXpu().catch(fault));
++$('xpu-receipt').addEventListener('click',()=>{try{const text=$('xpu-results').textContent;if(!text||text==='No run yet.')throw new Error('run or load a receipt first');JSON.parse(text);download('JA21-semisili-receipt.json',text,'application/json');}catch(error){fault(error);}});
++$('xpu-export').addEventListener('click',async()=>{try{const result=await xpuAction('export');download('JA21-Pixel160-neuron-field.tif',result.bytes,'image/tiff');}catch(error){fault(error);}});
++$('xpu-import').addEventListener('click',()=>$('xpu-file').click());
++$('xpu-file').addEventListener('change',async()=>{const file=$('xpu-file').files[0];$('xpu-file').value='';if(!file)return;try{if(file.size>192*1024)throw new Error('Pixel160 TIFF exceeds 192 KiB');showXpu(await xpuAction('import',{bytes:new Uint8Array(await file.arrayBuffer())}));notice('Pixel160 field checked. Import has CPU validation; run its saved bank to obtain GPU arithmetic confirmation.');}catch(error){fault(error);}});
++
+ start();
+--- 1.2.1/applications/silicon/src/lib/ram-link.js
++++ 1.3.0/applications/silicon/src/lib/ram-link.js
+@@ -1,10 +1,11 @@
+ import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from '../vendor/vws/frame.js';
+ export class RamLink extends EventTarget {
+-  constructor() { super(); this.worker=null;this.epoch=null;this.ready=null;this.sockets=new Set();this.pending=new Map();this.sequence=0;this.generation=0; }
++  constructor({validation=false}={}) { super(); if(typeof validation!=='boolean')throw new TypeError('validation profile must be boolean');this.validation=validation;this.worker=null;this.epoch=null;this.ready=null;this.sockets=new Set();this.pending=new Map();this.sequence=0;this.generation=0; }
+   event(type,detail) { this.dispatchEvent(new CustomEvent(type,{detail})); }
+   start() {
+     this.destroy('restarting'); const generation=++this.generation;
+-    const worker=new Worker(new URL('../vendor/ram-worker.js',import.meta.url),{type:'module'});this.worker=worker;
++    const workerUrl=new URL('../vendor/ram-worker.js',import.meta.url);if(this.validation)workerUrl.search='?validation=semisili-v1';
++    const worker=new Worker(workerUrl,{type:'module'});this.worker=worker;
+     this.ready=new Promise((resolve,reject)=>{
+       let settled=false;
+       const settle=(error,value)=>{if(settled)return;settled=true;clearTimeout(timer);this.bootReject=null;error?reject(error):resolve(value);};
+@@ -62,7 +63,7 @@
+     if(!this.worker)return Promise.reject(new Error('worker not available'));
+     if(this.pending.size>=64)return Promise.reject(new Error('too many pending management requests'));
+     if(!options || typeof options!=='object' || Array.isArray(options))return Promise.reject(new Error('invalid management options'));
+-    return new Promise((resolve,reject)=>{const id=`r${++this.sequence}`;const timer=setTimeout(()=>{this.pending.delete(id);reject(new Error(`${op} timed out`));},15000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({...options,type:'rpc',id,op});}catch(error){clearTimeout(timer);this.pending.delete(id);reject(error);}});
++    return new Promise((resolve,reject)=>{const id=`r${++this.sequence}`;const timer=setTimeout(()=>{this.pending.delete(id);if(op==='xpu'&&options.action==='run')this.worker?.postMessage({type:'rpc',id:`cancel-${id}`,op:'xpu-cancel'});reject(new Error(`${op} timed out`));},15000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({...options,type:'rpc',id,op});}catch(error){clearTimeout(timer);this.pending.delete(id);reject(error);}});
+   }
+   destroy(reason='client stopped') {
+     const error=new Error(reason);this.bootReject?.(error);this.bootReject=null;for(const s of [...this.sockets])s.close(reason);for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error);}this.pending.clear();this.worker?.terminate();this.worker=null;this.epoch=null;this.ready=null;this.generation++;
+--- 1.2.1/applications/silicon/src/vendor/ram-worker.js
++++ 1.3.0/applications/silicon/src/vendor/ram-worker.js
+@@ -3,25 +3,28 @@
+ import { SpiralKernel, validGeometry } from './spiral/kernel.js';
+ import { VFS } from './spiral/vfs.js';
+ import { NODES } from './spiral/commands/ram.js';
+-import { DEVICE, readVolume, writeVolume, revisionOf } from './spiral/ssd.js';
++import { DEVICE, VALIDATION_PROFILE, readVolume, writeVolume, revisionOf } from './spiral/ssd.js';
+ import { assertBackupSize } from './spiral/volume-format.js';
+ import { Hpu } from './spiral/hpu.js';
+ import { Buffer } from './spiral/buffer.js';
+ import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from './vws/frame.js';
+ import { FlowWindow, MAX_QUEUE } from './vws/flow.js';
++import { prepareModel, loadModel, saveModel, modelField, exportModelTiff, importModelTiff, STATE_PATH, RECEIPT_PATH } from '../lib/semisili-model.js';
++import { confirmFiniteGpu } from '../lib/semisili-gpu.js';
+ const LIMITS={maxBytes:2*1024*1024,maxNodes:1500};
+ const startedAt=Date.now(), serverEpoch=crypto.randomUUID(), enc=new TextEncoder();
+ const connections=new Set(), bySid=new Map();
+ let kernel, hpu, phase='booting', revision=0, dirty=0, savedDirty=0, pending=null, timer, releaseLock, ownsLock=false, factorySeal='', imageCache=null, rpcBusy=false;
+ let lastRecord=null;
++let xpuDraft=null, xpuJob=null, xpuCancelEpoch=0, xpuCommitting=false, xpuProof=null;
+ const disk={device:DEVICE, model:'IndexedDB virtual volume (not NVMe)', fs:'virtual', mount:'/', synced:false, restored:false, writtenAt:0, error:''};
+ function message(error) { return String(error?.message || error).slice(0,512); }
+ async function hash(text) { const out=await crypto.subtle.digest('SHA-256',enc.encode(text)); return [...new Uint8Array(out)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
+ function seed(k) {
+   k.vfs.mkdir('/var/hpu',{recursive:true}); k.vfs.mkdir('/usr/share/doc',{recursive:true}); k.vfs.mkdir('/df/nodes',{recursive:true});
+   k.vfs.writeFile('/etc/os-release',`NAME=JA21 Silicon Console\nVERSION=${VERSION}\nPROFILE=${PROFILE}\nIMPLEMENTATION=JavaScript-software-simulation\n`);
+-  k.vfs.writeFile('/home/operator/README', 'JA21 software console. Commands operate inside a bounded virtual filesystem.\nUse help, disk, xpuinfo, hpu gate xor 1 0, hpu bytes, sync.\nNo native shell, hardware GPU/XPU, physical CXL, or quantum device is accessed.\nExport a backup before closing. Browser storage can be cleared or evicted.\n');
+-  k.vfs.writeFile('/usr/share/doc/architecture.txt','Browser UI -> MessageChannel frames -> worker -> SPIRAL shell -> VFS / numerical HPU -> IndexedDB.\nThe local Node server only serves static files. No remote WebSocket, authentication service, native PTY, or arbitrary host command execution.\nimage verify compares canonical content with the current factory seed, not a trusted signature.\n');
++  k.vfs.writeFile('/home/operator/README', 'JA21 RAM-resident numerical console. Use the Semi-sili XPU tab for finite p-adic phase arithmetic and neuron sampling.\nGPU-required runs dispatch WebGPU and compare every arithmetic result; CPU preview is available explicitly.\nUse help, disk, xpuinfo, hpu gate xor 1 0, hpu bytes, sync. Legacy hpu bytes remains CPU-only.\nExport a backup before closing. Browser storage can be cleared or evicted.\n');
++  k.vfs.writeFile('/usr/share/doc/architecture.txt','Browser UI -> MessageChannel frames -> worker -> bounded numerical HPU / semi-sili model -> IndexedDB.\nThe native presenter or local static server serves the same application. WebGPU confirms finite ring arithmetic when supported. Phase and neuron evolution run on the CPU.\nNo native shell or arbitrary host command execution. image verify compares canonical content with the current factory seed, not a trusted signature.\n');
+   for (const n of NODES) { k.vfs.mkdir(`/df/nodes/${n.node}`,{recursive:true}); k.vfs.writeFile(`/df/nodes/${n.node}/image.txt`,`${n.node}\nrole: ${n.role}\nstatus: descriptive virtual-node manifest only; no booted VM\n`); }
+ }
+ function markDirty() { dirty++; disk.synced=false; imageCache=null; clearTimeout(timer); timer=setTimeout(()=>{ flush().catch(e=>{ disk.error=message(e); }); },80); }
+@@ -53,11 +56,110 @@
+   const vfs=new VFS({...LIMITS,seed:false}); vfs.importSnapshot(record.snap);
+   const processor=new Hpu();
+   if(vfs.exists('/var/hpu/field.bin') && !processor.load(vfs.readFile('/var/hpu/field.bin'))) throw new Error('invalid HPU snapshot; existing volume retained without writes');
++  if(vfs.exists(STATE_PATH))loadModel(String(vfs.readFile(STATE_PATH)));
++  if(vfs.exists(RECEIPT_PATH))await validatedReceipt(vfs);
+   return {vfs,processor};
+ }
+ function publishHolo() { if(hpu && phase==='ready') postMessage({type:'holo',epoch:serverEpoch,payload:hpu.preview()}); }
+ async function image() { if(!imageCache) imageCache=hash(JSON.stringify(kernel.vfs.canonicalSnapshot())); return {seal:factorySeal,digest:await imageCache,epoch:serverEpoch,profile:PROFILE}; }
+-function persistHpu() { kernel.vfs.mkdir('/var/hpu',{recursive:true}); kernel.vfs.writeFile('/var/hpu/field.bin',Buffer.from(hpu.save())); publishHolo(); }
++function persistHpu() { xpuDraft=null;xpuProof=null; kernel.vfs.mkdir('/var/hpu',{recursive:true}); kernel.vfs.writeFile('/var/hpu/field.bin',Buffer.from(hpu.save())); publishHolo(); }
++
++function xpuPrior(){return kernel.vfs.exists(STATE_PATH)?loadModel(String(kernel.vfs.readFile(STATE_PATH))):null;}
++async function validatedReceipt(vfs){
++  if(!vfs.exists(STATE_PATH))throw new Error('XPU receipt has no neuron bank');
++  const text=String(vfs.readFile(RECEIPT_PATH));if(enc.encode(text).length>65536)throw new Error('XPU receipt exceeds limit');
++  const r=JSON.parse(text),digest=/^[a-f0-9]{64}$/;
++  if(!r||typeof r!=='object'||Array.isArray(r)||r.schema!=='JA21-SEMISILI-RUN/1'||
++    !['CPU_VALIDATED','CPU_AND_GPU_CONFIRMED'].includes(r.status)||r.publication!=='COMMITTED'||
++    typeof r.engine!=='string'||!/^\d+\.\d+\.\d+$/.test(r.engine)||r.engine.length>32||
++    typeof r.serverEpoch!=='string'||r.serverEpoch.length>64||typeof r.job!=='string'||r.job.length>64||
++    !Number.isSafeInteger(r.createdAt)||r.createdAt<0||!Number.isSafeInteger(r.committedAt)||r.committedAt<r.createdAt||
++    !digest.test(r.sourceFieldSha256)||!digest.test(r.stateSha256)||!r.summary||r.summary.samples!==4096||r.summary.cpu?.status!=='PASS'||
++    typeof r.gpu?.status!=='string'||r.gpu.status.length>64||typeof r.gpu?.gpu?.hardwareConfirmed!=='boolean'||
++    !Array.isArray(r.coverage?.cpu)||!Array.isArray(r.coverage?.gpu))throw new Error('invalid saved XPU receipt');
++  const model=loadModel(String(vfs.readFile(STATE_PATH))),modulus=model.config.prime**model.config.precision;
++  if(r.status==='CPU_AND_GPU_CONFIRMED'&&(r.gpu.schema!=='JA21-FINITE-GPU-CONFIRMATION/1'||r.gpu.fixture!==false||
++    r.gpu.status!=='GPU_CONFIRMED'||r.gpu.gpu.hardwareConfirmed!==true||r.gpu.gpu.apiConfirmed!==true||r.gpu.gpu.fallback!==false||
++    r.gpu.comparison?.status!=='PASS'||r.gpu.comparison?.mismatches!==0||r.gpu.comparison?.elements!==4096||
++    r.gpu.coverage?.stage!=='finite-arithmetic'||r.gpu.coverage?.samples!==4096||r.gpu.coverage?.modulus!==modulus||
++    r.gpu.coverage?.operation!==model.config.operation||r.summary.operation!==model.config.operation||r.summary.modulus!==modulus||
++    r.summary.cpu.comparisonElements!==4096||r.coverage.gpu.length!==1||r.coverage.gpu[0]!=='finite ring arithmetic'))throw new Error('incoherent saved GPU receipt');
++  if(r.status==='CPU_VALIDATED'&&(r.gpu.gpu.hardwareConfirmed!==false||r.coverage.gpu.length!==0))throw new Error('incoherent saved CPU receipt');
++  if(r.stateSha256!==await hash(String(vfs.readFile(STATE_PATH))))throw new Error('XPU receipt state checksum mismatch');
++  return r;
++}
++async function fieldDigest(){const data=hpu.save();const out=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(out)].map(b=>b.toString(16).padStart(2,'0')).join('');}
++function xpuInfo(){
++  const prior=xpuPrior();let receipt=null;
++  if(kernel.vfs.exists(RECEIPT_PATH)){
++    const text=String(kernel.vfs.readFile(RECEIPT_PATH));if(text.length>65536)throw new Error('XPU receipt exceeds limit');
++    receipt=JSON.parse(text);
++  }
++  const currentProof=!!receipt&&xpuProof!==null&&xpuProof.stateText===String(kernel.vfs.readFile(STATE_PATH))&&xpuProof.receiptText===String(kernel.vfs.readFile(RECEIPT_PATH));
++  return {present:!!prior,path:STATE_PATH,sequence:prior?.current.sequence??0,historyFrames:prior?.frames.length??0,
++    ring:prior?`${prior.config.prime}^${prior.config.precision}`:null,revision:String(revision),
++    capability:{secureContext:self.isSecureContext,webGpuApi:!!navigator.gpu,hardwareGpu:'requires successful dispatch and readback'},
++    savedReceipt:receipt?{...receipt,historical:!currentProof,freshHardwareConfirmation:currentProof&&receipt.status==='CPU_AND_GPU_CONFIRMED'}:null,
++    draft:xpuDraft?{token:xpuDraft.token,canApply:xpuDraft.canApply,receipt:xpuDraft.receipt}:null};
++}
++async function xpuOperation(action,args={},cancelEpoch=xpuCancelEpoch){
++  if(!['info','run','apply','export','import'].includes(action))throw new Error('unsupported XPU action');
++  if(!args||typeof args!=='object'||Array.isArray(args))throw new Error('invalid XPU arguments');
++  if(action==='info')return xpuInfo();
++  if(action==='export'){const prior=xpuPrior();if(!prior)throw new Error('no saved neuron field');return {bytes:exportModelTiff(prior)};}
++  const baseRevision=revision,baseDigest=await fieldDigest();
++  if(action==='run'||action==='import'){
++    if(cancelEpoch!==xpuCancelEpoch)throw new Error('XPU run cancelled before startup');
++    xpuDraft=null;
++    const controller=new AbortController(),job={id:crypto.randomUUID(),controller};xpuJob=job;
++    try{
++      let candidate,confirmation;
++      if(action==='run'){
++        candidate=prepareModel({re:hpu.re,im:hpu.im,prior:xpuPrior(),args});
++        if(candidate.state.config.requireGpu)confirmation=await confirmFiniteGpu({a:candidate.a,b:candidate.b,modulus:candidate.ring.modulus,operation:candidate.state.config.operation,expected:candidate.expected},{signal:controller.signal,timeoutMs:10000});
++      }else{
++        if(Object.keys(args).some(k=>k!=='bytes')||!(args.bytes instanceof Uint8Array)||args.bytes.length>192*1024)throw new Error('select a bounded Pixel160 TIFF');
++        const state=importModelTiff(args.bytes),text=saveModel(state);
++        candidate={state,text,summary:{samples:4096,operation:'import',cpu:{status:'PASS',arithmetic:'not rerun; finite profile and phase readout validated'},canonicalFrameBytes:81920,stateBytes:enc.encode(text).length}};
++      }
++      if(controller.signal.aborted||xpuJob!==job||phase!=='ready')throw new Error('XPU run cancelled');
++      if(baseRevision!==revision||baseDigest!==await fieldDigest())throw new Error('resident state changed during XPU validation; retry');
++      const required=action==='run'&&candidate.state.config.requireGpu;
++      const canApply=!required||confirmation?.receipt.gpu.hardwareConfirmed===true;
++      const receipt={schema:'JA21-SEMISILI-RUN/1',engine:VERSION,serverEpoch,job:job.id,createdAt:Date.now(),
++        sourceFieldSha256:baseDigest,stateSha256:await hash(candidate.text),summary:candidate.summary,
++        gpu:confirmation?.receipt??{status:'NOT_RUN',gpu:{hardwareConfirmed:false}},
++        coverage:{cpu:['phase arithmetic','Float32 phase readout','finite neuron update','Pixel160 state validation'],gpu:confirmation?.receipt.gpu.hardwareConfirmed?['finite ring arithmetic']:[]},
++        status:canApply?(required?'CPU_AND_GPU_CONFIRMED':'CPU_VALIDATED'):'GPU_REQUIREMENT_UNMET',publication:'PREVIEW'};
++      if(controller.signal.aborted||xpuJob!==job)throw new Error('XPU run cancelled');
++      xpuDraft={...candidate,receipt,canApply,token:job.id,baseRevision,baseDigest};
++      return {token:job.id,canApply,receipt,preview:previewModel(candidate.state)};
++    }finally{if(xpuJob===job)xpuJob=null;}
++  }
++  if(Object.keys(args).some(k=>k!=='token')||typeof args.token!=='string'||!xpuDraft||args.token!==xpuDraft.token)throw new Error('run and review a new XPU preview before saving');
++  const draft=xpuDraft;
++  if(!draft.canApply)throw new Error('required hardware GPU confirmation was not completed');
++  if(draft.baseRevision!==revision||draft.baseDigest!==await fieldDigest())throw new Error('XPU preview is stale; run again before saving');
++  // Prepare a detached, quota-checked volume and processor before the atomic volume transaction.
++  const nextVfs=new VFS({...LIMITS,seed:false});nextVfs.importSnapshot(kernel.vfs.exportSnapshot());
++  const field=modelField(draft.state),processor=new Hpu();processor.re.set(field.re);processor.im.set(field.im);
++  processor.op=`semi-sili ${draft.state.config.operation}`;processor.stage='semisili';processor.margin=draft.receipt.summary.cpu.float32MinimumMargin??0;
++  const fieldBytes=processor.save(),receipt={...draft.receipt,publication:'COMMITTED',committedAt:Date.now()};
++  nextVfs.mkdir('/var/xpu',{recursive:true});nextVfs.mkdir('/var/hpu',{recursive:true});
++  const receiptText=JSON.stringify(receipt);
++  nextVfs.writeFile(STATE_PATH,draft.text);nextVfs.writeFile(RECEIPT_PATH,receiptText);nextVfs.writeFile('/var/hpu/field.bin',Buffer.from(fieldBytes));
++  const record=await makeRecord(nextVfs.exportSnapshot(),revision+1);
++  if(cancelEpoch!==xpuCancelEpoch||xpuDraft!==draft)throw new Error('XPU save cancelled before commit');
++  xpuCommitting=true;
++  try{
++  revision=await writeVolume(record,revision);lastRecord=record;
++  // No GPU await remains between durable acceptance and live publication.
++  kernel.vfs=nextVfs;kernel.vfs.onMutate=markDirty;hpu=processor;kernel.host.hpu=hpu;
++  savedDirty=dirty;disk.synced=true;disk.writtenAt=record.writtenAt;disk.error='';imageCache=null;xpuDraft=null;xpuProof={stateText:draft.text,receiptText};publishHolo();
++  return {saved:true,receipt,...xpuInfo()};
++  }finally{xpuCommitting=false;}
++}
++function previewModel(state){const field=modelField(state),processor=new Hpu();processor.re.set(field.re);processor.im.set(field.im);return processor.preview();}
+ const browser={visible:false,url:'about:blank',engine:'built-in information pane; not a separate browser engine'};
+ function openBrowser(url='about:blank') { if(!['about:blank','ram://status'].includes(url)) throw new Error('external navigation is disabled in the isolated local profile'); browser.visible=true; browser.url=url; postMessage({type:'browser',payload:{...browser}}); return {...browser}; }
+ async function stop(reboot=false) {
+@@ -153,6 +255,11 @@
+   switch(m.op){
+     case 'sync':await flush();return {...disk};
+     case 'commands':return kernel.registry.list().map(d=>({name:d.name,summary:d.summary,usage:d.usage,aliases:d.aka || []}));
++    case 'xpu': {
++      if(!ownsLock||[...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for active commands before XPU operations');
++      const resume=kernel.holdCommands(),cancelEpoch=xpuCancelEpoch;
++      try{await flush();return await xpuOperation(m.action,m.args??{},cancelEpoch);}finally{resume();}
++    }
+     case 'russl': {
+       if(!ownsLock || [...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for active commands before TIFF operations');
+       const operation=m.action;
+@@ -177,13 +284,19 @@
+   if(m?.type==='attach') { if(e.ports?.length===1)bind(e.ports[0]);else for(const port of e.ports || [])port.close();return; }
+   for(const port of e.ports || [])port.close();
+   if(m?.type==='rpc') {
++    // Cancellation has a separate, literal control path so it can interrupt an awaited GPU run.
++    if(m.op==='xpu-cancel'){
++      if(typeof m.id!=='string'||m.id.length>64){postMessage({type:'rpc',id:typeof m.id==='string'?m.id.slice(0,64):'',error:'bad RPC'});return;}
++      if(xpuCommitting){postMessage({type:'rpc',id:m.id,result:{cancelled:false,commitInProgress:true}});return;}
++      xpuCancelEpoch++;xpuJob?.controller.abort();xpuDraft=null;postMessage({type:'rpc',id:m.id,result:{cancelled:true}});return;
++    }
+     if(rpcBusy){postMessage({type:'rpc',id:m.id,error:'another management request is active'});return;}
+     rpcBusy=true;rpc(m).then(result=>postMessage({type:'rpc',id:m.id,result}),error=>postMessage({type:'rpc',id:m.id,error:message(error)})).finally(()=>{rpcBusy=false;});
+   }
+ };
+ async function main(){
+   if(!self.isSecureContext || !navigator.locks || !self.indexedDB || !crypto.subtle) throw new Error('secure context, Web Locks, IndexedDB and Web Crypto are required');
+-  await navigator.locks.request('ja21-ssd:nvme0n1:writer-v2',{ifAvailable:true},async lock=>{
++  await navigator.locks.request(VALIDATION_PROFILE?'ja21-semisili-validation-v1:writer':'ja21-ssd:nvme0n1:writer-v2',{ifAvailable:true},async lock=>{
+     if(!lock)throw new Error('another window owns this volume; close it and retry');
+     ownsLock=true;
+     const held=new Promise(resolve=>{releaseLock=resolve;});
+--- 1.2.1/applications/silicon/src/vendor/spiral/commands/system.js
++++ 1.3.0/applications/silicon/src/vendor/spiral/commands/system.js
+@@ -67,8 +67,8 @@
+         'Local browser worker, SPIRAL shell, ANSI terminal, bounded virtual filesystem.',
+         'IndexedDB provides origin-scoped storage; export backups before clearing site data.',
+         'The XPU/HPU is a JavaScript software model. Both byte-processing paths run on CPU.',
+-        'No native GPU, quantum hardware, CXL memory pool, VM boot, or native PTY is provided.',
+-        'The Node host serves static files only. MessageChannel transports terminal frames.',
++        'Use the Semi-sili XPU tab for phase/neuron computation and actual WebGPU integer confirmation.',
++        'The native presenter or static developer host serves the app. MessageChannel transports terminal frames.',
+         'Type help, xpuinfo, disk, image verify, or hpu gate xor 1 0.', ''
+       ].join('\n'));
+       return 0;
+--- 1.2.1/applications/silicon/src/vendor/spiral/ssd.js
++++ 1.3.0/applications/silicon/src/vendor/spiral/ssd.js
+@@ -1,6 +1,8 @@
+ /** Same-origin IndexedDB virtual volume; NOT a physical NVMe/block device. */
+ export const DEVICE = 'nvme0n1'; // Stable legacy key: changing it would hide existing user data.
+-const DB_NAME = 'ja21-ssd', STORE = 'volumes';
++// A literal browser acceptance profile gets its own volume; ordinary console data stays in ja21-ssd.
++export const VALIDATION_PROFILE=globalThis.location?.search==='?validation=semisili-v1';
++const DB_NAME = VALIDATION_PROFILE?'ja21-semisili-validation-v1':'ja21-ssd', STORE = 'volumes';
+ async function openDb() {
+   return new Promise((resolve,reject) => {
+     let done = false;
+--- 1.2.1/applications/silicon/src/version.js
++++ 1.3.0/applications/silicon/src/version.js
+@@ -1,3 +1,3 @@
+-export const VERSION = "2.2.2";
++export const VERSION = "2.3.0";
+ export const PRODUCT = "JA21 Silicon Console";
+ export const PROFILE = "LOCAL_BROWSER";
+--- 1.2.1/applications/silicon/tests/launcher-contract.test.mjs
++++ 1.3.0/applications/silicon/tests/launcher-contract.test.mjs
+@@ -124,7 +124,7 @@
+  assert.match(ps,/\$env:JA21_OFFLINE -eq '1'/);
+  assert.match(ps,/\$mode -eq '--preflight'/);
+  assert.match(ps,/Server\/browser were not started/);
+- assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0', '2\.2\.1', '2\.2\.2'\)/);
++ assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0', '2\.2\.1', '2\.2\.2', '2\.3\.0'\)/);
+ });
+ test('launcher/static: logs and native error status are retained',()=>{
+  assert.match(ps,/launcher-\{0\}-\{1\}\.log/);
+--- 1.2.1/applications/silicon/web/index.html
++++ 1.3.0/applications/silicon/web/index.html
+@@ -1,11 +1,11 @@
+ <!doctype html>
+-<html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name="referrer" content="no-referrer"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.2</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
++<html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name="referrer" content="no-referrer"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.3.0</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
+ <body>
+-<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.2</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
+-<nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL BROWSER · SOFTWARE XPU</span></nav>
++<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.3.0</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
++<nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="xpu" aria-pressed="false">Semi-sili XPU</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL · CPU + WEBGPU VALIDATION</span></nav>
+ <div id="notice" role="status" aria-live="polite" hidden></div>
+ <main>
+-<section id="console" class="view active"><div class="console-grid"><div class="terminal-card"><div class="toolbar"><div id="tabs" aria-label="Terminal sessions"></div><button id="add-tab" aria-label="Open terminal">+ Terminal</button></div><div id="terminal-container"></div><form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" aria-label="Command" placeholder="Type help, xpuinfo, or hpu bytes" maxlength="4096" spellcheck="false"><button type="submit">Run</button><button id="interrupt" type="button">Interrupt</button></form><div class="terminal-footer"><span id="session-status">Waiting for worker</span><span>Ctrl+C interrupts · no host shell</span></div></div><aside class="processor-card"><div class="eyebrow">FIELD PROCESSOR</div><h1>Software XPU</h1><p class="muted">64 × 64 complex field · JavaScript CPU</p><div class="field-pair"><figure><canvas id="phase" width="64" height="64" aria-label="Simulated phase field"></canvas><figcaption>PHASE / TIFF</figcaption></figure><figure><canvas id="intensity" width="64" height="64" aria-label="Simulated intensity field"></canvas><figcaption>INTENSITY / GIF</figcaption></figure></div><dl class="metrics"><div><dt>Operation</dt><dd id="operation">—</dd></div><div><dt>Spool</dt><dd id="spool">0 / 24</dd></div><div><dt>Propagation</dt><dd id="z">0 mm</dd></div><div><dt>Execution</dt><dd>CPU · no GPU API</dd></div></dl><div class="actions"><button data-command="hpu cycle">Run cycle</button><button data-command="hpu bytes">Run byte lanes</button><button data-command="hpu gate xor 1 0">Test XOR</button><button data-command="hpu reset">Reset field</button><button data-command="hpu tiff">Export TIFF to VFS</button><button data-command="hpu gif">Export GIF to VFS</button></div><p class="fine">LUT equivalence is checked between two software loops. Simulated operations are not hardware FLOPS. TIFF and GIF are data exports, not independently executing processors.</p></aside></div><details class="transcript"><summary>Accessible terminal transcript (current screen)</summary><pre id="transcript" aria-live="off"></pre></details></section>
++<section id="console" class="view active"><div class="console-grid"><div class="terminal-card"><div class="toolbar"><div id="tabs" aria-label="Terminal sessions"></div><button id="add-tab" aria-label="Open terminal">+ Terminal</button></div><div id="terminal-container"></div><form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" aria-label="Command" placeholder="Type help, xpuinfo, or hpu bytes" maxlength="4096" spellcheck="false"><button type="submit">Run</button><button id="interrupt" type="button">Interrupt</button></form><div class="terminal-footer"><span id="session-status">Waiting for worker</span><span>Ctrl+C interrupts · no host shell</span></div></div><aside class="processor-card"><div class="eyebrow">FIELD PROCESSOR</div><h1>Software XPU</h1><p class="muted">64 × 64 complex field · JavaScript CPU</p><div class="field-pair"><figure><canvas id="phase" width="64" height="64" aria-label="Simulated phase field"></canvas><figcaption>PHASE / TIFF</figcaption></figure><figure><canvas id="intensity" width="64" height="64" aria-label="Simulated intensity field"></canvas><figcaption>INTENSITY / GIF</figcaption></figure></div><dl class="metrics"><div><dt>Operation</dt><dd id="operation">—</dd></div><div><dt>Spool</dt><dd id="spool">0 / 24</dd></div><div><dt>Propagation</dt><dd id="z">0 mm</dd></div><div><dt>Execution</dt><dd>CPU field model · GPU check in XPU lab</dd></div></dl><div class="actions"><button data-command="hpu cycle">Run cycle</button><button data-command="hpu bytes">Run byte lanes</button><button data-command="hpu gate xor 1 0">Test XOR</button><button data-command="hpu reset">Reset field</button><button data-command="hpu tiff">Export TIFF to VFS</button><button data-command="hpu gif">Export GIF to VFS</button></div><p class="fine">LUT equivalence is checked between two software loops. Simulated operations are not hardware FLOPS. TIFF and GIF are data exports, not independently executing processors.</p></aside></div><details class="transcript"><summary>Accessible terminal transcript (current screen)</summary><pre id="transcript" aria-live="off"></pre></details></section>
+ <section id="russl" class="view"><div class="section-heading"><div class="eyebrow">RUSSL CORPUS 2.0.0 · SCOPED PIXEL ADAPTER</div><h1>One field. Every pixel addressed.</h1><p>4 × 4 × 4 × 16 × 16 scalar sites, stored in a 128 × 128 Float64 TIFF atlas. Capture and edit a staged image; only Apply changes the live XPU.</p></div>
+ <div class="storage-actions"><button id="russl-capture">Capture live field</button><button id="russl-refresh">Refresh</button><button id="russl-export">Download field TIFF</button><button id="russl-import">Import field TIFF…</button><button id="russl-apply">Apply to live XPU…</button><button id="russl-receipt">Download SHA-256 receipt</button><input type="file" id="russl-file" accept=".tif,.tiff,image/tiff" hidden></div>
+ <p id="russl-status" role="status" class="fine">Refresh to inspect the staged TIFF.</p>
+@@ -14,8 +14,22 @@
+ <article><h2>Field record</h2><pre id="russl-summary" class="russl-output">No staged TIFF loaded.</pre></article>
+ <article><h2>Sample-exact versus visual exports</h2><p>The atlas stores real and imaginary Float32 samples widened exactly into Float64 slots, plus derived intensity and phase. No pixels are padding. Ordinary phase.tif remains a quantized unsigned 16-bit visualization and now declares that loss in its metadata.</p><p>Applying an atlas resets the GIF spool, recordings, byte lanes, counters and derived caches. Export a full volume backup before replacing a session you need to retain.</p></article>
+ <article><h2>Format and execution boundary</h2><p>Bounded, finite grayscale TIFF: little/big endian, classic TIFF or small BigTIFF, uncompressed strips. Atlas imports require the exact declared placement profile and matching sample checksum. Unsupported metadata, compression or page stacking is rejected.</p><p>The corpus's language, mechanics and OME-Zarr proposals remain separate. This adapter does not execute metadata or turn TIFF pixels into independent silicon, optical hardware, or a complete RUSSL/MSSL runtime.</p></article></div></section>
++<section id="xpu" class="view"><div class="section-heading"><div class="eyebrow">RAM-RESIDENT PHASE AND NEURON PIPELINE</div><h1>Semi-sili XPU</h1><p>Sample the live field, evolve a finite p-adic neuron bank, then read its numerical phase. GPU-required runs confirm every arithmetic result through WebGPU before Save is enabled.</p></div>
++<div class="system-grid"><article><h2>Run a checked preview</h2><form id="xpu-form"><div class="russl-indices">
++<label>Prime <select id="xpu-prime"><option value="2">2</option><option value="3">3</option><option value="5">5</option></select></label>
++<label>Precision <input id="xpu-precision" type="number" min="1" max="16" step="1" value="8" required></label>
++<label>Operation <select id="xpu-operation"><option value="add">Add</option><option value="sub">Subtract</option><option value="mul">Multiply</option><option value="negate">Negate</option><option value="complement">Digit complement</option></select></label>
++<label>Operand <input id="xpu-operand" type="number" min="0" max="65535" step="1" value="1" required></label>
++<label>Neuron steps <input id="xpu-steps" type="number" min="1" max="32" step="1" value="4" required></label></div>
++<div class="russl-edit-row"><label>Input <select id="xpu-source"><option value="field">Sample live field</option><option value="bank">Continue saved bank</option></select></label><label>Validation <select id="xpu-mode"><option value="gpu">Require hardware GPU confirmation</option><option value="cpu">CPU preview and validation</option></select></label></div>
++<p class="fine">The modulus prime raised to precision must be at most 65,536. The operand must be smaller than that modulus. Negation and digit complement are separate operations.</p>
++<button type="submit">Run preview</button><button id="xpu-cancel" type="button" disabled>Cancel run</button><button id="xpu-apply" type="button" disabled>Save result</button></form>
++<p id="xpu-status" role="status">No run yet.</p><p id="xpu-saved" class="fine">No saved neuron bank.</p></article>
++<article><h2>Sampled preview</h2><div class="field-pair"><figure><canvas id="xpu-phase" width="64" height="64" aria-label="Checked numerical phase preview"></canvas><figcaption>PHASE</figcaption></figure><figure><canvas id="xpu-intensity" width="64" height="64" aria-label="Numerical neuron amplitude preview"></canvas><figcaption>INTENSITY</figcaption></figure></div><p>The CPU models wave phases and finite neuron evolution. GPU confirmation covers exact ring arithmetic. Saving publishes the checked Float32 field and its neuron bank together.</p><p class="fine">Neuron amplitude is a numerical coupling. Quantum, optical and physical in-DRAM operations are research models; this pipeline uses the laptop's existing CPU and available GPU.</p></article>
++<article><h2>Keep and inspect a result</h2><div class="storage-actions"><button id="xpu-refresh">Refresh saved bank</button><button id="xpu-export">Download Pixel160 TIFF</button><button id="xpu-import">Import Pixel160 TIFF…</button><button id="xpu-receipt">Download run receipt</button><input type="file" id="xpu-file" accept=".tif,.tiff,image/tiff" hidden></div><p>Each logical cell has five exact 32-bit words: residue, activation, amplitude, real field and imaginary field. A TIFF byte raster retains those 20 bytes; the five logical coordinate axes are declared in its metadata.</p><p class="fine">Up to eight prior frames are retained in the saved bank. TIFF carries one frame. Imported files are checked before Save; their old GPU status is never treated as a fresh measurement. Export a full volume backup from Virtual storage.</p></article>
++<article><h2>Run receipt</h2><pre id="xpu-results" class="russl-output">No run yet.</pre></article></div></section>
+ <section id="commands" class="view"><div class="section-heading"><div class="eyebrow">REFERENCE</div><h1>Every command, one place.</h1><p>Search the live registry. “Insert” fills the command line without executing anything.</p></div><input type="search" id="search-commands" placeholder="Search names, descriptions, or usage" aria-label="Search commands"><div id="command-count" class="fine"></div><div id="command-list" class="command-list"></div></section>
+ <section id="storage" class="view"><div class="section-heading"><div class="eyebrow">ORIGIN-SCOPED STORAGE</div><h1>Your virtual volume.</h1><p>Two MiB of file contents, up to 1,500 nodes. Browser storage is not a backup and may be cleared or evicted.</p></div><div class="storage-actions"><button id="sync">Sync volume</button><button id="backup">Download backup</button><button id="previous-backup">Previous committed backup</button><button id="restore">Restore backup…</button><button id="persist">Request persistent storage</button><input id="restore-file" type="file" accept="application/json,.json" hidden></div><p id="storage-status" class="fine">No volume status yet.</p><form id="path-form"><label for="path">VFS path</label><input id="path" value="/var/hpu" maxlength="4096"><button>Open directory</button><button id="parent" type="button">Parent</button></form><div id="file-list"></div><p class="fine">Paths here belong to the virtual filesystem, not C:\ or D:\. Only selected exports are downloaded to your computer. Restore replaces the virtual volume after validation and preserves its previous committed revision.</p></section>
+-<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>The native console opens this application through a sealed local WebView2 mapping. Its JavaScript module worker performs the computation on the Windows host CPU. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No local Node server or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software processor model</h2><p>This specialized JavaScript field-and-byte model computes Fourier propagation, optical gates, phase retrieval, GIF spooling, and lookup-table transformations. It has no general-purpose CPU instruction set or ARM decoder and creates no physical silicon CPU. The native console and WebView2 execute on the machine's host processor.</p><p>Six table identities contain four distinct byte transformations; tables 1, 3 and 6 are identical. The deterministic byte selector produces 255 for input bytes 0–127 and 0 for 128–255. Scalar and 32-wide batched loops both run in JavaScript on CPU. Modeled steps and batches are not measured hardware clock cycles or GPU throughput.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.2</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>This embedded console uses the installed Microsoft WebView2 runtime and the included pinned SDK adapter. No Node.js runtime is required for this launch. Console 1.2.1 corrects execution descriptions; the software engine remains 2.2.2. Live worker execution and persistence remain unverified until the acceptance runner passes in a normal Windows session.</p></article></div></section>
+-</main><footer><span>JA21 2.2.2 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
++<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>The compiled native presenter opens this browser application through WebView2. The optional developer launcher uses a local static server. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>CPU models and measured GPU confirmation</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. Legacy “GPU” byte loops remain batched CPU loops. The Semi-sili XPU tab dispatches a separate WebGPU integer kernel and records actual readback confirmation when available.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.3.0</h2><p><a href="/validate.html">Open the browser validation kit</a>. It uses an isolated test volume and exports CPU, GPU and persistence results.</p><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. The native console requires WebView2 and uses the existing CPU/GPU. The optional developer launcher provisions a hash-verified private Node.js runtime.</p></article></div></section>
++</main><footer><span>JA21 2.3.0 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
+ </body></html>
+--- 1.2.1/host/SiliconApp.cs
++++ 1.3.0/host/SiliconApp.cs
+@@ -30,7 +30,7 @@
+ 
+         public static bool IsEntryDocument(Uri target)
+         {
+-            return IsConsoleOrigin(target) && (target.AbsolutePath == "/" || target.AbsolutePath == "/index.html");
++            return IsConsoleOrigin(target) && (target.AbsolutePath == "/" || target.AbsolutePath == "/index.html" || target.AbsolutePath == "/validate.html");
+         }
+ 
+         public static Uri ResolveEntryDocument(Uri target)
+@@ -68,11 +68,17 @@
+             int count = 0;
+             VerifyTree(packageRoot, root, RelativeRoot, hashes, ref count);
+             if (count == 0) throw new Exception("The software application mapping is empty.");
+-            string index = RuntimeSeal.Contained(packageRoot, RelativeRoot + "/index.html");
+-            string html = File.ReadAllText(index, Encoding.UTF8);
++            ValidateDocumentOverlay(RuntimeSeal.Contained(packageRoot, RelativeRoot + "/index.html"));
++            string validation = RuntimeSeal.Contained(packageRoot, RelativeRoot + "/validate.html");
++            if (File.Exists(validation)) ValidateDocumentOverlay(validation);
++            return root;
++        }
++
++        private static void ValidateDocumentOverlay(string document)
++        {
++            string html = File.ReadAllText(document, Encoding.UTF8);
+             if (!HasMeta(html, "http-equiv", "Content-Security-Policy", Csp) || !HasMeta(html, "name", "referrer", "no-referrer"))
+-                throw new Exception("The mapped software application is missing its required sealed CSP/referrer integration overlay.");
+-            return root;
++                throw new Exception("The mapped software application is missing its required sealed CSP/referrer integration overlay: " + Path.GetFileName(document));
+         }
+ 
+         private static void VerifyTree(string packageRoot, string directory, string relative, Dictionary<string, string> hashes, ref int count)
+--- 1.2.1/host/SiliconConsoleEntry.cs
++++ 1.3.0/host/SiliconConsoleEntry.cs
+@@ -9,9 +9,9 @@
+ using System.Web.Script.Serialization;
+ 
+ [assembly: AssemblyTitle("JA21 Software CPU Console")]
+-[assembly: AssemblyVersion("1.2.1.0")]
+-[assembly: AssemblyFileVersion("1.2.1.0")]
+-[assembly: AssemblyInformationalVersion("Console 1.2.1; software CPU/XPU 2.2.2; base browser 9.8.7")]
++[assembly: AssemblyVersion("1.3.0.0")]
++[assembly: AssemblyFileVersion("1.3.0.0")]
++[assembly: AssemblyInformationalVersion("Console 1.3.0; software CPU/XPU 2.3.0; base browser 9.8.7")]
+ 
+ namespace VBJA21
+ {
+@@ -51,7 +51,7 @@
+                 Environment.SetEnvironmentVariable("JA21_ALLOW_PRIVATE_HOSTS", "0");
+                 Environment.SetEnvironmentVariable("JA21_PORTABLE_ROOT", Path.Combine(root, "workspace"));
+                 ConfigurePortableEnvironment(root);
+-                Stage("native-entry", "software CPU/XPU 2.2.2; compiled native startup x64; WebView2 executes JavaScript; no Node/local server");
++                Stage("native-entry", "software CPU/XPU 2.3.0; compiled native presenter x64; WebView2 executes JavaScript; no Node or local server");
+                 RuntimeSeal.Verify(root);
+                 VerifyConfiguration(root);
+                 string mapping = SiliconApp.ValidateMappedRoot(root);
+@@ -117,13 +117,13 @@
+             }
+             Dictionary<string, object> build = ReadObject(root, "CONSOLE_BUILD.json");
+             if (!build.ContainsKey("software_cpu_console") || !(build["software_cpu_console"] is bool) || !(bool)build["software_cpu_console"] ||
+-                Convert.ToString(build["silicon_version"]) != "2.2.2" || Convert.ToString(build["console_version"]) != "1.2.1" ||
+-                File.ReadAllText(RuntimeSeal.Contained(root, "CONSOLE_VERSION")).Trim() != "1.2.1")
++                Convert.ToString(build["silicon_version"]) != "2.3.0" || Convert.ToString(build["console_version"]) != "1.3.0" ||
++                File.ReadAllText(RuntimeSeal.Contained(root, "CONSOLE_VERSION")).Trim() != "1.3.0")
+                 throw new Exception("Console build/version markers do not identify the integrated software CPU/XPU release.");
+             Dictionary<string, object> release = ReadObject(root, "applications/silicon/dist/release.json");
+-            if (Convert.ToString(release["version"]) != "2.2.2" || Convert.ToString(release["profile"]) != "LOCAL_BROWSER")
++            if (Convert.ToString(release["version"]) != "2.3.0" || Convert.ToString(release["profile"]) != "LOCAL_BROWSER")
+                 throw new Exception("Unexpected software CPU/XPU component version or runtime profile.");
+-            if (File.ReadAllText(RuntimeSeal.Contained(root, "applications/silicon/VERSION")).Trim() != "2.2.2")
++            if (File.ReadAllText(RuntimeSeal.Contained(root, "applications/silicon/VERSION")).Trim() != "2.3.0")
+                 throw new Exception("The software CPU/XPU component version markers disagree.");
+         }
+ 
+--- 1.2.1/host/Start-Console.ps1
++++ 1.3.0/host/Start-Console.ps1
+@@ -28,7 +28,7 @@
+     $settings = Get-Content -LiteralPath (Join-Path $PackageRoot 'console.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+     $build = Get-Content -LiteralPath (Join-Path $PackageRoot 'CONSOLE_BUILD.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+     $version = (Get-Content -LiteralPath (Join-Path $PackageRoot 'CONSOLE_VERSION') -Raw -Encoding UTF8).Trim()
+-    if ($build.software_cpu_console -ne $true -or $build.console_version -cne $version -or $build.silicon_version -cne '2.2.2') { throw 'This launcher requires the combined JA21 software CPU console build and matching release metadata.' }
++    if ($build.software_cpu_console -ne $true -or $build.console_version -cne $version -or $build.silicon_version -cne '2.3.0') { throw 'This launcher requires the combined JA21 software CPU console build and matching release metadata.' }
+     $silicon = Get-Content -LiteralPath (Join-Path $PackageRoot 'applications/silicon/package.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+     $siliconVersion = (Get-Content -LiteralPath (Join-Path $PackageRoot 'applications/silicon/VERSION') -Raw -Encoding UTF8).Trim()
+     $distribution = Get-Content -LiteralPath (Join-Path $PackageRoot 'applications/silicon/dist/release.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+--- 1.2.1/tools/SiliconPolicyAcceptance.cs
++++ 1.3.0/tools/SiliconPolicyAcceptance.cs
+@@ -48,6 +48,10 @@
+                 Refused(delegate { Call(_policy, "Check", new Uri(address)); }, "console private-host boundary bypassed");
+             Uri entry = (Uri)Call(_app, "ResolveEntryDocument", new Uri(origin + "?a=1#x"));
+             Check(entry.AbsolutePath == "/index.html" && entry.Query == "?a=1" && entry.Fragment == "#x", "root entry normalization changed origin/query/fragment");
++            Uri validation = (Uri)Call(_app, "ResolveEntryDocument", new Uri(origin + "validate.html"));
++            Check(validation.AbsolutePath == "/validate.html" && validation.GetLeftPart(UriPartial.Authority) == "https://ja21-silicon.invalid", "literal validation entry refused or changed origin");
++            foreach (string address in new string[] { origin + "validate.html/", origin + "validate.html.evil", origin + "Validate.html", origin + "nested/validate.html", origin + "validate.htm", origin + "%76alidate.html", "https://ja21-silicon.invalid.evil/validate.html", "https://ja21-silicon.invalid./validate.html", "https://user@ja21-silicon.invalid/validate.html", "https://@ja21-silicon.invalid/validate.html", "http://ja21-silicon.invalid/validate.html", "https://ja21-silicon.invalid:444/validate.html", "https://example.com/validate.html", "https://127.0.0.1/validate.html", "file:///validate.html" })
++                Refused(delegate { Call(_app, "ResolveEntryDocument", new Uri(address)); }, "non-literal or foreign validation entry admitted: " + address);
+             Refused(delegate { Call(_app, "ResolveEntryDocument", new Uri(origin + "src/app.js")); }, "non-entry top-level document admitted");
+             Check((bool)Call(_app, "IsOwnedBlob", "blob:" + origin + "test") && !(bool)Call(_app, "IsOwnedBlob", "blob:https://example.com/test"), "export Blob origin boundary");
+             Environment.SetEnvironmentVariable("JA21_CONSOLE_MODE", "0");
+@@ -61,6 +65,11 @@
+             string index = Path.Combine(dist, "index.html"), script = Path.Combine(dist, "app.js");
+             File.WriteAllText(index, html); File.WriteAllText(script, "export default 1;"); Seal(fixture, "9.8.7");
+             Check((string)Call(_app, "ValidateMappedRoot", fixture) == dist, "valid sealed mapping refused");
++            string validationFile = Path.Combine(dist, "validate.html"); File.WriteAllText(validationFile, html); Seal(fixture, "9.8.7");
++            Check((string)Call(_app, "ValidateMappedRoot", fixture) == dist, "valid sealed validation page refused");
++            File.WriteAllText(validationFile, "<!doctype html>"); Seal(fixture, "9.8.7");
++            Refused(delegate { Call(_app, "ValidateMappedRoot", fixture); }, "validation page without CSP/referrer overlay admitted");
++            File.WriteAllText(validationFile, html); Seal(fixture, "9.8.7");
+             File.WriteAllText(script, "tampered");
+             Refused(delegate { Call(_app, "ValidateMappedRoot", fixture); }, "tampered mapped file admitted");
+             File.WriteAllText(script, "export default 1;"); Seal(fixture, "9.8.7");
+--- 1.2.1/tools/SiliconWebView2Acceptance.cs
++++ 1.3.0/tools/SiliconWebView2Acceptance.cs
+@@ -29,7 +29,7 @@
+             string result = System.IO.Path.Combine(work, "silicon-webview2-acceptance.json");
+             Dictionary<string, object> initial = new Dictionary<string, object> {
+                 { "schema", "JA21/SILICON_WEBVIEW2_ACCEPTANCE/1" }, { "status", "RUNNING" },
+-                { "fixture", false }, { "software_cpu_version", "2.2.2" },
++                { "fixture", false }, { "software_cpu_version", "2.3.0" },
+                 { "started_utc", DateTime.UtcNow.ToString("o") }, { "browser_validation_passed", false },
+                 { "live_browser_created", false }, { "qa_window_shown", false },
+                 { "test_workspace", work }, { "checks", new object[0] }
+@@ -168,7 +168,7 @@
+             Dictionary<string, object> report = new Dictionary<string, object> {
+                 { "schema", "JA21/SILICON_WEBVIEW2_ACCEPTANCE/1" }, { "status", "RUNNING" },
+                 { "scope", "Real production WebView2 surface, mapped software CPU, worker, IndexedDB, Web Locks and backup restore; no ARM ISA or host OS simulation claim" },
+-                { "software_cpu_version", "2.2.2" }, { "fixture", false },
++                { "software_cpu_version", "2.3.0" }, { "fixture", false },
+                 { "started_utc", DateTime.UtcNow.ToString("o") }, { "checks", checks },
+                 { "live_browser_created", false }, { "cpu_online_observed", false },
+                 { "browser_validation_passed", false }, { "program_run_called", false },
+@@ -203,7 +203,7 @@
+                 first.Navigate(SiliconApp.Origin);
+                 PumpUntil(delegate { return first.Ready && view.CoreWebView2 != null; }, 30000, "Production bridge initialization and mapping");
+                 Online(view); cpuOnline = true; report["cpu_online_observed"] = true;
+-                Check(Text(view, "version") == "2.2.2", "Wrong mapped CPU version.");
++                Check(Text(view, "version") == "2.3.0", "Wrong mapped CPU version.");
+                 Check(Object.Equals(Script(view, "window.isSecureContext && !!navigator.locks && !!window.indexedDB && typeof Worker==='function' && location.origin==='https://ja21-silicon.invalid'"), true), "Secure virtual origin or required browser APIs are unavailable.");
+                 Passed(checks, "Secure mapped origin boots the real module worker and MessageChannel terminal");
+                 string originalSource = first.Source;
+@@ -223,7 +223,7 @@
+                 WaitScript(view, "typeof window.__qaBackup==='string' && window.__qaBackup.length>0", "Production validated backup export");
+                 string backup = Convert.ToString(Script(view, "window.__qaBackup"));
+                 Dictionary<string, object> record = (Dictionary<string, object>)Json.DeserializeObject(backup);
+-                Check(Convert.ToInt32(record["v"]) == 2 && Convert.ToString(record["version"]) == "2.2.2" && Convert.ToInt64(record["revision"]) > 0, "Exported backup metadata is invalid.");
++                Check(Convert.ToInt32(record["v"]) == 2 && Convert.ToString(record["version"]) == "2.3.0" && Convert.ToInt64(record["revision"]) > 0, "Exported backup metadata is invalid.");
+                 RuntimeSeal.RequireSha256(Convert.ToString(record["sha256"]), "backup checksum");
+                 Passed(checks, "Software byte lanes, real IndexedDB commit and production backup export");
+                 string navigationToken = Guid.NewGuid().ToString("N");
+--- 1.2.1/tools/Test-SoftwareConsoleLauncher.ps1
++++ 1.3.0/tools/Test-SoftwareConsoleLauncher.ps1
+@@ -54,7 +54,7 @@
+     Check 'main launcher never invokes Node/npm or opens a network server' ($cmd -notmatch '(?i)node\.exe|npm\s|serve\.mjs|Start-Process')
+     Check 'software CPU path requires live web and a combined build' ($source.Contains("`$env:JA21_REQUIRE_LIVE_WEB = '1'") -and $source.Contains('$build.software_cpu_console'))
+     $actual=Get-JA21SoftwareConsoleConfiguration -PackageRoot $Root
+-    Check 'current package configuration matches software CPU release' ($actual.StartUrl -ceq 'https://ja21-silicon.invalid/' -and $actual.SiliconVersion -ceq '2.2.2')
++    Check 'current package configuration matches software CPU release' ($actual.StartUrl -ceq 'https://ja21-silicon.invalid/' -and $actual.SiliconVersion -ceq '2.3.0')
+     $blank=Get-JA21SoftwareConsoleConfiguration -PackageRoot $Root -RequestedUrl 'about:blank'
+     Check 'explicit blank option retained' ($blank.StartUrl -ceq 'about:blank')
+     Expect-Rejection 'arbitrary remote and host URLs rejected' {Get-JA21SoftwareConsoleConfiguration -PackageRoot $Root -RequestedUrl 'https://example.com/'}
+--- 1.2.1/tools/silicon_package.py
++++ 1.3.0/tools/silicon_package.py
+@@ -9,7 +9,7 @@
+ from package_paths import contained_file, manifest_entries
+ 
+ ORIGIN = 'https://ja21-silicon.invalid/'
+-CPU_VERSION = '2.2.2'
++CPU_VERSION = '2.3.0'
+ DIST = 'applications/silicon/dist/'
+ REQUIRED = ('index.html', 'style.css', 'release.json', 'src/app.js', 'src/version.js',
+             'src/lib/ram-link.js', 'src/vendor/ram-worker.js',

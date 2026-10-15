@@ -1,0 +1,12 @@
+{
+  "schema": "JA21/BASELINE_PACKAGE_CHECK/1",
+  "status": "PASS",
+  "archive": "JA21_Software_CPU_Console_1.2.0.zip",
+  "sha256": "03c5f4420707a8c4b5005a8543f73c175fd89ff439b1a5312fe65a2d4d1ba24f",
+  "files": 7868,
+  "payloadHashesChecked": 7866,
+  "crc": "PASS",
+  "nativePeMachine": "0x8664",
+  "nativeArchitecture": "x64",
+  "scope": "Immutable shipped baseline bytes checked. Hashes detect corruption; this is not an authenticity signature or evidence of a JA21 silicon device."
+}

@@ -1,0 +1,33 @@
+{
+  "integrationProtocol": "JA21 browser XPU owner bridge v1",
+  "terminalProtocol": "hermit.vws.v2",
+  "ownerWebSocketSubprotocol": "hermit.vws.v2",
+  "storage": {"terminalTransport":"LOCAL_VOLATILE","xpuState":"existing JA21 IndexedDB volume durability; separate from terminal acceptance"},
+  "origin": "exact same-origin HTTP loopback browser launcher; native private MessageChannel mode retained",
+  "ticket": {"path":"/ramws-ticket","method":"POST","header":{"X-JA21-RAMWS":"1"},"body":{"role":"owner or terminal"},"response":{"ticket":"single-use opaque random value","expiresInMs":"short expiry"},"firstWebSocketMessage":{"type":"auth","ticket":"admission ticket"}},
+  "availabilityPath": "/ramws-info",
+  "ownerPath": "/ws/xpu-owner",
+  "terminalPath": "/ws/terminal",
+  "terminalBinary": {"headerBytes":7,"layout":"kind u8, seq u48 big endian, nonempty raw UTF8 bytes","inputKind":1,"outputKind":2,"inputCapBytes":8192,"outputCapBytes":16384},
+  "ownerBinary": {"headerBytes":11,"layout":"channel u32 big endian, terminal binary header and bytes","channelRange":"1..0xffffffff monotonic per owner connection; never reuse","activeSessionCap":8},
+  "ownerDownlink": {
+    "owner.ready":["v=1","type","epoch","limits optional"],
+    "owner.open":["v=1","type","channel","sid","epoch","cols","rows"],
+    "owner.resize":["v=1","type","channel","sid","epoch","cols","rows"],
+    "owner.signal":["v=1","type","channel","sid","epoch","signal=SIGINT"],
+    "owner.close":["v=1","type","channel","sid","epoch","reason optional"],
+    "owner.pause":["v=1","type","channel","sid","epoch"],
+    "owner.resume":["v=1","type","channel","sid","epoch"]
+  },
+  "ownerUplink": {
+    "owner.opened":["v=1","type","channel","sid","epoch","cols","rows"],
+    "owner.accepted":["v=1","type","channel","sid","epoch","upto"],
+    "owner.exit":["v=1","type","channel","sid","epoch","code","reason","detail optional max256","executedSeq optional exactly0"]
+  },
+  "acknowledgements": {"accepted":"after actual existing worker input.ack via RamLink.writeBytesAccepted","executed":"UNKNOWN; existing worker lacks completion hook, executedSeq remains0","consumed":"after client onData consumer completes","durable":"none of these is an XPU persistence commit"},
+  "flowLimits": {"clientCreditBytes":65536,"clientPendingInputBytes":16384,"clientPendingInputMessages":256,"ownerPendingInputBytesPerSession":131072,"ownerPendingInputMessagesPerSession":256,"ownerOutputQueueBytesPerSession":524288,"ownerOutputQueueMessagesPerSession":1024,"webSocketBufferedBytes":1048576},
+  "failurePolicy": "close explicitly on invalid input, stale epoch, noncontiguous sequence, queue overflow or timeout; never automatically replay",
+  "ownerWorkerAPI": ["link.ready","link.epoch","link.open({cols,rows,onData,onClose})","socket.writeBytesAccepted(Uint8Array)","socket.pauseOutput()","socket.resumeOutput()","socket.resize(cols,rows)","socket.signal()","socket.close(reason)"],
+  "browserAPI": {"owner":"new RamWsOwner(link, options).start()/close()/status()","client":"new RamWsClient(options).open({cols,rows,onData,onClose}) -> socket","socket":["sid","write(text)","writeAccepted(text)","resize(cols,rows)","signal()","status()","close(reason)"]},
+  "noAdditionalCapabilities": ["no second kernel","no Node GPU replacement","no host shell","no fabric jobs","no public listener","no automatic input replay"]
+}

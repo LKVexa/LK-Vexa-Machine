@@ -1,0 +1,63 @@
+TAP version 13
+# Subtest: Delegation selects each real session SID and returns only after the durable SSD flush
+ok 1 - Delegation selects each real session SID and returns only after the durable SSD flush
+  ---
+  duration_ms: 210.2736
+  type: 'test'
+  ...
+# Subtest: Delegated nonzero exit status and CPU XPU preview/save complete without rpcBusy deadlock
+ok 2 - Delegated nonzero exit status and CPU XPU preview/save complete without rpcBusy deadlock
+  ---
+  duration_ms: 440.3207
+  type: 'test'
+  ...
+# Subtest: Stale SID, control characters, partial input line and simultaneous target requests fail without replay
+ok 3 - Stale SID, control characters, partial input line and simultaneous target requests fail without replay
+  ---
+  duration_ms: 268.4462
+  type: 'test'
+  ...
+# Subtest: Closing the real target during a delegated command reports unknown outcome and releases the target
+ok 4 - Closing the real target during a delegated command reports unknown outcome and releases the target
+  ---
+  duration_ms: 203.306
+  type: 'test'
+  ...
+# Subtest: Storage failure returns code2 and FAILED persistence instead of successful delegated save (IndexedDB fault fixture)
+ok 5 - Storage failure returns code2 and FAILED persistence instead of successful delegated save (IndexedDB fault fixture)
+  ---
+  duration_ms: 183.6149
+  type: 'test'
+  ...
+# Subtest: Correlated cancellation aborts only the intended delegated job, keeps its guard until completion, and never replays admitted IDs
+not ok 6 - Correlated cancellation aborts only the intended delegated job, keeps its guard until completion, and never replays admitted IDs
+  ---
+  duration_ms: 284.035
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\admin-delegation-worker.test.mjs:27:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///D:/Codex/2026-10-13/pl/work/blank-console-arm64/project/JA21-Silicon-Console/applications/silicon/tests/admin-delegation-worker.test.mjs:27:1022)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: Captured delegated output is bounded at64KiB with UTF-8-safe truncation and real completion
+ok 7 - Captured delegated output is bounded at64KiB with UTF-8-safe truncation and real completion
+  ---
+  duration_ms: 353.8234
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 6
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2035.3995

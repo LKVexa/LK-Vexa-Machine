@@ -1,0 +1,18 @@
+JA21 Software CPU Console 1.2.0
+JA21 CPU/XPU engine 2.2.2; native presenter compatibility 9.8.7
+
+Extract the complete package into a writable folder and double-click Start Console.cmd.
+The software CPU, terminal, virtual filesystem and field displays open inside the console.
+Try help, xpuinfo, or hpu bytes in its terminal.
+
+This integrated launch uses the installed WebView2 engine. It does not need Node,
+an ARM64 operating-system boot, or a separate browser/server window.
+Requirements: Windows x64, .NET Framework/WPF and the
+Microsoft Edge WebView2 Evergreen Runtime. The SDK adapter is included.
+
+The test/debug empty host remains available with Start Console.cmd --blank.
+Alt+F4 closes the window; Alt+Space opens the move/resize menu.
+
+State stays in the embedded profile under workspace/. Use Storage to export full
+backups. Older browser-profile volumes can be moved by explicit backup/restore.
+README.md explains the integration, notices and actual validation scope.

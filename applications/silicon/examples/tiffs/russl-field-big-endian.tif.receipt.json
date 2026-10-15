@@ -1,0 +1,60 @@
+{
+  "profile": "JA21-RUSSL-HPU-ATLAS/1.0",
+  "shape": [
+    4,
+    4,
+    4,
+    16,
+    16
+  ],
+  "axes": [
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+  ],
+  "sites": 16384,
+  "dtype": "f64",
+  "payloadBytes": 131072,
+  "raster": [
+    128,
+    128
+  ],
+  "sampleCRC32": "a42f2660",
+  "calibration": {
+    "kind": "SIMULATED",
+    "pitchMeters": 0.000008,
+    "wavelengthMeters": 5.32e-7,
+    "zMeters": 0
+  },
+  "components": [
+    {
+      "component": "real",
+      "min": -1,
+      "max": 0
+    },
+    {
+      "component": "imaginary",
+      "min": -1.2246468525851679e-16,
+      "max": 8.385127222472081e-17
+    },
+    {
+      "component": "intensity",
+      "min": 0,
+      "max": 1
+    },
+    {
+      "component": "phase",
+      "min": -3.141592653589793,
+      "max": 3.141592653589793
+    }
+  ],
+  "fileSHA256": "4db5853cdf38c798221962646c8b66502d48470d23a3eb9bcb88e9a3babbb7a9",
+  "sampleSHA256": "53ed3229beb7b03ab02c9851395e4082f2263f8d7bf6dda6d14018d8398700bc",
+  "logicalSHA256": "060e727e6f6d86e2109397c36d4d6e25b635b5d0781ee1182828771761dd5dcf",
+  "logicalDomain": "JA21-RUSSL-LOGICAL/1 + NUL + sorted descriptor JSON + NUL + LE f64 samples",
+  "authentication": false,
+  "classification": "LOSSLESS",
+  "scope": "This adapter only. Not full RUSSL, RUSS or OME-NGFF conformance."
+}

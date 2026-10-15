@@ -1,0 +1,1 @@
+{"status":"PASS","checks":46,"runtime":"4.0.30319.42000","processBits":64,"scope":"Headless production origin policy, entry normalization and sealed mapping; no browser/UI/network started","productionExeSha256":"7653ecc183e3ca62311e146000c9365e88ebd8903677dc5566306a10c95e3f85"}

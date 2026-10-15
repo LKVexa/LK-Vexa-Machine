@@ -1,0 +1,28 @@
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @hookform/resolvers@5.9.1
+npm warn Found: ajv@6.15.0
+npm warn node_modules/ajv
+npm warn   ajv@"^6.14.0" from @eslint/eslintrc@3.3.7
+npm warn   node_modules/@eslint/eslintrc
+npm warn     @eslint/eslintrc@"^3.3.6" from eslint@9.39.5
+npm warn     node_modules/eslint
+npm warn   1 more (eslint)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peerOptional ajv@"^8.12.0" from @hookform/resolvers@5.9.1
+npm warn node_modules/@hookform/resolvers
+npm warn   @hookform/resolvers@"^5.7.0" from the root project
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @hookform/resolvers@5.9.1
+npm warn Found: ajv@undefined
+npm warn node_modules/ajv
+npm warn
+npm warn Could not resolve dependency:
+npm warn peerOptional ajv@"^8.12.0" from @hookform/resolvers@5.9.1
+npm warn node_modules/@hookform/resolvers
+npm warn   @hookform/resolvers@"^5.7.0" from the root project
+npm error code EAI_AGAIN
+npm error syscall getaddrinfo
+npm error errno EAI_AGAIN
+npm error request to https://registry.npmjs.org/ajv failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org
+npm error A complete log of this run can be found in: /home/oai/.npm/_logs/2026-10-12T22_43_34_388Z-debug-0.log

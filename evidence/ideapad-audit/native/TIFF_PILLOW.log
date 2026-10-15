@@ -1,0 +1,185 @@
+{
+  "status": "PASS",
+  "decoder": "Pillow",
+  "version": "12.3.0",
+  "nativeTiffs": 35,
+  "jsTiffs": 35,
+  "pixelsPerImplementation": 143360,
+  "checks": [
+    {
+      "file": "enumerated-processor-1.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "enumerated-processor-2.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "enumerated-processor-3.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "enumerated-processor-4.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "enumerated-processor-5.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "enumerated-processor-6.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "enumerated-processor-7.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-1.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-2.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-3.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-4.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-5.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-6.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "reversed-processor-7.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-1.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-2.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-3.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-4.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-5.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-6.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "random-processor-7.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-1.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-2.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-3.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-4.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-5.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-6.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "zero-processor-7.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-1.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-2.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-3.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-4.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-5.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-6.tif",
+      "status": "PASS",
+      "pixels": 4096
+    },
+    {
+      "file": "maximum-processor-7.tif",
+      "status": "PASS",
+      "pixels": 4096
+    }
+  ]
+}

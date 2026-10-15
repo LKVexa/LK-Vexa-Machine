@@ -1,0 +1,83 @@
+{
+    "schema":  "JA21/SOFTWARE_CONSOLE_LAUNCHER/1",
+    "status":  "PASS_HEADLESS_CONFIGURATION_CONTRACTS",
+    "startedUtc":  "2026-10-14T17:35:27.7702511Z",
+    "powerShell":  "5.1.26100.9711",
+    "checks":  [
+                   {
+                       "name":  "normal launcher invokes packaged native application directly",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "package root avoids trailing-backslash argument quoting and delayed expansion",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "main launcher and compatibility alias have no policy bypass or hidden launch",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "main launcher never invokes Node/npm or opens a network server",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "software CPU path requires live web and a combined build",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "current package configuration matches software CPU release",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "explicit blank option retained",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "arbitrary remote and host URLs rejected",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "literal package path handles spaces and shell punctuation",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "blank-only build rejected before host startup",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "wrong default origin rejected",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "mismatched built software CPU version rejected",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "incomplete software CPU assets rejected",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "missing native host fails visibly without substitute execution",
+                       "status":  "PASS"
+                   },
+                   {
+                       "name":  "native executable receives punctuated package root literally and refuses unsealed fixture",
+                       "status":  "PASS"
+                   }
+               ],
+    "nativePreflight":  {
+                            "exitCode":  2,
+                            "stdout":  "Native application JA21-Silicon-Console.exe is missing. Extract the full combined release.\r\n",
+                            "stderr":  "",
+                            "status":  "PASS_MISSING_HOST_REFUSAL"
+                        },
+    "desktopExecution":  "NOT_RUN",
+    "scope":  "Configuration declarations, packaging and normal launcher preflight only. No WPF/WebView2, software CPU or persistence execution.",
+    "nativeArgumentTransport":  {
+                                    "status":  "PASS_LITERAL_ROOT_AND_UNSEALED_REFUSAL",
+                                    "exitCode":  1,
+                                    "stdout":  "JA21 software CPU console\r\nPackage: \"D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\launcher-validation\\console with spaces \u0026 apostrophe\u0027 bang! percent%\\\"\r\nStarting the native Windows application under the configured Windows policy.\r\nJA21 � native-entry � software CPU/XPU 2.2.2; native console shell x64; no Node/server or script interpreter\r\nJA21 � FAILED � System.IO.DirectoryNotFoundException: Could not find a part of the path \u0027D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\launcher-validation\\console with spaces \u0026 apostrophe\u0027 bang! percent%\\engine\\ja21\\runtime.integrity.json\u0027.\r\n   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)\r\n   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)\r\n   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)\r\n   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)\r\n   at System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)\r\n   at VBJA21.RuntimeSeal.Verify(String root)\r\n   at VBJA21.SiliconConsoleEntry.Main(String[] args)\r\n\r\nStartup exited with code 1. The error above is the reason.\r\n",
+                                    "stderr":  "JA21 software console could not start: Could not find a part of the path \u0027D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\launcher-validation\\console with spaces \u0026 apostrophe\u0027 bang! percent%\\engine\\ja21\\runtime.integrity.json\u0027.\r\nBoot log: D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\launcher-validation\\console with spaces \u0026 apostrophe\u0027 bang! percent%\\workspace\\logs\\boot-latest.log\r\n"
+                                },
+    "finishedUtc":  "2026-10-14T17:35:31.5507091Z"
+}

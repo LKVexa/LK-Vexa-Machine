@@ -1,0 +1,129 @@
+{
+  "format": "ja21-admin-boundary-audit/1",
+  "status": "BOUNDARY_FIXTURES_PASS_NATIVE_PIPE_VALIDATION_INCOMPLETE",
+  "recordedAt": "2026-10-14T22:48:14.132Z",
+  "uacStarted": false,
+  "findings": [
+    {
+      "id": "native-output-backlog",
+      "status": "FIXED_AND_VERIFIED",
+      "owner": "transport",
+      "detail": "The native bridge now caps pending output to 512 KiB / 1024 frames and schedules one drain plus at most one overflow closure. Tested actual compiled Post method with 5000 queued submissions and unexecuted dispatcher callbacks."
+    },
+    {
+      "id": "concurrent-native-dispose",
+      "status": "FIXED_READ_REVIEW",
+      "owner": "transport",
+      "detail": "ElevatedSession and ConPty teardown now each use Interlocked.Exchange to establish one native-handle teardown owner."
+    },
+    {
+      "id": "node-helper-integrity",
+      "status": "FIXED_AND_VERIFIED",
+      "owner": "native-security",
+      "detail": "Each status/admission verifies a bounded, strict, unique-entry version-9.8.7 runtime seal against the exact helper byte count and SHA256; full ancestor symbolic link checks run before and after reads."
+    },
+    {
+      "id": "internal-delegate-ack",
+      "status": "FIXED_AND_VERIFIED",
+      "owner": "native-security",
+      "detail": "Timeout and busy-target results use unique bridge request IDs independent of the delegate job ID. Bounded native acknowledgment history now records these outgoing controls."
+    },
+    {
+      "id": "resize-during-pseudoconsole-close",
+      "status": "FIXED_READ_REVIEW",
+      "owner": "transport",
+      "detail": "A lifetime lock now serializes ResizePseudoConsole against detaching HPCON for asynchronous close. Close itself runs after releasing the lock."
+    }
+  ],
+  "checks": [
+    {
+      "suite": "Admin gateway plus browser link",
+      "tests": 15,
+      "pass": 15,
+      "fail": 0,
+      "scope": "Controlled native child and native-message fixtures only. Performed before the final unique internal request ID change."
+    },
+    {
+      "suite": "Final changed timeout and busy-target ACK paths",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "scope": "Includes actual-helper-style acknowledgments and unique internal IDs."
+    },
+    {
+      "suite": "Pre-SID cancellation and stale opened event",
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "scope": "No Windows elevation is started; matching pending request cancellation only."
+    },
+    {
+      "suite": "Actual compiled native source, document token, and output queue policy",
+      "assertions": 26,
+      "pass": 26,
+      "fail": 0,
+      "scope": "Reflection invokes pure boundary predicates and queues dispatcher callbacks without running them or creating a WebView window."
+    }
+  ],
+  "limitations": [
+    "No Administrator UAC consent or elevated PowerShell startup is claimed by this audit.",
+    "Actual ConPTY process and PowerShell integration are validated separately by the transport agent.",
+    "The working runtime seal currently lacks the newly compiled helper; release packaging must regenerate it before Administrator admission is available.",
+    "Minimal cross-process named-pipe tests could not complete on this tool host; raw Win32 open returned access denied. Do not label native PowerShell-to-XPU delegation end-to-end verified from these fixtures."
+  ],
+  "primaryReferences": [
+    "https://learn.microsoft.com/en-us/windows/console/creating-a-pseudoconsole-session",
+    "https://learn.microsoft.com/en-us/windows/console/closepseudoconsole",
+    "https://github.com/microsoft/terminal/discussions/15814"
+  ],
+  "files": [
+    {
+      "path": "applications/silicon/scripts/ramws/admin-gateway.mjs",
+      "bytes": 12943,
+      "sha256": "64f5b732c7cde7642376c24ab399bf489d1145f8c58add0a5964072620c11643"
+    },
+    {
+      "path": "applications/silicon/tests/admin-gateway.test.mjs",
+      "bytes": 10524,
+      "sha256": "c7ab595698b6096472208f94818323808e3e8990a57a75a5d5e8a1e1b000fc68"
+    },
+    {
+      "path": "host/AdminTerminal.cs",
+      "bytes": 53796,
+      "sha256": "886edbc68410f9313a58a94d5ea33924f089b30ea9f92bfe1b6e10c5278df484"
+    },
+    {
+      "path": "host/HostAdminBridge.cs",
+      "bytes": 12287,
+      "sha256": "1f5684d4e0fdf4b7bc01fc164e27c7ee545dd0286f6b9f0be231467c82201c7b"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "bytes": 274432,
+      "sha256": "5559d78cb6ab77301c8e91b54521e945c96f825926ff2c3184eac5d4412831a7"
+    },
+    {
+      "path": "tools/JA21-Admin-Terminal.exe",
+      "bytes": 49664,
+      "sha256": "48bd1fca83cbde3c422817574748207197b0ad77444b7f0cb3e2659670d7c4e9"
+    }
+  ],
+  "pipeDiagnostics": {
+    "uacStarted": false,
+    "powershellWasStarted": true,
+    "conPtyWasStarted": true,
+    "constructorVerdict": "Both original New-Object shorthand and explicit ArgumentList construct the correct stream and normalize the exact expected pipe path.",
+    "cases": 5,
+    "connected": 0,
+    "receivedFixtureNonce": 0,
+    "rawWin32Error": 5,
+    "rawWin32ErrorMeaning": "ERROR_ACCESS_DENIED",
+    "interpretation": "A Windows permission boundary prevents these diagnostic child clients from opening the listening pipe. This is not evidence of a constructor or ConPTY path defect. The precise source of the denial is not proven by the diagnostic.",
+    "evidence": [
+      "MinimalPipeProbe.result.json",
+      "MinimalPipeProbe.raw-result.json"
+    ]
+  },
+  "powershellStartedByBoundaryFixtures": false,
+  "powershellStartedByPipeDiagnostics": true
+}

@@ -1,0 +1,32 @@
+LK/Vexa Machine
+Copyright (C) 2026 RUSSELL PHILIP SMITHSON
+
+SPDX-License-Identifier: GPL-3.0-only
+
+The copyright holder grants their original console, JA21 CPU/XPU, HERMIT
+terminal/protocol and project-authored material under the GNU General
+Public License, version 3 only (GPL-3.0-only). This current grant supersedes
+earlier "All rights reserved", "UNLICENSED" and no-public-distribution
+statements for material owned by that copyright holder. Historical copies
+retain their original notices as provenance records.
+
+The repository publication, documentation and integration changes are
+offered under the same GPL-3.0-only terms to the extent of the applicable
+contributors' rights.
+
+Original RUSSL Zarr contributions retain their separate attribution:
+Copyright (C) 2026 LKVexa and contributors.
+
+HERMIT material retains its original attribution:
+Copyright (c) 2026 David Paul Russell.
+The current project-owned-material GPL grant applies to that material;
+earlier reserved-rights declarations are retained only for provenance.
+
+Microsoft Corporation, the ANTLR Project, the Free Software Foundation,
+research-paper authors, embedded-project authors and all other third-party
+holders retain copyright in their respective material. The GNU GPL license
+text itself is Copyright (C) 2007 Free Software Foundation, Inc.
+
+No transfer of third-party copyright or blanket relicensing of third-party
+works is asserted. See LICENSE, NOTICE, LICENSING.md, THIRD-PARTY-NOTICES.md,
+THIRD_PARTY_NOTICES.md and the notices retained in each component.

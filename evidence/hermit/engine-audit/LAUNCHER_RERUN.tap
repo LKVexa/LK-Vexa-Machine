@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: launcher/static: generated .cmd embeds the exact readable reviewed payload
+ok 1 - launcher/static: generated .cmd embeds the exact readable reviewed payload
+  ---
+  duration_ms: 0.7275
+  type: 'test'
+  ...
+# Subtest: launcher/static: the local payload starts after the LAST marker
+ok 2 - launcher/static: the local payload starts after the LAST marker
+  ---
+  duration_ms: 0.1861
+  type: 'test'
+  ...
+# Subtest: launcher/static: system PowerShell is absolute and package paths pass as environment values
+ok 3 - launcher/static: system PowerShell is absolute and package paths pass as environment values
+  ---
+  duration_ms: 0.092
+  type: 'test'
+  ...
+# Subtest: launcher/static: neither launcher relies on a global Node or npm installation
+ok 4 - launcher/static: neither launcher relies on a global Node or npm installation
+  ---
+  duration_ms: 4.5212
+  type: 'test'
+  ...
+# Subtest: launcher/static: no security-policy or certificate bypass commands
+ok 5 - launcher/static: no security-policy or certificate bypass commands
+  ---
+  duration_ms: 0.3912
+  type: 'test'
+  ...
+# Subtest: launcher/static: pins match the exact official v24.21.0 checksum values
+ok 6 - launcher/static: pins match the exact official v24.21.0 checksum values
+  ---
+  duration_ms: 0.1842
+  type: 'test'
+  ...
+# Subtest: launcher/static: native Windows architecture uses OSArchitecture before legacy environment fallback
+ok 7 - launcher/static: native Windows architecture uses OSArchitecture before legacy environment fallback
+  ---
+  duration_ms: 0.2496
+  type: 'test'
+  ...
+# Subtest: launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+ok 8 - launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+  ---
+  duration_ms: 0.141
+  type: 'test'
+  ...
+# Subtest: launcher/static: download has size, read, request and total transfer limits
+ok 9 - launcher/static: download has size, read, request and total transfer limits
+  ---
+  duration_ms: 0.4815
+  type: 'test'
+  ...
+# Subtest: launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+ok 10 - launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+  ---
+  duration_ms: 0.2733
+  type: 'test'
+  ...
+# Subtest: launcher/static: extraction is exact allowlisted entries, not archive path expansion
+ok 11 - launcher/static: extraction is exact allowlisted entries, not archive path expansion
+  ---
+  duration_ms: 1.9532
+  type: 'test'
+  ...
+# Subtest: launcher/static: writable runtime locations reject reparse points and concurrent setup
+ok 12 - launcher/static: writable runtime locations reject reparse points and concurrent setup
+  ---
+  duration_ms: 0.3473
+  type: 'test'
+  ...
+# Subtest: launcher/static: partial downloads and staging are scoped, private, and cleaned
+ok 13 - launcher/static: partial downloads and staging are scoped, private, and cleaned
+  ---
+  duration_ms: 0.2717
+  type: 'test'
+  ...
+# Subtest: launcher/static: process-local Node injection settings are removed without editing PATH
+ok 14 - launcher/static: process-local Node injection settings are removed without editing PATH
+  ---
+  duration_ms: 0.4395
+  type: 'test'
+  ...
+# Subtest: launcher/static: exact runtime version/platform/architecture probe is bounded before the host runs
+ok 15 - launcher/static: exact runtime version/platform/architecture probe is bounded before the host runs
+  ---
+  duration_ms: 0.1433
+  type: 'test'
+  ...
+# Subtest: launcher/static: default origin is unchanged and port override is explicitly validated
+ok 16 - launcher/static: default origin is unchanged and port override is explicitly validated
+  ---
+  duration_ms: 0.0614
+  type: 'test'
+  ...
+# Subtest: launcher/static: offline cache and preflight modes are explicit
+ok 17 - launcher/static: offline cache and preflight modes are explicit
+  ---
+  duration_ms: 0.0503
+  type: 'test'
+  ...
+# Subtest: launcher/static: logs and native error status are retained
+ok 18 - launcher/static: logs and native error status are retained
+  ---
+  duration_ms: 0.0899
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 84.6699

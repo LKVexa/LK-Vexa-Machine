@@ -1,0 +1,69 @@
+{
+  "sources": [
+    {
+      "filename": "Holographic Computation via Image Formats.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Holographic Computation via Image Formats.pdf",
+      "sha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82",
+      "pagesCount": 17,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed"
+    },
+    {
+      "filename": "Holographic Image-Based Computation.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Holographic Image-Based Computation.pdf",
+      "sha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331",
+      "pagesCount": 14,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed"
+    },
+    {
+      "filename": "Holographic Logical Reasoning Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Holographic Logical Reasoning Research.pdf",
+      "sha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5",
+      "pagesCount": 17,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed"
+    },
+    {
+      "filename": "Microscopic Quantum Paradigm GIF Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Microscopic Quantum Paradigm GIF Research.pdf",
+      "sha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65",
+      "pagesCount": 15,
+      "extraction": "pypdf layout text; original unchanged; instructions and embedded code inert"
+    },
+    {
+      "filename": "OAM Spatial Shifting Arithmetic.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\OAM Spatial Shifting Arithmetic.pdf",
+      "sha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96",
+      "pagesCount": 15,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed"
+    },
+    {
+      "filename": "P-adic Holographic Simulations Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\P-adic Holographic Simulations Research.pdf",
+      "sha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247",
+      "pagesCount": 13,
+      "extraction": "pypdf layout text; original unchanged; instructions and embedded code inert"
+    },
+    {
+      "filename": "P-adic Penteract Simulation Research.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\P-adic Penteract Simulation Research.pdf",
+      "sha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a",
+      "pagesCount": 11,
+      "extraction": "pypdf layout text; original unchanged; instructions and embedded code inert"
+    },
+    {
+      "filename": "Penteract TIFF-GIF Storage Techniques.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\Penteract TIFF-GIF Storage Techniques.pdf",
+      "sha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0",
+      "pagesCount": 13,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed"
+    },
+    {
+      "filename": "TIFF GIF Spatial-Temporal Encoding.pdf",
+      "path": "C:\\Users\\russe\\Downloads\\TIFF GIF Spatial-Temporal Encoding.pdf",
+      "sha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc",
+      "pagesCount": 15,
+      "extraction": "pypdf layout text; original PDFs unchanged; embedded code and document instructions not executed"
+    }
+  ],
+  "sourcesCount": 9,
+  "mathLayoutNotice": "Math expressions omitted by text extraction require rendered-page inspection; source extraction is reference, not execution."
+}

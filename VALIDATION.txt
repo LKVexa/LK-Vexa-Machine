@@ -1,0 +1,24 @@
+JA21 Software CPU Console 1.2.1; software engine 2.2.2; presenter compatibility 9.8.7
+Audit description patch dated 2026-10-14, Windows x64.
+
+The 2.2.2 JavaScript engine algorithms are unchanged. Corrected the integrated
+System-page execution descriptions and the compiled startup log. Rebuilt the
+native executable and acceptance tool with warnings treated as errors, regenerated
+the component HTML manifest, native runtime seal and package integrity record.
+Current result details are in evidence/integration-1.2.1/PATCH_VALIDATION.json.
+
+Live WebView2 worker execution and persistence: UNVERIFIED.
+The prior 1.2.0 attempt was BLOCKED_ENVIRONMENT before CPU Online was observed.
+No current live worker/storage/reload/lock/restore success is claimed.
+Run Test Silicon CPU.cmd in a normal Windows session to complete this gate.
+
+The active component is a specialized JavaScript field-and-byte processor model,
+not a physical JA21 silicon chip, general-purpose CPU ISA or ARM64 emulator.
+The Windows host processor executes the native console and WebView2 engine.
+Six lookup-table identities represent four distinct byte functions. The selector
+outputs 255 for bytes 0–127 and 0 for 128–255. Step/batch/iteration counters are
+model accounting, not measured CPU clock cycles, GPU throughput or energy.
+
+Previous 1.2.0 integration and 2.2.2 component/core/native-reference evidence is
+preserved as historical validation, not a current fully verified live release.
+See docs/INTEGRATION-1.2.1.md and docs/SILICON-WEBVIEW2-ACCEPTANCE.md.

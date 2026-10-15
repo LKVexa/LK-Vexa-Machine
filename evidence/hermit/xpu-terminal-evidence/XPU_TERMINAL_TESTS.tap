@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: xpu info defaults to a read-only host query and forwards the AbortSignal
+ok 1 - xpu info defaults to a read-only host query and forwards the AbortSignal
+  ---
+  duration_ms: 1.1384
+  type: 'test'
+  ...
+# Subtest: xpu help works without a host and describes explicit GPU coverage and preview saving
+ok 2 - xpu help works without a host and describes explicit GPU coverage and preview saving
+  ---
+  duration_ms: 0.1499
+  type: 'test'
+  ...
+# Subtest: xpu run defaults to GPU requirement and never automatically saves its preview
+ok 3 - xpu run defaults to GPU requirement and never automatically saves its preview
+  ---
+  duration_ms: 0.3533
+  type: 'test'
+  ...
+# Subtest: xpu run forwards only supported numerical options and explicit CPU mode
+ok 4 - xpu run forwards only supported numerical options and explicit CPU mode
+  ---
+  duration_ms: 0.1497
+  type: 'test'
+  ...
+# Subtest: xpu finite ring and operand upper boundary is accepted without wrapping
+ok 5 - xpu finite ring and operand upper boundary is accepted without wrapping
+  ---
+  duration_ms: 0.1304
+  type: 'test'
+  ...
+# Subtest: xpu residue zero and decimal leading zeroes are parsed exactly
+ok 6 - xpu residue zero and decimal leading zeroes are parsed exactly
+  ---
+  duration_ms: 0.1081
+  type: 'test'
+  ...
+# Subtest: xpu rejects malformed values, unsupported actions, and surplus operands before contacting host
+ok 7 - xpu rejects malformed values, unsupported actions, and surplus operands before contacting host
+  ---
+  duration_ms: 0.5766
+  type: 'test'
+  ...
+# Subtest: xpu rejects every supplied flag before contacting host
+ok 8 - xpu rejects every supplied flag before contacting host
+  ---
+  duration_ms: 0.1146
+  type: 'test'
+  ...
+# Subtest: GPU requirement unmet retains an explicit receipt and returns failure without an automatic save
+ok 9 - GPU requirement unmet retains an explicit receipt and returns failure without an automatic save
+  ---
+  duration_ms: 0.2827
+  type: 'test'
+  ...
+# Subtest: xpu save is a distinct apply request containing only the reviewed token
+ok 10 - xpu save is a distinct apply request containing only the reviewed token
+  ---
+  duration_ms: 0.1702
+  type: 'test'
+  ...
+# Subtest: XPU host failures and failed saves cannot print a success receipt or issue a second action
+ok 11 - XPU host failures and failed saves cannot print a success receipt or issue a second action
+  ---
+  duration_ms: 0.195
+  type: 'test'
+  ...
+# Subtest: missing XPU host bridge is an explicit failure without fallback computation
+ok 12 - missing XPU host bridge is an explicit failure without fallback computation
+  ---
+  duration_ms: 0.1046
+  type: 'test'
+  ...
+# Subtest: already aborted run or save is refused before the host is called
+ok 13 - already aborted run or save is refused before the host is called
+  ---
+  duration_ms: 0.6404
+  type: 'test'
+  ...
+# Subtest: aborting an awaited preview suppresses its publication and forwards the same signal
+ok 14 - aborting an awaited preview suppresses its publication and forwards the same signal
+  ---
+  duration_ms: 0.3495
+  type: 'test'
+  ...
+# Subtest: an accepted durable save remains reported after a late abort at the host commit boundary
+ok 15 - an accepted durable save remains reported after a late abort at the host commit boundary
+  ---
+  duration_ms: 0.1035
+  type: 'test'
+  ...
+# Subtest: real terminal parser routes a CPU preview to the shared host bridge
+ok 16 - real terminal parser routes a CPU preview to the shared host bridge
+  ---
+  duration_ms: 1.7753
+  type: 'test'
+  ...
+# Subtest: real terminal parser preserves an empty quoted operand and refuses unsupported flags and extra tokens
+ok 17 - real terminal parser preserves an empty quoted operand and refuses unsupported flags and extra tokens
+  ---
+  duration_ms: 0.6773
+  type: 'test'
+  ...
+# Subtest: production worker terminal previews and explicitly saves the shared resident XPU bank (storage/lock fixtures)
+ok 18 - production worker terminal previews and explicitly saves the shared resident XPU bank (storage/lock fixtures)
+  ---
+  duration_ms: 246.28
+  type: 'test'
+  ...
+# Subtest: production worker terminal default GPU requirement never publishes when WebGPU is absent
+ok 19 - production worker terminal default GPU requirement never publishes when WebGPU is absent
+  ---
+  duration_ms: 223.3433
+  type: 'test'
+  ...
+# Subtest: production worker terminal SIGINT during validation discards its candidate and retains resident state
+ok 20 - production worker terminal SIGINT during validation discards its candidate and retains resident state
+  ---
+  duration_ms: 204.969
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 782.4203

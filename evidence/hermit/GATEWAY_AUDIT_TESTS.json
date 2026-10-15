@@ -1,0 +1,68 @@
+{
+  "schema": "ja21.hermit.gateway-audit.v1",
+  "source": "D:/downloads/hermit-ramws_2.0.0-ramws.1(3).zip",
+  "node": "v24.19.0",
+  "mode": "Stock source snapshot, pure tests and owned fixture; no listener, dependency install, deployment, or host commands",
+  "rows": [
+    {
+      "name": "Strict port syntax and ranges",
+      "status": "PASS"
+    },
+    {
+      "name": "No unauthenticated bind on non-loopback",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsupported profile refused",
+      "status": "PASS"
+    },
+    {
+      "name": "Shipped launcher snapshots are rejected by config",
+      "status": "ISSUE_REPRODUCED"
+    },
+    {
+      "name": "Configuration public allowlist excludes paths",
+      "status": "PASS"
+    },
+    {
+      "name": "Loopback Host rebinding rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Foreign and opaque Origin rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Exact gateway origin accepted and missing origin policy applied",
+      "status": "PASS"
+    },
+    {
+      "name": "Ticket single use and origin mismatch burns ticket",
+      "status": "PASS"
+    },
+    {
+      "name": "Handshake version, key, method, and protocol checks",
+      "status": "PASS"
+    },
+    {
+      "name": "Every TCP split position retains the exact frame",
+      "status": "PASS"
+    },
+    {
+      "name": "Fragmented UTF-8 round trip",
+      "status": "PASS"
+    },
+    {
+      "name": "Receive protocol rejects unmasked, invalid UTF-8, and control oversize",
+      "status": "PASS"
+    },
+    {
+      "name": "Non-ASCII outgoing close reason can exceed RFC control-frame maximum",
+      "status": "ISSUE_REPRODUCED"
+    },
+    {
+      "name": "Credential revocation bypass with another live token for the same principal",
+      "status": "ISSUE_REPRODUCED"
+    }
+  ]
+}

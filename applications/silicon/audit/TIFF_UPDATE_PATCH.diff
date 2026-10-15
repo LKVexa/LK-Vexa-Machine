@@ -1,0 +1,2034 @@
+--- a/AUDIT_REPORT.md
++++ b/AUDIT_REPORT.md
+@@ -1,99 +1,241 @@
+-# JA21 Silicon Console 2.1.1 — startup repair audit
+-
+-Date: 2026-10-12. Baseline: the supplied JA21 Silicon Console 2.1.0 audited package.
+-Status: **offline gates passed; native Windows acceptance remains pending.**
+-
+-## Reported failure and applied repair
+-
+-The old `Start-Console.cmd` checked `where node`, then printed the missing-Node/PATH
+-error and stopped. No server/XPU boot had occurred. `Verify.cmd` had the same external
+-prerequisite. The launcher now supplies a private runtime, without requiring a global
+-Node installation. This repairs provisioning; it does not eliminate Node from the
+-software architecture or claim native silicon/XPU execution.
+-
+-The complete package is version 2.1.1. The separate launcher also recognizes the
+-existing 2.1.0 package for a minimal repair, and reports application and launcher
+-versions separately rather than claiming it upgraded the application itself.
+-
+-## Change scope
+-
+-- A readable standalone .cmd with identical reviewed source in
+-  `scripts/windows/bootstrap.ps1`; native Windows architecture detection, private
+-  Node.js 24.21.0 LTS provision/reuse, preflight and verify modes, diagnostic logs,
+-  absolute PowerShell/runtime invocation, and visible failures.
+-- Runtime/cache content SHA-256 pins transcribed from the official release document.
+-  The ZIP is validated before extraction; the executable is independently checked
+-  before execution. Only node.exe, LICENSE and README.md are extracted. Normal TLS
+-  validation, official HTTPS host/port restriction, no redirect following, byte/time
+-  limits, random partial filenames, exact-entry extraction, staging and exclusive
+-  provisioning lock. Reparse-point private locations and altered/incomplete runtimes
+-  fail closed.
+-- No installer, npm install, system PATH dependency or mutation, elevation, registry,
+-  execution-policy, antivirus or firewall modification. Inherited Node/OpenSSL
+-  execution-related environment settings are cleared only in the child environment.
+-- The same loopback host and default port 8788 are retained. Browser virtual-volume
+-  contents, wire v3, filesystem snapshot format, volume v2 and HPU2 are unchanged.
+-- UI/package/worker version 2.1.1, corrected documentation, 18 explicitly static
+-  launcher contracts, and verification reports that invalidate stale PASS status
+-  and report actual pass/skip counts.
+-
+-Runtime binaries could not be downloaded by the build tools in this environment.
+-**They are not bundled.** First startup downloads the exact official runtime ZIP,
+-or uses a manually supplied matching offline archive. This is not an offline-ready
+-Windows binary distribution.
+-
+-## Verification performed for this repair
+-
+-| Gate | Evidence | Outcome |
++# JA21 Silicon Console 2.2.0 — TIFF and pixel-logic audit
++
++Release date: 2026-10-12 (local); execution timestamps in JSON evidence use UTC.
++Baseline: the supplied 2.1.1 PrivateRuntime package. New input: RUSSL-Zarr-main.zip.
++Status: **implemented and passed the scoped offline gates; native Windows and normal-browser acceptance remain open.**
++
++## Executive result
++
++The active TIFF generation path now uses a bounded typed codec and explicit,
++loss-aware metadata. A new 128×128 Float64 field atlas maps the RUSSL corpus's
++[4,4,4,16,16] sites onto the existing 64×64 complex HPU's real, imaginary,
++intensity and phase values. The mapping is exhaustive and reversible within the
++declared finite-sample domain; it is a documented JA21 application placement,
++not a physical 5D processor or a placement the corpus itself already implements.
++
++The TIFF pixel lab and `russl` command capture, inspect, edit, hash, import, export
++and explicitly apply staged image data. This is functional runtime integration,
++not just copied documentation. The live grid, HPU2 binary format, volume v2,
++filesystem snapshot v1 and hermit.vws.v3 are unchanged. The private Windows Node
++bootstrap from 2.1.1 remains in place, with current product version 2.2.0.
++
++The new sample set contains **12 actual regenerated TIFFs**, including three
++sample-identical field container variants. The active phase and seven processor
++TIFF exporters are updated. Old user files and archived references are not
++silently rewritten on startup. A user can explicitly capture a new atlas or run
++`hpu tiff` / `hpu bytes` to regenerate current visual files.
++
++## 1. Intake, provenance and corpus scope
++
++Uploaded corpus SHA-256:
++`4adec0988b7e9de5e82d6c43d910112341373d18207545f4df2be431cbb66eb1`.
++
++All **325 outer-archive files** have size, hash and disposition records
++in `audit/RUSSL_CORPUS_INTAKE.json`. Disposition counts are:
++
++```json
++{
++  "binary preserved": 14,
++  "UTF-8 decoded": 164,
++  "JSON parsed": 134,
++  "JSONL parsed": 3,
++  "Python AST parsed; not executed": 10
++}
++```
++
++The fixed-shape registry, all 16,384 authoritative index vectors, the reviewed
++pure Python layout helper, imaging/indexing/TIFF/storage-identity specifications,
++limitations and notices were read for this integration. The copied selected
++reference files are byte-identical to their source. The complete original corpus
++ZIP is preserved unchanged under references/. All **33 prior reference files**
++also retain their baseline hashes. `audit/TIFF_SOURCE_PROVENANCE.json` records
++these assertions and the old-version HPU2 migration fixture.
++
++The attached corpus describes candidate specifications, not an already working
++universal TIFF/Zarr adapter. Selected source ideas implemented here are exact
++addressing, explicit placement, type preservation, loss classification, separate
++identity domains, bounded import, and preservation of original source bytes.
++Nested archives were not recursively re-audited or executed. Corpus prompts were
++not treated as instructions to run, and papers were not treated as proof of
++hardware acceleration. A previous 8,752-record audit is historical evidence, not
++a count of files newly semantically certified in this update.
++
++## 2. Findings and applied changes
++
++| ID | Finding / boundary | Applied result |
+ |---|---|---|
+-| Existing Node suite | `audit/TEST_RESULTS.tap` | 135 passed |
+-| New launcher source/packaging contracts | same TAP; `tests/launcher-contract.test.mjs` | 18 passed; static only |
+-| Combined Node suite | `audit/VERIFICATION.json` | 153 passed, 0 failed, 0 skipped |
+-| Active JavaScript syntax / local imports | `audit/RELEASE_CHECKS.json` | 47 parsed / 45 resolved |
+-| Offline Chromium UI fixture | `audit/BROWSER_OFFLINE_RESULTS.json` | 8 scenarios passed, 0 page errors |
+-| Independent TIFF/GIF decode | `audit/CODEC_RESULTS.json` | 3 checks passed |
+-| Baseline reference files | `audit/STARTUP_REPAIR_SUMMARY.json` | 33 files; SHA-256 unchanged: true |
+-| Native Windows cmd/PowerShell execution and AST parse | unavailable | **NOT TESTED** |
+-| Actual Windows runtime transfer/extraction/probe | unavailable | **NOT TESTED** |
+-
+-Node tests ran with v22.16.0 on Linux. That is test-environment evidence,
+-not a claim that Windows Node.js 24.21.0 executed here. The 18 launcher tests verify
+-source/packaging contracts; they are not a PowerShell interpreter or Windows VM.
+-The offline browser run substitutes an explicitly labeled in-memory link adapter,
+-so it does not certify real browser IndexedDB/Web Locks/worker/CSP integration.
+-The desktop screenshot was visually checked and shows the 2.1.1 fixture label.
+-
+-The first new contract run caught a test matcher incorrectly treating an explanatory
+-comment about not installing npm as an npm invocation. The matcher was corrected to
+-ignore comment lines, then the complete gate was rerun successfully. No failing
+-run has been represented as a pass.
+-
+-## Remaining acceptance and trust limits
+-
+-On a Windows device, first verify the no-Node/no-PATH case, second launch without
+-network, Verify.cmd, interrupted downloads, hash tampering rejection, locked or
+-read-only package folders, existing-port errors, paths with spaces/special characters,
+-and x64/ARM64 architecture selection. Device security/application-control behavior
+-must be verified locally. Do not disable protection to make the package run.
+-
+-The checksum source was obtained over the official HTTPS site. Its OpenPGP signature
+-was not independently verified here. A local actor able to alter the launcher can
+-alter its pins. The private runtime is pinned, not automatically upgraded: review
+-future upstream security releases and update the version/checksums as a new release.
+-
+-This is a focused startup repair, not a new semantic certification of the original
+-8,752-record research/toolchain inventory or hardware throughput. The preceding
+-full audit is retained at `audit/baseline-2.1.0/AUDIT_REPORT.md`; historical evidence
+-and new evidence are distinguished in `audit/INHERITED_EVIDENCE.md`.
+-
+-## User procedure and sources
+-
+-See `WINDOWS_STARTUP_FIX.md` and `QUICKSTART.txt`. Use the same browser profile/address
+-for saved data; export backups before changing applications. Never clear browser
+-storage to fix missing Node.
+-
+-Official release and checksum sources checked 2026-10-12:
+-
+-- https://nodejs.org/en/blog/release/v24.21.0
+-- https://nodejs.org/download/release/v24.21.0/SHASUMS256.txt
+-- https://nodejs.org/download/release/v24.21.0/
++| T01 | Visual TIFFs did not embody the supplied fixed-site address profile | Exact shape/strides, ordinal/inverse, rational coordinates and address metric; all 16,384 corpus vectors checked |
++| T02 | Phase-only TIFF cannot reconstruct the original complex field | New sample-exact Float64 atlas; legacy phase quantization and discarded amplitude explicitly labeled LOSSY |
++| T03 | No live-field import/edit/apply transaction | Detached validation, staged VFS TIFF, coupled derivative recomputation, explicit apply with quota-first replacement and publication rollback |
++| T04 | Untrusted TIFFs create offset/count/allocation/semantic risks | Bounded classic/BigTIFF, II/MM, scalar u8/u16/f32/f64, strict directory/strip ranges, codec/page/type/metadata rejection |
++| T05 | Byte-lane TIFF meaning and reversible scale were implicit | Declared u16=byte×257 mapping, processor/route identity and domain-scoped losslessness |
++| T06 | Byte-identical versus sample-identical files were conflated | CRC32 sample integrity plus separate SHA-256 file, sample and declared logical identities; no signature claim |
++| T07 | Metadata `shape` collided with an external library's TIFF-series convention | Replaced with `logicalShape` and verified expected 128×128 independent decoder output |
++| T08 | BigTIFF fixtures exposed external alignment differences | Retained strict 8-byte external-value alignment; valid independent fixtures and a real nonaligned rejection fixture |
++| T09 | UI could show a stale staged revision / value after lifecycle or import | Revision guards, start/stop invalidation, refreshed visible lab, read-output invalidation and stopped-control disabling |
++| T10 | Corpus source/version/license attribution needed preservation | Original corpus archive, selected notices and source rules retained; per-file SPDX attribution; no blanket relicense of old source |
++| T11 | Version/history and test evidence could be confused | Product 2.2.0, genuine old changelog retained, baseline reports segregated, current source diff/manifests/results |
++| T12 | Rational-coordinate intermediate arithmetic could exceed safe integer precision | BigInt intermediates and an explicit safe-integer-boundary regression |
++
++The newly defined placement is:
++
++```text
++k = 4096*c4 + 1024*c5 + 256*c6 + 16*c7 + c8
++c4 = real / imaginary / intensity / phase
++HPU y = 16*c5 + c7; HPU x = 16*c6 + c8
++TIFF y = floor(k/128); TIFF x = k mod 128
++```
++
++The raw Float64 payload is 131,072 bytes. That is four scalar components for each
++of 4,096 complex working pixels, not a fourfold growth in complex compute units.
++Real/imaginary Float32 values widen exactly into Float64 slots; lost source
++precision is not recovered. Every raster site participates; there is no padding.
++
++## 3. Semantics, edit safety and saved-state compatibility
++
++The atlas's lossless claim is limited to finite decoded scalar samples, declared
++axes/placement and simulated calibration. A full VM/HPU session is not encoded
++in it. Fields are capped to ±10^12 for real/imaginary values and must already be
++exactly Float32-representable. Derived intensity/phase is validated, allowing a
++specified small numerical tolerance for cross-platform calculation differences.
++Stored decoded sample bits themselves are preserved, including signed zero.
++
++Only c4=0/1 can be edited. The requested value is explicitly rounded to Float32,
++its effective value is reported, and intensity/phase are recomputed together.
++Capture/import/edit stages `/var/hpu/russl-field.tif`; the live HPU remains
++unchanged. GUI write operations check the current revision and the worker rejects
++management while a terminal command is active. Invalid or stale replacements do
++not replace the valid staged file.
++
++Apply validates and prepares a fresh HPU2 state before changing live values. VFS
++quota is checked first; a failed host publication rolls back live state and the
++field file. Apply resets spool, recordings, byte lanes/counters and caches. The GUI
++asks for confirmation, while `russl apply` is the terminal's explicit instruction.
++A full backup is needed to preserve the old transient session.
++
++The existing HPU2/volume/filesystem schemas are unchanged. A fixture produced by
++the actual unmodified 2.1.1 HPU loads and saves byte-identically in the new code.
++Worker tests exercise staged-file plus applied-field persistence across restart
++using explicit storage/lock doubles. This does not establish actual browser
++IndexedDB durability in the policy-blocked environment.
++
++## 4. Image and metadata security scope
++
++Generic decoding is bounded to 4 MiB, 262,144 samples, 128 tags and 64 KiB tag
++metadata. Atlas input is bounded further to 192 KiB and the exact Float64 profile.
++The decoder rejects unsupported compression, RGB/palette/alpha, tiles, chained
++pages, semantic metadata, bad counts, unsafe offsets, overlaps and nonfinite
++samples. Orientation is retained by the generic inspector, never silently
++normalized; live atlas import requires orientation 1.
++
++The original file snapshot is retained by generic decoding for exact-container
++recovery. No URL/path embedded in metadata is followed, and metadata is never
++executed. Local import requires the user-selected file. Unknown generic opaque
++tags are reported; the stricter atlas import rejects them. Full TIFF support or
++in-place preservation of every TIFF tag through arbitrary edits is not claimed.
++
++BigTIFF is supported only within the small memory limit, not as terabyte spooling.
++One default independent unsigned BigTIFF fixture had 4-mod-8 out-of-line values;
++it is deliberately rejected by the strict alignment check. Valid independent
++fixtures exercise both byte orders and all four dtypes. This compatibility limit
++is documented rather than hidden by relaxing checks.
++
++CRC32 detects accidental corruption and supports cooperative stale-UI checks. It
++is not collision-resistant authentication. SHA-256 receipts distinguish exact
++file bytes, canonical sample bytes and the explicitly declared JA21 logical
++identity. They are not signatures, `.russ` roots, or proof of physical provenance.
++The logical identity domain is defined in docs/RUSSL_PIXEL_PROFILE.md.
++
++## 5. Verification performed
++
++| Gate | Result | Evidence |
++|---|---:|---|
++| Core Node regression suite | **244/244 passed; 0 failed; 0 skipped** | audit/TEST_RESULTS.tap; VERIFICATION.json |
++| Included Windows launcher contracts | **18 static checks** | Same TAP; not Windows execution |
++| Active JS syntax and local imports | **53 parsed; 58 imports resolved** | RELEASE_CHECKS.json |
++| Corpus address coverage | **All 16,384 vectors** | tests/russl.test.mjs; independent ordinal check |
++| Independent TIFF checks | **12 passed** | RUSSL_INTEROP_RESULTS.json |
++| External writer interoperability | **16 valid fixtures** | tests/fixtures/independent-tiff/manifest.json; Node tests |
++| Existing independent TIFF/GIF checks | **3 passed** | CODEC_RESULTS.json |
++| Offline Chromium UI | **15 scenarios; 0 page errors** | BROWSER_OFFLINE_RESULTS.json |
++| Native HTTP browser startup | **Blocked by administrator policy** | NATIVE_BROWSER_PROBE.json |
++| Actual Windows .cmd/PowerShell/run-time download | **Not tested here** | Manual acceptance remains required |
++
++The 244 Node tests include the inherited 153-test gate plus 91 new tests/subtests.
++The exhaustive vector coverage is one full-domain assertion, not 16,384 extra
++test cases added to inflate the total. Actual Node workers exercise management
++RPCs; their storage and locking are explicit test doubles. The offline UI uses
++the real app, TIFF codec and HPU model with a clearly labeled in-memory link.
++Its fifteen scenarios include capture, staged edits, failed derivative writes,
++cancel/accept apply, TIFF download, valid endian-variant import, failed truncated
++replacement, desktop/mobile layout and lifecycle controls.
++
++The independent reader compared every Float64 sample bit in three field TIFFs,
++every u16 sample in phase and seven processor TIFFs (both tifffile and Pillow),
++and every ordinal pixel against the corpus fixture and reviewed Python helper.
++The independent writer supplies classic/BigTIFF × little/big-endian × four dtypes,
++including multistrip images, negative zero and finite floating edge cases.
++The sample-export/UI download is actual TIFF bytes rather than a screenshot.
++
++Node ran as v22.16.0 on Linux; optional audit tools were tifffile 2026.5.15,
++NumPy 2.3.5 and Pillow 12.3.0. Python/native browser
++packages are QA-only, not new application dependencies. No npm installation is
++required. The private Windows bootstrap remains pinned to Node 24.21.0; its
++Windows executable was not run here.
++
++## 6. Test-discovered corrections and limitations
++
++Early runs caught a stale launcher-version assertion, a VFS decorated-buffer
++equality assertion, the reserved external `shape` metadata convention and the
++independent BigTIFF alignment difference. The version matcher and buffer-value
++assertions were corrected, metadata was renamed, and alignment stayed strict with
++an explicit negative fixture. All listed successful gates were rerun afterward.
++No earlier failing run is counted as a pass. Active code and selected Python QA
++sources were parsed; native C#/PowerShell and original research binaries were not
++newly compiled or semantically certified.
++
++Normal HTTP navigation was attempted without changing managed browser policies
++and returned `net::ERR_BLOCKED_BY_ADMINISTRATOR` at the loopback URL. The Node
++static host did start. Screenshots label the offline fixture and were visually
++checked at desktop and 430-pixel mobile widths. Actual browser worker/IndexedDB/
++Web Locks/Web Crypto/CSP integration therefore remains a native acceptance gap,
++as does Windows startup/provisioning. The root baseline's blanket licensing is
++unresolved; the corpus's GPL source and other notices remain intact.
++
++No complete RUSSL/MSSL parser or evaluator, `.russ` executable container, OME-Zarr
++adapter, virtual-axis-to-time/space guess, independent image execution, physical
++XPU/GPU/quantum acceleration, or new hardware throughput was implemented or
++certified. The result is host software operating on typed image data.
++
++## 7. Upgrade and use
++
++Export a full-volume backup, close the old app/host, extract the complete 2.2.0
++package to a short folder such as `D:\JA21_2.2.0`, and run Start-Console.cmd. The
++private runtime bootstrap is included, so no global Node/PATH installation is
++required. Runtime bytes are not bundled: first provisioning needs the exact
++cached archive or access to the official runtime source. Do not disable device
++security or clear browser storage. Keep the same browser profile and origin
++`http://127.0.0.1:8788/` for the existing virtual volume.
++
++Open TIFF pixel lab, capture or import an atlas, read/edit a real/imaginary site,
++then explicitly apply when ready. Download the TIFF/receipt separately from the
++full-volume backup. The samples-only ZIP contains the same twelve example TIFFs
++and receipts as examples/tiffs/. Reference archives and old user files remain
++unchanged. `tests/MANUAL_ACCEPTANCE.md` lists remaining native device checks.
++
++## 8. Source and evidence navigation
++
++- docs/RUSSL_PIXEL_PROFILE.md: complete implementation profile and loss/safety boundaries.
++- COMMANDS.md / TIFF pixel lab: command and GUI workflows.
++- audit/TIFF_UPDATE_CHANGES.json and TIFF_UPDATE_PATCH.diff: current changes versus 2.1.1.
++- audit/TIFF_SOURCE_PROVENANCE.json: original-reference, corpus-copy and old-state fixture hashes.
++- FILES_MANIFEST.json: current package file hashes; excludes itself and SHA256SUMS.txt.
++- audit/INHERITED_EVIDENCE.md: old audit scope distinguished from this update.
++- THIRD_PARTY_NOTICES.md: source-license scope and unresolved combined redistribution rights.
++
++Primary external specifications/checksum sources consulted:
++https://libtiff.gitlab.io/libtiff/specification/coverage.html
++https://libtiff.gitlab.io/libtiff/specification/bigtiff.html
++https://ngff.openmicroscopy.org/0.5/ (boundary review; no adapter claim)
++https://nodejs.org/download/release/v24.21.0/SHASUMS256.txt
++https://nodejs.org/en/blog/release/v24.21.0
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,4 +1,24 @@
+ # Changelog
++
++## 2.2.0 — 2026-10-12 — RUSSL corpus TIFF / pixel-logic integration
++
++Implemented exact [4,4,4,16,16] addressing and an explicit 128×128 Float64 atlas for
++the existing 64×64 complex HPU's real, imaginary, intensity and phase components.
++Added a bounded typed TIFF decoder/encoder (classic/BigTIFF, II/MM, finite scalar
++u8/u16/f32/f64), loss-aware visual export metadata, SHA-256 identity receipts,
++revision-checked staging, real/imaginary edits and explicit guarded apply.
++
++Added the TIFF pixel lab and `russl` terminal command, preserved HPU2/volume schemas,
++private Windows Node bootstrap and original references, and regenerated twelve
++sample TIFFs. Added corpus provenance, source licensing notices and full-domain
++addressing checks against all 16,384 corpus vectors. Metadata uses `logicalShape`
++to avoid an external library's reserved TIFF-series `shape` interpretation.
++
++Core verification: 244 tests pass, including 18 static launcher checks; 15 offline
++browser UI scenarios pass; 12 new independent TIFF checks and 3 inherited TIFF/GIF
++checks pass. Native HTTP browser navigation was attempted and blocked by managed
++administrator policy. Native Windows launch/download is not tested here. See
++AUDIT_REPORT.md for exact scope, strict BigTIFF compatibility and acceptance gaps.
+ 
+ ## 2.1.1 — 2026-10-12 — missing-Node startup repair
+ 
+--- a/COMMANDS.md
++++ b/COMMANDS.md
+@@ -1,6 +1,6 @@
+-# Command catalog — 2.1.0
++# Command catalog — 2.2.0
+ 
+-Generated from the active registry: 60 commands. These operate inside the virtual environment, not a host shell. Aliases may add entry names. Subcommands are described by `man hpu`, `man image`, etc.
++Generated from the active registry: 61 commands. These operate inside the virtual environment, not a host shell. Aliases may add entry names. Subcommands are described by `man hpu`, `man image`, etc.
+ 
+ | Command | Action | Usage |
+ |---|---|---|
+@@ -64,3 +64,21 @@
+ | `hpu` | run the software TIFF/GIF field and byte-lane simulator | hpu [pattern\|prop\|gs\|gate\|cycle\|diffuse\|bit\|tiff\|gif\|reset] |
+ | `sync` | flush and verify the IndexedDB write transaction | sync |
+ | `xpuinfo` | show actual execution backend and simulation limits | xpuinfo |
++| `russl` | capture, inspect, edit and explicitly apply corpus-mapped TIFF pixel fields | russl info / capture / verify / hash / get / set / apply / import / inspect / index / inverse / distance / layout |
++
++## RUSSL pixel actions
++
++`russl layout` prints axes, strides and placement. `russl index 0 0 0 0 0` and
++`russl inverse 0` convert addresses; `russl distance 0 8` evaluates only the optional
++2-adic ordinal metric. `russl get c4 c5 c6 c7 c8` reads the current staged TIFF.
++`russl set c4 c5 c6 c7 c8 value` edits real/imaginary sites with explicit Float32
++rounding and recomputes derivatives. Direct intensity/phase edits are rejected.
++
++`russl capture` stages the live HPU; `russl verify` validates it; `russl hash` reports
++file/sample/logical SHA-256 identities. `russl apply` explicitly changes the live
++HPU and resets its spool, recordings, byte lanes/counters and derived caches.
++Keep a full backup first. `russl import /virtual/path.tif` validates and stages a
++supported atlas from the virtual filesystem; this is not a Windows file path.
++The GUI's file picker handles explicitly selected local files. `russl inspect
++/virtual/path.tif` describes a TIFF within the generic bounded scalar subset
++without applying it. No image metadata is executed.
+--- a/DEPENDENCY_MANIFEST.json
++++ b/DEPENDENCY_MANIFEST.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "JA21/DEPENDENCY_MANIFEST/1",
+-  "version": "2.1.1",
++  "version": "2.2.0",
+   "profile": "LOCAL_BROWSER",
+   "formatNote": "Descriptive manifest, not an SPDX or CycloneDX certification",
+   "runtimeNpmPackages": [],
+@@ -60,6 +60,12 @@
+       "name": "native-module UI and static host",
+       "location": "src/app.js; web; scripts",
+       "origin": "local release refactor"
++    },
++    {
++      "name": "RUSSL scoped TIFF/pixel adapter",
++      "location": "src/vendor/spiral/russl-*.js; tiff-codec.js",
++      "origin": "RUSSL corpus 2.0.0 rules plus new application placement",
++      "scope": "bounded scalar TIFF, not full language/OME-Zarr conformance"
+     }
+   ],
+   "excludedReferenceRoots": [
+@@ -71,5 +77,13 @@
+     "runtime": 56,
+     "development": 14
+   },
+-  "licenseNote": "No blanket root license inferred; existing input notices retained. See THIRD_PARTY_NOTICES.md."
++  "licenseNote": "No blanket root license inferred; existing input notices retained. See THIRD_PARTY_NOTICES.md.",
++  "optionalAuditTools": [
++    "Python",
++    "NumPy",
++    "tifffile",
++    "Pillow",
++    "Playwright",
++    "Chromium"
++  ]
+ }
+--- a/QUICKSTART.txt
++++ b/QUICKSTART.txt
+@@ -1,22 +1,30 @@
+-JA21 SILICON CONSOLE 2.1.1 - PRIVATE WINDOWS RUNTIME
++JA21 SILICON CONSOLE 2.2.0 — RUSSL TIFF pixel update
+ 
+-1. Extract the entire ZIP to a short local folder, for example D:\JA21_2.1.1.
+-2. Double-click Start-Console.cmd. Do NOT install Node globally or run as Administrator.
+-3. First run downloads the official pinned Node.js runtime into .runtime, verifies
+-   its hashes, and then starts the console. Internet is needed for this setup
+-   unless the exact official runtime ZIP is already cached. Node is not in this ZIP.
+-4. Keep the host window open. The browser opens http://127.0.0.1:8788/.
+-5. Try help, xpuinfo, hpu gate xor 1 0, hpu bytes, and sync.
+-6. Use Virtual storage to export a backup before closing or upgrading.
+-7. Double-click Verify.cmd to run the Node test gate using the same private runtime.
++1. Export a full-volume backup from your previous application. Close its window
++   and local static host. Do not clear browser/site storage.
++2. Extract the complete release to a short local folder, such as D:\JA21_2.2.0.
++3. Double-click Start-Console.cmd. The private hash-pinned runtime bootstrap is
++   included; global Node/PATH/admin rights are not required. First setup needs
++   internet or the exact cached runtime archive. Node binaries are not bundled.
++4. Keep the launch window open. Use the same browser profile and address:
++   http://127.0.0.1:8788/
++5. Open TIFF pixel lab > Capture live field. Read/edit a real or imaginary site.
++   Capture/import/edit stages data only. Apply to live XPU is explicit, resets
++   transient processor/recording/spool state, and asks for GUI confirmation.
++6. Download field TIFF or Download SHA-256 receipt. Supported field examples are
++   in examples\tiffs. Normal visual phase TIFFs are not lossless HPU backups.
++7. Double-click Verify.cmd to repeat the Node/static-launcher gate. Native Windows
++   execution remains a local acceptance requirement, not a test performed here.
+ 
+-Start-Console.cmd --preflight verifies/provisions the runtime without starting HTTP.
+-Start-Console.cmd --verify runs the verification gate.
+-Bootstrap logs are in logs\launcher-*.log; host output remains in its console window.
++Terminal example (one line at a time):
++  russl capture
++  russl get 0 0 0 0 0
++  russl set 0 0 0 0 0 0.5
++  russl verify
++  russl apply
++  sync
+ 
+-This requires x64 or ARM64 Windows and Windows PowerShell 5.1 with permitted language
+-features. Security policy is not bypassed. No system PATH or firewall edits are made.
+-
+-Keep the same host/port/browser profile for the same saved virtual volume.
+-Do not clear browser data to repair a runtime error. No browser data is touched by setup.
+-See WINDOWS_STARTUP_FIX.md, README.md, and AUDIT_REPORT.md for details and test gaps.
++The live complex grid remains 64x64. The new atlas has four scalar components per
++pixel, addressed as [4,4,4,16,16] in a 128x128 Float64 TIFF. This is executable host
++software operating on image data, not independent image/hardware execution.
++See README.md, AUDIT_REPORT.md and docs\RUSSL_PIXEL_PROFILE.md.
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# JA21 Silicon Console 2.1.1
++# JA21 Silicon Console 2.2.0
+ ## Audited local edition of the supplied silicon-computing virtual console
+ 
+ A browser console with a SPIRAL command interpreter, Canvas terminal, virtual filesystem, transactional IndexedDB persistence, and a 64 × 64 complex-field / byte-lane software XPU simulator. **The XPU runs JavaScript on the CPU. It does not invoke a hardware GPU, a quantum device, a native hypervisor, or a host operating-system shell.** TIFF and GIF files are data exports, not independently executing processors.
+@@ -7,7 +7,7 @@
+ 
+ ## Start on Windows
+ 
+-Extract the complete ZIP into a short local path, for example `D:\JA21_2.1.1`. Do not run from inside the ZIP. Double-click **`Start-Console.cmd`**. On the first run it downloads a pinned **Node.js 24.21.0 LTS** Windows archive from the official Node.js release site, checks the archive SHA-256, extracts only `node.exe`, `LICENSE`, and `README.md`, and checks the executable SHA-256 before probing/running it. The executable is kept under `.runtime/node-v24.21.0-win-x64/` or the ARM64 counterpart. Subsequent launches verify and reuse that local executable without downloading it again.
++Extract the complete ZIP into a short local path, for example `D:\JA21_2.2.0`. Do not run from inside the ZIP. Double-click **`Start-Console.cmd`**. On the first run it downloads a pinned **Node.js 24.21.0 LTS** Windows archive from the official Node.js release site, checks the archive SHA-256, extracts only `node.exe`, `LICENSE`, and `README.md`, and checks the executable SHA-256 before probing/running it. The executable is kept under `.runtime/node-v24.21.0-win-x64/` or the ARM64 counterpart. Subsequent launches verify and reuse that local executable without downloading it again.
+ 
+ The bootstrap uses Windows PowerShell 5.1, chooses x64/ARM64 from the native Windows architecture, and does not need Node or npm on PATH. It does not elevate, install globally, edit PATH, change execution policy, or add firewall rules. First setup needs HTTPS access to `nodejs.org` (approximately 38 MB for x64 or 34 MB for ARM64) unless the correct ZIP is cached. Allow about 250 MB of free space for staging/cache/runtime. The host then rebuilds the static files and opens `http://127.0.0.1:8788/`. Keep the launch window open.
+ 
+@@ -31,11 +31,51 @@
+ sync
+ ```
+ 
+-The **Command library** tab lists all 60 registered commands with descriptions and usage. Selecting a command inserts it for review; it does not automatically execute it. The console supports up to eight terminal sessions, history, Ctrl+C interruption, bounded pipes and redirection, and a virtual-only POSIX-like filesystem. This is a deliberately limited shell, not Bash, PowerShell, or a complete VT100 implementation.
++The **Command library** tab lists all 61 registered commands with descriptions and usage. Selecting a command inserts it for review; it does not automatically execute it. The console supports up to eight terminal sessions, history, Ctrl+C interruption, bounded pipes and redirection, and a virtual-only POSIX-like filesystem. This is a deliberately limited shell, not Bash, PowerShell, or a complete VT100 implementation.
+ 
+ The **Virtual storage** tab lists files, downloads TIFF/GIF or other virtual files, exports the current/previous backup, requests persistent-storage permission, and imports a validated backup after explicit confirmation. The **System & limits** tab distinguishes implemented functions from simulated names.
+ 
+ The legacy `browser`/`open` commands are restricted to `about:blank` and `ram://status`, displayed as a built-in information pane. Arbitrary embedded external navigation is not enabled in the isolated local edition.
++
++## TIFF pixel lab — new in 2.2.0
++
++Open **TIFF pixel lab**, choose **Capture live field**, then inspect a site using
++c4…c8. c4 chooses real (0), imaginary (1), intensity (2) or phase (3). Only the first
++two are editable; intensity and phase are recomputed. Capture/import/edit changes
++the staged TIFF only. **Apply to live XPU** is separate and resets the spool,
++recordings, byte lanes/counters and derived caches. Export a full-volume backup
++before applying when those states matter.
++
++The atlas stores exactly 16,384 scalar sites as 128×128 Float64 samples. Its real
++and imaginary values preserve the existing Float32 HPU exactly; this does not
++increase the 64×64 live complex grid or invent additional precision. All raster
++positions are addressed. `phase.tif` remains a declared lossy phase visualization;
++processor TIFFs explicitly preserve their byte-lane values.
++
++Download/import the staged TIFF locally with the lab controls. Three importable
++field variants and nine other TIFF examples are in `examples/tiffs/`. Import does
++not auto-apply or read arbitrary host paths. Generic TIFFs, images from unrelated
++profiles, compressed/RGB/multipage TIFFs and the address-oracle fixture are not
++accepted as live-field atlases. The selected profile is intentionally bounded.
++
++```text
++russl capture
++russl get 0 0 0 0 0
++russl set 0 0 0 0 0 0.5
++russl verify
++russl apply
++russl hash
++sync
++```
++
++`russl apply` itself is the terminal's explicit apply instruction; unlike the GUI,
++it does not display a second confirmation. The staged virtual path is
++`/var/hpu/russl-field.tif`. Rerun `hpu tiff` or `hpu bytes` for updated visual exports;
++old user TIFFs are not silently rewritten during startup.
++
++Read [the pixel specification](docs/RUSSL_PIXEL_PROFILE.md) for placement, limits,
++loss semantics and identity domains. [The audit](AUDIT_REPORT.md) records evidence.
++The corpus's language and OME-Zarr proposals are not represented as implemented.
+ 
+ ## Save, stop, recover
+ 
+@@ -51,7 +91,7 @@
+ 
+ | Interface | This release |
+ |---|---|
+-| Product / UI / worker version | 2.1.1 |
++| Product / UI / worker version | 2.2.0 |
+ | Local MessageChannel wire protocol | `hermit.vws.v3`; structured control records use `v: 3` |
+ | Volume record | Version 2 with SHA-256, revision, writer ID, and previous-record retention |
+ | XPU binary state | HPU2 with length, CRC32, complete typed state; strict HPU1 import supported |
+@@ -74,6 +114,8 @@
+ Optional QA commands, with separately installed Python QA packages:
+ 
+ ```text
++node scripts/make-tiff-examples.mjs
++python tests/russl_interop.py
+ python tests/codecs.py
+ python tests/browser_offline.py
+ ```
+@@ -88,4 +130,4 @@
+ 
+ ## Release status
+ 
+-**153/153 Node tests passed (135 existing tests plus 18 static launcher contracts); 8 offline UI scenarios and 3 independent image-decoder checks passed. Windows PowerShell parsing, native Windows launch/download, and normal-browser persistence/worker integration remain acceptance gaps.** Native C# and physical XPU claims are not certified. Read `SECURITY.md`, `AUDIT_REPORT.md`, and `tests/MANUAL_ACCEPTANCE.md` before relying on important data.
++**244/244 Node tests passed (including 18 static launcher contracts); 15 offline UI scenarios, 12 new independent TIFF checks and 3 inherited TIFF/GIF checks passed. Windows PowerShell parsing, native Windows launch/download, and normal-browser persistence/worker integration remain acceptance gaps.** Native C# and physical XPU claims are not certified. Read `SECURITY.md`, `AUDIT_REPORT.md`, and `tests/MANUAL_ACCEPTANCE.md` before relying on important data.
+--- a/SECURITY.md
++++ b/SECURITY.md
+@@ -1,4 +1,4 @@
+-# Security boundaries — local edition 2.1.1
++# Security boundaries — local edition 2.2.0
+ 
+ ## Intended trust model
+ 
+@@ -26,7 +26,7 @@
+ 
+ Report a finding to the package owner with version, operating system/browser, minimal reproduction, redacted logs, and whether the issue affects the active local code or inert references. Do not include live secrets or unredacted personal backups. This package does not establish an external security-response endpoint.
+ 
+-## Private Windows runtime bootstrap (2.1.1)
++## Private Windows runtime bootstrap (2.2.0)
+ 
+ First setup adds an explicit outbound HTTPS dependency on the official Node.js release site. The browser application itself still has the same isolated local connection policy. Runtime files/cache and bootstrap logs are not copied into `dist` or served over HTTP.
+ 
+@@ -37,3 +37,27 @@
+ The downloader accepts only HTTPS to `nodejs.org:443`, rejects redirects and non-200 results, retains normal TLS validation, bounds bytes/time, and uses random partial filenames. ZIP extraction is limited to three exact entries with duplicate/length checks, never arbitrary archive paths. The executable is hashed before use; incomplete or altered installations fail closed. Runtime staging is atomically renamed only after validation. A file lock prevents concurrent bootstrap provisioning. Private runtime/log paths reject reparse points; deletion is limited to the bootstrap's own temporary file/staging directory.
+ 
+ Inherited Node/OpenSSL option variables are cleared in this process, not globally. No system Node on PATH is probed or executed. The original browser-storage host/port remains unchanged, and setup never resets browser state. The runtime lock is pinned, not an automatic updater; it must be reviewed with future upstream security updates.
++
++
++## TIFF / pixel adapter boundary in 2.2.0
++
++Untrusted TIFF bytes are copied, bounded, decoded and semantically validated
++before staged-file replacement. Generic TIFF is limited to 4 MiB / 262,144
++samples; the application atlas is limited to 192 KiB / 16,384 samples. Header,
++directory, metadata and strip overlaps, malformed offsets/counts, nonfinite
++samples, ambiguous page mapping and unsupported codecs/semantic tags fail closed.
++No metadata evaluation, external-resource fetch, code plug-in or arbitrary host
++path read is permitted. Local import requires a file selected by the user.
++
++Capture/import/edit does not auto-apply to the HPU. The GUI requires confirmation
++for apply; the shell command `russl apply` is itself an explicit write. Stale UI
++state is rejected and cleared on start/stop. The CRC32 revision is cooperative
++concurrency protection, not authentication against hostile chosen collisions.
++SHA-256 receipts likewise are hashes, not signatures. An attacker able to modify
++the application/worker or all file contents is outside checksum-only protection.
++
++Apply resets transient HPU state. It preflights the VFS replacement and rolls back
++publication errors. Existing transaction and browser-storage protections remain
++required. A staged TIFF is not a full session backup. Keep full exported backups.
++Complete constraints and intentionally unsupported image profiles are documented
++in docs/RUSSL_PIXEL_PROFILE.md; generic TIFF/OME-Zarr conformance is not claimed.
+--- a/Start-Console.cmd
++++ b/Start-Console.cmd
+@@ -22,7 +22,7 @@
+ if not "%JA21_NO_PAUSE%"=="1" pause
+ exit /b 1
+ #==JA21_POWERSHELL_PAYLOAD==
+-# JA21 Silicon Console 2.1.1 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.2.0 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -92,7 +92,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.1.1'
++        $request.UserAgent = 'JA21-Silicon-Console/2.2.0'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -214,15 +214,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1')) {
+-        throw 'This launcher repair supports JA21 Silicon Console 2.1.0 and 2.1.1 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0')) {
++        throw 'This launcher repair supports JA21 Silicon Console 2.1.0 and 2.2.0 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.1.1 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.2.0 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+--- a/THIRD_PARTY_NOTICES.md
++++ b/THIRD_PARTY_NOTICES.md
+@@ -8,3 +8,28 @@
+ Existing notices and licenses inside those references remain applicable to their respective material. No blanket relicensing of research papers, SDK binaries, or nested projects is asserted. The root npm metadata uses `UNLICENSED` because an applicable blanket distribution license was not established from the original root. This metadata does not erase individual third-party notices or grant public redistribution rights.
+ 
+ Node.js and the browser are not included binaries. Windows setup retrieves the official pinned Node.js archive separately and preserves its upstream LICENSE and README beside node.exe; npm and its package tree are not extracted or installed. The Node.js archive/executable hashes and upstream source are recorded in scripts/windows/runtime-lock.json. Linux/macOS users still supply a supported system runtime. The active application does not require React, Vite, a cloud database, external fonts, or npm-installed packages. Python/Pillow/Playwright/TypeScript were audit tools; they are not shipped as runtime dependencies. Their version information, where used, appears in the evidence files.
++
++
++## RUSSL corpus integration — 2.2.0
++
++Input: RUSSL-Zarr-main.zip, SHA-256
++`4adec0988b7e9de5e82d6c43d910112341373d18207545f4df2be431cbb66eb1`.
++The supplied corpus declares its original code/specification material under
++GPL-3.0-only, copyright 2026 LKVexa and contributors. Exact LICENSE, NOTICE and
++COPYRIGHT files are retained in corpus/russl-2.0.0/. The original complete ZIP is
++preserved byte-for-byte in references/RUSSL-Zarr-main.zip. Papers and other
++third-party material inside it retain their own notices and rights.
++
++New scoped adapter sources marked SPDX-License-Identifier: GPL-3.0-only include
++russl-field.js, tiff-codec.js, russl-service.js, commands/russl.js,
++scripts/make-tiff-examples.mjs, tests/russl.test.mjs and tests/russl_interop.py.
++The complete corresponding source is present. Their notices do not erase the
++original project's unresolved blanket licensing. The root package's UNLICENSED
++marker is retained, not presented as a relicense of the corpus or a grant of
++public redistribution rights for the combined work. Resolve rights for the
++original baseline and bundled third-party material before public distribution.
++
++Independent audit tools include NumPy, tifffile, Pillow and Playwright/Chromium.
++No binaries of these tools or npm packages were added to the application. Fixtures
++record their writer/version/provenance; they are interoperability test data, not
++claims that those tools conform to every accepted/rejected profile.
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-2.1.1
++2.2.0
+--- a/WINDOWS_STARTUP_FIX.md
++++ b/WINDOWS_STARTUP_FIX.md
+@@ -1,4 +1,4 @@
+-# Windows startup repair — launcher 2.1.1
++# Windows startup repair — launcher 2.2.0
+ 
+ ## Why the old launcher stopped
+ 
+@@ -7,9 +7,9 @@
+ a private runtime automatically; Node is still the HTTP host runtime, not removed
+ from the architecture.
+ 
+-## Preferred: complete application 2.1.1
++## Preferred: complete application 2.2.0
+ 
+-Extract the complete 2.1.1 ZIP into a normal local folder such as `D:\JA21_2.1.1`,
++Extract the complete 2.2.0 ZIP into a normal local folder such as `D:\JA21_2.2.0`,
+ then double-click `Start-Console.cmd`. Do not run inside the ZIP or as Administrator.
+ The first run downloads the official pinned Node.js 24.21.0 LTS archive (about
+ 38 MB for x64 or 34 MB for ARM64). Archive and executable SHA-256 values are checked
+@@ -25,14 +25,14 @@
+ Node/npm do not need to be on PATH. No installer or global configuration is changed.
+ The same local address remains `http://127.0.0.1:8788/`.
+ 
+-## Small repair for the existing 2.1.0 folder
++## Small repair for the existing 2.1.0 / 2.1.1 folder
+ 
+ Replace `Start-Console.cmd` with the provided new file **beside package.json**, in
+ the already extracted console folder. Replace `Verify.cmd` too when using the small
+ launcher-repair ZIP. Run `Start-Console.cmd` again.
+ 
+ This small repair changes only the launcher: the existing application stays 2.1.0.
+-The log explicitly says `launcher 2.1.1 | application 2.1.0`. Use the complete
++The log explicitly says `launcher 2.2.0 | application 2.1.0`. Use the complete
+ package for the application version bump, new test contracts, and updated reports.
+ Installing just the new Start-Console.cmd does not replace the old Verify.cmd;
+ use `Start-Console.cmd --verify` in that case.
+--- a/docs/RUSSL_PIXEL_PROFILE.md
++++ b/docs/RUSSL_PIXEL_PROFILE.md
+@@ -0,0 +1,119 @@
++# JA21 RUSSL TIFF pixel profile — 2.2.0
++
++Implementation profile: **JA21-RUSSL-HPU-ATLAS/1.0**. Source corpus: RUSSL Corpus 2.0.0, supplied as `RUSSL-Zarr-main.zip`. This is a bounded, working TIFF/field adapter. It is not the proposed complete `RUSSL-TIFF/2.0.0` adapter, RUSSL/MSSL language runtime, `.russ` container interpreter, OME-Zarr adapter, or hardware execution engine.
++
++## 1. Source rules versus the new application placement
++
++The corpus fixes axes `(c4,c5,c6,c7,c8)`, shape `(4,4,4,16,16)`, C-order traversal with c8 fastest, and strides `(4096,1024,256,16,1)`. Its authoritative fixture contains all 16,384 index vectors. JA21 uses those exact addresses:
++
++```text
++k = 4096*c4 + 1024*c5 + 256*c6 + 16*c7 + c8
++  = ((((c4*4+c5)*4+c6)*16+c7)*16+c8)
++0 <= c4,c5,c6 < 4; 0 <= c7,c8 < 16
++```
++
++The **new JA21 placement below is an application decision**, not a physical interpretation or a placement claimed to be prescribed by the corpus:
++
++| Logical axis | Meaning in this adapter |
++|---|---|
++| c4 = 0 | Real component |
++| c4 = 1 | Imaginary component |
++| c4 = 2 | Derived intensity: `re*re + im*im` |
++| c4 = 3 | Derived phase: `atan2(im,re)` |
++| c5, c6 | 16×16 tile row and column in the existing 64×64 HPU |
++| c7, c8 | Local row and column within that tile |
++
++```text
++HPU y = c5*16 + c7
++HPU x = c6*16 + c8
++TIFF raster y = floor(k / 128)
++TIFF raster x = k % 128
++```
++
++Every one of the 128×128 raster positions stores a meaningful scalar. The 4,096 complex working pixels remain 64×64; the 16,384 sites are their four scalar components, not 16,384 new complex processors. There is no padding, fabricated sample upscaling, or hardware-speed claim.
++
++Rational coordinates follow the corpus: `q(i,n)=(2*i-(n-1))/(n-1)`, reduced exactly, with a singleton axis represented by 0/1. Coordinate arithmetic uses BigInt internally to avoid intermediate overflow at the safe-integer boundary, then returns exact safe integers. This normalization is not a physical unit calibration. An optional `distance` command exposes the distinct 2-adic ordinal address metric; it is not Euclidean distance or a valuation of TIFF sample brightness.
++
++## 2. Numerical fidelity and payload
++
++The active HPU stores real and imaginary arrays in Float32. Capture widens those values exactly into Float64 TIFF slots, including signed zero, then computes intensity and phase in JavaScript binary64. It does not recover precision already absent from the Float32 HPU.
++
++The atlas has 16,384 × 8 = **131,072 raw sample bytes (128 KiB)**. Actual TIFF file size is greater because the header, directory and description are included. Real/imaginary samples must be finite, bounded to ±10^12, and exactly representable in Float32. Derived planes must agree with the declared calculation within `16*Number.EPSILON*max(1,abs(expected),abs(actual))`; this accommodates small cross-platform math differences without silently replacing imported samples.
++
++The atlas is LOSSLESS **within its declared finite scalar-sample, axis and simulated-calibration domain**. It is not a full HPU session backup. GIF spool, recordings, derived caches, byte lanes/counters, command interpreter, virtual filesystem and executable runtime are excluded. Use the existing full-volume backup for those.
++
++## 3. TIFF wire subset
++
++`src/vendor/spiral/tiff-codec.js` writes one grayscale BlackIsZero image with one uncompressed strip. It reads one or several nonoverlapping uncompressed strips. Supported sample representations are unsigned 8/16-bit and finite IEEE Float32/Float64, classic TIFF or bounded BigTIFF, little- or big-endian. All four representations are exercised with independent writer fixtures.
++
++The generic reader retains orientation 1–8 and the original source bytes; it does not rotate or normalize pixels. The application atlas reader accepts only orientation 1, Float64, 128×128, no opaque tags, resolution 1/1 with no physical unit, and the exact declared atlas metadata. `ImageDescription` uses `logicalShape`, not `shape`: some external TIFF tooling reserves top-level `shape` for its own series reshaping.
++
++The 64-bit BigTIFF directory format does **not** remove this implementation's memory bounds. This release supports small, bounded BigTIFF files; it does not spool terabytes or exercise offsets above 4 GiB.
++
++| Bound | Limit |
++|---|---:|
++| Generic TIFF file | 4 MiB |
++| Application field TIFF | 192 KiB |
++| Generic image samples | 262,144 |
++| Width or height | 4,096, subject to total sample limit |
++| IFD tags | 128 |
++| Aggregate tag metadata | 64 KiB |
++| ASCII/escaped-JSON description | 32 KiB excluding terminator |
++| VFS contents | Existing 2 MiB / 1,500-node limits; unchanged |
++
++Header/IFD/tag/strip overlaps, duplicate tags, invalid counts/types, unsafe 64-bit integers, truncated inputs, malformed descriptions, nonfinite floats, unsupported compression, RGB/palette/alpha, tiles and multiple/chained pages are rejected. No page-to-time/depth mapping is guessed. Known semantic-bearing unsupported metadata is rejected; unknown opaque tags in the generic inspector are reported and retained with original bytes, not translated. The atlas's stricter import rejects opaque tags.
++
++BigTIFF external directory values are required to be 8-byte aligned. During independent tests, one default unsigned BigTIFF fixture from tifffile placed external values at 4 mod 8. That fixture remains an explicit rejection test. Valid fixtures add an explicit orientation entry, satisfying the alignment check. Consequently, successful decoding of the supported profile must not be generalized to every TIFF produced by every library. Preserve the source when an import is rejected.
++
++## 4. Metadata and identity
++
++The JSON ImageDescription binds profile/version, source-corpus identifier, logical axes/shape/strides, scalar dtype, placement, simulated calibration, loss declaration and CRC32 of canonical little-endian Float64 sample bytes. Simulated calibration is 8 µm pitch and 532 nm wavelength plus the live HPU's finite z position. These are model settings, not acquisition measurements.
++
++A SHA-256 receipt separates:
++
++1. Exact file identity: hash of original container bytes.
++2. Sample identity: hash of little-endian Float64 sample bytes in ordinal order.
++3. Logical identity: SHA-256 of `JA21-RUSSL-LOGICAL/1`, NUL, recursively key-sorted descriptor JSON, NUL, canonical sample bytes.
++
++The three supplied field container variants have different file hashes but identical sample and logical hashes. This JA21 domain is not a `.russ` cryptographic root or a language-wide RUSSL canonicalization certificate. CRC32 is accidental-corruption detection and a cooperative UI stale-revision guard, not adversarial authentication. Hash receipts are not signatures, access controls, encryption, or proof of origin.
++
++## 5. Capture, stage, inspect, edit, apply
++
++The authoritative staged file is `/var/hpu/russl-field.tif` inside the existing virtual filesystem. Capture and validated import write only that file. They do not change the live HPU. Old saved volumes are not automatically rewritten.
++
++Only real/imaginary sites (c4 = 0 or 1) are writable. A requested scalar is explicitly rounded with `Math.fround` and the requested/effective values plus a rounding flag are returned. Intensity and phase at the corresponding pixel are recomputed together. Direct derivative writes, NaN, Infinity and out-of-range values are rejected. Validation and edits occur on detached buffers before replacement.
++
++GUI/RPC writes include the staged-file revision token and reject stale state. The worker refuses TIFF management while a terminal command is active. Shell commands operate inside the existing single worker execution context. Imports cannot execute metadata or follow file paths/URLs from it; a host file is read only through an explicit user file selection.
++
++**Apply is intentionally separate and destructive to transient HPU state.** It validates and reconstructs the complex Float32 field, prepares a fresh HPU2 state, verifies VFS quota before changing the live object, and resets byte lanes/counters, recordings, caches and GIF spool. Publication failure rolls the live object and field file back. The GUI asks for confirmation; entering `russl apply` is the explicit terminal action. Export a full-volume backup first when the current session must be retained.
++
++Existing volume-v2, filesystem-v1 and HPU2 encodings are unchanged. A binary fixture produced by the unmodified 2.1.1 HPU round-trips byte-identically through 2.2.0. The staged TIFF is persisted as an ordinary VFS file. Browser durability still depends on actual IndexedDB/locks support and local acceptance testing.
++
++## 6. Legacy visual TIFFs and examples
++
++`phase.tif` remains unsigned 16-bit phase visualization. Its quantizer and reconstruction are now explicit, with phase quantization error at most π/65535 radians under that mapping, and loss of amplitude declared. The stored u16 values export exactly; the original complex field cannot be recovered from phase alone.
++
++Processor TIFFs retain exact `u16 = byte*257` mapping and inverse `byte=u16/257`. Processor 7 denotes route IDs. That representation is lossless for the byte-lane/route domain, not for the original complex field. These are computed data, not independent CPU/GPU execution units.
++
++`examples/tiffs/` contains twelve regenerated TIFFs, three receipt files, documentation and SHA-256 checksums. The address-oracle TIFF stores ordinal 0…16383 for testing and is deliberately not accepted as an HPU field atlas. The three field variants are directly importable. Reference archives and already-saved user TIFFs are preserved unchanged; rerun `hpu tiff` / `hpu bytes` to regenerate active visual exports.
++
++## 7. Reproduction and exclusions
++
++```text
++node scripts/verify.mjs
++node scripts/make-tiff-examples.mjs
++python tests/russl_interop.py
++python tests/codecs.py
++python tests/browser_offline.py
++```
++
++Only Node is required for the application and core verification. Python plus NumPy/tifffile/Pillow/Playwright/Chromium are optional audit tools, not runtime components. See `AUDIT_REPORT.md` for actual test results and remaining native Windows/browser acceptance gaps. No full RUSSL/MSSL execution, `.russ` interpreter, OME-Zarr interchange, multiscale pyramids, compression, RGB/complex TIFF SampleFormat, native GPU dispatch, or independent image execution is implemented here.
++
++## References
++
++Corpus files are retained under `corpus/russl-2.0.0/`; the complete uploaded ZIP is retained under `references/`. A subset document's relative link may point to a document only in that full archive. Source hashes and file dispositions are in `audit/RUSSL_CORPUS_INTAKE.json`.
++
++Primary external specifications consulted:
++- https://libtiff.gitlab.io/libtiff/specification/coverage.html
++- https://libtiff.gitlab.io/libtiff/specification/bigtiff.html
++- https://ngff.openmicroscopy.org/0.5/ (boundary review only; no OME-Zarr adapter claim)
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.1.1",
++  "version": "2.2.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "ja21-silicon-console",
+-      "version": "2.1.1",
++      "version": "2.2.0",
+       "engines": {
+         "node": ">=22.12.0"
+       },
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.1.1",
++  "version": "2.2.0",
+   "private": true,
+   "type": "module",
+   "description": "Local browser virtual console and software XPU reference simulator",
+--- a/scripts/make-tiff-examples.mjs
++++ b/scripts/make-tiff-examples.mjs
+@@ -0,0 +1,26 @@
++// SPDX-License-Identifier: GPL-3.0-only
++/** Rebuild examples from real simulator computations; no downloads. */
++import fs from 'node:fs/promises';
++import path from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { createHash } from 'node:crypto';
++import { Hpu } from '../src/vendor/spiral/hpu.js';
++import { encodeGrayTiff } from '../src/vendor/spiral/tiff-codec.js';
++import { captureHpu,encodeFieldTiff,fieldReceipt,SHAPE,STRIDES } from '../src/vendor/spiral/russl-field.js';
++const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),out=path.join(root,'examples/tiffs'),qa=path.join(root,'audit/russl-fixtures');
++await fs.mkdir(out,{recursive:true});await fs.mkdir(qa,{recursive:true});
++const hpu=new Hpu();hpu.pattern('vortex');hpu.bytes();const field=captureHpu(hpu);
++for(const [name,options] of [['russl-field.tif',{}],['russl-field-bigtiff.tif',{bigTiff:true}],['russl-field-big-endian.tif',{byteOrder:'MM'}]]){
++ const bytes=encodeFieldTiff(field,options);await fs.writeFile(path.join(out,name),bytes);await fs.writeFile(path.join(out,name+'.receipt.json'),JSON.stringify(await fieldReceipt(bytes),null,2)+'\n');
++}
++await fs.writeFile(path.join(out,'phase.tif'),hpu.tiff());
++for(let i=1;i<=7;i++)await fs.writeFile(path.join(out,`processor-${i}.tif`),hpu.tiffPlane(i));
++const oracle=Uint16Array.from({length:16384},(_,i)=>i);
++await fs.writeFile(path.join(out,'ordinal-oracle.tif'),encodeGrayTiff(128,128,oracle,{description:{profile:'JA21-RUSSL-ADDRESS-ORACLE/1',logicalShape:SHAPE,strides:STRIDES,meaning:'each sample is its row-major ordinal, not an HPU field',classification:'LOSSLESS'}}));
++// Independently readable byte/JSON oracles for tests; no expected value is inferred from decoding a TIFF.
++const le64=new Uint8Array(field.samples.length*8),v=new DataView(le64.buffer);field.samples.forEach((x,i)=>v.setFloat64(i*8,x,true));await fs.writeFile(path.join(qa,'expected-field-f64le.bin'),le64);
++await fs.writeFile(path.join(qa,'expected-phase.json'),JSON.stringify([...hpu.phaseBytes()]));
++for(let i=0;i<6;i++)await fs.writeFile(path.join(qa,`expected-processor-${i+1}.json`),JSON.stringify([...hpu.byteLanes[i]].map(x=>x*257)));
++await fs.writeFile(path.join(qa,'expected-processor-7.json'),JSON.stringify([...hpu.byteRoute].map(x=>x*257)));
++const files=(await fs.readdir(out)).filter(x=>x!=='SHA256SUMS.txt').sort(),hashes=[];for(const name of files){const bytes=await fs.readFile(path.join(out,name));hashes.push(createHash('sha256').update(bytes).digest('hex')+'  '+name);}await fs.writeFile(path.join(out,'SHA256SUMS.txt'),hashes.join('\n')+'\n');
++console.log('Generated 12 TIFF examples, including three sample-identical field containers.');
+--- a/scripts/verify.mjs
++++ b/scripts/verify.mjs
+@@ -10,7 +10,7 @@
+ const reportPath=path.join(root,'audit/VERIFICATION.json');
+ const report={version:VERSION,status:'RUNNING',node:process.version,platform:process.platform,startedUtc:new Date().toISOString(),
+  excluded:['Native Windows cmd.exe/PowerShell execution, download, and runtime probe','Normal-browser worker/IndexedDB/Web Locks/CSP integration','Native C# compilation','Physical GPU/XPU or quantum hardware','Live advisory-database scan'],
+- optional:['python tests/codecs.py (Pillow)','python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)']};
++ optional:['node scripts/make-tiff-examples.mjs followed by python tests/russl_interop.py (NumPy, tifffile, Pillow)','python tests/codecs.py (Pillow)','python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)']};
+ async function save(){await fs.mkdir(path.dirname(reportPath),{recursive:true});await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n');}
+ try{
+  await save(); // Invalidate an old PASS before starting a new run.
+--- a/scripts/windows/bootstrap.ps1
++++ b/scripts/windows/bootstrap.ps1
+@@ -1,4 +1,4 @@
+-# JA21 Silicon Console 2.1.1 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.2.0 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -68,7 +68,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.1.1'
++        $request.UserAgent = 'JA21-Silicon-Console/2.2.0'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -190,15 +190,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1')) {
+-        throw 'This launcher repair supports JA21 Silicon Console 2.1.0 and 2.1.1 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0')) {
++        throw 'This launcher repair supports JA21 Silicon Console 2.1.0 and 2.2.0 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.1.1 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.2.0 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+--- a/scripts/windows/runtime-lock.json
++++ b/scripts/windows/runtime-lock.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "JA21/WINDOWS_RUNTIME_LOCK/1",
+-  "consoleVersion": "2.1.1",
++  "consoleVersion": "2.2.0",
+   "nodeVersion": "24.21.0",
+   "lts": "Krypton",
+   "verifiedDate": "2026-10-12",
+--- a/src/app.js
++++ b/src/app.js
+@@ -8,8 +8,8 @@
+ $('version').textContent=VERSION;
+ function notice(text) {$('notice').textContent=text;$('notice').hidden=!text;}
+ function fault(error){notice(error?.message || String(error));}
+-function setRunning(on,label){running=on;$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
+-function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);}
++function setRunning(on,label){if(!on){russlRevision=null;russlPresent=false;}for(const button of document.querySelectorAll('#russl button'))button.disabled=!on;running=on;$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
++function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);if(name==='russl' && running)refreshRussl().catch(fault);}
+ for(const b of document.querySelectorAll('nav button'))b.addEventListener('click',()=>view(b.dataset.view));
+ function render(t){if(!t || t!==active)return;t.renderer.render();$('transcript').textContent=t.screen.grid.map(row=>row.map(c=>c.ch).join('').trimEnd()).join('\n');}
+ function choose(t){active=t;for(const item of terminals){item.canvas.hidden=item!==t;item.canvas.style.display=item===t?'block':'none';item.button.classList.toggle('current',item===t);}fit();render(t);}
+@@ -36,7 +36,7 @@
+   catch(error){remove(t);throw error;}
+   fit();return t;
+ }
+-async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
++async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();if($('russl').classList.contains('active'))await refreshRussl();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
+ function sendCommand(command){if(!active?.socket || !running)throw new Error('no active terminal');if(typeof command!=='string' || command.length>4096 || /[\r\n\0]/.test(command))throw new Error('enter one command line, up to 4096 characters');active.socket.write('\x15'+command+'\r');}
+ $('command-form').addEventListener('submit',e=>{e.preventDefault();const input=$('command');if(!input.value.trim())return;try{sendCommand(input.value);input.value='';notice('');}catch(error){fault(error);}});
+ $('command').addEventListener('keydown',e=>{if(e.ctrlKey && e.key.toLowerCase()==='c'){e.preventDefault();try{active?.socket?.signal();}catch(error){fault(error);}}});
+@@ -64,4 +64,21 @@
+ $('path-form').addEventListener('submit',e=>{e.preventDefault();listFiles().catch(fault);});$('parent').addEventListener('click',()=>{const parts=$('path').value.split('/').filter(Boolean);parts.pop();$('path').value='/'+parts.join('/');listFiles().catch(fault);});
+ setInterval(async()=>{if(!running || !active?.socket || statusBusy || document.hidden)return;statusBusy=true;const t=active;try{const s=await t.socket.status();if(t===active){$('session-status').textContent=`${s.cwd} · ${s.busy?'busy':'ready'} · ${(s.ram.bytes/1024).toFixed(1)} KiB / 2048 KiB`;updateDisk(s.disk);}}catch{}finally{statusBusy=false;}},1500);
+ window.addEventListener('beforeunload',()=>{link.destroy('page closing');});
++
++// RUSSL actions are explicit, revision-checked worker operations on one VFS TIFF.
++let russlRevision=null,russlPresent=false,russlBusy=false;
++function showRussl(info){if(russlRevision!==info.revision)$('russl-site-output').textContent='Read a site to inspect the current staged revision.';russlRevision=info.revision;russlPresent=info.present;$('russl-status').textContent=info.present?`${info.path} · ${info.fileBytes.toLocaleString()} bytes · staged revision ${info.revision}`:info.message;$('russl-summary').textContent=JSON.stringify(info,null,2);}
++async function refreshRussl(){if(!running)throw new Error('start the server first');const result=await link.rpc('russl',{action:'info'});showRussl(result);return result;}
++const russlSite=()=>[4,5,6,7,8].map(n=>{const input=$('russl-c'+n);if(!input.checkValidity()||input.value==='')throw new Error('enter five bounded integer indices');return Number(input.value);});
++async function russlAction(action,args={}){if(russlBusy)throw new Error('a TIFF action is already active');russlBusy=true;try{if(russlRevision===null)await refreshRussl();const result=await link.rpc('russl',{action,args:{...args,expected:russlRevision}});if(result.revision!==undefined)showRussl(result);return result;}finally{russlBusy=false;}}
++$('russl-refresh').addEventListener('click',()=>refreshRussl().catch(fault));
++$('russl-capture').addEventListener('click',async()=>{try{if(russlRevision===null)await refreshRussl();if(russlPresent&&!confirm('Replace the staged TIFF with a new capture? The live XPU is not changed.'))return;await russlAction('capture');notice('Live field captured into the sample-exact TIFF atlas.');}catch(error){fault(error);}});
++$('russl-site-form').addEventListener('submit',async e=>{e.preventDefault();try{const result=await russlAction('get',{indices:russlSite()});$('russl-site-output').textContent=JSON.stringify(result,null,2);}catch(error){fault(error);}});
++$('russl-edit').addEventListener('click',async()=>{try{const input=$('russl-value');if(input.value===''||!input.checkValidity())throw new Error('enter a finite bounded sample value');const result=await russlAction('edit',{indices:russlSite(),value:Number(input.value)});$('russl-site-output').textContent=JSON.stringify(result.edit,null,2);notice('Staged pixel written; intensity and phase recomputed. Live XPU unchanged.');}catch(error){fault(error);}});
++$('russl-apply').addEventListener('click',async()=>{if(!confirm('Apply the staged TIFF to the live XPU? This resets its spool, recordings, byte lanes, counters and derived caches. Keep a full backup first.'))return;try{const result=await russlAction('apply');notice(result.message);}catch(error){fault(error);}});
++$('russl-export').addEventListener('click',async()=>{try{const info=await refreshRussl();if(!info.present)throw new Error('capture or import a TIFF first');const file=await link.rpc('file',{path:info.path});download('JA21-RUSSL-field.tif',file.bytes,'image/tiff');}catch(error){fault(error);}});
++$('russl-receipt').addEventListener('click',async()=>{try{const receipt=await russlAction('receipt');download('JA21-RUSSL-field.receipt.json',JSON.stringify(receipt,null,2),'application/json');notice('SHA-256 file, sample and logical-identity receipt exported. It is not a signature.');}catch(error){fault(error);}});
++$('russl-import').addEventListener('click',()=>$('russl-file').click());
++$('russl-file').addEventListener('change',async()=>{const input=$('russl-file'),file=input.files[0];input.value='';if(!file)return;try{if(file.size>192*1024)throw new Error('field TIFF exceeds 192 KiB');if(russlRevision===null)await refreshRussl();if(russlPresent&&!confirm('Replace the staged TIFF with the selected local file? The live XPU is not changed.'))return;const bytes=new Uint8Array(await file.arrayBuffer());await russlAction('import',{bytes});notice('TIFF validated and staged. Apply explicitly to change the live XPU.');}catch(error){fault(error);}});
++
+ start();
+--- a/src/vendor/ram-worker.js
++++ b/src/vendor/ram-worker.js
+@@ -1,3 +1,4 @@
++import { russlOperation } from './spiral/russl-service.js';
+ import { VERSION, PROFILE } from '../version.js';
+ import { SpiralKernel, validGeometry } from './spiral/kernel.js';
+ import { VFS } from './spiral/vfs.js';
+@@ -144,6 +145,15 @@
+   switch(m.op){
+     case 'sync':await flush();return {...disk};
+     case 'commands':return kernel.registry.list().map(d=>({name:d.name,summary:d.summary,usage:d.usage,aliases:d.aka || []}));
++    case 'russl': {
++      if(!ownsLock || [...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for active commands before TIFF operations');
++      const operation=m.action;
++      if(!['info','get','receipt','capture','edit','apply','import'].includes(operation))throw new Error('unsupported TIFF action');
++      if(['capture','edit','apply','import'].includes(operation) && typeof m.args?.expected!=='string')throw new Error('TIFF revision token required');
++      const result=await russlOperation({vfs:kernel.vfs,host:kernel.host},operation,m.args || {});
++      if(['capture','edit','apply','import'].includes(operation))await flush();
++      return result;
++    }
+     case 'preview':return hpu.preview();
+     case 'files':return kernel.vfs.readdir(m.path || '/');
+     case 'file': {const st=kernel.vfs.stat(m.path);if(st.type!=='file' || st.size>LIMITS.maxBytes)throw new Error('not an exportable file');const contents=kernel.vfs.readFile(m.path);return {path:m.path,bytes:contents instanceof Uint8Array ? new Uint8Array(contents) : enc.encode(contents)};}
+--- a/src/vendor/spiral/commands/hpu.js
++++ b/src/vendor/spiral/commands/hpu.js
+@@ -358,7 +358,7 @@
+           ctx.vfs.mkdir("/var/hpu", { recursive: true });
+           const bytes = hpu.tiff();
+           ctx.vfs.writeFile(path, Buffer.from(bytes));
+-          ctx.stdout.write(`wrote ${path}  ${bytes.length} bytes  16-bit gray phase TIFF\n`);
++          ctx.stdout.write(`wrote ${path}  ${bytes.length} bytes  16-bit quantized phase TIFF (LOSSY relative to complex field); use russl capture for sample-exact export\n`);
+           touch(ctx);
+           return 0;
+         }
+--- a/src/vendor/spiral/commands/index.js
++++ b/src/vendor/spiral/commands/index.js
+@@ -5,8 +5,9 @@
+ import browser from "./browser.js";
+ import ram from "./ram.js";
+ import hpu from "./hpu.js";
++import russl from "./russl.js";
+ 
+-export default [...system, ...fsCmds, ...coreutils, ...browser, ...ram, ...hpu,
++export default [...system, ...fsCmds, ...coreutils, ...browser, ...ram, ...hpu, ...russl,
+   { name: "sync", summary: "flush and verify the IndexedDB write transaction", usage: "sync", async run(ctx) { if (!ctx.host.sync) throw new Error("persistence unavailable"); await ctx.host.sync(); ctx.stdout.write("Volume transaction committed. Keep an exported backup.\n"); return 0; } },
+-  { name: "xpuinfo", summary: "show actual execution backend and simulation limits", usage: "xpuinfo", async run(ctx) { ctx.stdout.write("Backend: JavaScript CPU software simulator\nField: 64 x 64 complex Float32 samples\nByte paths: scalar loop and 32-wide batched loop; neither uses a GPU API\nSix LUT identities, four distinct transformations, one deterministic selector\nFLOP-equivalent, Landauer, Bloch, and logical-cycle values are models, not measured hardware throughput or heat\n"); return 0; } }
++  { name: "xpuinfo", summary: "show actual execution backend and simulation limits", usage: "xpuinfo", async run(ctx) { ctx.stdout.write("Backend: JavaScript CPU software simulator\nField: 64 x 64 complex Float32 samples\nTIFF adapter: RUSSL 4x4x4x16x16 atlas, 16,384 f64 scalar sites; run russl capture\nByte paths: scalar loop and 32-wide batched loop; neither uses a GPU API\nSix LUT identities, four distinct transformations, one deterministic selector\nFLOP-equivalent, Landauer, Bloch, and logical-cycle values are models, not measured hardware throughput or heat\n"); return 0; } }
+ ];
+--- a/src/vendor/spiral/commands/russl.js
++++ b/src/vendor/spiral/commands/russl.js
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: GPL-3.0-only
++import { fail } from './util.js';
++import { russlOperation } from '../russl-service.js';
++import { ordinal,indices,coordinate,addressDistance,SHAPE,STRIDES,AXES,FIELD_PATH } from '../russl-field.js';
++import { decodeGrayTiff } from '../tiff-codec.js';
++const number=text=>{if(typeof text!=='string'||!text.trim()||!Number.isFinite(Number(text)))throw new Error('finite numeric argument required');return Number(text);};
++export default [{name:'russl',summary:'capture, inspect, edit and explicitly apply corpus-mapped TIFF pixel fields',usage:'russl info|capture|verify|hash|get c4 c5 c6 c7 c8|set c4 c5 c6 c7 c8 value|apply|import VFS.tif|inspect VFS.tif|index c4 c5 c6 c7 c8|inverse k|distance a b|layout',async run(ctx){
++ try{
++  if(Object.keys(ctx.flags).length)throw new Error('unsupported flag');
++  const [sub='info',...args]=ctx.args;const arity=n=>{if(args.length!==n)throw new Error(`${sub} requires ${n} arguments`);};
++  let result;
++  if(sub==='layout'){arity(0);result={axes:AXES,shape:SHAPE,strides:STRIDES,sites:16384,formula:'k=((((c4*4+c5)*4+c6)*16+c7)*16+c8)',placement:'c4=real/imaginary/intensity/phase; HPU y=c5*16+c7, x=c6*16+c8',path:FIELD_PATH,scope:'scoped pixel adapter, not full RUSSL/MSSL execution or Zarr'};}
++  else if(sub==='index'){arity(5);const site=args.map(number);result={ordinal:ordinal(site),indices:site,coordinates:site.map((v,j)=>coordinate(v,SHAPE[j]))};}
++  else if(sub==='inverse'){arity(1);result={indices:indices(number(args[0]))};}
++  else if(sub==='distance'){arity(2);result={distance:addressDistance(...args.map(number)),meaning:'optional ordinal 2-adic address metric; not Euclidean distance or sample-value valuation'};}
++  else if(sub==='get'){arity(5);result=russlOperation(ctx,'get',{indices:args.map(number)});}
++  else if(sub==='set'){arity(6);result=russlOperation(ctx,'edit',{indices:args.slice(0,5).map(number),value:number(args[5])});}
++  else if(sub==='import'){arity(1);result=russlOperation(ctx,'import',{bytes:ctx.vfs.readFile(ctx.resolve(args[0]))});}
++  else if(sub==='inspect'){arity(1);const image=decodeGrayTiff(ctx.vfs.readFile(ctx.resolve(args[0])));result={width:image.width,height:image.height,dtype:image.dtype,byteOrder:image.byteOrder,bigTiff:image.bigTiff,orientation:image.orientation,strips:image.stripCount,calibration:image.calibration,description:image.description,opaqueTags:image.opaqueTags.map(x=>({id:x.id,type:x.type,count:x.count})),scope:image.equivalence};}
++  else if(['info','capture','verify','hash','apply'].includes(sub)){arity(0);result=await russlOperation(ctx,sub==='hash'?'receipt':sub==='verify'?'info':sub);if(sub==='verify'&&!result.present)throw new Error('no field TIFF to verify');}
++  else throw new Error('unknown subcommand; run man russl');
++  ctx.stdout.write(JSON.stringify(result,null,2)+'\n');return 0;
++ }catch(error){return fail(ctx,'russl',error.message);}
++}}];
+--- a/src/vendor/spiral/commands/system.js
++++ b/src/vendor/spiral/commands/system.js
+@@ -62,7 +62,7 @@
+         return '  │' + body + ' '.repeat(Math.max(0, W - [...body].length)) + '│';
+       };
+       ctx.stdout.write([
+-        'JA21 Silicon Console — version ' + (ctx.host.version ? ctx.host.version() : '2.1.1'),
++        'JA21 Silicon Console — version ' + (ctx.host.version ? ctx.host.version() : '2.2.0'),
+         'Local browser worker, SPIRAL shell, ANSI terminal, bounded virtual filesystem.',
+         'IndexedDB provides origin-scoped storage; export backups before clearing site data.',
+         'The XPU/HPU is a JavaScript software model. Both byte-processing paths run on CPU.',
+--- a/src/vendor/spiral/hpu.js
++++ b/src/vendor/spiral/hpu.js
+@@ -1,3 +1,4 @@
++import { encodeGrayTiff } from './tiff-codec.js';
+ import { encodeState, decodeState } from './state-codec.js';
+ // @ts-nocheck
+ /**
+@@ -1245,7 +1246,14 @@
+       if (!lane) return null;
+       for (let i = 0; i < n; i++) samples[i] = lane[i] * 257;
+     }
+-    return encodeTiffGray16(this.n, this.n, samples);
++    return encodeTiffGray16(this.n, this.n, samples, {description: {
++      profile: 'JA21-BYTE-PLANE/2.0', corpus: 'RUSSL-CORPUS/2.0.0',
++      logicalShape: [1,1,1,this.n,this.n], placement: 'F[0,0,0,y,x]=TIFF[y,x]',
++      processor: index, meaning: index===7?'route ID (1..6)':'LUT output byte (0..255)',
++      sampleEncoding: 'u16 = byte * 257; inverse = u16 / 257, exact',
++      classification: 'LOSSLESS', domain: 'stored byte samples, not original complex field',
++      execution: 'JavaScript CPU; image samples are data, not executable instructions'
++    }});
+   }
+ 
+   _report() {
+@@ -1355,7 +1363,15 @@
+   }
+ 
+   tiff() {
+-    return encodeTiffGray16(this.n, this.n, this.phaseBytes());
++    return encodeTiffGray16(this.n, this.n, this.phaseBytes(), {
++      resolution: {x:[3175,1],y:[3175,1],unit:2},
++      description: {profile:'JA21-PHASE-U16/2.0',corpus:'RUSSL-CORPUS/2.0.0',
++        logicalShape:[1,1,1,this.n,this.n],placement:'F[0,0,0,y,x]=TIFF[y,x]',
++        meaning:'phase radians; amplitude not stored',calibration:'simulated pitch 8e-6 m, not an acquisition measurement',
++        quantizer:'clamp(round((atan2(im,re)+pi)/(2*pi)*65535),0,65535)',
++        reconstruction:'u16/65535*2*pi-pi',maxAbsolutePhaseErrorRadians:Math.PI/65535,
++        classification:'LOSSY',domain:'phase quantization and discarded amplitude; u16 samples themselves export exactly',
++        losslessAlternative:'russl capture -> /var/hpu/russl-field.tif'}});
+   }
+ 
+   gif() {
+@@ -1573,54 +1589,9 @@
+   }
+ }
+ 
+-export function encodeTiffGray16(width, height, samples) {
+-  checkImage(width,height);
+-  if (!(samples instanceof Uint16Array) || samples.length !== width*height) throw new Error('TIFF sample shape mismatch');
+-  const tags = [
+-    [256, 4, 1, width],
+-    [257, 4, 1, height],
+-    [258, 3, 1, 16],
+-    [259, 3, 1, 1],
+-    [262, 3, 1, 1],
+-    [273, 4, 1, 0],
+-    [277, 3, 1, 1],
+-    [278, 4, 1, height],
+-    [279, 4, 1, width * height * 2],
+-    [282, 5, 1, 0],
+-    [283, 5, 1, 0],
+-    [296, 3, 1, 2],
+-  ];
+-  const ifd = 8;
+-  const nTags = tags.length;
+-  const ifdBytes = 2 + nTags * 12 + 4;
+-  const xres = ifd + ifdBytes;
+-  const yres = xres + 8;
+-  const strip = yres + 8;
+-  const out = new Uint8Array(strip + width * height * 2);
+-  const v = new DataView(out.buffer);
+-  v.setUint16(0, 0x4949, true);
+-  v.setUint16(2, 42, true);
+-  v.setUint32(4, ifd, true);
+-  v.setUint16(ifd, nTags, true);
+-  tags[5][3] = strip;
+-  tags[9][3] = xres;
+-  tags[10][3] = yres;
+-  let p = ifd + 2;
+-  for (const [id, type, count, value] of tags) {
+-    v.setUint16(p, id, true);
+-    v.setUint16(p + 2, type, true);
+-    v.setUint32(p + 4, count, true);
+-    if (type === 3) v.setUint16(p + 8, value, true);
+-    else v.setUint32(p + 8, value, true);
+-    p += 12;
+-  }
+-  v.setUint32(p, 0, true);
+-  v.setUint32(xres, 3175, true);
+-  v.setUint32(xres + 4, 1, true);
+-  v.setUint32(yres, 3175, true);
+-  v.setUint32(yres + 4, 1, true);
+-  for (let i = 0; i < samples.length; i++) v.setUint16(strip + i * 2, samples[i], true);
+-  return out;
++export function encodeTiffGray16(width, height, samples, options={}) {
++  if (!(samples instanceof Uint16Array)) throw new Error('TIFF sample shape mismatch');
++  return encodeGrayTiff(width,height,samples,options);
+ }
+ 
+ function lzwEncode(indices) {
+--- a/src/vendor/spiral/russl-field.js
++++ b/src/vendor/spiral/russl-field.js
+@@ -0,0 +1,88 @@
++/** Scoped adapter derived from RUSSL corpus 2.0.0 fixed_shape_layout / WP04 / WP23.
++ * Not a RUSSL parser, MSSL evaluator, RUSS executable, physical penteract or Zarr.
++ * See docs/RUSSL_PIXEL_PROFILE.md for the newly defined HPU-to-atlas placement.
++ * SPDX-License-Identifier: GPL-3.0-only
++ */
++import { encodeGrayTiff, decodeGrayTiff } from './tiff-codec.js';
++import { crc32 } from './state-codec.js';
++export const SHAPE=Object.freeze([4,4,4,16,16]);
++export const STRIDES=Object.freeze([4096,1024,256,16,1]);
++export const AXES=Object.freeze(['c4','c5','c6','c7','c8']);
++export const COMPONENTS=Object.freeze(['real','imaginary','intensity','phase']);
++export const SITES=16384;
++export const FIELD_PROFILE='JA21-RUSSL-HPU-ATLAS/1.0';
++export const FIELD_PATH='/var/hpu/russl-field.tif';
++export const FIELD_FILE_LIMIT=192*1024;
++function index(v,n,label){if(!Number.isInteger(v)||v<0||v>=n)throw new Error(`${label} must be an integer in [0, ${n-1}]`);return v;}
++export function ordinal(indices){if(!Array.isArray(indices)||indices.length!==5)throw new Error('five integer indices required');return indices.reduce((n,v,j)=>n+index(v,SHAPE[j],AXES[j])*STRIDES[j],0);}
++export function indices(k){index(k,SITES,'ordinal');return STRIDES.map((s,j)=>Math.floor(k/s)%SHAPE[j]);}
++export function coordinate(i,n){if(!Number.isSafeInteger(n)||n<1)throw new Error('invalid coordinate size');index(i,n,'coordinate');if(n===1)return {numerator:0,denominator:1};let a=2n*BigInt(i)-(BigInt(n)-1n),b=BigInt(n)-1n,x=a<0n?-a:a,y=b;while(y){[x,y]=[y,x%y];}return {numerator:Number(a/x),denominator:Number(b/x)};}
++export function addressDistance(a,b){indices(a);indices(b);const d=Math.abs(a-b);if(!d)return {numerator:0,denominator:1};let v=0;let q=d;while(q%2===0){q/=2;v++;}return {numerator:1,denominator:2**v};}
++export function hpuPixel(indicesValue){ordinal(indicesValue);const [component,ty,tx,y,x]=indicesValue;return {component:COMPONENTS[component],x:tx*16+x,y:ty*16+y,index:(ty*16+y)*64+tx*16+x};}
++export function sampleBytes(samples){if(!(samples instanceof Float64Array)||samples.length!==SITES)throw new Error('field requires exactly 16,384 f64 samples');const out=new Uint8Array(SITES*8),v=new DataView(out.buffer);for(let i=0;i<SITES;i++){if(!Number.isFinite(samples[i]))throw new Error('field nonfinite sample');v.setFloat64(i*8,samples[i],true);}return out;}
++export function stableJSON(value,depth=0){
++ if(depth>8)throw new Error('field metadata depth limit');
++ if(value===null||typeof value!=='object')return JSON.stringify(value);
++ if(Array.isArray(value)){if(value.length>128)throw new Error('field metadata array limit');return '['+value.map(x=>stableJSON(x,depth+1)).join(',')+']';}
++ const keys=Object.keys(value).sort();if(keys.length>128)throw new Error('field metadata key limit');
++ return '{'+keys.map(k=>JSON.stringify(k)+':'+stableJSON(value[k],depth+1)).join(',')+'}';
++}
++const sampleCRC=samples=>crc32(sampleBytes(samples)).toString(16).padStart(8,'0');
++function calibration(c){if(!c||Object.keys(c).sort().join(',')!=='kind,pitchMeters,wavelengthMeters,zMeters'||c.kind!=='SIMULATED'||c.pitchMeters!==8e-6||c.wavelengthMeters!==532e-9||!Number.isFinite(c.zMeters))throw new Error('field simulated calibration profile mismatch');return {...c};}
++function descriptor(samples,c){return {
++ profile:FIELD_PROFILE,corpus:'RUSSL-CORPUS/2.0.0',axes:[...AXES],logicalShape:[...SHAPE],strides:[...STRIDES],order:'C; c8 fastest',dtype:'f64',
++ placement:{raster:[128,128],rasterOrdinal:'k=y*128+x',c4:[...COMPONENTS],hpuPixel:'y=c5*16+c7; x=c6*16+c8',hpuShape:[64,64]},
++ coordinates:'normalized rational coordinates; no physical units inferred',calibration:calibration(c),
++ equivalence:{classification:'LOSSLESS',domain:'finite scalar sample bits, declared axes, simulated calibration; re/im f32 widen exactly to f64',phaseDerivative:'atan2(im,re); numerical cross-platform tolerance 16*EPSILON',notIncluded:'full HPU session, byte lanes, GIF spool, runtime or executable code'},
++ integrity:{algorithm:'CRC32',sampleByteOrder:'little',sampleCRC32:sampleCRC(samples),authentication:false}};}
++function close(a,b){return Object.is(a,b)||Math.abs(a-b)<=16*Number.EPSILON*Math.max(1,Math.abs(a),Math.abs(b));}
++export function validateField(field){
++ if(!field||!(field.samples instanceof Float64Array)||field.samples.length!==SITES)throw new Error('field shape/dtype mismatch');calibration(field.calibration);
++ const s=field.samples;for(let j=0;j<4096;j++){
++  const re=s[j],im=s[j+4096];
++  if(!Number.isFinite(re)||!Number.isFinite(im)||Math.abs(re)>1e12||Math.abs(im)>1e12||!Object.is(Math.fround(re),re)||!Object.is(Math.fround(im),im))throw new Error('real/imaginary sample must be bounded, exactly representable finite f32');
++  const intensity=re*re+im*im,phase=Math.atan2(im,re);
++  if(!Number.isFinite(s[j+8192])||!Number.isFinite(s[j+12288])||!close(s[j+8192],intensity)||!close(s[j+12288],phase))throw new Error('derived intensity/phase does not agree with real/imaginary samples');
++ }
++ return field;
++}
++export function captureHpu(hpu){
++ if(hpu?.n!==64||!(hpu.re instanceof Float32Array)||!(hpu.im instanceof Float32Array)||hpu.re.length!==4096||hpu.im.length!==4096)throw new Error('capture requires a 64x64 complex f32 HPU');
++ const samples=new Float64Array(SITES);
++ for(let y=0;y<64;y++)for(let x=0;x<64;x++){
++  const pixel=y*64+x,j=ordinal([0,y>>4,x>>4,y&15,x&15]),re=hpu.re[pixel],im=hpu.im[pixel];
++  samples[j]=re;samples[j+4096]=im;samples[j+8192]=re*re+im*im;samples[j+12288]=Math.atan2(im,re);
++ }
++ return validateField({samples,calibration:{kind:'SIMULATED',pitchMeters:hpu.pitch,wavelengthMeters:hpu.lambda,zMeters:hpu.z}});
++}
++export function encodeFieldTiff(field,options={}){
++ validateField(field);const bytes=encodeGrayTiff(128,128,field.samples,{...options,description:descriptor(field.samples,field.calibration),resolution:null});
++ if(bytes.length>FIELD_FILE_LIMIT)throw new Error('field TIFF file limit');return bytes;
++}
++export function decodeFieldTiff(bytes){
++ if(!(bytes instanceof Uint8Array)||bytes.length>FIELD_FILE_LIMIT)throw new Error('field TIFF input limit');
++ const image=decodeGrayTiff(bytes);
++ if(image.width!==128||image.height!==128||image.dtype!=='f64'||image.orientation!==1||image.opaqueTags.length||image.calibration.unit!==1||stableJSON(image.calibration.x)!=='[1,1]'||stableJSON(image.calibration.y)!=='[1,1]')throw new Error('TIFF is not the supported RUSSL HPU atlas profile');
++ let metadata;try{metadata=JSON.parse(image.description);}catch{throw new Error('field TIFF requires its JSON ImageDescription');}
++ if(!metadata||metadata.profile!==FIELD_PROFILE)throw new Error('unknown field profile or major version');
++ const c=calibration(metadata.calibration),expected=descriptor(image.samples,c);
++ if(stableJSON(metadata)!==stableJSON(expected))throw new Error('field metadata, mapping or sample checksum mismatch');
++ const field=validateField({samples:image.samples,calibration:c});return {...field,image,metadata};
++}
++export function editFieldSite(field,site,value){
++ validateField(field);const k=ordinal(site);if(site[0]>1)throw new Error('intensity/phase are derived: edit c4=0 (real) or c4=1 (imaginary)');
++ if(typeof value!=='number'||!Number.isFinite(value)||Math.abs(value)>1e12)throw new Error('edit needs finite value within +/-1e12');
++ const effective=Math.fround(value);if(Math.abs(effective)>1e12)throw new Error('rounded edit exceeds HPU range');
++ const samples=field.samples.slice(),j=k%4096;samples[k]=effective;
++ samples[j+8192]=samples[j]*samples[j]+samples[j+4096]*samples[j+4096];samples[j+12288]=Math.atan2(samples[j+4096],samples[j]);
++ return {field:validateField({samples,calibration:{...field.calibration}}),requested:value,effective,rounded:!Object.is(value,effective),site:[...site],ordinal:k};
++}
++export function fieldToComplex(field){validateField(field);const re=new Float32Array(4096),im=new Float32Array(4096);for(let j=0;j<4096;j++){const p=hpuPixel(indices(j)).index;re[p]=field.samples[j];im[p]=field.samples[j+4096];}return {re,im,z:field.calibration.zMeters};}
++export function fieldInfo(field){validateField(field);const ranges=COMPONENTS.map((component,c)=>{const a=field.samples.subarray(c*4096,(c+1)*4096);let min=Infinity,max=-Infinity;for(const v of a){min=Math.min(min,v);max=Math.max(max,v);}return {component,min,max};});return {profile:FIELD_PROFILE,shape:[...SHAPE],axes:[...AXES],sites:SITES,dtype:'f64',payloadBytes:SITES*8,raster:[128,128],sampleCRC32:sampleCRC(field.samples),calibration:{...field.calibration},components:ranges};}
++export async function fieldReceipt(bytes){
++ const field=decodeFieldTiff(bytes),raw=sampleBytes(field.samples),meta=descriptor(field.samples,field.calibration);
++ if(!globalThis.crypto?.subtle)throw new Error('SHA-256 requires a secure browser context');
++ const hash=async u=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',u)),x=>x.toString(16).padStart(2,'0')).join('');
++ const prefix=new TextEncoder().encode('JA21-RUSSL-LOGICAL/1\0'+stableJSON(meta)+'\0'),logical=new Uint8Array(prefix.length+raw.length);logical.set(prefix);logical.set(raw,prefix.length);
++ return {...fieldInfo(field),fileSHA256:await hash(field.image.sourceBytes),sampleSHA256:await hash(raw),logicalSHA256:await hash(logical),logicalDomain:'JA21-RUSSL-LOGICAL/1 + NUL + sorted descriptor JSON + NUL + LE f64 samples',authentication:false,classification:'LOSSLESS',scope:'This adapter only. Not full RUSSL, RUSS or OME-NGFF conformance.'};
++}
+--- a/src/vendor/spiral/russl-service.js
++++ b/src/vendor/spiral/russl-service.js
+@@ -0,0 +1,39 @@
++// SPDX-License-Identifier: GPL-3.0-only
++/** The staged TIFF is VFS data. Only an explicit apply changes the live HPU. */
++import { Hpu } from './hpu.js';
++import { Buffer } from './buffer.js';
++import { crc32 } from './state-codec.js';
++import { captureHpu,encodeFieldTiff,decodeFieldTiff,editFieldSite,fieldToComplex,fieldInfo,fieldReceipt,ordinal,indices,coordinate,hpuPixel,FIELD_PATH,SHAPE } from './russl-field.js';
++const fingerprint=b=>crc32(b).toString(16).padStart(8,'0');
++function read(vfs){const bytes=vfs.readFile(FIELD_PATH);if(!(bytes instanceof Uint8Array))throw new Error('capture or import a field TIFF first');return {bytes,field:decodeFieldTiff(bytes)};}
++function guard(vfs,expected){if(expected===undefined)return;if(typeof expected!=='string')throw new Error('invalid revision check');const current=vfs.exists(FIELD_PATH)?fingerprint(vfs.readFile(FIELD_PATH)):'absent';if(current!==expected)throw new Error('staged TIFF changed; refresh before retrying');}
++function put(vfs,bytes){decodeFieldTiff(bytes);vfs.mkdir('/var/hpu',{recursive:true});vfs.writeFile(FIELD_PATH,Buffer.from(bytes));}
++export function russlOperation({vfs,host},op,args={}) {
++ if(!vfs||!host?.hpu)throw new Error('RUSSL adapter needs the virtual HPU host');
++ if(op==='info'){
++  if(!vfs.exists(FIELD_PATH))return {present:false,path:FIELD_PATH,revision:'absent',message:'Capture the live HPU or import a supported field TIFF.'};
++  const {bytes,field}=read(vfs);return {present:true,path:FIELD_PATH,revision:fingerprint(bytes),fileBytes:bytes.length,...fieldInfo(field)};
++ }
++ if(op==='get'){
++  const {field}=read(vfs),k=ordinal(args.indices);const value=field.samples[k];return {indices:indices(k),ordinal:k,raster:{x:k%128,y:Math.floor(k/128)},hpu:hpuPixel(args.indices),coordinates:args.indices.map((i,j)=>coordinate(i,SHAPE[j])),value,negativeZero:Object.is(value,-0)};
++ }
++ if(op==='receipt'){const {bytes}=read(vfs);return fieldReceipt(bytes);}
++ if(op==='capture'){guard(vfs,args.expected);put(vfs,encodeFieldTiff(captureHpu(host.hpu)));return russlOperation({vfs,host},'info');}
++ if(op==='import'){guard(vfs,args.expected);put(vfs,args.bytes);return {...russlOperation({vfs,host},'info'),message:'Validated field TIFF staged; live HPU unchanged.'};}
++ if(op==='edit'){
++  guard(vfs,args.expected);const {field}=read(vfs),edit=editFieldSite(field,args.indices,args.value);put(vfs,encodeFieldTiff(edit.field));
++  return {...russlOperation({vfs,host},'info'),edit:{requested:edit.requested,effective:edit.effective,rounded:edit.rounded,ordinal:edit.ordinal},message:'Staged TIFF edited; live HPU unchanged.'};
++ }
++ if(op==='apply'){
++  guard(vfs,args.expected);const {field}=read(vfs),complex=fieldToComplex(field),next=new Hpu();
++  next.re=complex.re;next.im=complex.im;next.z=complex.z;next.op='RUSSL field apply';
++  // Fresh HPU resets all derived caches, recordings, lanes, counters and spool.
++  const bytes=next.save(),before={...host.hpu},oldFile=vfs.exists('/var/hpu/field.bin')?vfs.readFile('/var/hpu/field.bin'):null;
++  // VFS checks quota before replacement, before mutating the live object.
++  vfs.writeFile('/var/hpu/field.bin',Buffer.from(bytes));
++  try{Object.assign(host.hpu,next);host.hpuTouch?.();}
++  catch(error){Object.assign(host.hpu,before);if(oldFile===null)vfs.remove('/var/hpu/field.bin');else vfs.writeFile('/var/hpu/field.bin',oldFile);throw error;}
++  return {applied:true,message:'Complex field applied. Derived caches, recordings, byte lanes, counters and GIF spool reset.',...russlOperation({vfs,host},'info')};
++ }
++ throw new Error('unsupported RUSSL adapter operation');
++}
+--- a/src/vendor/spiral/tiff-codec.js
++++ b/src/vendor/spiral/tiff-codec.js
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: GPL-3.0-only
++/** Bounded TIFF adapter, JA21 2.2.0. No eval, codec plug-ins, external URLs or
++ * automatic colour/orientation conversion. Uncompressed, one grayscale IFD;
++ * u8/u16/f32/f64, II/MM, classic/BigTIFF, one or several nonoverlapping strips.
++ * This deliberately rejects other TIFF profiles rather than guessing semantics.
++ */
++export const TIFF_LIMITS = Object.freeze({bytes:4*1024*1024,pixels:262144,tags:128,metadata:65536,description:32768});
++const SIZES = Object.freeze({1:1,2:1,3:2,4:4,5:8,6:1,7:1,8:2,9:4,10:8,11:4,12:8,16:8,17:8,18:8});
++const TYPES = Object.freeze({u8:{Ctor:Uint8Array,bits:8,format:1,get:'getUint8',set:'setUint8'},u16:{Ctor:Uint16Array,bits:16,format:1,get:'getUint16',set:'setUint16'},f32:{Ctor:Float32Array,bits:32,format:3,get:'getFloat32',set:'setFloat32'},f64:{Ctor:Float64Array,bits:64,format:3,get:'getFloat64',set:'setFloat64'}});
++const int = (v,lo,hi,label) => {if(!Number.isSafeInteger(v)||v<lo||v>hi)throw new Error(`TIFF ${label} limit`);return v;};
++const align=(n,a)=>Math.ceil(n/a)*a;
++function geometry(w,h){int(w,1,4096,'width');int(h,1,4096,'height');int(w*h,1,TIFF_LIMITS.pixels,'sample count');}
++function dtypeOf(samples){for(const [name,t] of Object.entries(TYPES))if(samples instanceof t.Ctor)return name;throw new Error('TIFF unsupported sample dtype');}
++function finite(samples){for(const x of samples)if(!Number.isFinite(x))throw new Error('TIFF nonfinite sample unsupported');}
++function ascii(value){
++ let text=typeof value==='string'?value:JSON.stringify(value);
++ if(typeof text!=='string')throw new Error('TIFF description must be text or JSON data');
++ text=text.replace(/[^\x00-\x7f]/g,c=>'\\u'+c.charCodeAt(0).toString(16).padStart(4,'0'));
++ if(text.includes('\0')||text.length>TIFF_LIMITS.description)throw new Error('TIFF description limit or embedded NUL');
++ return new TextEncoder().encode(text+'\0');
++}
++function ratio(value){if(!Array.isArray(value)||value.length!==2)throw new Error('TIFF resolution rational required');int(value[0],1,0xffffffff,'resolution');int(value[1],1,0xffffffff,'resolution');return value;}
++export function encodeGrayTiff(width,height,samples,options={}) {
++ geometry(width,height);const dtype=dtypeOf(samples),t=TYPES[dtype];
++ if(samples.length!==width*height)throw new Error('TIFF sample shape mismatch');finite(samples);
++ if(!options||typeof options!=='object'||Array.isArray(options))throw new Error('TIFF options required');
++ const {byteOrder='II',bigTiff=false,description=null,resolution=null}=options;
++ if(!['II','MM'].includes(byteOrder)||typeof bigTiff!=='boolean')throw new Error('TIFF byte order or format');
++ const le=byteOrder==='II',offsetSize=bigTiff?8:4,header=bigTiff?16:8,entrySize=bigTiff?20:12,countSize=bigTiff?8:2;
++ const pixelBytes=samples.length*t.bits/8;
++ const res=resolution===null?{x:[1,1],y:[1,1],unit:1}:resolution;
++ if(!res||!Number.isInteger(res.unit)||res.unit<1||res.unit>3)throw new Error('TIFF resolution unit');ratio(res.x);ratio(res.y);
++ const make=(id,type,values)=>{const bytes=new Uint8Array(SIZES[type]*values.length),v=new DataView(bytes.buffer);values.forEach((x,i)=>{if(type===3)v.setUint16(i*2,x,le);else if(type===4)v.setUint32(i*4,x,le);else if(type===16)v.setBigUint64(i*8,BigInt(x),le);else if(type===5){v.setUint32(i*8,x[0],le);v.setUint32(i*8+4,x[1],le);}});return {id,type,count:values.length,bytes};};
++ const tags=[make(256,4,[width]),make(257,4,[height]),make(258,3,[t.bits]),make(259,3,[1]),make(262,3,[1]),make(273,bigTiff?16:4,[0]),make(274,3,[1]),make(277,3,[1]),make(278,4,[height]),make(279,bigTiff?16:4,[pixelBytes]),make(282,5,[res.x]),make(283,5,[res.y]),make(284,3,[1]),make(296,3,[res.unit]),make(339,3,[t.format])];
++ if(description!==null){const bytes=ascii(description);tags.push({id:270,type:2,count:bytes.length,bytes});}
++ tags.sort((a,b)=>a.id-b.id);
++ let end=header+countSize+entrySize*tags.length+offsetSize;
++ for(const tag of tags)if(tag.bytes.length>offsetSize){end=align(end,bigTiff?8:2);tag.offset=end;end+=tag.bytes.length;}
++ const strip=align(end,bigTiff?8:2),total=strip+pixelBytes;int(total,1,TIFF_LIMITS.bytes,'output size');
++ const stripTag=tags.find(x=>x.id===273);stripTag.bytes=make(273,stripTag.type,[strip]).bytes;
++ const out=new Uint8Array(total),v=new DataView(out.buffer);
++ const offset=(p,n)=>bigTiff?v.setBigUint64(p,BigInt(n),le):v.setUint32(p,n,le);
++ out[0]=out[1]=le?73:77;v.setUint16(2,bigTiff?43:42,le);
++ if(bigTiff){v.setUint16(4,8,le);v.setUint16(6,0,le);offset(8,header);offset(header,tags.length);}else{offset(4,header);v.setUint16(header,tags.length,le);}
++ let p=header+countSize;
++ for(const tag of tags){v.setUint16(p,tag.id,le);v.setUint16(p+2,tag.type,le);offset(p+4,tag.count);const slot=p+(bigTiff?12:8);if(tag.offset!==undefined){offset(slot,tag.offset);out.set(tag.bytes,tag.offset);}else out.set(tag.bytes,slot);p+=entrySize;}
++ offset(p,0);for(let i=0;i<samples.length;i++)v[t.set](strip+i*t.bits/8,samples[i],le);
++ return out;
++}
++export function decodeGrayTiff(input) {
++ if(!(input instanceof Uint8Array)||input.length<8||input.length>TIFF_LIMITS.bytes)throw new Error('TIFF input size/type limit');
++ const bytes=new Uint8Array(input),v=new DataView(bytes.buffer),ranges=[];
++ const range=(start,len,label)=>{int(start,0,bytes.length,'offset');int(len,1,bytes.length,'range');if(len>bytes.length-start)throw new Error('TIFF truncated '+label);ranges.push({start,end:start+len,label});};
++ const bounds=(start,len)=>{if(!Number.isSafeInteger(start)||!Number.isSafeInteger(len)||start<0||len<0||start>bytes.length||len>bytes.length-start)throw new Error('TIFF offset/count outside file');};
++ const le=bytes[0]===73&&bytes[1]===73;if(!le&&!(bytes[0]===77&&bytes[1]===77))throw new Error('TIFF byte order');
++ const version=v.getUint16(2,le),big=version===43;if(version!==42&&!big)throw new Error('TIFF version unsupported');
++ if(big&&(bytes.length<16||v.getUint16(4,le)!==8||v.getUint16(6,le)!==0))throw new Error('TIFF BigTIFF header');
++ const header=big?16:8,entrySize=big?20:12,countSize=big?8:2,offsetSize=big?8:4;
++ function uint(p,size){bounds(p,size);if(size===8){const n=v.getBigUint64(p,le);if(n>BigInt(Number.MAX_SAFE_INTEGER))throw new Error('TIFF integer precision limit');return Number(n);}return size===2?v.getUint16(p,le):v.getUint32(p,le);}
++ range(0,header,'header');const ifd=uint(big?8:4,offsetSize);if(ifd<header||ifd%(big?8:2))throw new Error('TIFF invalid IFD offset');
++ const count=int(uint(ifd,countSize),1,TIFF_LIMITS.tags,'tag count');range(ifd,countSize+count*entrySize+offsetSize,'IFD');
++ if(uint(ifd+countSize+count*entrySize,offsetSize)!==0)throw new Error('TIFF multipage/chained/cyclic IFD unsupported; explicit page mapping required');
++ const tags=new Map();let metadataBytes=0;
++ for(let i=0;i<count;i++){
++  const p=ifd+countSize+i*entrySize,id=uint(p,2),type=uint(p+2,2),n=uint(p+4,offsetSize),size=SIZES[type];
++  if(tags.has(id))throw new Error('TIFF duplicate tag');if(!size||(!big&&type>=16))throw new Error('TIFF unsupported tag type');
++  int(n,1,TIFF_LIMITS.metadata,'tag count');const length=n*size;metadataBytes+=length;if(metadataBytes>TIFF_LIMITS.metadata)throw new Error('TIFF metadata budget');
++  const slot=p+(big?12:8),at=length>offsetSize?uint(slot,offsetSize):slot;bounds(at,length);
++  if(length>offsetSize){if(at%(big?8:2))throw new Error('TIFF misaligned tag data');range(at,length,`tag ${id}`);}
++  tags.set(id,{id,type,count:n,at,length,raw:bytes.slice(at,at+length)});
++ }
++ function values(id,allowed=[3,4,16]){const q=tags.get(id);if(!q)throw new Error(`TIFF missing tag ${id}`);if(!allowed.includes(q.type))throw new Error(`TIFF tag ${id} type unsupported`);return Array.from({length:q.count},(_,i)=>uint(q.at+i*SIZES[q.type],SIZES[q.type]));}
++ const scalar=(id,fallback,allowed=[3,4,16])=>{if(!tags.has(id)&&fallback!==undefined)return fallback;const x=values(id,allowed);if(x.length!==1)throw new Error('TIFF scalar tag count');return x[0];};
++ const width=scalar(256),height=scalar(257);geometry(width,height);
++ const bits=scalar(258,1,[3]),format=scalar(339,1,[3]);
++ const dtype=Object.keys(TYPES).find(k=>TYPES[k].bits===bits&&TYPES[k].format===format);if(!dtype)throw new Error('TIFF unsupported sample dtype');
++ if(scalar(259,1,[3])!==1)throw new Error('TIFF compression unsupported');
++ if(scalar(262,undefined,[3])!==1||scalar(277,1,[3])!==1||scalar(284,1,[3])!==1)throw new Error('TIFF only scalar BlackIsZero grayscale is supported');
++ if(scalar(266,1,[3])!==1||scalar(317,1,[3])!==1)throw new Error('TIFF fill order/predictor unsupported');
++ const orientation=scalar(274,1,[3]);int(orientation,1,8,'orientation');
++ for(const id of [254,255,280,281,290,291,300,318,319,320,321,322,323,324,325,330,338,340,341,346,347,512,513,514,529,530,531,532,700,34665,34675,34853,40965])if(tags.has(id))throw new Error(`TIFF semantic metadata/tag ${id} unsupported; preserve original file`);
++ const rows=int(scalar(278,0xffffffff),1,0xffffffff,'rows per strip'),stripCount=Math.ceil(height/rows);
++ const offsets=values(273),counts=values(279);if(offsets.length!==stripCount||counts.length!==stripCount)throw new Error('TIFF strip count mismatch');
++ let total=0;const rowBytes=width*bits/8;
++ for(let s=0;s<stripCount;s++){const need=Math.min(rows,height-s*rows)*rowBytes;if(counts[s]!==need)throw new Error('TIFF strip byte count mismatch');range(offsets[s],need,`strip ${s}`);total+=need;}
++ ranges.sort((a,b)=>a.start-b.start);for(let i=1;i<ranges.length;i++)if(ranges[i].start<ranges[i-1].end)throw new Error('TIFF overlapping header/directory/metadata/strips');
++ function resolution(id){if(!tags.has(id))return null;const q=tags.get(id);if(q.type!==5||q.count!==1)throw new Error('TIFF resolution type');const x=[uint(q.at,4),uint(q.at+4,4)];if(x[1]===0)throw new Error('TIFF resolution denominator zero');return x;}
++ const calibration={x:resolution(282),y:resolution(283),unit:scalar(296,2,[3])};int(calibration.unit,1,3,'resolution unit');
++ let description=null;
++ if(tags.has(270)){const q=tags.get(270);if(q.type!==2||q.length>TIFF_LIMITS.description+1||q.raw.at(-1)!==0||q.raw.subarray(0,-1).some(b=>b===0||b>127))throw new Error('TIFF invalid ASCII description');description=new TextDecoder('ascii').decode(q.raw.subarray(0,-1));}
++ const t=TYPES[dtype],samples=new t.Ctor(width*height);let at=0;
++ for(let s=0;s<stripCount;s++)for(let p=offsets[s];p<offsets[s]+counts[s];p+=bits/8)samples[at++]=v[t.get](p,le);finite(samples);
++ const known=new Set([256,257,258,259,262,266,270,273,274,277,278,279,282,283,284,296,305,306,315,317,339]);
++ const opaqueTags=[...tags.values()].filter(q=>!known.has(q.id)).map(q=>({id:q.id,type:q.type,count:q.count,raw:q.raw}));
++ return {width,height,dtype,samples,orientation,byteOrder:le?'II':'MM',bigTiff:big,description,calibration,opaqueTags,sourceBytes:bytes,stripCount,totalSampleBytes:total,
++  equivalence:'Decoded stored sample bits only; orientation is retained, never normalized. Keep sourceBytes for exact container recovery.'};
++}
+--- a/src/version.js
++++ b/src/version.js
+@@ -1,3 +1,3 @@
+-export const VERSION = "2.1.1";
++export const VERSION = "2.2.0";
+ export const PRODUCT = "JA21 Silicon Console";
+ export const PROFILE = "LOCAL_BROWSER";
+--- a/tests/MANUAL_ACCEPTANCE.md
++++ b/tests/MANUAL_ACCEPTANCE.md
+@@ -1,4 +1,4 @@
+-# Native Windows startup acceptance — 2.1.1
++# Native Windows startup acceptance — 2.2.0
+ 
+ These checks are PENDING unless run on the target Windows machine. Static Node
+ launcher contracts are not substitutes for them. Preserve backup exports first.
+@@ -23,3 +23,24 @@
+ | New console against existing volume | Same address/profile preserves volume; backup before testing |
+ 
+ Original full-application acceptance context is retained in the 2.1.0 audit report.
++
++
++## 2.2.0 native Windows / TIFF lab acceptance
++
++On a Windows x64 or ARM64 device, verify first launch without Node/PATH, second
++launch from the private cache, interrupted/hash-mismatched runtime rejection,
++Verify.cmd, paths containing spaces, port-in-use errors and visible diagnostics.
++No security settings should be changed. Use an exported full-volume backup.
++
++In the normal local browser origin, capture a field, read/edit its real component,
++reject a derivative-plane write, cancel then explicitly confirm apply, and
++download/reimport the three provided field TIFF variants. Export a SHA-256 receipt.
++Confirm sample/logical hashes agree across container variants, while file hashes
++differ. Reject truncated/unrelated/compressed/RGB/multipage images without losing
++the valid stage. Verify the field and staged TIFF survive actual browser reload,
++power cycle and transactional storage; verify another owner window is refused.
++Check no transient HPU state is silently retained after explicit apply.
++
++These native checks have not been represented as completed by the offline fixture
++suite. Normal HTTP Chromium navigation in the build environment was blocked with
++ERR_BLOCKED_BY_ADMINISTRATOR; the application did not change that policy.
+--- a/tests/browser_offline.py
++++ b/tests/browser_offline.py
+@@ -62,6 +62,60 @@
+   download=await event.value
+   await download.save_as(ROOT/'audit'/'offline-ui-export.tif')
+   results.append({'test':'virtual file list and explicit TIFF download','status':'PASS'})
++  await page.locator('nav [data-view="russl"]').click()
++  await page.wait_for_function("document.querySelector('#russl-summary').textContent.includes('absent')")
++  await page.locator('#russl-capture').click()
++  await page.wait_for_function("document.querySelector('#russl-summary').textContent.includes('16384')")
++  assert await page.locator('#operation').text_content()=='byte chip'
++  results.append({'test':'pixel lab captures all 16,384 samples without applying to live field','status':'PASS'})
++  await page.locator('#russl-site-form button[type=submit]').click()
++  await page.wait_for_function("document.querySelector('#russl-site-output').textContent.includes('ordinal')")
++  await page.locator('#russl-value').fill('0.5')
++  await page.locator('#russl-edit').click()
++  await page.wait_for_function("document.querySelector('#russl-site-output').textContent.includes('effective')")
++  assert json.loads(await page.locator('#russl-site-output').text_content())['effective']==0.5
++  assert await page.locator('#operation').text_content()=='byte chip'
++  results.append({'test':'pixel lab reads and edits a staged component; live field unchanged','status':'PASS'})
++  # Derived intensity is not directly editable. Failed writes preserve the stage.
++  revision=json.loads(await page.locator('#russl-summary').text_content())['revision']
++  await page.locator('#russl-c4').fill('2')
++  await page.locator('#russl-edit').click()
++  await page.wait_for_function("document.querySelector('#notice').textContent.includes('derived')")
++  assert json.loads(await page.locator('#russl-summary').text_content())['revision']==revision
++  await page.locator('#russl-c4').fill('0')
++  results.append({'test':'UI surfaces prohibited derived-plane edit without changing staged revision','status':'PASS'})
++  page.once('dialog',lambda dialog:dialog.dismiss())
++  await page.locator('#russl-apply').click()
++  assert await page.locator('#operation').text_content()=='byte chip'
++  page.once('dialog',lambda dialog:dialog.accept())
++  await page.locator('#russl-apply').click()
++  await page.wait_for_function("document.querySelector('#operation').textContent==='RUSSL field apply'")
++  results.append({'test':'apply confirmation can cancel; accepted apply updates the live XPU','status':'PASS'})
++  async with page.expect_download() as event:
++   await page.locator('#russl-export').click()
++  await (await event.value).save_as(ROOT/'audit'/'RUSSL_UI_EXPORT.tif')
++  results.append({'test':'pixel lab exports the actual edited TIFF bytes','status':'PASS'})
++  page.once('dialog',lambda dialog:dialog.accept())
++  await page.locator('#russl-file').set_input_files(ROOT/'examples/tiffs/russl-field-big-endian.tif')
++  await page.wait_for_function("document.querySelector('#notice').textContent.includes('TIFF validated and staged')")
++  assert await page.locator('#operation').text_content()=='RUSSL field apply'
++  good_revision=json.loads(await page.locator('#russl-summary').text_content())['revision']
++  page.once('dialog',lambda dialog:dialog.accept())
++  await page.locator('#russl-file').set_input_files({'name':'truncated.tif','mimeType':'image/tiff','buffer':b'II*\x00\x08\x00'})
++  await page.wait_for_function("document.querySelector('#notice').textContent.includes('TIFF') && !document.querySelector('#notice').textContent.includes('validated and staged')")
++  await page.locator('#russl-refresh').click()
++  assert json.loads(await page.locator('#russl-summary').text_content())['revision']==good_revision
++  results.append({'test':'local endian variant import succeeds; truncated replacement preserves valid stage','status':'PASS'})
++  # A page served over the normal trusted local origin supplies Web Crypto.
++  # This about:blank fixture does not pretend to test that secure-context API.
++  await page.evaluate("() => { document.querySelector('#notice').hidden=false; document.querySelector('#notice').textContent='OFFLINE QA FIXTURE — real TIFF/field code; in-memory storage adapter, not native browser durability.'; }")
++  await page.screenshot(path=str(ROOT/'audit'/'RUSSL_UI_DESKTOP.png'),full_page=True)
++  await page.set_viewport_size({'width':430,'height':1000})
++  await page.wait_for_timeout(100)
++  assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth')
++  await page.screenshot(path=str(ROOT/'audit'/'RUSSL_UI_MOBILE.png'),full_page=True)
++  results.append({'test':'TIFF pixel lab at 430px has no horizontal page overflow','status':'PASS'})
++  await page.set_viewport_size({'width':1440,'height':1024})
+   await page.locator('nav [data-view="console"]').click()
+   await page.locator('#tabs button').first.click()
+   await page.evaluate("() => { document.querySelector('#notice').hidden=false; document.querySelector('#notice').textContent='OFFLINE QA FIXTURE — in-memory storage adapter. Not a live IndexedDB durability test.'; }")
+--- a/tests/fixtures/independent-tiff/expected-u1.bin
++++ b/tests/fixtures/independent-tiff/expected-u1.bin
+@@ -0,0 +1,5 @@
++ 	
+++++--- a/tests/fixtures/independent-tiff/expected-u2.bin
++++ b/tests/fixtures/independent-tiff/expected-u2.bin
+@@ -0,0 +1,5 @@
++          	 
++ + + +  --- a/tests/fixtures/independent-tiff/manifest.json
++++ b/tests/fixtures/independent-tiff/manifest.json
+@@ -0,0 +1,182 @@
++{
++  "writer": "tifffile",
++  "version": "2026.5.15",
++  "files": [
++    {
++      "file": "u1-classic-le.tif",
++      "expected": "expected-u1.bin",
++      "dtype": "u8",
++      "byteOrder": "II",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "bd453fb2caa3a6ae7b4c5699ac68f4d1e7d59c439acc824a292083c7532453cf"
++    },
++    {
++      "file": "u1-classic-be.tif",
++      "expected": "expected-u1.bin",
++      "dtype": "u8",
++      "byteOrder": "MM",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "9f017099b1999e8d49bc45e17246ff88385a753e7b76b8cdf6baa7bb43079864"
++    },
++    {
++      "file": "u1-big-le.tif",
++      "expected": "expected-u1.bin",
++      "dtype": "u8",
++      "byteOrder": "II",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "556e1fa6959e7cb7c65f183d1fe10e44d833d4540aa0ef2f236a056a989bbeb1"
++    },
++    {
++      "file": "u1-big-be.tif",
++      "expected": "expected-u1.bin",
++      "dtype": "u8",
++      "byteOrder": "MM",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "be1d85decd31b03b5e2355f5ca1c1b09db0f9139fc1fff54d768db677acd64af"
++    },
++    {
++      "file": "u2-classic-le.tif",
++      "expected": "expected-u2.bin",
++      "dtype": "u16",
++      "byteOrder": "II",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "c9d461d67ce85cb1b8cac8e4b5ec273cd3f8f1187a046fb99f9228ba629b2e02"
++    },
++    {
++      "file": "u2-classic-be.tif",
++      "expected": "expected-u2.bin",
++      "dtype": "u16",
++      "byteOrder": "MM",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "63d52ed57e436ca52c934eb9b729db3d20cdeffb65c0ebfc139df8d7a3e5f438"
++    },
++    {
++      "file": "u2-big-le.tif",
++      "expected": "expected-u2.bin",
++      "dtype": "u16",
++      "byteOrder": "II",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "30c001b7fde72ee6537173178dfa3c6e9d756c0b29251bc02f1f7657baf8669c"
++    },
++    {
++      "file": "u2-big-be.tif",
++      "expected": "expected-u2.bin",
++      "dtype": "u16",
++      "byteOrder": "MM",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "8dc8e28770db5a2fe7d87dc67e03ef0c23fe85f6ec428649df67c4eda3ddafec"
++    },
++    {
++      "file": "f4-classic-le.tif",
++      "expected": "expected-f4.bin",
++      "dtype": "f32",
++      "byteOrder": "II",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "00243e11b7d6ce2b8e4f4219a6098c605c749ff8ff3949fd618ef356788d2b21"
++    },
++    {
++      "file": "f4-classic-be.tif",
++      "expected": "expected-f4.bin",
++      "dtype": "f32",
++      "byteOrder": "MM",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "19fc8d035282febf548d361373363b74f9814ae0bc8ecd53d802df28bb02922f"
++    },
++    {
++      "file": "f4-big-le.tif",
++      "expected": "expected-f4.bin",
++      "dtype": "f32",
++      "byteOrder": "II",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "63610e5a0163a08cb2b3727eb814634d7f7163e229547c9cdb6198643d2234bb"
++    },
++    {
++      "file": "f4-big-be.tif",
++      "expected": "expected-f4.bin",
++      "dtype": "f32",
++      "byteOrder": "MM",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "cad2d29395fb4db2336cdb9ab4466882808e5863893a4e06002484aafa0e4693"
++    },
++    {
++      "file": "f8-classic-le.tif",
++      "expected": "expected-f8.bin",
++      "dtype": "f64",
++      "byteOrder": "II",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "f7b44383515644daa63ce7e664e6dcc50c15fe9e07cb34f07ae14221c649433c"
++    },
++    {
++      "file": "f8-classic-be.tif",
++      "expected": "expected-f8.bin",
++      "dtype": "f64",
++      "byteOrder": "MM",
++      "bigTiff": false,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "e2408c9030c0e83c31666df82066add33a01da3b6e73f43ac66bb93243d3d5aa"
++    },
++    {
++      "file": "f8-big-le.tif",
++      "expected": "expected-f8.bin",
++      "dtype": "f64",
++      "byteOrder": "II",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "022943bd2052152ec45421749f725019d33c58890c23825e2e110bdd1eda640e"
++    },
++    {
++      "file": "f8-big-be.tif",
++      "expected": "expected-f8.bin",
++      "dtype": "f64",
++      "byteOrder": "MM",
++      "bigTiff": true,
++      "strips": 2,
++      "width": 5,
++      "height": 3,
++      "sha256": "b9c4ba7119f83dcfaec2939b1494796f1b5a6a546bd89de1bd52da66a11844f2"
++    }
++  ]
++}
+--- a/tests/fixtures/independent-tiff/u1-big-be.tif
++++ b/tests/fixtures/independent-tiff/u1-big-be.tif
+@@ -0,0 +1,6 @@
++MM +                                                                                                           8                                                      
++                                 (               1              H              `      jtifffile independent QA  	
+++++--- a/tests/fixtures/independent-tiff/u1-big-le.tif
++++ b/tests/fixtures/independent-tiff/u1-big-le.tif
+@@ -0,0 +1,6 @@
++II+                                                                                                      8                                                           
++                                  (               1        H              `      j      tifffile independent QA  	
+++++--- a/tests/fixtures/independent-tiff/u2-big-be.tif
++++ b/tests/fixtures/independent-tiff/u2-big-be.tif
+@@ -0,0 +1,6 @@
++MM +                                                                                                           8                                                       
++                                (               1              H              `      ttifffile independent QA            	 
++ + + + --- a/tests/fixtures/independent-tiff/u2-big-le.tif
++++ b/tests/fixtures/independent-tiff/u2-big-le.tif
+@@ -0,0 +1,6 @@
++II+                                                                                                      8                                                            
++                                 (               1        H              `      t      tifffile independent QA           	 
++ + + +  --- a/tests/fixtures/independent-tiff/unaligned-bigtiff.tif
++++ b/tests/fixtures/independent-tiff/unaligned-bigtiff.tif
+@@ -0,0 +1,7 @@
++II+           +                                                                                           $                                             
++                                 (               1        4              P      d      tifffile independent QA               	 
++ + + +  --- a/tests/launcher-contract.test.mjs
++++ b/tests/launcher-contract.test.mjs
+@@ -119,7 +119,7 @@
+  assert.match(ps,/\$env:JA21_OFFLINE -eq '1'/);
+  assert.match(ps,/\$mode -eq '--preflight'/);
+  assert.match(ps,/Server\/browser were not started/);
+- assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1'\)/);
++ assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0'\)/);
+ });
+ test('launcher/static: logs and native error status are retained',()=>{
+  assert.match(ps,/launcher-\{0\}-\{1\}\.log/);
+--- a/tests/offline-ui-link.js
++++ b/tests/offline-ui-link.js
+@@ -1,3 +1,4 @@
++import { russlOperation } from '../vendor/spiral/russl-service.js';
+ /** OFFLINE UI TEST FIXTURE ONLY. Real shell/field model; in-memory adapter, no IndexedDB or transport claim. */
+ import { SpiralKernel } from '../vendor/spiral/kernel.js';
+ import { Hpu } from '../vendor/spiral/hpu.js';
+@@ -8,6 +9,6 @@
+  async start(){this.destroy();this.epoch='offline-fixture';const hpu=new Hpu();if(this.hpuSnapshot)hpu.load(this.hpuSnapshot);this.hpu=hpu;const host={hpu,version:()=>VERSION,disk:()=>({model:'OFFLINE UI TEST DOUBLE',synced:true,writtenAt:Date.now()}),afterCommand:()=>this.save(),hpuTouch:()=>{this.hpuSnapshot=hpu.save();this.event('holo',hpu.preview());},sync:()=>this.save()};this.kernel=new SpiralKernel({hostBridge:host});this.kernel.vfs.mkdir('/var/hpu',{recursive:true});if(this.snapshot)this.kernel.vfs.importSnapshot(this.snapshot);this.kernel.on('data',e=>this.sockets.get(e.sessionId)?.data(e.chunk));this.kernel.on('exit',e=>this.sockets.get(e.sessionId)?.close(e.reason));setTimeout(()=>this.event('holo',hpu.preview()),0);return {version:VERSION};}
+  save(){this.snapshot=this.kernel.vfs.exportSnapshot();this.hpuSnapshot=this.hpu.save();}
+  async open({cols,rows,onData,onClose}){const k=this.kernel,o=k.openSession({cols,rows,deferStart:true});let closed=false;const s={sid:o.sessionId,data:onData,write:x=>k.write(o.sessionId,x),resize:(c,r)=>k.resize(o.sessionId,c,r),signal:()=>k.signal(o.sessionId,'SIGINT'),status:async()=>k.status(o.sessionId),close:reason=>{if(closed)return;closed=true;this.sockets.delete(o.sessionId);k.closeSession(o.sessionId);onClose(reason || 'closed');}};this.sockets.set(o.sessionId,s);k.startSession(o.sessionId);return s;}
+- async rpc(op,m={}){const k=this.kernel;switch(op){case 'commands':return k.registry.list().map(d=>({name:d.name,summary:d.summary,usage:d.usage}));case 'files':return k.vfs.readdir(m.path);case 'file':{const v=k.vfs.readFile(m.path);return {bytes:typeof v==='string'?new TextEncoder().encode(v):v};}case 'preview':return this.hpu.preview();case 'sync':this.save();return k.host.disk();case 'backup':this.save();return JSON.stringify({fixture:true,snap:this.snapshot});case 'power':this.save();this.destroy();this.event('halt',{reboot:!!m.reboot});return {stopped:true};default:throw new Error('not implemented in offline fixture: '+op);}}
++ async rpc(op,m={}){const k=this.kernel;switch(op){case 'russl':{const result=await russlOperation({vfs:k.vfs,host:k.host},m.action,m.args || {});this.save();return result;}case 'commands':return k.registry.list().map(d=>({name:d.name,summary:d.summary,usage:d.usage}));case 'files':return k.vfs.readdir(m.path);case 'file':{const v=k.vfs.readFile(m.path);return {bytes:typeof v==='string'?new TextEncoder().encode(v):v};}case 'preview':return this.hpu.preview();case 'sync':this.save();return k.host.disk();case 'backup':this.save();return JSON.stringify({fixture:true,snap:this.snapshot});case 'power':this.save();this.destroy();this.event('halt',{reboot:!!m.reboot});return {stopped:true};default:throw new Error('not implemented in offline fixture: '+op);}}
+  destroy(){for(const s of [...this.sockets.values()])s.close();this.sockets.clear();this.epoch=null;}
+ }
+--- a/tests/russl.test.mjs
++++ b/tests/russl.test.mjs
+@@ -0,0 +1,89 @@
++// SPDX-License-Identifier: GPL-3.0-only
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs/promises';
++import {createHash} from 'node:crypto';
++import {encodeGrayTiff,decodeGrayTiff,TIFF_LIMITS} from '../src/vendor/spiral/tiff-codec.js';
++import {SHAPE,STRIDES,SITES,FIELD_PATH,ordinal,indices,coordinate,addressDistance,captureHpu,encodeFieldTiff,decodeFieldTiff,editFieldSite,fieldToComplex,fieldReceipt,sampleBytes,stableJSON} from '../src/vendor/spiral/russl-field.js';
++import {russlOperation} from '../src/vendor/spiral/russl-service.js';
++import {Hpu} from '../src/vendor/spiral/hpu.js';
++import {VFS} from '../src/vendor/spiral/vfs.js';
++import {Buffer as VBuffer} from '../src/vendor/spiral/buffer.js';
++import {SpiralKernel} from '../src/vendor/spiral/kernel.js';
++const load=async rel=>new Uint8Array(await fs.readFile(new URL(rel,import.meta.url)));
++const hash=b=>createHash('sha256').update(b).digest('hex');
++const leBytes=(samples)=>{const out=new Uint8Array(samples.byteLength),v=new DataView(out.buffer),methods={Uint8Array:'setUint8',Uint16Array:'setUint16',Float32Array:'setFloat32',Float64Array:'setFloat64'};samples.forEach((x,i)=>v[methods[samples.constructor.name]](i*samples.BYTES_PER_ELEMENT,x,true));return out;};
++function entry(bytes,id){const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);const le=bytes[0]===73,big=v.getUint16(2,le)===43,ifd=big?Number(v.getBigUint64(8,le)):v.getUint32(4,le),count=big?Number(v.getBigUint64(ifd,le)):v.getUint16(ifd,le),size=big?20:12;for(let i=0;i<count;i++){const p=ifd+(big?8:2)+i*size;if(v.getUint16(p,le)===id)return {v,p,slot:p+(big?12:8),le,big,ifd,count};}throw new Error('missing test tag');}
++const fresh=()=>encodeGrayTiff(4,3,Uint16Array.from({length:12},(_,i)=>i),{description:{test:'safe metadata'}});
++function mutate(fn){const b=fresh();fn(b);return b;}
++function ctx(){const vfs=new VFS();vfs.mkdir('/var/hpu',{recursive:true});return {vfs,host:{hpu:new Hpu()}};}
++
++test('RUSSL: all 16,384 authoritative corpus vectors agree with port, inverse and bit packing',async()=>{
++ const data=await load('../corpus/russl-2.0.0/tests/vectors/field/fixed_shape_index_vectors.jsonl');assert.equal(hash(data),'79050f2300a3e4413cf4bb6ab9ee182fc8e1e92578e66abeac4e640d3e7ec0e0');
++ const rows=new TextDecoder().decode(data).trim().split('\n').map(JSON.parse);assert.equal(rows.length,SITES);
++ const seen=new Set();for(const row of rows){const site=row.indices;assert.equal(ordinal(site),row.ordinal);assert.deepEqual(indices(row.ordinal),site);assert.equal((site[0]<<12)|(site[1]<<10)|(site[2]<<8)|(site[3]<<4)|site[4],row.ordinal);seen.add(ordinal(site));}assert.equal(seen.size,16384);
++});
++test('RUSSL: index domains reject booleans, fractions, strings, NaNs, oversize and negatives',()=>{
++ for(const v of [true,false,'1',1.1,-1,4,NaN,Infinity,null,undefined])assert.throws(()=>ordinal([v,0,0,0,0]));
++ for(const v of [true,'1',1.1,-1,16384,NaN,Infinity,null])assert.throws(()=>indices(v));assert.throws(()=>ordinal([0,0]));
++});
++test('RUSSL: exact rational normalized coordinates include anchors and endpoints',()=>{assert.deepEqual(coordinate(0,1),{numerator:0,denominator:1});assert.deepEqual(coordinate(1,4),{numerator:-1,denominator:3});assert.deepEqual(coordinate(8,16),{numerator:1,denominator:15});for(const n of SHAPE){assert.equal(coordinate(0,n).numerator,-1);assert.equal(coordinate(n-1,n).numerator,1);}});
++test('RUSSL: optional address ultrametric has distinct documented semantics',()=>{assert.deepEqual(addressDistance(2,2),{numerator:0,denominator:1});assert.deepEqual(addressDistance(0,4096),{numerator:1,denominator:4096});assert.deepEqual(addressDistance(0,1),{numerator:1,denominator:1});const d=(a,b)=>{const r=addressDistance(a,b);return r.numerator/r.denominator;};for(let i=0;i<1000;i++){const a=i*13%16384,b=i*271%16384,c=i*761%16384;assert(d(a,c)<=Math.max(d(a,b),d(b,c)));}});
++for(const Ctor of [Uint8Array,Uint16Array,Float32Array,Float64Array])for(const bigTiff of [false,true])for(const byteOrder of ['II','MM'])test(`TIFF: ${Ctor.name} ${bigTiff?'BigTIFF':'classic'} ${byteOrder} exact sample bits`,()=>{
++ const s=Ctor.from([0,1,2,3,255,16]);if(Ctor.name.startsWith('Float')){s[0]=-0;s[1]=Math.PI;s[2]=-Math.PI;s[3]=1e-20;}
++ const out=decodeGrayTiff(encodeGrayTiff(3,2,s,{byteOrder,bigTiff,description:{scope:'test'}}));assert.deepEqual(leBytes(out.samples),leBytes(s));assert.equal(out.byteOrder,byteOrder);assert.equal(out.bigTiff,bigTiff);assert.equal(out.orientation,1);assert.equal(out.calibration.unit,1);
++});
++const independent=JSON.parse(new TextDecoder().decode(await load('./fixtures/independent-tiff/manifest.json')));
++for(const f of independent.files)test(`TIFF: independently written ${f.file}`,async()=>{const b=await load('./fixtures/independent-tiff/'+f.file);assert.equal(hash(b),f.sha256);const d=decodeGrayTiff(b);assert.equal(d.width,f.width);assert.equal(d.height,f.height);assert.equal(d.dtype,f.dtype);assert.equal(d.bigTiff,f.bigTiff);assert.equal(d.byteOrder,f.byteOrder);assert.equal(d.stripCount,2);assert.deepEqual(leBytes(d.samples),await load('./fixtures/independent-tiff/'+f.expected));});
++test('TIFF: raw orientation is retained rather than silently normalized',async()=>{const d=decodeGrayTiff(await load('./fixtures/independent-tiff/orientation-6.tif'));assert.equal(d.orientation,6);assert.deepEqual([...d.samples],[...Array(15).keys()]);});
++test('TIFF: strict BigTIFF alignment rejects external misaligned extra-value blocks',async()=>{const b=await load('./fixtures/independent-tiff/unaligned-bigtiff.tif');assert.throws(()=>decodeGrayTiff(b),/misaligned/);});
++// Each mutation isolates a distinct closed-profile rejection.
++const negatives=[
++ ['bad byte order',b=>b[0]=0],['unknown TIFF version',b=>new DataView(b.buffer).setUint16(2,99,true)],
++ ['IFD outside input',b=>new DataView(b.buffer).setUint32(4,0xfffffff0,true)],
++ ['oversized tag count',b=>new DataView(b.buffer).setUint16(8,65535,true)],
++ ['duplicate tag',b=>new DataView(b.buffer).setUint16(22,256,true)],
++ ['unknown tag type',b=>{const e=entry(b,256);e.v.setUint16(e.p+2,99,true);}],
++ ['multipage/cyclic chain',b=>{const e=entry(b,256);e.v.setUint32(e.ifd+2+e.count*12,8,true);}],
++ ['compression',b=>{const e=entry(b,259);e.v.setUint16(e.slot,5,true);}],
++ ['palette interpretation',b=>{const e=entry(b,262);e.v.setUint16(e.slot,3,true);}],
++ ['RGB sample count',b=>{const e=entry(b,277);e.v.setUint16(e.slot,3,true);}],
++ ['signed sample format',b=>{const e=entry(b,339);e.v.setUint16(e.slot,2,true);}],
++ ['zero rows per strip',b=>{const e=entry(b,278);e.v.setUint32(e.slot,0,true);}],
++ ['planar channels',b=>{const e=entry(b,284);e.v.setUint16(e.slot,2,true);}],
++ ['orientation outside domain',b=>{const e=entry(b,274);e.v.setUint16(e.slot,9,true);}],
++ ['dimension resource exhaustion',b=>{const e=entry(b,256);e.v.setUint32(e.slot,0xffffffff,true);}],
++ ['strip aliases IFD',b=>{const e=entry(b,273);e.v.setUint32(e.slot,8,true);}],
++ ['strip past EOF',b=>{const e=entry(b,273);e.v.setUint32(e.slot,b.length-1,true);}],
++ ['strip length mismatch',b=>{const e=entry(b,279);e.v.setUint32(e.slot,25,true);}],
++ ['embedded NUL description',b=>{const e=entry(b,270);b[e.v.getUint32(e.slot,true)+1]=0;}],
++ ['missing description terminator',b=>{const e=entry(b,270),offset=e.v.getUint32(e.slot,true),n=e.v.getUint32(e.p+4,true);b[offset+n-1]=65;}],
++ ['metadata claims huge count',b=>{const e=entry(b,270);e.v.setUint32(e.p+4,0x7fffffff,true);}],
++ ['unsupported ICC profile',b=>{const e=entry(b,270);e.v.setUint16(e.p,34675,true);}],
++ ['resolution denominator zero',b=>{const e=entry(b,282);e.v.setUint32(e.v.getUint32(e.slot,true)+4,0,true);}]
++];
++for(const [name,fn] of negatives)test('TIFF rejects '+name,()=>assert.throws(()=>decodeGrayTiff(mutate(fn))));
++test('TIFF: forged BigTIFF offset size, reserved word and uint64 precision fail closed',()=>{for(const fn of [v=>v.setUint16(4,4,true),v=>v.setUint16(6,1,true),v=>v.setBigUint64(8,2n**63n,true)]){const b=encodeGrayTiff(1,1,new Uint8Array([2]),{bigTiff:true});fn(new DataView(b.buffer));assert.throws(()=>decodeGrayTiff(b));}});
++test('TIFF: truncated buffers, excessive files and incompatible sample shapes are rejected',()=>{for(const b of [new Uint8Array(),fresh().subarray(0,24),new Uint8Array(TIFF_LIMITS.bytes+1)])assert.throws(()=>decodeGrayTiff(b));assert.throws(()=>encodeGrayTiff(2,2,new Float64Array(3)));assert.throws(()=>encodeGrayTiff(2,2,new Int32Array(4)));assert.throws(()=>encodeGrayTiff(1,1,new Float64Array([NaN])));assert.throws(()=>encodeGrayTiff(1,1,new Float64Array([Infinity])));});
++test('TIFF: decoder rejects nonfinite float payload before exposing samples',()=>{const b=encodeGrayTiff(1,1,new Float64Array([0])),e=entry(b,273);e.v.setFloat64(e.v.getUint32(e.slot,true),NaN,true);assert.throws(()=>decodeGrayTiff(b),/nonfinite/);});
++test('TIFF: decoded samples and retained original bytes cannot alias caller storage',()=>{const b=fresh(),d=decodeGrayTiff(b),before=d.sourceBytes.slice();b.fill(0);assert.deepEqual(d.sourceBytes,before);assert.equal(d.samples[3],3);});
++test('TIFF: executable-looking metadata is opaque text, never run',()=>{globalThis.__tiffExecuted=false;const code='globalThis.__tiffExecuted=true';assert.equal(decodeGrayTiff(encodeGrayTiff(1,1,new Uint8Array([1]),{description:code})).description,code);assert.equal(globalThis.__tiffExecuted,false);delete globalThis.__tiffExecuted;});
++test('RUSSL: all 4,096 complex pixels map exactly, not nearest-neighbour upsampling',()=>{const h=new Hpu();for(let i=0;i<4096;i++){h.re[i]=Math.fround((i-2000)/100);h.im[i]=Math.fround((2000-i)/77);}h.re[0]=-0;h.im[1]=-0;const f=captureHpu(h),c=fieldToComplex(f);assert.deepEqual(leBytes(c.re),leBytes(h.re));assert.deepEqual(leBytes(c.im),leBytes(h.im));for(let y=0;y<64;y++)for(let x=0;x<64;x++){const k=ordinal([0,y>>4,x>>4,y&15,x&15]),p=y*64+x;assert(Object.is(f.samples[k],h.re[p]));assert(Object.is(f.samples[k+4096],h.im[p]));assert.equal(f.samples[k+8192],h.re[p]**2+h.im[p]**2);assert(Object.is(f.samples[k+12288],Math.atan2(h.im[p],h.re[p])));}});
++test('RUSSL: capture/serialize/decode is read-only with exact f64 sample bits',()=>{const h=new Hpu();h.bytes();h.spool();const before=h.save();const f=captureHpu(h),b=encodeFieldTiff(f),r=decodeFieldTiff(b);assert.deepEqual(sampleBytes(r.samples),sampleBytes(f.samples));assert.deepEqual(h.save(),before);});
++test('RUSSL: file, scalar and logical identities are separated across container variants',async()=>{const f=captureHpu(new Hpu()),a=await fieldReceipt(encodeFieldTiff(f)),b=await fieldReceipt(encodeFieldTiff(f,{byteOrder:'MM',bigTiff:true}));assert.notEqual(a.fileSHA256,b.fileSHA256);assert.equal(a.sampleSHA256,b.sampleSHA256);assert.equal(a.logicalSHA256,b.logicalSHA256);assert.equal(a.sampleSHA256,hash(sampleBytes(f.samples)));assert.equal(a.authentication,false);});
++test('RUSSL: checksum mutation is rejected even if the modified sample is finite',()=>{const b=encodeFieldTiff(captureHpu(new Hpu())),e=entry(b,273);b[e.v.getUint32(e.slot,true)]^=1;assert.throws(()=>decodeFieldTiff(b),/checksum/);});
++test('RUSSL: mismatched shape, unsupported version and invented metadata cannot silently import',()=>{for(const key of ['shape','profile','injected']){const f=captureHpu(new Hpu()),d=JSON.parse(decodeGrayTiff(encodeFieldTiff(f)).description);if(key==='shape')d.shape=[16,16,4,4,4];else if(key==='profile')d.profile='JA21-RUSSL-HPU-ATLAS/999';else d.injected='eval()';assert.throws(()=>decodeFieldTiff(encodeGrayTiff(128,128,f.samples,{description:d})));}});
++test('RUSSL: non-atlas TIFF cannot be treated as an executable or live field',()=>assert.throws(()=>decodeFieldTiff(new Hpu().tiff())));
++test('RUSSL: edits are detached, report f32 rounding and recompute both derived slots',()=>{const f=captureHpu(new Hpu()),before=f.samples.slice(),result=editFieldSite(f,[0,0,0,0,0],0.1);assert.equal(result.rounded,true);assert.equal(result.effective,Math.fround(0.1));assert.deepEqual(f.samples,before);assert.equal(result.field.samples[8192],Math.fround(0.1)**2);decodeFieldTiff(encodeFieldTiff(result.field));});
++test('RUSSL: direct edits to derived slots and excessive values are rejected',()=>{const f=captureHpu(new Hpu());for(const site of [[2,0,0,0,0],[3,0,0,0,0]])assert.throws(()=>editFieldSite(f,site,1));for(const v of [NaN,Infinity,1e13,'1',true])assert.throws(()=>editFieldSite(f,[0,0,0,0,0],v));});
++test('RUSSL: tampered derived data is rejected even when re-encoding recalculates checksums',()=>{const f=captureHpu(new Hpu());f.samples[8192]+=1;assert.throws(()=>encodeFieldTiff(f),/derived/);});
++test('RUSSL: negative zero round trips exactly through field TIFF and HPU conversion',()=>{const h=new Hpu();h.re[0]=-0;h.im[0]=-0;const b=encodeFieldTiff(captureHpu(h)),f=decodeFieldTiff(b),r=fieldToComplex(f);assert(Object.is(r.re[0],-0));assert(Object.is(r.im[0],-0));});
++test('RUSSL: bounded canonical metadata rejects deep nesting',()=>{let x=0;for(let i=0;i<20;i++)x={x};assert.throws(()=>stableJSON(x),/depth/);});
++test('RUSSL service: failed import and stale edits preserve original TIFF and HPU',()=>{const c=ctx(),info=russlOperation(c,'capture'),before=c.vfs.readFile(FIELD_PATH),state=c.host.hpu.save();assert.throws(()=>russlOperation(c,'import',{bytes:new Uint8Array([1])}));assert.throws(()=>russlOperation(c,'edit',{indices:[0,0,0,0,0],value:1,expected:'wrong'}),/changed/);assert.equal(hash(c.vfs.readFile(FIELD_PATH)),hash(before));assert.deepEqual(c.host.hpu.save(),state);assert.equal(russlOperation(c,'info').revision,info.revision);});
++test('RUSSL service: edit stays staged; explicit apply resets derived state and persists valid HPU2',()=>{const c=ctx();c.host.hpu.bytes();c.host.hpu.spool();russlOperation(c,'capture');const before=c.host.hpu.save();russlOperation(c,'edit',{indices:[0,0,0,0,0],value:0.5});assert.deepEqual(c.host.hpu.save(),before);russlOperation(c,'apply');assert.equal(c.host.hpu.re[0],0.5);assert.equal(c.host.hpu.frames.length,0);assert.equal(c.host.hpu.byteLanes,null);assert.equal(c.host.hpu.recorded,'');assert(new Hpu().load(c.vfs.readFile('/var/hpu/field.bin')));});
++test('RUSSL service: quota failures cannot partially replace a TIFF or live field',()=>{const c=ctx();russlOperation(c,'capture');const staged=c.vfs.readFile(FIELD_PATH),before=c.host.hpu.save();c.vfs.maxBytes=c.vfs.usedBytes;assert.throws(()=>russlOperation(c,'apply'));assert.deepEqual(c.host.hpu.save(),before);assert.equal(hash(c.vfs.readFile(FIELD_PATH)),hash(staged));});
++test('RUSSL service: publication failure rolls back HPU and persisted field',()=>{const c=ctx();russlOperation(c,'capture');russlOperation(c,'edit',{indices:[0,0,0,0,0],value:2});const before=c.host.hpu.save();c.host.hpuTouch=()=>{throw new Error('publish failed');};assert.throws(()=>russlOperation(c,'apply'),/publish/);assert.deepEqual(c.host.hpu.save(),before);assert(!c.vfs.exists('/var/hpu/field.bin'));});
++test('RUSSL migration: real baseline 2.1.1 HPU2 load stays valid and byte-for-byte unchanged by export',async()=>{const old=await load('./fixtures/HPU2-from-2.1.1.bin'),h=new Hpu();assert(h.load(old));assert.equal(h.byteStages.length,7);const before=h.save();assert.deepEqual(before,old);decodeFieldTiff(encodeFieldTiff(captureHpu(h)));assert.deepEqual(h.save(),old);});
++test('RUSSL: shell exposes layout, captures, edits and applies without host paths',async()=>{const hpu=new Hpu(),k=new SpiralKernel({hostBridge:{hpu}}),s=k.sessions.get(k.openSession({deferStart:true}).sessionId);let output='';k.on('data',e=>output+=e.chunk);for(const line of ['russl layout','russl capture','russl verify','russl set 0 0 0 0 0 0.5','russl get 0 0 0 0 0','russl apply'])assert.equal(await k._executeLine(s,line),0);assert.equal(hpu.re[0],0.5);assert.match(output,/16384/);assert.match(output,/0.5/);assert.notEqual(await k._executeLine(s,'russl set 3 0 0 0 0 4'),0);assert.notEqual(await k._executeLine(s,'russl capture --force'),0);k.closeSession(s.id);});
++
++test('rational coordinates keep exact arithmetic at safe-integer domain boundary',()=>{const n=Number.MAX_SAFE_INTEGER;assert.deepEqual(coordinate(n-2,n),{numerator:4503599627370494,denominator:4503599627370495});});
+--- a/tests/russl_interop.py
++++ b/tests/russl_interop.py
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: GPL-3.0-only
++"""Optional QA only. Independent tifffile writer/reader; Pillow handles u16.
++No Python/numpy/tifffile is used by the console at runtime.
++"""
++import json, hashlib, importlib.util
++from pathlib import Path
++import numpy as np
++import tifffile
++from PIL import Image
++ROOT=Path(__file__).resolve().parents[1]
++FIX=ROOT/'tests/fixtures/independent-tiff'
++
++def independent_inputs():
++    FIX.mkdir(parents=True,exist_ok=True)
++    manifest=[]
++    for dtype in ['u1','u2','f4','f8']:
++        base=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
++        if dtype[0]=='f':base=[0.,-0.,1.,-1.,1/3,1e-20,-1e20,3.5,2**-10,2**10,-3.5,13.,14.,15.,16.]
++        a=np.asarray(base,dtype='<'+dtype).reshape(3,5)
++        binary=f'expected-{dtype}.bin';(FIX/binary).write_bytes(a.tobytes())
++        for big in [False,True]:
++            for endian in ['<','>']:
++                name=f'{dtype}-{"big" if big else "classic"}-{"le" if endian=="<" else "be"}.tif'
++                tifffile.imwrite(FIX/name,a,byteorder=endian,bigtiff=big,photometric='minisblack',rowsperstrip=2,metadata=None,resolution=(1,1),resolutionunit='NONE',software='tifffile independent QA',extratags=[(274,'H',1,1,False)] if dtype[0]=='u' else [])
++                manifest.append({'file':name,'expected':binary,'dtype':{'u1':'u8','u2':'u16','f4':'f32','f8':'f64'}[dtype],'byteOrder':'II' if endian=='<' else 'MM','bigTiff':big,'strips':2,'width':5,'height':3,'sha256':hashlib.sha256((FIX/name).read_bytes()).hexdigest()})
++    a=np.arange(15,dtype=np.uint16).reshape(3,5)
++    tifffile.imwrite(FIX/'unaligned-bigtiff.tif',a,bigtiff=True,rowsperstrip=2,metadata=None,software='tifffile independent QA')
++    tifffile.imwrite(FIX/'orientation-6.tif',a,metadata=None,extratags=[(274,'H',1,6,False)])
++    (FIX/'manifest.json').write_text(json.dumps({'writer':'tifffile','version':tifffile.__version__,'files':manifest},indent=2)+'\n')
++    return manifest
++
++def check_outputs():
++    out=ROOT/'examples/tiffs';qa=ROOT/'audit/russl-fixtures';results=[]
++    want=(qa/'expected-field-f64le.bin').read_bytes()
++    for name in ['russl-field.tif','russl-field-bigtiff.tif','russl-field-big-endian.tif']:
++        with tifffile.TiffFile(out/name) as tf:
++            assert len(tf.pages)==1
++            page=tf.pages[0];arr=page.asarray();assert arr.shape==(128,128) and arr.dtype.kind=='f' and arr.dtype.itemsize==8
++            assert arr.astype('<f8',copy=False).tobytes()==want
++            meta=json.loads(page.description);assert meta['logicalShape']==[4,4,4,16,16]
++            assert int(page.tags[274].value)==1 and int(page.tags[339].value)==3 and int(page.tags[296].value)==1
++        results.append({'test':f'{name}: all 16,384 f64 samples bit-exact through independent decoder','status':'PASS'})
++    for name in ['phase']+[f'processor-{i}' for i in range(1,8)]:
++        expected=np.array(json.loads((qa/f'expected-{name}.json').read_text()),dtype=np.uint16).reshape(64,64)
++        with tifffile.TiffFile(out/f'{name}.tif') as tf:
++            assert np.array_equal(tf.pages[0].asarray(),expected)
++            desc=json.loads(tf.pages[0].description)
++            assert desc['classification']==('LOSSY' if name=='phase' else 'LOSSLESS')
++        with Image.open(out/f'{name}.tif') as im:assert np.array_equal(np.array(im),expected)
++        results.append({'test':f'{name}: all 4,096 u16 samples match in tifffile AND Pillow','status':'PASS'})
++    # Corpus helper is a reviewed, pure, standard-library 40-line math module.
++    file=ROOT/'corpus/russl-2.0.0/tooling/field_layout.py'
++    spec=importlib.util.spec_from_file_location('layout',file);layout=importlib.util.module_from_spec(spec);spec.loader.exec_module(layout)
++    oracle=tifffile.imread(out/'ordinal-oracle.tif').reshape(-1)
++    vectors=ROOT/'corpus/russl-2.0.0/tests/vectors/field/fixed_shape_index_vectors.jsonl'
++    count=0
++    for line in vectors.read_text().splitlines():
++        row=json.loads(line);k=row['ordinal'];assert int(oracle[k])==k==layout.ordinal(row['indices']);assert tuple(row['indices'])==layout.indices(k);count+=1
++    assert count==16384
++    results.append({'test':'all 16,384 ordinal TIFF samples checked against corpus fixture and independent Python helper','status':'PASS'})
++    return results
++
++def main():
++    manifest=independent_inputs();results=check_outputs()
++    report={'status':'PASS','decoder':'tifffile','version':tifffile.__version__,'numpy':np.__version__,'independentWriterFixtures':len(manifest),'results':results,'scope':'Bounded finite scalar subset; not general TIFF/OME-NGFF certification.'}
++    (ROOT/'audit/RUSSL_INTEROP_RESULTS.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
++if __name__=='__main__':main()
+--- a/tests/worker.test.mjs
++++ b/tests/worker.test.mjs
+@@ -21,7 +21,7 @@
+ }
+ test('real Node worker integration with explicit storage/lock test doubles',async t=>{
+  const broker=new Broker();t.after(()=>broker.close());let client=broker.launch(),ready=await client.ready();assert.equal(ready.type,'ready');let term=await terminal(client,ready.epoch);t.after(()=>term.close());
+- await t.test('boot publishes consistent version and protocol',()=>{assert.equal(ready.version,'2.1.1');assert.equal(ready.protocol,'hermit.vws.v3');assert(broker.records.some(([k])=>k==='nvme0n1'));});
++ await t.test('boot publishes consistent version and protocol',()=>{assert.equal(ready.version,'2.2.0');assert.equal(ready.protocol,'hermit.vws.v3');assert(broker.records.some(([k])=>k==='nvme0n1'));});
+  await t.test('binary command input traverses parser and VFS',async()=>{await term.command('echo durable > /tmp/probe');const file=await client.rpc('file',{path:'/tmp/probe'});assert.equal(new TextDecoder().decode(file.bytes),'durable\n');});
+  await t.test('command registry exposes descriptors',async()=>{const commands=await client.rpc('commands');assert(commands.length>40);assert(commands.some(c=>c.name==='xpuinfo'));assert(commands.every(c=>typeof c.summary==='string'));});
+  await t.test('all twenty modeled gates execute over transport',async()=>{for(const op of ['and','or','nand','xor','xnor'])for(const a of [0,1])for(const b of [0,1])await term.command(`hpu gate ${op} ${a} ${b}`);assert.match(term.text,/XOR/);});
+@@ -40,3 +40,38 @@
+ test('corrupt volume boot fails closed and raw backup remains available',async t=>{const b=new Broker();t.after(()=>b.close());const c=b.launch();assert.equal((await c.ready()).type,'ready');await c.terminate();const entries=structuredClone(b.records);entries.find(([k])=>k==='nvme0n1')[1].sha256='invalid';b.records=entries;const before=JSON.stringify(b.records),bad=b.launch(),status=await bad.ready();assert.equal(status.type,'error');assert.match(status.message,/checksum/);assert.equal(JSON.stringify(b.records),before);assert.equal(JSON.parse(await bad.rpc('backup')).sha256,'invalid');});
+ test('read failure does not initialize over existing storage',async t=>{const b=new Broker();t.after(()=>b.close());b.records=[['nvme0n1',{v:1,snap:{not:'valid'},writtenAt:1}]];const before=JSON.stringify(b.records),c=b.launch({failRead:true});assert.equal((await c.ready()).type,'error');assert.equal(JSON.stringify(b.records),before);});
+ test('write failure prevents a falsely successful boot',async t=>{const b=new Broker();t.after(()=>b.close());const c=b.launch({failWrite:true});assert.equal((await c.ready()).type,'error');assert.equal(b.records.length,0);});
++
++test('RUSSL management RPC in real Node worker with explicit storage/lock doubles',async t=>{
++ const broker=new Broker();t.after(()=>broker.close());let client=broker.launch(),ready=await client.ready();assert.equal(ready.type,'ready');
++ let revision,bytes;
++ await t.test('capture requires revision token and writes a full f64 TIFF',async()=>{
++  const absent=await client.rpc('russl',{action:'info'});assert.equal(absent.present,false);
++  await assert.rejects(()=>client.rpc('russl',{action:'capture'}),/revision/);
++  const captured=await client.rpc('russl',{action:'capture',args:{expected:absent.revision}});assert.equal(captured.sites,16384);revision=captured.revision;
++  const f=await client.rpc('file',{path:captured.path});bytes=f.bytes;assert(bytes.length>131072);
++ });
++ await t.test('invalid imports and stale writes leave the staged TIFF unchanged',async()=>{
++  await assert.rejects(()=>client.rpc('russl',{action:'import',args:{expected:revision,bytes:bytes.slice(0,20)}}));
++  await assert.rejects(()=>client.rpc('russl',{action:'edit',args:{expected:'stale',indices:[0,0,0,0,0],value:3}}),/changed/);
++  const info=await client.rpc('russl',{action:'info'});assert.equal(info.revision,revision);
++ });
++ await t.test('edit is staged and explicit apply updates the HPU',async()=>{
++  const before=await client.rpc('preview');const edit=await client.rpc('russl',{action:'edit',args:{expected:revision,indices:[0,0,0,0,0],value:0.5}});revision=edit.revision;
++  assert.deepEqual((await client.rpc('preview')).phase,before.phase);
++  const site=await client.rpc('russl',{action:'get',args:{indices:[0,0,0,0,0]}});assert.equal(site.value,0.5);
++  const applied=await client.rpc('russl',{action:'apply',args:{expected:revision}});assert.equal(applied.applied,true);assert.equal((await client.rpc('preview')).op,'RUSSL field apply');
++ });
++ await t.test('SHA-256 receipt and valid import traverse worker RPC',async()=>{
++  const receipt=await client.rpc('russl',{action:'receipt'});assert.equal(receipt.logicalSHA256.length,64);assert.equal(receipt.authentication,false);
++  const imported=await client.rpc('russl',{action:'import',args:{expected:revision,bytes}});revision=imported.revision;assert.equal(imported.sites,16384);
++  assert.equal((await client.rpc('preview')).op,'RUSSL field apply');
++ });
++ await t.test('staged TIFF and applied HPU survive a transactional reboot',async()=>{
++  await client.rpc('sync');await client.terminate();client=broker.launch();ready=await client.ready();assert.equal(ready.type,'ready');assert.equal(ready.restored,true);
++  assert.equal((await client.rpc('russl',{action:'info'})).revision,revision);assert.equal((await client.rpc('preview')).op,'RUSSL field apply');
++ });
++ await t.test('TIFF apply is blocked while a terminal command is running',async()=>{
++  const term=await terminal(client,ready.epoch);term.write('sleep 1\r');await delay(50);
++  await assert.rejects(()=>client.rpc('russl',{action:'apply',args:{expected:revision}}),/active commands/);term.send('terminal.signal',{signal:'SIGINT'});await term.idle();term.close();
++ });
++});
+--- a/web/index.html
++++ b/web/index.html
+@@ -1,13 +1,21 @@
+ <!doctype html>
+-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.1.1</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
++<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.0</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
+ <body>
+-<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.1.1</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
+-<nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL BROWSER · SOFTWARE XPU</span></nav>
++<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.0</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
++<nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL BROWSER · SOFTWARE XPU</span></nav>
+ <div id="notice" role="status" aria-live="polite" hidden></div>
+ <main>
+ <section id="console" class="view active"><div class="console-grid"><div class="terminal-card"><div class="toolbar"><div id="tabs" aria-label="Terminal sessions"></div><button id="add-tab" aria-label="Open terminal">+ Terminal</button></div><div id="terminal-container"></div><form id="command-form" autocomplete="off"><label for="command">›</label><input id="command" aria-label="Command" placeholder="Type help, xpuinfo, or hpu bytes" maxlength="4096" spellcheck="false"><button type="submit">Run</button><button id="interrupt" type="button">Interrupt</button></form><div class="terminal-footer"><span id="session-status">Waiting for worker</span><span>Ctrl+C interrupts · no host shell</span></div></div><aside class="processor-card"><div class="eyebrow">FIELD PROCESSOR</div><h1>Software XPU</h1><p class="muted">64 × 64 complex field · JavaScript CPU</p><div class="field-pair"><figure><canvas id="phase" width="64" height="64" aria-label="Simulated phase field"></canvas><figcaption>PHASE / TIFF</figcaption></figure><figure><canvas id="intensity" width="64" height="64" aria-label="Simulated intensity field"></canvas><figcaption>INTENSITY / GIF</figcaption></figure></div><dl class="metrics"><div><dt>Operation</dt><dd id="operation">—</dd></div><div><dt>Spool</dt><dd id="spool">0 / 24</dd></div><div><dt>Propagation</dt><dd id="z">0 mm</dd></div><div><dt>Execution</dt><dd>CPU · no GPU API</dd></div></dl><div class="actions"><button data-command="hpu cycle">Run cycle</button><button data-command="hpu bytes">Run byte lanes</button><button data-command="hpu gate xor 1 0">Test XOR</button><button data-command="hpu reset">Reset field</button><button data-command="hpu tiff">Export TIFF to VFS</button><button data-command="hpu gif">Export GIF to VFS</button></div><p class="fine">LUT equivalence is checked between two software loops. Simulated operations are not hardware FLOPS. TIFF and GIF are data exports, not independently executing processors.</p></aside></div><details class="transcript"><summary>Accessible terminal transcript (current screen)</summary><pre id="transcript" aria-live="off"></pre></details></section>
++<section id="russl" class="view"><div class="section-heading"><div class="eyebrow">RUSSL CORPUS 2.0.0 · SCOPED PIXEL ADAPTER</div><h1>One field. Every pixel addressed.</h1><p>4 × 4 × 4 × 16 × 16 scalar sites, stored in a 128 × 128 Float64 TIFF atlas. Capture and edit a staged image; only Apply changes the live XPU.</p></div>
++<div class="storage-actions"><button id="russl-capture">Capture live field</button><button id="russl-refresh">Refresh</button><button id="russl-export">Download field TIFF</button><button id="russl-import">Import field TIFF…</button><button id="russl-apply">Apply to live XPU…</button><button id="russl-receipt">Download SHA-256 receipt</button><input type="file" id="russl-file" accept=".tif,.tiff,image/tiff" hidden></div>
++<p id="russl-status" role="status" class="fine">Refresh to inspect the staged TIFF.</p>
++<div class="system-grid"><article><h2>Inspect or edit a scalar site</h2><p>c4 selects real (0), imaginary (1), intensity (2), or phase (3). c5/c6 select a 16 × 16 tile; c7/c8 select its row/column. Intensity and phase are read-only derivatives.</p><form id="russl-site-form"><div class="russl-indices">
++<label>c4 <input id="russl-c4" type="number" min="0" max="3" step="1" value="0" required></label><label>c5 <input id="russl-c5" type="number" min="0" max="3" step="1" value="0" required></label><label>c6 <input id="russl-c6" type="number" min="0" max="3" step="1" value="0" required></label><label>c7 <input id="russl-c7" type="number" min="0" max="15" step="1" value="0" required></label><label>c8 <input id="russl-c8" type="number" min="0" max="15" step="1" value="0" required></label></div><div class="russl-edit-row"><label>New real/imaginary value <input id="russl-value" type="number" min="-1000000000000" max="1000000000000" step="any" value="0.5"></label><button type="submit">Read site</button><button id="russl-edit" type="button">Write staged pixel</button></div></form><pre id="russl-site-output" class="russl-output">No site selected.</pre><p class="fine">Edits round explicitly to the existing XPU's Float32 precision and report the effective value. Intensity and phase are recalculated together. Your live XPU stays unchanged until Apply.</p></article>
++<article><h2>Field record</h2><pre id="russl-summary" class="russl-output">No staged TIFF loaded.</pre></article>
++<article><h2>Sample-exact versus visual exports</h2><p>The atlas stores real and imaginary Float32 samples widened exactly into Float64 slots, plus derived intensity and phase. No pixels are padding. Ordinary phase.tif remains a quantized unsigned 16-bit visualization and now declares that loss in its metadata.</p><p>Applying an atlas resets the GIF spool, recordings, byte lanes, counters and derived caches. Export a full volume backup before replacing a session you need to retain.</p></article>
++<article><h2>Format and execution boundary</h2><p>Bounded, finite grayscale TIFF: little/big endian, classic TIFF or small BigTIFF, uncompressed strips. Atlas imports require the exact declared placement profile and matching sample checksum. Unsupported metadata, compression or page stacking is rejected.</p><p>The corpus's language, mechanics and OME-Zarr proposals remain separate. This adapter does not execute metadata or turn TIFF pixels into independent silicon, optical hardware, or a complete RUSSL/MSSL runtime.</p></article></div></section>
+ <section id="commands" class="view"><div class="section-heading"><div class="eyebrow">REFERENCE</div><h1>Every command, one place.</h1><p>Search the live registry. “Insert” fills the command line without executing anything.</p></div><input type="search" id="search-commands" placeholder="Search names, descriptions, or usage" aria-label="Search commands"><div id="command-count" class="fine"></div><div id="command-list" class="command-list"></div></section>
+ <section id="storage" class="view"><div class="section-heading"><div class="eyebrow">ORIGIN-SCOPED STORAGE</div><h1>Your virtual volume.</h1><p>Two MiB of file contents, up to 1,500 nodes. Browser storage is not a backup and may be cleared or evicted.</p></div><div class="storage-actions"><button id="sync">Sync volume</button><button id="backup">Download backup</button><button id="previous-backup">Previous committed backup</button><button id="restore">Restore backup…</button><button id="persist">Request persistent storage</button><input id="restore-file" type="file" accept="application/json,.json" hidden></div><p id="storage-status" class="fine">No volume status yet.</p><form id="path-form"><label for="path">VFS path</label><input id="path" value="/var/hpu" maxlength="4096"><button>Open directory</button><button id="parent" type="button">Parent</button></form><div id="file-list"></div><p class="fine">Paths here belong to the virtual filesystem, not C:\ or D:\. Only selected exports are downloaded to your computer. Restore replaces the virtual volume after validation and preserves its previous committed revision.</p></section>
+-<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>A local static Node server opens this browser application. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software, not silicon acceleration</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. “GPU” loops in the input package are batched CPU loops, not hardware offload.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.1.1</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. Windows launchers provision a hash-verified private Node.js runtime on first use. No system Node.js installation is required.</p></article></div></section>
+-</main><footer><span>JA21 2.1.1 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
++<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>A local static Node server opens this browser application. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software, not silicon acceleration</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. “GPU” loops in the input package are batched CPU loops, not hardware offload.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.0</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. Windows launchers provision a hash-verified private Node.js runtime on first use. No system Node.js installation is required.</p></article></div></section>
++</main><footer><span>JA21 2.2.0 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
+ </body></html>
+--- a/web/style.css
++++ b/web/style.css
+@@ -1 +1,4 @@
+ :root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#e6edf3;background:#090d13;font-synthesis:none;--line:#26303d;--muted:#a1afbf;--cyan:#69dbe7;--surface:#101720}*{box-sizing:border-box}body{margin:0;min-width:360px}button,input{font:inherit}button{background:#19232f;color:#e4edf5;border:1px solid #334254;border-radius:7px;padding:9px 13px;cursor:pointer;white-space:nowrap}button:hover{background:#263547;border-color:#6b819b}button:focus-visible,input:focus-visible,canvas:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}button:disabled{opacity:.5;cursor:default}input{background:#0b1119;color:#f2f6fa;border:1px solid #354557;border-radius:7px;padding:11px;min-width:0}header{height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid var(--line)}.identity{display:flex;align-items:center;gap:15px}.identity strong{font-size:18px;letter-spacing:2px}.identity small{display:block;font-size:10px;color:#a7b7c7;letter-spacing:1.8px;margin-top:7px}.mark{font-size:36px;color:var(--cyan)}.muted{color:var(--muted)}.header-right{display:flex;gap:9px;align-items:center}.badge{font-size:12px;padding:7px 11px;border:1px solid #3b5562;border-radius:30px;color:#95e9b5;margin-right:9px}nav{display:flex;align-items:center;gap:8px;padding:16px 34px;border-bottom:1px solid var(--line)}nav button{background:transparent;border-color:transparent;color:var(--muted)}nav button.selected{color:#99edf2;background:#17313b;border-color:#31545e}.nav-note{margin-left:auto;font-size:10px;letter-spacing:1.5px;color:#99aabc}main{padding:25px 34px 30px;min-height:calc(100vh - 215px)}.view{display:none}.view.active{display:block}.console-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px}.terminal-card,.processor-card,article{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}.toolbar{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#131c27;gap:10px}#tabs{display:flex;gap:6px;overflow-x:auto}#tabs button{font-family:Consolas,monospace;font-size:12px;padding:7px 9px}#tabs button.current{border-color:#6dc8d4;color:#96e9ef;background:#1a333e}#tabs .close-tab{margin-left:-5px;padding:7px;color:#adb9c7}#add-tab{font-size:12px}#terminal-container{height:476px;background:#0c0f13;padding:8px;overflow:hidden}#terminal-container canvas{width:100%;height:100%;display:block}#command-form{display:flex;gap:8px;align-items:center;border-top:1px solid var(--line);padding:12px}#command-form label{color:var(--cyan);font-size:27px}#command{flex:1;font-family:Consolas,monospace;font-size:13px}#command-form button[type=submit]{background:#173d47;border-color:#39717e;color:#b9f5fa}.terminal-footer{display:flex;justify-content:space-between;gap:8px;padding:0 13px 12px;font-size:10px;color:#9facbb}.processor-card{padding:23px}.eyebrow{color:var(--cyan);font-size:10px;letter-spacing:2px;font-weight:600}h1{font-size:27px;letter-spacing:-.6px;margin:9px 0 12px;font-weight:600}h2{font-size:18px;font-weight:600;margin-top:0}p{font-size:13px;line-height:1.7;color:#b5c2d0}.processor-card>p{font-size:11px;margin-top:0}.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:23px 0 13px}figure{margin:0;min-width:0}figure canvas{width:100%;height:auto;image-rendering:pixelated;background:#060a0e;border:1px solid #283a49;border-radius:8px}figcaption{font-size:9px;letter-spacing:1.5px;color:#a6b7c8;margin-top:8px;text-align:center}.metrics{margin:18px 0}.metrics>div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #27313e;padding:10px 0;font-size:11px}.metrics dt{color:#9cafc1}.metrics dd{margin:0;text-align:right;color:#e2eaf0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button{font-size:10px;padding:10px 6px}.fine{font-size:11px;line-height:1.7;color:#9fb0c1}.processor-card .fine{margin-top:20px;margin-bottom:0;font-size:10px}.section-heading{max-width:750px;margin:5px 0 24px}.section-heading h1{font-size:34px}.section-heading p{font-size:14px}#search-commands{width:100%;max-width:650px;margin-bottom:10px}.command-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:15px}.command-entry{padding:19px;border:1px solid var(--line);border-radius:9px;background:var(--surface);min-width:0}.command-entry h2{font-family:Consolas,monospace;color:#9eeaf0;font-size:16px;display:flex;justify-content:space-between;gap:12px}.command-entry button{font-size:11px;padding:5px 10px}.command-entry code{font-family:Consolas,monospace;color:#a8bdcd;font-size:12px;overflow-wrap:anywhere}.command-entry p{margin:12px 0;min-height:42px}.storage-actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}#path-form{display:flex;align-items:center;gap:10px;max-width:960px;margin:22px 0}#path-form input{flex:1;font-family:Consolas,monospace}#file-list{max-width:960px}.file-row{display:grid;grid-template-columns:minmax(0,1fr) 120px 90px;gap:12px;align-items:center;padding:10px 15px;border-bottom:1px solid var(--line);font-size:12px}.file-row span{overflow-wrap:anywhere}.system-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}article{padding:25px}.transcript{margin-top:15px;color:#9baec1;font-size:12px}#transcript{font-family:Consolas,monospace;white-space:pre-wrap;max-height:320px;overflow:auto;border:1px solid var(--line);padding:16px}footer{display:flex;justify-content:space-between;padding:17px 34px;border-top:1px solid var(--line);color:#8295a9;font-size:10px;letter-spacing:.7px}#notice{margin:15px 34px 0;padding:12px 16px;background:#2e2617;color:#ffe0a1;border:1px solid #6a5530;border-radius:8px;font-size:13px;line-height:1.5}#notice[hidden]{display:none}@media(max-width:1100px){.console-grid{grid-template-columns:minmax(0,1fr) 285px}.processor-card{padding:17px}.terminal-footer{font-size:9px}.command-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:860px){header{padding:0 18px}.identity strong{font-size:14px}.nav-note{display:none}nav{padding:12px 18px;overflow-x:auto}main{padding:20px 18px}.console-grid{grid-template-columns:1fr}.processor-card{max-width:100%;}.field-pair{max-width:320px}.processor-card .actions{grid-template-columns:repeat(3,1fr)}.system-grid{grid-template-columns:1fr}#terminal-container{height:420px}.header-right button{font-size:11px;padding:8px}.badge{margin:0}footer{padding:16px 18px;gap:15px}.command-list{grid-template-columns:1fr}#command-form{gap:5px;padding:8px}#command-form button{padding:9px;font-size:11px}#notice{margin-left:18px;margin-right:18px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
++
++/* RUSSL pixel lab: named axes remain usable on narrow screens. */
++.russl-indices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:16px 0}.russl-indices label,.russl-edit-row label{display:grid;gap:7px;font-size:12px}.russl-indices input{width:100%;min-width:0}.russl-edit-row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}.russl-edit-row label{flex:1 1 180px}.russl-output{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-height:420px;overflow:auto;font:12px/1.65 ui-monospace,Consolas,monospace;padding:14px;border:1px solid var(--line);border-radius:10px;min-width:0}.system-grid article{min-width:0}#russl-status{overflow-wrap:anywhere}@media(max-width:600px){.russl-indices{gap:5px}.russl-indices input{padding:8px 4px}.russl-edit-row{display:grid;grid-template-columns:1fr}.russl-output{max-height:300px}}

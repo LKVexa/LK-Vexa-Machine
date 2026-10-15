@@ -1,0 +1,60 @@
+{
+  "schema": "JA21/CONSOLE_PATCH_VALIDATION/1",
+  "consoleVersion": "1.2.1",
+  "softwareEngineVersion": "2.2.2",
+  "date": "2026-10-14",
+  "status": "NATIVE_STATIC_PASS_LIVE_BROWSER_BLOCKED",
+  "originalProjectUnmodified": true,
+  "nativeCompilation": {
+    "productionExe": "PASS",
+    "liveAcceptanceExe": "PASS",
+    "headlessPolicyExe": "PASS",
+    "warnings": 0,
+    "errors": 0,
+    "warningsAsErrors": true,
+    "platform": "x64"
+  },
+  "productionExeSha256": "d1d6644f1351f49e26453f017d3c302a126c43fbe77c3d9866a5760ca5611ae4",
+  "liveAcceptanceExeSha256": "e0746a7bedad85b2903aa3c909e4fb6e8ca538860ab075642bfbbb543fbb137c",
+  "nativePreflight": {
+    "default": "PASS",
+    "blank": "PASS",
+    "scope": "Runtime111-file seal, exactmappedapplication, console/config version and pinned SDK. No browser or CPU executed."
+  },
+  "nativePolicy": {
+    "status": "PASS",
+    "checks": 28
+  },
+  "mappedStaticIntegrity": {
+    "status": "PASS",
+    "errors": [],
+    "liveWebView2Tested": false
+  },
+  "engineModuleParity": {
+    "modules": 39,
+    "allUnchanged": true,
+    "engineVersion": "2.2.2"
+  },
+  "liveBrowser": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "cpuOnlineObserved": false,
+    "browserValidationPassed": false,
+    "qaWindowShown": true,
+    "sandboxDisabled": false,
+    "checks": [
+      {
+        "name": "Production runtime seal and mapped software CPU closure",
+        "status": "PASS"
+      }
+    ],
+    "bridgeFailures": [
+      "Live web engine could not initialize \u00b7 Catastrophic failure\r\n\r\nWindow creation request failed."
+    ]
+  },
+  "persistence": "UNVERIFIED; fresh actual run blocked before application startup",
+  "packagingRequirement": "Merge reviewed overlay into immutable complete1.2.0ZIP; regenerate full package_integrity and distribution manifests from merged bytes. Workingdiskcopy is partial; its451-file package integrity is not fullrelease proof.",
+  "remainingGates": [
+    "Complete full ZIP merge and byte/hash verification",
+    "Run Test Silicon CPU.cmd in a normal Windows session and review live worker/storage/reload/lock/restore evidence before any fully verified release claim"
+  ]
+}

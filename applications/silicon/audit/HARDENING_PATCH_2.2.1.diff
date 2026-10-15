@@ -1,0 +1,2709 @@
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-2.2.0
++2.2.1
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.2.0",
++  "version": "2.2.1",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "ja21-silicon-console",
+-      "version": "2.2.0",
++      "version": "2.2.1",
+       "engines": {
+         "node": ">=22.12.0"
+       },
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.2.0",
++  "version": "2.2.1",
+   "private": true,
+   "type": "module",
+   "description": "Local browser virtual console and software XPU reference simulator",
+--- a/scripts/build.mjs
++++ b/scripts/build.mjs
+@@ -1,13 +1,49 @@
+ import fs from 'node:fs/promises';
++import { realpath as resolveRealPath } from 'node:fs';
++import { promisify } from 'node:util';
+ import path from 'node:path';
+ import { fileURLToPath } from 'node:url';
+ import { VERSION } from '../src/version.js';
+-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+-export async function build(){
+-  const dist=path.join(root,'dist');await fs.rm(dist,{recursive:true,force:true});await fs.mkdir(dist,{recursive:true});
+-  await fs.cp(path.join(root,'web'),dist,{recursive:true,errorOnExist:true});
+-  await fs.cp(path.join(root,'src'),path.join(dist,'src'),{recursive:true,filter:p=>!p.endsWith('regex-worker-node.js')});
+-  await fs.writeFile(path.join(dist,'release.json'),JSON.stringify({version:VERSION,profile:'LOCAL_BROWSER',runtimeDependencies:0},null,2)+'\n');
++const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
++const realpath=promisify(resolveRealPath);
++async function assertPlainTree(file){
++  const stat=await fs.lstat(file);
++  if(stat.isSymbolicLink() || (!stat.isFile() && !stat.isDirectory()))throw new Error(`Build refuses linked or special input: ${file}`);
++  if(stat.isDirectory())for(const entry of await fs.readdir(file))await assertPlainTree(path.join(file,entry));
++}
++async function removeOwnedStage(stageRoot,root){
++  if(path.dirname(stageRoot)!==root || !path.basename(stageRoot).startsWith('.dist-stage-') || await realpath(stageRoot)!==stageRoot)throw new Error('Build refuses cleanup outside its owned staging directory');
++  await assertPlainTree(stageRoot);
++  await fs.rm(stageRoot,{recursive:true,force:true});
++}
++export async function build({root=ROOT,rename=fs.rename}={}){
++  if(typeof rename!=='function')throw new TypeError('rename must be a function');
++  root=await realpath(root);
++  const dist=path.join(root,'dist');
++  await assertPlainTree(path.join(root,'web'));await assertPlainTree(path.join(root,'src'));
++  try{const current=await fs.lstat(dist);if(!current.isDirectory() || current.isSymbolicLink())throw new Error('Build refuses linked or non-directory dist');await assertPlainTree(dist);}catch(error){if(error.code!=='ENOENT')throw error;}
++  // Prepare completely before replacing the last good distribution.
++  const stageRoot=await fs.mkdtemp(path.join(root,'.dist-stage-')),stage=path.join(stageRoot,'dist'),backup=path.join(stageRoot,'previous-dist');
++  let movedOld=false,keepBackup=false;
++  try{
++    await fs.cp(path.join(root,'web'),stage,{recursive:true,errorOnExist:true,force:false});
++    await fs.cp(path.join(root,'src'),path.join(stage,'src'),{recursive:true,errorOnExist:true,force:false,filter:p=>!p.endsWith('regex-worker-node.js')});
++    await fs.writeFile(path.join(stage,'release.json'),JSON.stringify({version:VERSION,profile:'LOCAL_BROWSER',runtimeDependencies:0},null,2)+'\n');
++    // Both publication paths live below the same resolved root. Move the old
++    // distribution aside before publishing, rather than destroying it first.
++    if(await realpath(stageRoot)!==stageRoot)throw new Error('Build staging directory became linked');
++    try{await rename(dist,backup);movedOld=true;}catch(error){if(error.code!=='ENOENT')throw error;}
++    try{await rename(stage,dist);}catch(publicationError){
++      if(movedOld){
++        try{await rename(backup,dist);}catch(rollbackError){
++          keepBackup=true;
++          const error=new AggregateError([publicationError,rollbackError],`Build publication and rollback failed; previous distribution retained at ${backup}`,{cause:publicationError});
++          error.recoveryPath=backup;throw error;
++        }
++      }
++      throw publicationError;
++    }
++  }finally{if(!keepBackup)await removeOwnedStage(stageRoot,root);}
+   console.log(`Built JA21 ${VERSION}: static, no third-party runtime packages.`);return dist;
+ }
+ if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url))await build();
+--- a/scripts/check.mjs
++++ b/scripts/check.mjs
+@@ -6,7 +6,7 @@
+ import { VERSION } from '../src/version.js';
+ import { PROTOCOL } from '../src/vendor/vws/frame.js';
+ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+-async function files(dir){const out=[];for(const d of await fs.readdir(dir,{withFileTypes:true})){const p=path.join(dir,d.name);if(d.isDirectory())out.push(...await files(p));else out.push(p);}return out;}
++async function files(dir){const out=[];for(const d of await fs.readdir(dir,{withFileTypes:true})){const p=path.join(dir,d.name);if(d.isSymbolicLink())throw new Error(`Release input is linked: ${path.relative(root,p)}`);if(d.isDirectory())out.push(...await files(p));else out.push(p);}return out;}
+ export async function check(){
+  const results=[],require=(ok,name)=>{results.push({test:name,status:ok?'PASS':'FAIL'});if(!ok)throw new Error(name);};
+  const pkg=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8'));
+@@ -14,22 +14,36 @@
+  require(pkg.version===VERSION && lock.version===VERSION && lock.packages[''].version===VERSION && (await fs.readFile(path.join(root,'VERSION'),'utf8')).trim()===VERSION,'release versions agree');
+  require(PROTOCOL==='hermit.vws.v3','wire protocol v3 is explicit');
+  require(Object.keys(lock.packages).length===1 && !pkg.dependencies && !pkg.devDependencies,'zero third-party runtime/build packages');
++ const runtime=JSON.parse(await fs.readFile(path.join(root,'scripts/windows/runtime-lock.json'),'utf8'));
++ const header=await fs.readFile(path.join(root,'scripts/windows/launcher-header.txt'),'utf8'),payload=await fs.readFile(path.join(root,'scripts/windows/bootstrap.ps1'),'utf8');
++ const launcher=await fs.readFile(path.join(root,'Start-Console.cmd'),'utf8');
++ require(runtime.consoleVersion===VERSION && payload.includes(`JA21 launcher ${VERSION} | application`),'launcher release version agrees');
++ require(launcher===(header.trimEnd()+'\n#==JA21_POWERSHELL_PAYLOAD==\n'+payload).replace(/\r?\n/g,'\r\n'),'generated Windows launcher matches reviewed source');
++ let windowsPowerShellParse=null;
++ if(process.platform==='win32'){
++  const ps=path.join(process.env.SystemRoot || 'C:\\Windows','System32','WindowsPowerShell','v1.0','powershell.exe');
++  const command="$ErrorActionPreference='Stop';$tokens=$null;$errors=$null;[void][Management.Automation.Language.Parser]::ParseFile($env:JA21_PARSE_PATH,[ref]$tokens,[ref]$errors);if($errors.Count){$errors | ForEach-Object {[Console]::Error.WriteLine($_.Message)};exit 1};[Console]::WriteLine($PSVersionTable.PSVersion.ToString())";
++  const parsed=spawnSync(ps,['-NoLogo','-NoProfile','-NonInteractive','-Command',command],{encoding:'utf8',windowsHide:true,timeout:15000,env:{...process.env,JA21_PARSE_PATH:path.join(root,'scripts/windows/bootstrap.ps1')}});
++  require(!parsed.error && parsed.status===0,`native Windows PowerShell payload parses${parsed.stderr?.trim()?': '+parsed.stderr.trim():''}`);
++  windowsPowerShellParse={status:'PASS',version:parsed.stdout.trim(),scope:'Parse only; no runtime provisioning or application execution'};
++ }
+  let syntax=0,imports=0;
+- for(const dir of ['src','scripts','tests'])for(const f of await files(path.join(root,dir))){
++ for(const dir of ['src','web','scripts','tests'])for(const f of await files(path.join(root,dir))){
+   if(!/\.(?:mjs|js)$/.test(f))continue;
+-  const r=spawnSync(process.execPath,['--check',f],{encoding:'utf8',timeout:10000});
++  const r=spawnSync(process.execPath,['--check',f],{encoding:'utf8',timeout:10000,windowsHide:true});
+   require(r.status===0,`parse ${path.relative(root,f)}`);syntax++;
+   if(dir!=='src')continue;
+   const text=await fs.readFile(f,'utf8');
+-  for(const m of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(\s*)(['"])([^'"\r\n]+)\1/g)){
++  for(const m of text.matchAll(/(?:\bfrom\s*|\bimport\s*\(\s*|^\s*import\s*)(['"])([^'"\r\n]+)\1/gm)){
+    const target=m[2];if(target.startsWith('node:'))continue;
+    require(target.startsWith('.'),`local-only module ${path.relative(root,f)} -> ${target}`);
+    await fs.access(path.resolve(path.dirname(f),target));imports++;
+   }
+  }
+  const html=await fs.readFile(path.join(root,'web/index.html'),'utf8');
++ require(html.includes(`<title>JA21 Silicon Console ${VERSION}</title>`) && html.includes(`<span id="version">${VERSION}</span>`) && html.includes(`<h2>Release ${VERSION}</h2>`) && html.includes(`JA21 ${VERSION} · LOCAL_BROWSER`),'static UI release labels agree');
+  require(!/\bon\w+\s*=|<script(?![^>]*\bsrc=)/i.test(html),'HTML has no inline handlers or scripts');
+- const report={version:VERSION,protocol:PROTOCOL,node:process.version,syntaxFiles:syntax,resolvedLocalImports:imports,results};
++ const report={version:VERSION,protocol:PROTOCOL,node:process.version,syntaxFiles:syntax,resolvedLocalImports:imports,windowsPowerShellParse,results};
+  await fs.mkdir(path.join(root,'audit'),{recursive:true});await fs.writeFile(path.join(root,'audit','RELEASE_CHECKS.json'),JSON.stringify(report,null,2)+'\n');
+  console.log(`Release checks PASS: ${syntax} JS files parsed, ${imports} local imports resolved, versions/dependencies checked.`);return report;
+ }
+--- a/scripts/serve.mjs
++++ b/scripts/serve.mjs
+@@ -1,16 +1,55 @@
+ import http from 'node:http';
+ import fs from 'node:fs/promises';
++import { realpath as resolveRealPath } from 'node:fs';
++import { promisify } from 'node:util';
+ import path from 'node:path';
+ import { fileURLToPath } from 'node:url';
+ import { spawn } from 'node:child_process';
+ import { build } from './build.mjs';
+ import { VERSION } from '../src/version.js';
+ const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
++// Node's legacy resolver still checks each link and works on Windows filesystems
++// that refuse the native realpath operation used by fs.promises.realpath.
++const realpath=promisify(resolveRealPath);
+ const CSP="default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'";
+ const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml'};
++const MAX_FILE_BYTES=2*1024*1024;
++// Reject Windows aliases and alternate data streams on every host, so a release
++// has the same file boundary on Windows and POSIX.
++function invalidSegment(segment){
++  return !segment || segment.startsWith('.') || /[<>:"|?*]|[.\s]$/.test(segment) || /^(?:con|prn|aux|nul|com[1-9¹²³]|lpt[1-9¹²³])(?:\.|$)/i.test(segment);
++}
++export function parseServerArgs(args){
++  let port=8788,open=false,seenPort=false;
++  for(let i=0;i<args.length;i++){
++    const arg=args[i];
++    if(arg==='--open' && !open){open=true;continue;}
++    if(arg==='--port' && !seenPort){
++      seenPort=true;const value=args[++i];
++      if(!/^\d+$/.test(value ?? ''))throw new Error('port must be 1024..65535');
++      port=Number(value);if(!Number.isInteger(port) || port<1024 || port>65535)throw new Error('port must be 1024..65535');
++      continue;
++    }
++    throw new Error('usage: node scripts/serve.mjs [--open] [--port NUMBER]');
++  }
++  return {port,open};
++}
++async function readBounded(file){
++  const handle=await fs.open(file,'r');
++  try{
++    const stat=await handle.stat();
++    if(!stat.isFile() || stat.size>MAX_FILE_BYTES)return null;
++    // The extra byte detects growth after stat without letting readFile allocate
++    // an unbounded buffer for a changing local file.
++    const buffer=Buffer.alloc(stat.size+1);let length=0;
++    while(length<buffer.length){const {bytesRead}=await handle.read(buffer,length,buffer.length-length,null);if(!bytesRead)break;length+=bytesRead;}
++    if(length!==stat.size)return null;
++    return buffer.subarray(0,length);
++  }finally{await handle.close();}
++}
+ export async function createServer({port=8788,root=path.join(ROOT,'dist')}={}){
+   if(!Number.isInteger(port) || port<0 || port>65535)throw new Error('invalid port');
+-  root=await fs.realpath(root);
++  root=await realpath(root);
+   const server=http.createServer({maxHeaderSize:8192,requestTimeout:10000,headersTimeout:10000,keepAliveTimeout:5000},async(req,res)=>{
+     const actualPort=server.address().port,origin=`http://127.0.0.1:${actualPort}`;
+     const headers={'Content-Security-Policy':CSP,'X-Content-Type-Options':'nosniff','X-Frame-Options':'DENY','Referrer-Policy':'no-referrer','Cross-Origin-Resource-Policy':'same-origin','Cross-Origin-Opener-Policy':'same-origin','Permissions-Policy':'camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=()','Cache-Control':'no-store'};
+@@ -23,14 +62,16 @@
+       const raw=req.url?.split('?')[0] || '/';
+       if(raw.length>2048 || !raw.startsWith('/') || raw.startsWith('//')){end(400,'Invalid path');return;}
+       const decoded=decodeURIComponent(raw);
+-      if(/[\\\x00-\x1f\x7f]/.test(decoded) || decoded.includes('%') || decoded.split('/').some(x=>x.startsWith('.'))){end(400,'Invalid path');return;}
++      if(/[\\\x00-\x1f\x7f]/.test(decoded) || decoded.includes('%') || (decoded!=='/' && decoded.slice(1).split('/').some(invalidSegment))){end(400,'Invalid path');return;}
+       const relative=decoded==='/'?'index.html':decoded.slice(1),file=path.resolve(root,relative);
+       if(!file.startsWith(root+path.sep)){end(403,'Path rejected');return;}
+-      const real=await fs.realpath(file);
++      const real=await realpath(file);
+       if(real!==file || !real.startsWith(root+path.sep)){end(403,'Symlink rejected');return;}
+       const st=await fs.stat(real),type=MIME[path.extname(real)];
+-      if(!st.isFile() || !type || st.size>2*1024*1024){end(404,'Not found');return;}
+-      const data=await fs.readFile(real);res.writeHead(200,{...headers,'Content-Type':type,'Content-Length':data.length});res.end(req.method==='HEAD'?undefined:data);
++      if(!st.isFile() || !type || st.size>MAX_FILE_BYTES){end(404,'Not found');return;}
++      if(req.method==='HEAD'){res.writeHead(200,{...headers,'Content-Type':type,'Content-Length':st.size});res.end();return;}
++      const data=await readBounded(real);if(!data){end(404,'Not found');return;}
++      res.writeHead(200,{...headers,'Content-Type':type,'Content-Length':data.length});res.end(data);
+     }catch(error){end(['ENOENT','ENOTDIR'].includes(error.code)?404:400,'Not found or invalid request');}
+   });
+   server.maxConnections=64;server.maxRequestsPerSocket=100;
+@@ -39,11 +80,10 @@
+ }
+ async function main(){
+   const version=process.versions.node.split('.').map(Number);if(version[0]<22 || (version[0]===22 && version[1]<12))throw new Error('Node.js 22.12 or newer is required; a supported LTS release is recommended');
+-  const args=process.argv.slice(2);if(args.some(x=>!['--open','--port'].includes(x) && !/^\d+$/.test(x)))throw new Error('usage: node scripts/serve.mjs [--open] [--port NUMBER]');
+-  const p=args.indexOf('--port');const port=p<0?8788:Number(args[p+1]);if(!Number.isInteger(port) || port<1024 || port>65535)throw new Error('port must be 1024..65535');
++  const {port,open}=parseServerArgs(process.argv.slice(2));
+   await build();const server=await createServer({port});const url=`http://127.0.0.1:${server.address().port}/`;
+   console.log(`JA21 Silicon Console ${VERSION}\n${url}\nLocal static host only. No network WebSocket or host shell.\nPress Ctrl+C to stop. Changing the port creates a different browser-storage origin.`);
+-  if(args.includes('--open')){const exe=process.platform==='win32'?'rundll32.exe':process.platform==='darwin'?'open':'xdg-open';const parameters=process.platform==='win32'?['url.dll,FileProtocolHandler',url]:[url];const child=spawn(exe,parameters,{stdio:'ignore',detached:true,shell:false});child.on('error',()=>console.log('Open the displayed address in your browser.'));child.unref();}
++  if(open){const exe=process.platform==='win32'?path.join(process.env.SystemRoot || 'C:\\Windows','System32','rundll32.exe'):process.platform==='darwin'?'/usr/bin/open':'xdg-open';const parameters=process.platform==='win32'?['url.dll,FileProtocolHandler',url]:[url];const child=spawn(exe,parameters,{stdio:'ignore',detached:true,shell:false,windowsHide:true});child.on('error',()=>console.log('Open the displayed address in your browser.'));child.unref();}
+   const stop=()=>{server.close(()=>process.exit(0));server.closeAllConnections();};process.once('SIGINT',stop);process.once('SIGTERM',stop);
+ }
+ if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url))main().catch(error=>{console.error('START FAILED:',error.message);if(error.code==='EADDRINUSE')console.error('Port already in use. Close the existing instance or choose --port 8791 (separate browser storage).');process.exitCode=1;});
+--- a/scripts/test.mjs
++++ b/scripts/test.mjs
+@@ -1,5 +1,5 @@
+ import fs from 'node:fs/promises';import path from 'node:path';import { fileURLToPath } from 'node:url';import { spawnSync } from 'node:child_process';
+ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+ const names=(await fs.readdir(path.join(root,'tests'))).filter(n=>n.endsWith('.test.mjs')).sort();
+-const r=spawnSync(process.execPath,['--test','--test-concurrency=1',...names.map(n=>path.join(root,'tests',n))],{cwd:root,encoding:'utf8',maxBuffer:32*1024*1024});
++const r=spawnSync(process.execPath,['--test','--test-reporter=tap','--test-concurrency=1',...names.map(n=>path.join(root,'tests',n))],{cwd:root,encoding:'utf8',maxBuffer:32*1024*1024,timeout:120000,windowsHide:true});
+ await fs.mkdir(path.join(root,'audit'),{recursive:true});await fs.writeFile(path.join(root,'audit','TEST_RESULTS.tap'),(r.stdout || '')+(r.stderr || ''));process.stdout.write(r.stdout || '');process.stderr.write(r.stderr || '');if(r.error)console.error(r.error.message);process.exitCode=r.status ?? 1;
+--- a/scripts/verify.mjs
++++ b/scripts/verify.mjs
+@@ -9,22 +9,23 @@
+ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+ const reportPath=path.join(root,'audit/VERIFICATION.json');
+ const report={version:VERSION,status:'RUNNING',node:process.version,platform:process.platform,startedUtc:new Date().toISOString(),
+- excluded:['Native Windows cmd.exe/PowerShell execution, download, and runtime probe','Normal-browser worker/IndexedDB/Web Locks/CSP integration','Native C# compilation','Physical GPU/XPU or quantum hardware','Live advisory-database scan'],
+- optional:['node scripts/make-tiff-examples.mjs followed by python tests/russl_interop.py (NumPy, tifffile, Pillow)','python tests/codecs.py (Pillow)','python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)']};
++ excluded:['This core gate does not itself provision the private runtime; separate x64 download/cache/preflight evidence is recorded under audit. Full fresh-machine/ARM64 startup remains a separate acceptance check.','Normal-browser worker/IndexedDB/Web Locks/CSP integration','Native C# compilation','Physical GPU/XPU or quantum hardware','Live advisory-database scan'],
++ optional:['node scripts/make-tiff-examples.mjs followed by python tests/russl_interop.py (NumPy, tifffile, Pillow)','python tests/codecs.py (Pillow)','python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)','node tests/browser-production.mjs (Playwright + Chromium/Edge; real production integration, separate acceptance gate)']};
+ async function save(){await fs.mkdir(path.dirname(reportPath),{recursive:true});await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n');}
+ try{
+  await save(); // Invalidate an old PASS before starting a new run.
+- await build();await check();
+- const r=spawnSync(process.execPath,[path.join(root,'scripts/test.mjs')],{cwd:root,stdio:'inherit',timeout:120000});
++ await build();const checks=await check();report.windowsPowerShellParse=checks.windowsPowerShellParse;
++ const r=spawnSync(process.execPath,[path.join(root,'scripts/test.mjs')],{cwd:root,stdio:'inherit',timeout:150000,windowsHide:true});
+  if(r.error)throw r.error;if(r.status!==0)throw new Error(`test runner exited ${r.status}`);
+  const tap=await fs.readFile(path.join(root,'audit/TEST_RESULTS.tap'),'utf8');
+  const count=key=>{const m=tap.match(new RegExp(`^# ${key} (\\d+)$`,'m'));if(!m)throw new Error(`missing TAP ${key} summary`);return Number(m[1]);};
+  Object.assign(report,{tests:count('tests'),passed:count('pass'),failed:count('fail'),skipped:count('skipped'),cancelled:count('cancelled'),todo:count('todo')});
+  if(!report.tests || report.failed!==0 || report.cancelled!==0)throw new Error('test summary missing or failing');
+  report.staticLauncherChecks=(tap.match(/^# Subtest: launcher\/static:/gm)||[]).length;
+- report.staticLauncherNote='Text/packaging contracts only; does not parse or execute PowerShell on Windows.';
++ report.nativeLauncherBoundaryChecks=(tap.match(/^# Subtest: launcher\/native:/gm)||[]).length;
++ report.staticLauncherNote='Text/packaging contracts only. Native PowerShell parsing and safe failure-path execution are reported separately; successful runtime provisioning is excluded.';
+  report.status='PASS_FOR_OFFLINE_GATE';report.finishedUtc=new Date().toISOString();await save();
+- console.log(`\nJA21 ${VERSION}: ${report.passed}/${report.tests} tests passed, ${report.skipped} skipped; includes ${report.staticLauncherChecks} STATIC launcher checks. Windows execution and download remain unverified here.`);
++ console.log(`\nJA21 ${VERSION}: ${report.passed}/${report.tests} tests passed, ${report.skipped} skipped; includes ${report.staticLauncherChecks} STATIC launcher checks. Browser/ARM64/full fresh-machine acceptance is separate from this core gate.`);
+ }catch(error){
+  report.status='FAIL';report.error=error.message;report.finishedUtc=new Date().toISOString();
+  try{await save();}catch(writeError){console.error('Could not save verification status:',writeError.message);}
+--- a/scripts/windows/bootstrap.ps1
++++ b/scripts/windows/bootstrap.ps1
+@@ -1,4 +1,4 @@
+-# JA21 Silicon Console 2.2.0 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.2.1 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -17,11 +17,17 @@
+ }
+ 
+ function Assert-PlainPath([string]$LiteralPath) {
+-    if (Test-Path -LiteralPath $LiteralPath) {
+-        $item = Get-Item -LiteralPath $LiteralPath -Force
+-        if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+-            throw "A private runtime/log path is a reparse point: $LiteralPath. Use a normal local folder; no linked path will be written."
+-        }
++    # Checking only the leaf misses a linked parent such as .runtime/downloads.
++    $candidate = [IO.Path]::GetFullPath($LiteralPath)
++    while ($candidate) {
++        if (Test-Path -LiteralPath $candidate) {
++            $item = Get-Item -LiteralPath $candidate -Force
++            if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
++                throw "A private runtime/log path is a reparse point: $candidate. Use a normal local folder; no linked path will be written."
++            }
++        }
++        $parent = [IO.Directory]::GetParent($candidate)
++        if ($parent) { $candidate = $parent.FullName } else { $candidate = $null }
+     }
+ }
+ 
+@@ -42,7 +48,17 @@
+     if (-not (Test-Path -LiteralPath $LiteralPath -PathType Leaf)) {
+         throw "Missing runtime file: $LiteralPath"
+     }
+-    $actual = (Get-FileHash -LiteralPath $LiteralPath -Algorithm SHA256).Hash
++    # Core .NET is available with PowerShell 5.1 even when optional module
++    # discovery (and therefore Get-FileHash) is unavailable.
++    $algorithm = [Security.Cryptography.SHA256]::Create()
++    $stream = $null
++    try {
++        $stream = [IO.File]::Open($LiteralPath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
++        $actual = [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '')
++    } finally {
++        if ($stream) { $stream.Dispose() }
++        $algorithm.Dispose()
++    }
+     if (-not [string]::Equals($actual, $Expected, [StringComparison]::OrdinalIgnoreCase)) {
+         throw "SHA-256 mismatch: $LiteralPath. Nothing from this file was executed. Remove ONLY the affected private runtime file/directory and retry; do not clear browser data."
+     }
+@@ -68,7 +84,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.2.0'
++        $request.UserAgent = 'JA21-Silicon-Console/2.2.1'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -190,15 +206,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0')) {
+-        throw 'This launcher repair supports JA21 Silicon Console 2.1.0 and 2.2.0 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1')) {
++        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0 and 2.2.1 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.2.0 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.2.1 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+@@ -307,6 +323,11 @@
+     if ($script:RuntimeLock) { $script:RuntimeLock.Dispose() }
+     if ($script:StagePath -and [IO.Directory]::Exists($script:StagePath)) {
+         try {
++            $stageFull = [IO.Path]::GetFullPath($script:StagePath)
++            $runtimeFull = [IO.Path]::GetFullPath($runtimeRoot)
++            if (-not [string]::Equals([IO.Path]::GetDirectoryName($stageFull), $runtimeFull, [StringComparison]::OrdinalIgnoreCase) -or [IO.Path]::GetFileName($stageFull) -notmatch '^stage-[0-9a-f]{32}$') {
++                throw 'Refusing to remove a staging directory outside the private runtime root.'
++            }
+             Assert-PlainPath $script:StagePath
+             [IO.Directory]::Delete($script:StagePath, $true)
+         } catch { Write-Host ('Temporary runtime staging folder retained: ' + $script:StagePath) }
+--- a/scripts/windows/runtime-lock.json
++++ b/scripts/windows/runtime-lock.json
+@@ -1,9 +1,9 @@
+ {
+   "schema": "JA21/WINDOWS_RUNTIME_LOCK/1",
+-  "consoleVersion": "2.2.0",
++  "consoleVersion": "2.2.1",
+   "nodeVersion": "24.21.0",
+   "lts": "Krypton",
+-  "verifiedDate": "2026-10-12",
++  "verifiedDate": "2026-10-13",
+   "source": "https://nodejs.org/download/release/v24.21.0/SHASUMS256.txt",
+   "distributionBase": "https://nodejs.org/download/release/v24.21.0/",
+   "architectures": {
+--- a/src/app.js
++++ b/src/app.js
+@@ -3,6 +3,7 @@
+ import { Screen } from './vendor/vt/screen.js';
+ import { Parser } from './vendor/vt/parser.js';
+ import { CanvasRenderer } from './vendor/vt/renderer-canvas.js';
++import { MAX_BACKUP_BYTES, MAX_BACKUP_LABEL } from './vendor/spiral/volume-format.js';
+ const $=id=>document.getElementById(id), link=new RamLink(), terminals=[];
+ let active=null, running=false, serial=0, commands=[], starting=false, statusBusy=false;
+ $('version').textContent=VERSION;
+@@ -11,7 +12,7 @@
+ function setRunning(on,label){if(!on){russlRevision=null;russlPresent=false;}for(const button of document.querySelectorAll('#russl button'))button.disabled=!on;running=on;$('connection').textContent=label || (on?'Online':'Stopped');$('power').textContent=on?'Power off':'Power on';$('reboot').disabled=!on;$('add-tab').disabled=!on;}
+ function view(name){for(const e of document.querySelectorAll('.view'))e.classList.toggle('active',e.id===name);for(const b of document.querySelectorAll('nav button')){const selected=b.dataset.view===name;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));}if(name==='console')fit();if(name==='storage' && running)listFiles().catch(fault);if(name==='russl' && running)refreshRussl().catch(fault);}
+ for(const b of document.querySelectorAll('nav button'))b.addEventListener('click',()=>view(b.dataset.view));
+-function render(t){if(!t || t!==active)return;t.renderer.render();$('transcript').textContent=t.screen.grid.map(row=>row.map(c=>c.ch).join('').trimEnd()).join('\n');}
++function render(t){if(!t || t!==active)return;t.renderer.render();$('transcript').textContent=t.screen.grid.map(row=>row.map(c=>c.hidden?' ':c.ch).join('').trimEnd()).join('\n');}
+ function choose(t){active=t;for(const item of terminals){item.canvas.hidden=item!==t;item.canvas.style.display=item===t?'block':'none';item.button.classList.toggle('current',item===t);}fit();render(t);}
+ function remove(t){const index=terminals.indexOf(t);if(index<0)return;terminals.splice(index,1);t.socket?.close();t.canvas.remove();t.button.remove();t.closeButton.remove();if(active===t){active=null;if(terminals.length)choose(terminals.at(-1));else $('session-status').textContent='No active terminal';}}
+ function fit(){const t=active;if(!t || !$('console').classList.contains('active'))return;const box=$('terminal-container'),w=Math.min(400*t.renderer.cellW,Math.max(2*t.renderer.cellW,box.clientWidth-16)),h=Math.min(200*t.renderer.cellH,Math.max(t.renderer.cellH,box.clientHeight-16));const size=t.renderer.fit(w,h);const cols=Math.max(2,Math.min(400,size.cols)),rows=Math.max(1,Math.min(200,size.rows));if(t.screen.cols!==cols || t.screen.rows!==rows){t.screen.resize(cols,rows);try{t.socket?.resize(cols,rows);}catch{}}render(t);}
+@@ -37,7 +38,7 @@
+   fit();return t;
+ }
+ async function start(){if(starting)return;starting=true;notice('');setRunning(false,'Starting');for(const t of [...terminals])remove(t);try{await link.start();setRunning(true);await addTerminal();commands=await link.rpc('commands');catalog();if($('russl').classList.contains('active'))await refreshRussl();$('command').focus();}catch(error){setRunning(false,'Blocked');fault(error);}finally{starting=false;}}
+-function sendCommand(command){if(!active?.socket || !running)throw new Error('no active terminal');if(typeof command!=='string' || command.length>4096 || /[\r\n\0]/.test(command))throw new Error('enter one command line, up to 4096 characters');active.socket.write('\x15'+command+'\r');}
++function sendCommand(command){if(!active?.socket || !running)throw new Error('no active terminal');if(typeof command!=='string' || command.length>4096 || /[\x00-\x1f\x7f-\x9f]/.test(command))throw new Error('enter one command line, up to 4096 characters, without terminal control characters');active.socket.write('\x15'+command+'\r');}
+ $('command-form').addEventListener('submit',e=>{e.preventDefault();const input=$('command');if(!input.value.trim())return;try{sendCommand(input.value);input.value='';notice('');}catch(error){fault(error);}});
+ $('command').addEventListener('keydown',e=>{if(e.ctrlKey && e.key.toLowerCase()==='c'){e.preventDefault();try{active?.socket?.signal();}catch(error){fault(error);}}});
+ $('interrupt').addEventListener('click',()=>{try{active?.socket?.signal();}catch(error){fault(error);}});
+@@ -57,7 +58,7 @@
+ $('backup').addEventListener('click',()=>backup().catch(fault));$('previous-backup').addEventListener('click',()=>backup(true).catch(fault));
+ $('sync').addEventListener('click',()=>link.rpc('sync').then(d=>{updateDisk(d);notice('Volume transaction committed.');}).catch(fault));
+ $('restore').addEventListener('click',()=>$('restore-file').click());
+-$('restore-file').addEventListener('change',async()=>{const f=$('restore-file').files[0];$('restore-file').value='';if(!f)return;if(f.size>4*1024*1024){fault(new Error('backup exceeds 4 MiB'));return;}if(prompt('This replaces the virtual volume, not host files. Type RESTORE to continue.')!=='RESTORE')return;try{const result=await link.rpc('restore',{text:await f.text()});if(result.restart)await start();notice('Backup validated and restored. Previous committed volume retained.');}catch(error){fault(error);}});
++$('restore-file').addEventListener('change',async()=>{const f=$('restore-file').files[0];$('restore-file').value='';if(!f)return;if(f.size>MAX_BACKUP_BYTES){fault(new Error(`backup exceeds ${MAX_BACKUP_LABEL}`));return;}if(prompt('This replaces the virtual volume, not host files. Type RESTORE to continue.')!=='RESTORE')return;try{const result=await link.rpc('restore',{text:await f.text()});if(result.restart)await start();notice('Backup validated and restored. Previous committed volume retained.');}catch(error){fault(error);}});
+ $('persist').addEventListener('click',async()=>{try{if(!navigator.storage?.persist)throw new Error('persistent storage API unavailable');const granted=await navigator.storage.persist();notice(granted?'Browser granted persistent storage. Backups are still required.':'Browser did not grant persistent storage. Keep exported backups.');}catch(error){fault(error);}});
+ function updateDisk(d){if(!d)return;$('storage-status').textContent=`${d.model} · ${d.synced?'committed':'not synced'}${d.restored?' · restored':''}${d.error?' · ERROR: '+d.error:''}${d.writtenAt?' · '+new Date(d.writtenAt).toLocaleString():''}`;}
+ async function listFiles(){const path=$('path').value;const entries=await link.rpc('files',{path});$('file-list').replaceChildren();if(!entries.length){$('file-list').textContent='This directory is empty.';return;}for(const e of entries){const row=document.createElement('div');row.className='file-row';const name=document.createElement('span');name.textContent=(e.type==='dir'?'▸ ':'')+e.name;const size=document.createElement('span');size.textContent=e.type==='dir'?`${e.size} entries`:`${e.size.toLocaleString()} bytes`;const action=document.createElement('button');action.textContent=e.type==='dir'?'Open':'Download';action.addEventListener('click',async()=>{const child=(path==='/'?'':path.replace(/\/$/,''))+'/'+e.name;try{if(e.type==='dir'){$('path').value=child;await listFiles();}else{const f=await link.rpc('file',{path:child});download(e.name,f.bytes);}}catch(error){fault(error);}});row.append(name,size,action);$('file-list').append(row);}}
+--- a/src/lib/ram-link.js
++++ b/src/lib/ram-link.js
+@@ -13,7 +13,7 @@
+       worker.onmessage=e=>{
+         if(generation!==this.generation)return;const m=e.data;
+         if(!m || typeof m!=='object')return;
+-        if(m.type==='ready') { if(m.protocol!==PROTOCOL || typeof m.epoch!=='string'){settle(new Error('protocol mismatch'));this.destroy('protocol mismatch');return;}this.epoch=m.epoch;settle(null,m);this.event('ready',m); }
++        if(m.type==='ready') { if(settled)return; if(m.protocol!==PROTOCOL || typeof m.epoch!=='string'){settle(new Error('protocol mismatch'));this.destroy('protocol mismatch');return;}this.epoch=m.epoch;settle(null,m);this.event('ready',m); }
+         else if(m.type==='error'){const error=new Error(m.message || 'worker failure');settle(error);for(const socket of [...this.sockets])socket.close(error.message);this.event('fault',{message:error.message});}
+         else if(m.type==='rpc'){const request=this.pending.get(m.id);if(request){clearTimeout(request.timer);this.pending.delete(m.id);m.error?request.reject(new Error(m.error)):request.resolve(m.result);}}
+         else if(['holo','halt','browser'].includes(m.type)){if(m.type==='halt'){for(const s of [...this.sockets])s.close('server halted');this.epoch=null;}this.event(m.type,m.payload || m);}
+@@ -33,10 +33,10 @@
+     const send=(type,payload={},rid)=>{if(closed)throw new Error('terminal is closed');port.postMessage({v:3,epoch,sid,type,payload,rid});};
+     const socket={
+       get sid(){return sid;},
+-      write(text){if(typeof text!=='string' || !text || text.length>4098 || text.includes('\0'))throw new Error('input length or type limit');const bytes=new TextEncoder().encode(text);if(bytes.length>8192 || pendingBytes+bytes.length>16384)throw new Error('input backpressure; wait before sending more');const frame=encodeData(KIND_INPUT,++seq,bytes);inputSizes.set(seq,bytes.length);pendingBytes+=bytes.length;port.postMessage(frame,[frame.buffer]);},
++      write(text){if(closed || !sid)throw new Error('terminal is closed');if(typeof text!=='string' || !text || text.length>4098 || text.includes('\0'))throw new Error('input length or type limit');const bytes=new TextEncoder().encode(text);if(bytes.length>8192 || pendingBytes+bytes.length>16384)throw new Error('input backpressure; wait before sending more');const frame=encodeData(KIND_INPUT,++seq,bytes);inputSizes.set(seq,bytes.length);pendingBytes+=bytes.length;port.postMessage(frame,[frame.buffer]);},
+       resize(cols,rows){send('terminal.resize',{cols,rows});}, signal(){send('terminal.signal',{signal:'SIGINT'});},
+-      status(){return new Promise((resolve,reject)=>{if(closed){reject(new Error('terminal is closed'));return;}const rid=`s${++thisLink.sequence}`;const timer=setTimeout(()=>{waits.delete(rid);reject(new Error('status timeout'));},4000);waits.set(rid,{resolve,reject,timer});send('session.status',{},rid);});},
+-      close(reason='client closed') {if(closed)return;try{send('session.close');}catch{}closed=true;clearTimeout(openTimer);port.onmessage=null;port.close();thisLink.sockets.delete(socket);for(const r of waits.values()){clearTimeout(r.timer);r.reject(new Error(reason));}waits.clear();inputSizes.clear();openReject?.(new Error(reason));openReject=null;onClose(reason);}
++      status(){return new Promise((resolve,reject)=>{if(waits.size>=32){reject(new Error('too many pending status requests'));return;}if(closed){reject(new Error('terminal is closed'));return;}const rid=`s${++thisLink.sequence}`;const timer=setTimeout(()=>{waits.delete(rid);reject(new Error('status timeout'));},4000);waits.set(rid,{resolve,reject,timer});try{send('session.status',{},rid);}catch(error){clearTimeout(timer);waits.delete(rid);reject(error);}});},
++      close(reason='client closed') {if(closed)return;try{send('session.close');}catch{}closed=true;clearTimeout(openTimer);port.onmessage=null;port.close();thisLink.sockets.delete(socket);for(const r of waits.values()){clearTimeout(r.timer);r.reject(new Error(reason));}waits.clear();inputSizes.clear();openReject?.(new Error(reason));openReject=null;try{onClose(reason);}catch(error){thisLink.event('fault',{message: String(error?.message || error).slice(0,512)});}}
+     };
+     const thisLink=this;this.sockets.add(socket);
+     const opened=new Promise((resolve,reject)=>{openReject=reject;socket._resolve=resolve;});
+@@ -56,11 +56,13 @@
+         else if(m.type==='error')throw new Error(m.message || 'terminal protocol error');
+       }catch(error){socket.close(error.message);this.event('fault',{message:error.message});}
+     };
+-    port.start();this.worker.postMessage({type:'attach'},[channel.port2]);return opened;
++    port.start();try{this.worker.postMessage({type:'attach'},[channel.port2]);}catch(error){channel.port2.close();socket.close(error.message);}return opened;
+   }
+   rpc(op,options={}) {
+     if(!this.worker)return Promise.reject(new Error('worker not available'));
+-    return new Promise((resolve,reject)=>{const id=`r${++this.sequence}`;const timer=setTimeout(()=>{this.pending.delete(id);reject(new Error(`${op} timed out`));},15000);this.pending.set(id,{resolve,reject,timer});this.worker.postMessage({type:'rpc',id,op,...options});});
++    if(this.pending.size>=64)return Promise.reject(new Error('too many pending management requests'));
++    if(!options || typeof options!=='object' || Array.isArray(options))return Promise.reject(new Error('invalid management options'));
++    return new Promise((resolve,reject)=>{const id=`r${++this.sequence}`;const timer=setTimeout(()=>{this.pending.delete(id);reject(new Error(`${op} timed out`));},15000);this.pending.set(id,{resolve,reject,timer});try{this.worker.postMessage({...options,type:'rpc',id,op});}catch(error){clearTimeout(timer);this.pending.delete(id);reject(error);}});
+   }
+   destroy(reason='client stopped') {
+     const error=new Error(reason);this.bootReject?.(error);this.bootReject=null;for(const s of [...this.sockets])s.close(reason);for(const p of this.pending.values()){clearTimeout(p.timer);p.reject(error);}this.pending.clear();this.worker?.terminate();this.worker=null;this.epoch=null;this.ready=null;this.generation++;
+--- a/src/vendor/ram-worker.js
++++ b/src/vendor/ram-worker.js
+@@ -4,6 +4,7 @@
+ import { VFS } from './spiral/vfs.js';
+ import { NODES } from './spiral/commands/ram.js';
+ import { DEVICE, readVolume, writeVolume, revisionOf } from './spiral/ssd.js';
++import { assertBackupSize } from './spiral/volume-format.js';
+ import { Hpu } from './spiral/hpu.js';
+ import { Buffer } from './spiral/buffer.js';
+ import { PROTOCOL, KIND_INPUT, KIND_OUTPUT, encodeData, decodeData } from './vws/frame.js';
+@@ -24,7 +25,11 @@
+   for (const n of NODES) { k.vfs.mkdir(`/df/nodes/${n.node}`,{recursive:true}); k.vfs.writeFile(`/df/nodes/${n.node}/image.txt`,`${n.node}\nrole: ${n.role}\nstatus: descriptive virtual-node manifest only; no booted VM\n`); }
+ }
+ function markDirty() { dirty++; disk.synced=false; imageCache=null; clearTimeout(timer); timer=setTimeout(()=>{ flush().catch(e=>{ disk.error=message(e); }); },80); }
+-async function makeRecord(snap,next) { return {v:2,device:DEVICE,version:VERSION,revision:next,writer:serverEpoch,writtenAt:Date.now(),snap,sha256:await hash(JSON.stringify(snap))}; }
++async function makeRecord(snap,next) {
++  const record={v:2,device:DEVICE,version:VERSION,revision:next,writer:serverEpoch,writtenAt:Date.now(),snap,sha256:await hash(JSON.stringify(snap))};
++  assertBackupSize(JSON.stringify(record)); // Reject an un-restorable envelope before the IndexedDB commit.
++  return record;
++}
+ async function flush() {
+   if (!ownsLock || !kernel || !['ready','booting','stopping'].includes(phase)) throw new Error('volume is not writable');
+   clearTimeout(timer);
+@@ -43,7 +48,7 @@
+ }
+ async function validateRecord(record) {
+   if (!record || ![1,2].includes(record.v) || !record.snap) throw new Error('unsupported volume format');
+-  if (JSON.stringify(record).length > 4*1024*1024) throw new Error('volume import exceeds 4 MiB');
++  assertBackupSize(JSON.stringify(record));
+   if(record.v===2 && (typeof record.sha256!=='string' || record.sha256!==await hash(JSON.stringify(record.snap)))) throw new Error('volume checksum mismatch');
+   const vfs=new VFS({...LIMITS,seed:false}); vfs.importSnapshot(record.snap);
+   const processor=new Hpu();
+@@ -57,7 +62,9 @@
+ function openBrowser(url='about:blank') { if(!['about:blank','ram://status'].includes(url)) throw new Error('external navigation is disabled in the isolated local profile'); browser.visible=true; browser.url=url; postMessage({type:'browser',payload:{...browser}}); return {...browser}; }
+ async function stop(reboot=false) {
+   if(phase!=='ready') throw new Error('server is not running');
+-  // Refuse a UI power operation while a computation is in flight. A shell poweroff is its own one active command.
++  // A shell power command itself is active, but must not stop another session mid-command.
++  if([...kernel.sessions.values()].some(s=>s.running?.signal.aborted))throw new Error('power operation interrupted');
++  if([...kernel.sessions.values()].filter(s=>s.running).length>1)throw new Error('wait for other running commands before power operation');
+   phase='stopping';
+   for (const c of [...connections]) c.close('power operation: quiescing');
+   try { await flush(); }
+@@ -106,6 +113,7 @@
+       if(!m || typeof m!=='object' || Array.isArray(m) || m.v!==3 || m.epoch!==serverEpoch || typeof m.type!=='string' || JSON.stringify(m).length>2048) throw new Error('invalid control record');
+       if(c.sid && m.sid!==c.sid) throw new Error('session mismatch');
+       const q=m.payload || {};
++      if(typeof q!=='object' || Array.isArray(q))throw new Error('invalid control payload');
+       if(m.type==='session.open') {if(c.sid) throw new Error('session already open'); if(!validGeometry(q.cols,q.rows))throw new Error('invalid geometry'); const opened=kernel.openSession({cols:q.cols,rows:q.rows,deferStart:true});c.sid=opened.sessionId;bySid.set(c.sid,c);clearTimeout(openTimer);c.send({type:'session.opened',rid:m.rid,payload:opened});return;}
+       if(!c.sid) throw new Error('session not open');
+       switch(m.type) {
+@@ -123,11 +131,11 @@
+ }
+ async function rpc(m) {
+   if(typeof m.id!=='string' || m.id.length>64 || typeof m.op!=='string')throw new Error('bad RPC');
+-  if(m.op==='backup') {if(phase==='ready')await flush();const record=await readVolume(!!m.previous);if(!record)throw new Error('no saved volume');return JSON.stringify(record,null,2);}
++  if(m.op==='backup') {if(phase==='ready')await flush();const record=await readVolume(!!m.previous);if(!record)throw new Error('no saved volume');const text=JSON.stringify(record,null,2);assertBackupSize(text);return text;}
+   if(m.op==='restore') {
+     if(!ownsLock || !['ready','failed'].includes(phase))throw new Error('writer lock required for restore');
+     if(kernel && [...kernel.sessions.values()].some(s=>s.running))throw new Error('wait for running commands before restore');
+-    if(typeof m.text!=='string' || m.text.length>4*1024*1024)throw new Error('backup size limit');
++    assertBackupSize(m.text);
+     const record=JSON.parse(m.text), checked=await validateRecord(record);
+     if(kernel && [...kernel.sessions.values()].some(s=>s.running))throw new Error('a command started during validation; retry when idle');
+     const priorPhase=phase; phase='stopping';
+@@ -150,9 +158,12 @@
+       const operation=m.action;
+       if(!['info','get','receipt','capture','edit','apply','import'].includes(operation))throw new Error('unsupported TIFF action');
+       if(['capture','edit','apply','import'].includes(operation) && typeof m.args?.expected!=='string')throw new Error('TIFF revision token required');
+-      const result=await russlOperation({vfs:kernel.vfs,host:kernel.host},operation,m.args || {});
+-      if(['capture','edit','apply','import'].includes(operation))await flush();
+-      return result;
++      const resume=kernel.holdCommands();
++      try {
++        const result=await russlOperation({vfs:kernel.vfs,host:kernel.host},operation,m.args || {});
++        if(['capture','edit','apply','import'].includes(operation))await flush();
++        return result;
++      } finally { resume(); }
+     }
+     case 'preview':return hpu.preview();
+     case 'files':return kernel.vfs.readdir(m.path || '/');
+@@ -163,7 +174,8 @@
+ }
+ self.onmessage=e=>{
+   const m=e.data;
+-  if(m?.type==='attach' && e.ports?.length===1){bind(e.ports[0]);return;}
++  if(m?.type==='attach') { if(e.ports?.length===1)bind(e.ports[0]);else for(const port of e.ports || [])port.close();return; }
++  for(const port of e.ports || [])port.close();
+   if(m?.type==='rpc') {
+     if(rpcBusy){postMessage({type:'rpc',id:m.id,error:'another management request is active'});return;}
+     rpcBusy=true;rpc(m).then(result=>postMessage({type:'rpc',id:m.id,result}),error=>postMessage({type:'rpc',id:m.id,error:message(error)})).finally(()=>{rpcBusy=false;});
+--- a/src/vendor/spiral/byte-tables.js
++++ b/src/vendor/spiral/byte-tables.js
+@@ -1,9 +1,9 @@
+ /** Six general byte processors. Each table maps one RAM-sample byte. None of them has a role. */
+-export const BYTE_STAGES = [
++export const BYTE_STAGES = Object.freeze([
+   { id: 'processor-1', name: 'Processor 1', unique: 26, table: new Uint8Array([254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0]) },
+   { id: 'processor-2', name: 'Processor 2', unique: 128, table: new Uint8Array([255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1,255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1]) },
+   { id: 'processor-3', name: 'Processor 3', unique: 26, table: new Uint8Array([254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0]) },
+   { id: 'processor-4', name: 'Processor 4', unique: 1, table: new Uint8Array([255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255]) },
+   { id: 'processor-5', name: 'Processor 5', unique: 1, table: new Uint8Array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]) },
+   { id: 'processor-6', name: 'Processor 6', unique: 26, table: new Uint8Array([254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0]) },
+-];
++].map(stage => Object.freeze({...stage, table:Object.freeze([...stage.table])})));
+--- a/src/vendor/spiral/commands/coreutils.js
++++ b/src/vendor/spiral/commands/coreutils.js
+@@ -186,14 +186,16 @@
+     summary: 'translate or delete characters',
+     usage: 'tr [-d] SET1 [SET2]',
+     async run(ctx) {
++      if (ctx.args.length !== (ctx.flags.d ? 1 : 2)) return fail(ctx, 'tr', 'usage: tr [-d] SET1 [SET2]');
+       const text = await gatherInput_stdinOnly(ctx);
+       if (ctx.flags.d) {
+         const set = new Set(ctx.args[0] || '');
+         ctx.stdout.write([...text].filter((c) => !set.has(c)).join(''));
+         return 0;
+       }
+-      const from = ctx.args[0] || '', to = ctx.args[1] || '';
+-      const map = {};
++      const from = [...ctx.args[0]], to = [...ctx.args[1]];
++      if (!to.length) return fail(ctx, 'tr', 'SET2 must not be empty');
++      const map = Object.create(null);
+       for (let i = 0; i < from.length; i++) map[from[i]] = to[i] != null ? to[i] : to[to.length - 1] || '';
+       ctx.stdout.write([...text].map((c) => (c in map ? map[c] : c)).join(''));
+       return 0;
+--- a/src/vendor/spiral/commands/fs.js
++++ b/src/vendor/spiral/commands/fs.js
+@@ -7,7 +7,7 @@
+ 
+ function fmtMode(node) {
+   const t = node.type === 'dir' ? 'd' : '-';
+-  const m = node.mode || (node.type === 'dir' ? 0o755 : 0o644);
++  const m = node.mode ?? (node.type === 'dir' ? 0o755 : 0o644);
+   const bit = (b, ch) => (m & b ? ch : '-');
+   return t +
+     bit(0o400, 'r') + bit(0o200, 'w') + bit(0o100, 'x') +
+@@ -34,6 +34,7 @@
+     summary: 'change the working directory',
+     usage: 'cd [dir]',
+     async run(ctx) {
++      if (ctx.args.length > 1) return fail(ctx, 'cd', 'usage: cd [dir]');
+       const target = ctx.args[0] || ctx.env.get('HOME') || '/';
+       const abs = ctx.resolve(target === '-' ? (ctx.env.get('OLDPWD') || ctx.session.cwd) : target);
+       if (!ctx.vfs.exists(abs)) return fail(ctx, 'cd', `no such file or directory: ${target}`);
+@@ -112,6 +113,7 @@
+     parse: { valued: ['name', 'type'] },
+     async run(ctx) {
+       const root = ctx.resolve(ctx.args[0] || '.');
++      if (ctx.args.length > 1 || !ctx.vfs.exists(root)) return fail(ctx, 'find', 'expected one existing path');
+       const namePat = ctx.flags.name === undefined ? null : { test: name => globMatch(String(ctx.flags.name),name) };
+       const typeF = ctx.flags.type;
+       if (typeF && !['f','d'].includes(typeF)) return fail(ctx,'find','type must be f or d');
+@@ -127,7 +129,8 @@
+           if (e.type === 'dir') walk(child);
+         }
+       };
+-      if (!namePat && !typeF) results.push(root);
++      const rootName = root.split('/').pop() || '/';
++      if ((!namePat || namePat.test(rootName)) && (!typeF || (typeF === 'd' ? ctx.vfs.isDir(root) : !ctx.vfs.isDir(root)))) results.push(root);
+       walk(root);
+       ctx.stdout.write(results.join('\n') + (results.length ? '\n' : ''));
+       return 0;
+@@ -154,6 +157,7 @@
+     summary: 'remove empty directories',
+     usage: 'rmdir dir...',
+     async run(ctx) {
++      if (!ctx.args.length) return fail(ctx, 'rmdir', 'missing operand');
+       let rc = 0;
+       for (const a of ctx.args) {
+         const abs = ctx.resolve(a);
+@@ -201,7 +205,7 @@
+     summary: 'copy files',
+     usage: 'cp src dst',
+     async run(ctx) {
+-      if (ctx.args.length < 2) return fail(ctx, 'cp', 'usage: cp src dst');
++      if (ctx.args.length !== 2) return fail(ctx, 'cp', 'usage: cp src dst');
+       const src = ctx.resolve(ctx.args[0]);
+       const data = ctx.vfs.readFile(src);
+       let dst = ctx.resolve(ctx.args[1]);
+@@ -216,7 +220,7 @@
+     summary: 'move or rename files',
+     usage: 'mv src dst',
+     async run(ctx) {
+-      if (ctx.args.length < 2) return fail(ctx, 'mv', 'usage: mv src dst');
++      if (ctx.args.length !== 2) return fail(ctx, 'mv', 'usage: mv src dst');
+       try { ctx.vfs.move(ctx.resolve(ctx.args[0]), ctx.resolve(ctx.args[1])); }
+       catch (e) { return fail(ctx, 'mv', e.message); }
+       return 0;
+@@ -258,6 +262,7 @@
+ /** Bounded dynamic-programming glob matcher. No user-generated RegExp. */
+ export function globMatch(pattern, text) {
+   if (pattern.length > 256 || text.length > 255) throw new Error('glob length limit');
++  text = [...text];
+   let prev = new Uint8Array(text.length + 1); prev[0] = 1;
+   for (const c of pattern) {
+     const next = new Uint8Array(text.length + 1); next[0] = c === '*' ? prev[0] : 0;
+--- a/src/vendor/spiral/commands/hpu.js
++++ b/src/vendor/spiral/commands/hpu.js
+@@ -11,6 +11,8 @@
+ }
+ 
+ function touch(ctx) {
++  // Validate numerical and ledger postconditions before the host publishes them.
++  ctx.host.hpu.save();
+   if (ctx.host.hpuTouch) ctx.host.hpuTouch();
+ }
+ 
+@@ -86,7 +88,12 @@
+       const hpu = hpuOf(ctx);
+       if (!hpu) return fail(ctx, "hpu", "no holographic processor on this host");
+       const sub = (ctx.args[0] || "status").toLowerCase();
++      const stdout=ctx.stdout,output=[];
++      ctx={...ctx,stdout:{write:chunk=>output.push(chunk)}};
++      let beforeState,beforeFiles,failed=false;
+       try {
++        beforeState=structuredClone({...hpu});
++        beforeFiles=ctx.vfs.exportSnapshot();
+         if (sub === "status") {
+           const p = hpu.preview();
+           ctx.stdout.write(
+@@ -202,7 +209,7 @@
+           return 0;
+         }
+         if (sub === "kuramoto") {
+-          const n = Math.max(1, Math.min(12, num(ctx.args[1], 4) | 0));
++          const n = num(ctx.args[1], 4);
+           const r = hpu.kuramoto(n);
+           const ax = r.penteract;
+           ctx.stdout.write(
+@@ -314,14 +321,14 @@
+           return r.written > 0 ? 0 : 1;
+         }
+         if (sub === "cycle") {
+-          const n = Math.max(1, Math.min(8, num(ctx.args[1], 1) | 0));
++          const n = num(ctx.args[1], 1);
+           hpu.cycle(n);
+           report(ctx, hpu, "CYCLE");
+           touch(ctx);
+           return 0;
+         }
+         if (sub === "diffuse") {
+-          const n = Math.max(1, Math.min(16, num(ctx.args[1], 1) | 0));
++          const n = num(ctx.args[1], 1);
+           hpu.diffuse(n);
+           report(ctx, hpu, "DIFFUSE");
+           touch(ctx);
+@@ -375,7 +382,12 @@
+         }
+         return fail(ctx, "hpu", "usage: hpu [pattern|prop|gs|gate|cycle|frame|record|replay|oam|shift|bytes|kuramoto|diffuse|bit|tiff|gif|reset]");
+       } catch (err) {
++        failed=true;
++        if(beforeState){for(const key of Object.keys(hpu))if(!Object.hasOwn(beforeState,key))delete hpu[key];Object.assign(hpu,beforeState);}
++        if(beforeFiles&&JSON.stringify(ctx.vfs.exportSnapshot())!==JSON.stringify(beforeFiles))ctx.vfs.importSnapshot(beforeFiles);
+         return fail(ctx, "hpu", err.message || String(err));
++      } finally {
++        if(!failed)for(const chunk of output)stdout.write(chunk);
+       }
+     },
+   },
+--- a/src/vendor/spiral/commands/system.js
++++ b/src/vendor/spiral/commands/system.js
+@@ -1,5 +1,6 @@
+ // @ts-nocheck
+ import { fail, padRight } from './util.js';
++import { VERSION } from '../../../version.js';
+ 
+ /** SPIRAL built-ins — shell, environment and introspection commands. */
+ 
+@@ -62,7 +63,7 @@
+         return '  │' + body + ' '.repeat(Math.max(0, W - [...body].length)) + '│';
+       };
+       ctx.stdout.write([
+-        'JA21 Silicon Console — version ' + (ctx.host.version ? ctx.host.version() : '2.2.0'),
++        'JA21 Silicon Console — version ' + (ctx.host.version ? ctx.host.version() : VERSION),
+         'Local browser worker, SPIRAL shell, ANSI terminal, bounded virtual filesystem.',
+         'IndexedDB provides origin-scoped storage; export backups before clearing site data.',
+         'The XPU/HPU is a JavaScript software model. Both byte-processing paths run on CPU.',
+@@ -145,7 +146,13 @@
+       for (const a of ctx.args) {
+         const eq = a.indexOf('=');
+         if (eq < 0) { const v = ctx.aliases[a]; ctx.stdout.write(v ? `alias ${a}='${v}'\n` : ''); continue; }
+-        ctx.aliases[a.slice(0, eq)] = a.slice(eq + 1);
++        const name = a.slice(0, eq), value = a.slice(eq + 1);
++        if (!name || name.length > 128 || /[\s;|&<>"'\\\x00-\x1f\x7f]/.test(name)) return fail(ctx, 'alias', 'invalid alias name');
++        const entries = Object.entries(ctx.aliases).filter(([key]) => key !== name);
++        entries.push([name, value]);
++        const encoder = new TextEncoder();
++        if (entries.length > 128 || entries.reduce((n, [key, text]) => n + encoder.encode(key).length + encoder.encode(text).length, 0) > 65536) return fail(ctx, 'alias', 'alias storage quota exceeded');
++        ctx.aliases[name] = value;
+       }
+       return 0;
+     }
+--- a/src/vendor/spiral/env.js
++++ b/src/vendor/spiral/env.js
+@@ -9,13 +9,17 @@
+  * POSIX environment semantics.
+  */
+ 
++const MAX_VARS = 256, MAX_ENV_BYTES = 65536;
++const encoder = new TextEncoder();
++
+ class Environment {
+   /** @param {Record<string,string>} [seed] @param {Environment|null} [parent] */
+   constructor(seed = {}, parent = null) {
+     this.parent = parent;
+     /** @type {Map<string,string>} */
+     this.vars = new Map();
+-    for (const [k, v] of Object.entries(seed)) this.vars.set(k, String(v));
++    this.bytes = 0;
++    for (const [k, v] of Object.entries(seed)) this.set(k, v);
+   }
+ 
+   get(name) {
+@@ -23,13 +27,25 @@
+     return this.parent ? this.parent.get(name) : undefined;
+   }
+ 
+-  set(name, value) {
+-    this.vars.set(name, value == null ? '' : String(value));
++  _store(name, value) {
++    if (typeof name !== 'string' || !name.length || name.length > 256) throw new Error('invalid environment name');
++    if (name === '?' && value !== undefined && value.length > 32) throw new Error('exit status value limit');
++    // The shell's reserved status slot stays writable even at the user byte quota.
++    const size = name === '?' ? 0 : encoder.encode(name).length + (value === undefined ? 0 : encoder.encode(value).length);
++    const old = this.vars.has(name) && name !== '?' ? encoder.encode(name).length + (this.vars.get(name) === undefined ? 0 : encoder.encode(this.vars.get(name)).length) : 0;
++    if ((!this.vars.has(name) && this.vars.size >= MAX_VARS) || this.bytes - old + size > MAX_ENV_BYTES) throw new Error('environment quota exceeded');
++    this.vars.set(name, value); this.bytes += size - old;
+     return this;
+   }
+ 
++  set(name, value) {
++    value = value == null ? '' : String(value);
++    if (value.length > MAX_ENV_BYTES) throw new Error('environment quota exceeded');
++    return this._store(name, value);
++  }
++
+   unset(name) {
+-    const existed = this.has(name); this.vars.set(name, undefined); return existed;
++    const existed = this.has(name); this._store(name, undefined); return existed;
+   }
+ 
+   has(name) {
+--- a/src/vendor/spiral/hpu.js
++++ b/src/vendor/spiral/hpu.js
+@@ -3,8 +3,8 @@
+ // @ts-nocheck
+ /**
+  * TIFF–GIF holographic processor.
+- * A 64×64 complex field is the SLM. Propagation is the band-limited angular
+- * spectrum method. Phase masks leave as 16-bit TIFF. Temporal frames leave
++ * A 64×64 complex field is the SLM. Propagation is the sampled angular
++ * spectrum method on the sampled grid. Phase masks leave as 16-bit TIFF. Temporal frames leave
+  * as a GIF89a spool. Logic is coherent interference at a shared focus.
+  */
+ import { BYTE_STAGES } from "./byte-tables.js";
+@@ -133,6 +133,12 @@
+ const FACT = [1];
+ for (let i = 1; i <= FOCK; i++) FACT[i] = FACT[i - 1] * i;
+ 
++function stepCount(value,limit) {
++  if (value === undefined) return 1;
++  if (!Number.isSafeInteger(value)) throw new RangeError('step count must be a finite integer');
++  return Math.max(1,Math.min(limit,value));
++}
++
+ function hermite(n, x) {
+   if (n === 0) return 1;
+   if (n === 1) return 2 * x;
+@@ -185,6 +191,8 @@
+ 
+ /** Wigner function of a truncated pure state, by the wavefunction overlap. */
+ export function wignerGrid(cs, grid, span) {
++  if (!Array.isArray(cs) || cs.length < 1 || cs.length > FOCK + 1 || cs.some(c => !c || !Number.isFinite(c.re) || !Number.isFinite(c.im) || Math.hypot(c.re,c.im) > 1.000001)) throw new RangeError('invalid truncated state');
++  if (!Number.isInteger(grid) || grid < 1 || grid > 64 || !Number.isFinite(span) || span <= 0 || span > 8) throw new RangeError('Wigner geometry limit');
+   const out = new Float32Array(grid * grid);
+   const yN = 48;
+   const yMax = 5;
+@@ -377,8 +385,8 @@
+   }
+ 
+   lens(f) {
++    if (!Number.isFinite(f) || Math.abs(f) < 1e-9 || Math.abs(f) > 1) throw new RangeError('invalid focal length');
+     this._invalidateBytes();
+-    if (!Number.isFinite(f) || Math.abs(f) < 1e-9 || Math.abs(f) > 1) throw new RangeError('invalid focal length');
+     const n = this.n;
+     const mid = n >> 1;
+     const k = (2 * Math.PI) / this.lambda;
+@@ -441,7 +449,9 @@
+   }
+ 
+   /** Phase-only retrieval. Target is drawn in the focal plane; the mask stays on the field. */
+-  gerchberg(targetName, iters) {
++  gerchberg(targetName='spots', iters) {
++    if (!['spots','bar','ring'].includes(targetName)) throw new Error('target must be spots, bar, or ring');
++    const steps = stepCount(iters,40);
+     const n = this.n;
+     const target = new Float32Array(n * n);
+     const mid = n >> 1;
+@@ -476,7 +486,6 @@
+     const slmIm = Float32Array.from(this.im);
+     const illum = new Float32Array(n * n);
+     for (let i = 0; i < illum.length; i++) illum[i] = Math.hypot(slmRe[i], slmIm[i]);
+-    const steps = Math.max(1, Math.min(40, iters | 0));
+     for (let s = 0; s < steps; s++) {
+       this.propagate(FOCUS_Z);
+       this._swapAmp(target);
+@@ -500,12 +509,19 @@
+   }
+ 
+   _swapAmp(amp) {
++    if (!(amp instanceof Float32Array) || amp.length !== this.re.length || amp.some(v => !Number.isFinite(v) || v < 0 || v > 1e12)) throw new RangeError('invalid target amplitude');
+     this._invalidateBytes();
+     for (let i = 0; i < this.re.length; i++) {
+-      const m = Math.hypot(this.re[i], this.im[i]) || 1;
+-      const s = amp[i] / m;
+-      this.re[i] *= s;
+-      this.im[i] *= s;
++      const m = Math.hypot(this.re[i], this.im[i]);
++      if (m === 0) {
++        // Phase at zero amplitude is undefined; choose zero to seed the target.
++        this.re[i] = amp[i];
++        this.im[i] = 0;
++      } else {
++        const s = amp[i] / m;
++        this.re[i] *= s;
++        this.im[i] *= s;
++      }
+     }
+   }
+ 
+@@ -515,16 +531,16 @@
+    * focus cancels when both bits are on. NAND and XNOR are the dark port.
+    */
+   gate(op, a, b) {
+-    this.wigner = null;
+     const name = String(op || "").toLowerCase();
+     if (!["and", "or", "nand", "xor", "xnor"].includes(name)) {
+       throw new Error("gate must be and, or, nand, xor, or xnor");
+     }
+-    const bitA = Number(a);
+-    const bitB = Number(b);
++    const bitA = a;
++    const bitB = b;
+     if ((bitA !== 0 && bitA !== 1) || (bitB !== 0 && bitB !== 1)) {
+       throw new Error("gate bits must be 0 or 1");
+     }
++    this.wigner = null;
+     this.clear();
+     const n = this.n;
+     const mid = n >> 1;
+@@ -636,9 +652,9 @@
+    * add as complex amplitudes.
+    */
+   relocate() {
++    const n = this.n;
++    const I = this.ramI || this.intensity();
+     this._invalidateBytes();
+-    const n = this.n;
+-    const I = this.ramI || this.intensity();
+     let sum = 0;
+     for (let i = 0; i < I.length; i++) sum += I[i];
+     const mean = sum / I.length || 0;
+@@ -684,8 +700,8 @@
+    * project → ASM evolve → RAM-sample → relocate along −∇I → GIF reproject.
+    */
+   cycle(steps) {
++    const count = stepCount(steps,8);
+     this.wigner = null;
+-    const count = Math.max(1, Math.min(8, steps | 0 || 1));
+     const t0 = performance.now();
+     for (let s = 0; s < count; s++) {
+       this.stage = "project";
+@@ -705,8 +721,8 @@
+ 
+   /** Geometric diffusion only: sample and relocate, no free-space step. */
+   diffuse(steps) {
++    const count = stepCount(steps,16);
+     this.wigner = null;
+-    const count = Math.max(1, Math.min(16, steps | 0 || 1));
+     for (let s = 0; s < count; s++) {
+       this.stage = "project";
+       this.sample();
+@@ -779,8 +795,8 @@
+ 
+   /** Kuramoto step inside each 2-adic ball of the GIF gray, then a new frame. */
+   kuramoto(steps) {
++    const count = stepCount(steps,12);
+     this._invalidateBytes();
+-    const count = Math.max(1, Math.min(12, steps | 0 || 1));
+     const n = this.n;
+     const gif = this._intensityBytes();
+     const sigma = 0.9;
+@@ -898,7 +914,6 @@
+    * inside the field array. The weight never leaves those cells.
+    */
+   record(name) {
+-    this._invalidateBytes();
+     const kept = this.pattern(name || "aperture");
+     const n = this.n;
+     this.objectRe = Float32Array.from(this.re);
+@@ -933,8 +948,8 @@
+    * back into the field. Nothing is copied out to a separate ALU.
+    */
+   replay() {
++    if (!this.recorded || !this.objectRe) return null;
+     this._invalidateBytes();
+-    if (!this.recorded || !this.objectRe) return null;
+     const n = this.n;
+     const k = (2 * Math.PI) / 4;
+     const re = new Float32Array(n * n);
+@@ -986,9 +1001,10 @@
+ 
+   /** Eight OAM wells. LSB is the rightmost. A lit well is topological charge +1. */
+   oam(value) {
++    if (!Number.isInteger(value) || value < 0 || value > 255) throw new RangeError('OAM value must be an integer byte');
+     this._invalidateBytes();
+     const n = this.n;
+-    const v = Math.max(0, Math.min(255, value | 0));
++    const v = value;
+     this.clear();
+     this.wigner = null;
+     this.z = 0;
+@@ -998,6 +1014,7 @@
+       const cy = n >> 1;
+       for (let y = cy - 4; y <= cy + 4; y++) {
+         for (let x = cx - 4; x <= cx + 4; x++) {
++          if (x < 0 || x >= n || y < 0 || y >= n) continue;
+           const dx = x - cx;
+           const dy = y - cy;
+           const r = Math.hypot(dx, dy);
+@@ -1024,11 +1041,12 @@
+    * Move every lit well one place. Left is ×2. Right is integer ÷2.
+    * The helical phase is copied, not rewritten, so the charge stays.
+    */
+-  shift(dir, steps) {
++  shift(dir, steps=1) {
++    if (this.oamValue == null) return null;
++    if ((dir !== -1 && dir !== 1) || !Number.isInteger(steps) || steps < 1 || steps > 7) throw new RangeError('OAM shift needs direction +/-1 and 1..7 steps');
+     this._invalidateBytes();
+-    if (this.oamValue == null) return null;
+-    const n = this.n;
+-    const k = Math.max(1, Math.min(7, steps | 0 || 1));
++    const n = this.n;
++    const k = steps;
+     const sign = dir < 0 ? -1 : 1;
+     const before = this.oamValue;
+     let rem = 0;
+@@ -1089,6 +1107,7 @@
+       let e = 0;
+       for (let y = cy - 4; y <= cy + 4; y++) {
+         for (let x = cx - 4; x <= cx + 4; x++) {
++          if (x < 0 || x >= n || y < 0 || y >= n) continue;
+           const p = y * n + x;
+           e += this.re[p] * this.re[p] + this.im[p] * this.im[p];
+         }
+@@ -1129,7 +1148,7 @@
+ 
+   /**
+    * Six processors each run the RAM sample twice: a scalar CPU
+-   * (fetch, decode, execute, writeback) and a 32-wide GPU. The TIFF
++   * (fetch, decode, execute, writeback) and a 32-wide batched CPU loop. The TIFF
+    * is kept only when those lanes match. Processor 7 issues the byte
+    * that moved farthest. A tie keeps the lowest index.
+    */
+@@ -1232,6 +1251,7 @@
+ 
+   /** Processor 1–6: its own lane. Processor 7: the route, one index per sample. */
+   tiffPlane(index) {
++    if (!Number.isInteger(index) || index < 1 || index > 7) throw new RangeError('processor index must be 1..7');
+     const n = this.n * this.n;
+     const samples = new Uint16Array(n);
+     if (index === 7) {
+@@ -1400,6 +1420,9 @@
+     const exact = (x,C,n) => x instanceof C && x.length === n;
+     for (const k of ['re','im']) if (!exact(s[k],Float32Array,N*N)) throw new Error('invalid complex field');
+     for (const k of ['ramI','objectRe','objectIm']) if (s[k] !== null && !exact(s[k],Float32Array,N*N)) throw new Error('invalid auxiliary field');
++    if ((s.objectRe === null) !== (s.objectIm === null) || Boolean(s.recorded) !== (s.objectRe !== null)) throw new Error('incoherent recorded object');
++    for (const k of ['re','im','objectRe','objectIm']) if (s[k] !== null && s[k].some(x => !Number.isFinite(x) || Math.abs(x)>1e12)) throw new Error('invalid complex field value');
++    if (s.ramI !== null && s.ramI.some(x => !Number.isFinite(x) || x < 0 || x > Math.fround(2e24))) throw new Error('invalid sampled intensity');
+     for (const k of ['gifRam','byteRoute']) if (s[k] !== null && !exact(s[k],Uint8Array,N*N)) throw new Error('invalid byte field');
+     if (!Array.isArray(s.frames) || s.frames.length > 24 || s.frames.some(x => !exact(x,Uint8Array,N*N))) throw new Error('invalid spool');
+     if (!Array.isArray(s.bloch) || s.bloch.length !== 3 || s.bloch.some(x => typeof x !== 'number' || Math.abs(x) > 1.000001)) throw new Error('invalid Bloch proxy');
+@@ -1407,12 +1430,34 @@
+     for (const k of ['op','stage','gateLabel','recorded','oamBits']) if (typeof s[k] !== 'string' || s[k].length > 128) throw new Error('invalid field text');
+     for (const k of ['n','pitch','lambda','z','cycles','detector','info','moved','logical1','erased','landauer','sampleUs','stepUs','padic','margin','purity','wignerN','wMin','wNeg','gifAlpha','gifChi','gifNbar','orderR','macOps','oamCharge','oamRem','oamOverflow','byteWritten']) if (typeof s[k] !== 'number' || !Number.isFinite(s[k])) throw new Error('invalid field number');
+     for (const k of ['nmse','fidelity','oamValue']) if (s[k] !== null && (typeof s[k] !== 'number' || !Number.isFinite(s[k]))) throw new Error('invalid optional field number');
++    const bounded = (k,lo,hi,integer=false) => { const x=s[k];if(x<lo||x>hi||(integer&&!Number.isSafeInteger(x)))throw new Error('invalid '+k+' range'); };
++    bounded('cycles',0,Number.MAX_SAFE_INTEGER,true);
++    for (const k of ['info','moved','logical1','byteWritten','macOps']) bounded(k,0,N*N,true);
++    bounded('erased',0,N*N*8,true);bounded('oamRem',0,127,true);bounded('oamOverflow',0,1,true);
++    if (s.oamValue !== null) bounded('oamValue',0,255,true);
++    if (s.oamBits !== '' && (!/^[01]{8}$/.test(s.oamBits) || s.oamValue === null || parseInt(s.oamBits,2) !== s.oamValue)) throw new Error('invalid OAM bits');
++    if (s.oamValue !== null && s.oamBits === '') throw new Error('missing OAM bits');
++    if (![0,40].includes(s.wignerN)) throw new Error('invalid Wigner grid size');
++    for (const k of ['detector','landauer','sampleUs','stepUs','gifAlpha','gifNbar']) bounded(k,0,Number.MAX_SAFE_INTEGER);
++    bounded('padic',0,7);bounded('margin',0,1);bounded('purity',.5,1.000001);bounded('wNeg',0,1);bounded('gifChi',0,.55);bounded('orderR',0,1.000001);
++    if (s.nmse !== null) bounded('nmse',0,Number.MAX_SAFE_INTEGER);
++    if (s.fidelity !== null) bounded('fidelity',0,1.000001);
++    if (s.bloch.reduce((a,x)=>a+x*x,0)>1.000001) throw new Error('invalid Bloch proxy norm');
+     if (s.penteract !== null && (!s.penteract || Object.keys(s.penteract).sort().join(',') !== 'p,t,x,y,z' || Object.values(s.penteract).some(v => !Number.isFinite(v)))) throw new Error('invalid penteract coordinates');
+     if (s.byteLanes !== null || s.byteStages !== null || s.byteRoute !== null) {
+       if (!s.gifRam || !s.byteRoute || !Array.isArray(s.byteLanes) || s.byteLanes.length !== 6 || s.byteLanes.some(x => !exact(x,Uint8Array,N*N)) || !Array.isArray(s.byteStages) || s.byteStages.length !== 7 || !lanesAgree(s.gifRam,s.byteLanes,s.byteRoute)) throw new Error('byte lane verification failed');
+       const owners = Array(6).fill(0); for (const r of s.byteRoute) owners[r-1]++;
+-      s.byteStages.forEach((b,i) => { if (b.id !== `processor-${i+1}` || typeof b.name !== 'string' || typeof b.same !== 'string' || !Number.isInteger(b.changed) || b.changed < 0 || b.changed > N*N || !Number.isInteger(b.unique) || b.unique < 1 || b.unique > 256 || b.owned !== (i === 6 ? N*N : owners[i])) throw new Error('invalid processor ledger'); });
+-    }
++      s.byteStages.forEach((b,i) => {
++        if (!b || b.id !== `processor-${i+1}` || b.name !== `Processor ${i+1}` || typeof b.same !== 'string' || b.owned !== (i === 6 ? N*N : owners[i]) || b.equivalent !== true) throw new Error('invalid processor ledger');
++        let changed=0;const selected=new Set();
++        for(let p=0;p<N*N;p++){const value=i===6?s.byteLanes[s.byteRoute[p]-1][p]:s.byteLanes[i][p];if(value!==s.gifRam[p])changed++;selected.add(value);}
++        const unique=i===6?selected.size:BYTE_STAGES[i].unique;
++        const prior=i===6?-1:BYTE_STAGES.findIndex((stage,j)=>j<i&&stage.table.every((v,p)=>v===BYTE_STAGES[i].table[p]));
++        if(b.changed!==changed||b.unique!==unique||b.same!==(prior<0?'':BYTE_STAGES[prior].name))throw new Error('processor ledger does not match samples');
++        const ledgerKeys=i===6?'changed,equivalent,id,name,owned,same,unique':'changed,cpuCycles,equivalent,gpuWarps,id,name,owned,same,unique';
++        if(Object.keys(b).sort().join(',')!==ledgerKeys||(i<6&&(b.cpuCycles!==N*N*4||b.gpuWarps!==N*N/32)))throw new Error('invalid processor verification metadata');
++      });
++    } else if (s.byteWritten !== 0) throw new Error('missing byte verification for written count');
+     encodeState(s); // All other values are bounded, finite and non-executable.
+     return true;
+   }
+--- a/src/vendor/spiral/kernel.js
++++ b/src/vendor/spiral/kernel.js
+@@ -42,7 +42,7 @@
+ 
+ const GEOMETRY = Object.freeze({ minCols: 2, maxCols: 400, minRows: 1, maxRows: 200 });
+ const DEFAULT_LIMITS = Object.freeze({
+-  captureBytes: 512 * 1024, // per pipeline stage capture (string length, UTF-16 units as a proxy)
++  captureBytes: 512 * 1024, // UTF-8 bytes per pipeline stage and terminal output
+   lineChars: 4096,               // interactive input line
+   historyEntries: 1000,
+   seqItems: 100000,             // `seq` element count
+@@ -56,7 +56,7 @@
+ }
+ 
+ class CaptureLimitError extends Error {
+-  constructor(limit) { super(`pipeline capture limit exceeded (${limit} chars)`); this.code = 'ECAPTURE'; }
++  constructor(limit) { super(`pipeline capture limit exceeded (${limit} bytes)`); this.code = 'ECAPTURE'; }
+ }
+ 
+ // LK/Vexa house prompt: cyan identity, ice path, cyan chevron.
+@@ -115,6 +115,7 @@
+     this.registry = new CommandRegistry();
+     this.registry.install(commandFilter ? builtins.filter((d) => commandFilter(d)) : builtins);
+     this.sessions = new Map();
++    this.commandBarrier = null;
+     this.baseEnv = new Environment({
+       SHELL: 'spiral',
+       TERM: 'hermit-256color',
+@@ -128,6 +129,32 @@
+     });
+   }
+ 
++  /** Keep asynchronous management changes exclusive until their commit finishes. */
++  holdCommands() {
++    if (this.commandBarrier) throw new Error('commands are already paused');
++    let release;
++    const barrier = new Promise(resolve => { release = resolve; });
++    this.commandBarrier = barrier;
++    return () => { if (this.commandBarrier !== barrier) return; this.commandBarrier = null; release(); };
++  }
++
++  async _awaitCommands(session) {
++    const controller = new AbortController();
++    session.waiting = controller;
++    try {
++      while (this.commandBarrier && session.alive && !controller.signal.aborted) {
++        const barrier = this.commandBarrier;
++        await new Promise(resolve => {
++          const finish = () => { controller.signal.removeEventListener('abort', finish); resolve(); };
++          controller.signal.addEventListener('abort', finish, { once: true });
++          barrier.then(finish, finish);
++          if (controller.signal.aborted) finish();
++        });
++      }
++      return !controller.signal.aborted;
++    } finally { if (session.waiting === controller) session.waiting = null; }
++  }
++
+   /* ---- session lifecycle ---------------------------------------------- */
+ 
+   openSession(opts = {}) {
+@@ -136,7 +163,7 @@
+     const rows = opts.rows === undefined ? 24 : opts.rows;
+     if (!validGeometry(cols, rows)) throw new RangeError(`invalid geometry ${String(cols).slice(0, 12)}x${String(rows).slice(0, 12)}`);
+     const id = `s${++SESSION_SEQ}`;
+-    const env = this.baseEnv.child();
++    const env = this.baseEnv.child({ '?': '0' });
+     const session = {
+       id,
+       env,
+@@ -177,6 +204,7 @@
+     const reader = session.pending;
+     session.pending = null;
+     if (reader) reader._finish(null);                       // settle an active prompt (F04)
++    session.waiting?.abort('SESSION_CLOSED');
+     if (session.running) { try { session.running.abort('SESSION_CLOSED'); } catch { /* noop */ } }
+     this.emit('exit', { sessionId: session.id, code: code | 0, reason: reason || 'closed' });
+     return true;
+@@ -206,7 +234,7 @@
+       if (rest) this._typeahead(s, rest);
+       return;
+     }
+-    if (s.running && data.indexOf('\x03') !== -1) { s.typeahead = ''; s.running.abort('SIGINT'); return; }
++    if ((s.running || s.waiting) && data.indexOf('\x03') !== -1) { s.typeahead = ''; (s.running || s.waiting).abort('SIGINT'); return; }
+     this._typeahead(s, data);
+   }
+ 
+@@ -224,6 +252,7 @@
+     if (signal !== 'SIGINT' && signal !== 'INT') return;
+     s.typeahead = '';
+     if (s.running) s.running.abort('SIGINT');
++    if (s.waiting) s.waiting.abort('SIGINT');
+     if (s.pending) s.pending.feed('\x03');
+   }
+ 
+@@ -345,7 +374,7 @@
+       cwd,
+       cols: s.cols,
+       rows: s.rows,
+-      busy: !!s.running,
++      busy: !!(s.running || s.waiting),
+       user: s.env.get('USER'),
+       host: s.env.get('HOST'),
+       dfRoot: '/df',
+@@ -369,9 +398,11 @@
+       // Cooperative backpressure at pipeline boundaries: do not start producing more output while the
+       // bounded output stage is congested (slow consumer). No effect in the LOCAL profile (no host.flow).
+       if (this.host.flow) { await new Promise((res) => defer(res)); if (this.host.flow.paused()) await new Promise((res) => this.host.flow.onDrain(res)); }
++      if (this.commandBarrier && !await this._awaitCommands(session)) { lastCode = 130; break; }
+       if (!session.alive) break;
+       lastCode = await this._runPipeline(session, seg.pipeline);
+       session.env.set('?', String(lastCode));
++      if (lastCode === 130) break; // SIGINT cancels the whole submitted command line.
+     }
+     session.env.set('?', String(lastCode));
+     return lastCode;
+@@ -386,6 +417,8 @@
+ 
+     try {
+       for (let k = 0; k < pipeline.length; k++) {
++        if (!session.alive) break;
++        if (controller.signal.aborted) { code = 130; break; }
+         const raw = pipeline[k];
+         const cmd = { argv: raw.argv.map(t => expandWord(t, session.env)), redirects: raw.redirects.map(r => ({ ...r, target: expandWord(r.target, session.env) })) };
+         const isLast = k === pipeline.length - 1;
+@@ -403,6 +436,8 @@
+           const exp = plan[0].pipeline[0].argv.slice(); name = exp.shift(); argv = exp.concat(argv);
+         }
+ 
++        const argumentBytes = new TextEncoder().encode([name, ...argv, ...cmd.redirects.map(r => r.target)].join('\0')).length;
++        if (argv.length > 512 || argumentBytes > 65536) throw new Error('expanded command quota exceeded');
+         const descriptor = this.registry.resolve(name);
+         if (!descriptor) {
+           this._emit(session, `\x1b[31mspiral: ${name}: command not found\x1b[0m\r\n`);
+@@ -428,17 +463,24 @@
+         }
+ 
+         // stdout
+-        let capture = '';
++        let capture = '', captureBytes = 0, emittedBytes = 0;
+         const limit = this.limits.captureBytes;
++        const encoder = new TextEncoder();
++        const active = () => { if (controller.signal.aborted || !session.alive) throw new Error('interrupted'); };
+         const toCapture = { write: (s) => {
+-          s = String(s);
+-          if (capture.length + s.length > limit) { controller.abort('CAPTURE_LIMIT'); throw new CaptureLimitError(limit); }
+-          capture += s;
++          active(); s = String(s);
++          const bytes = encoder.encode(s).length;
++          if (captureBytes + bytes > limit) { controller.abort('CAPTURE_LIMIT'); throw new CaptureLimitError(limit); }
++          capture += s; captureBytes += bytes;
+         } };
+-        let emitted = 0;
+-        const toTerminal = { write: (s) => { s = String(s); emitted += s.length; if (emitted > limit) { controller.abort('OUTPUT_LIMIT'); throw new CaptureLimitError(limit); } this._emit(session, s.replace(/\r?\n/g, '\r\n')); } };
++        const toTerminal = { write: (s) => {
++          active(); s = String(s).replace(/\r?\n/g, '\r\n');
++          const bytes = encoder.encode(s).length;
++          if (emittedBytes + bytes > limit) { controller.abort('OUTPUT_LIMIT'); throw new CaptureLimitError(limit); }
++          emittedBytes += bytes; this._emit(session, s);
++        } };
+         const stdout = outRe ? toCapture : (isLast ? toTerminal : toCapture);
+-        const stderr = { write: (s) => this._emit(session, String(s).replace(/\r?\n/g, '\r\n')) };
++        const stderr = toTerminal;
+ 
+         const ctx = this._makeContext(session, descriptor, argv, { stdin, stdout, stderr, signal: controller.signal });
+ 
+@@ -446,17 +488,19 @@
+           const rc = await descriptor.run(ctx);
+           code = Number.isInteger(rc) ? rc : 0;
+         } catch (err) {
+-          if (err && err.code === 'ECAPTURE') { stderr.write(`\x1b[31m${name}: ${err.message}\x1b[0m\n`); code = 1; break; }
++          if (err && err.code === 'ECAPTURE') { this._emit(session, `\x1b[31m${name}: ${err.message}\x1b[0m\r\n`); code = 1; break; }
+           if (controller.signal.aborted) { this._emit(session, '\r\n'); code = 130; break; }
+           stderr.write(`\x1b[31m${name}: ${err.message}\x1b[0m\n`);
+           code = 1;
+         }
+ 
+-        if (controller.signal.aborted) { code = controller.signal.reason === 'CAPTURE_LIMIT' ? 1 : 130; break; }
++        if (controller.signal.aborted) { code = ['CAPTURE_LIMIT', 'OUTPUT_LIMIT'].includes(controller.signal.reason) ? 1 : 130; break; }
++        if (!session.alive) break;
+ 
+         if (outRe) {
+           const p = resolvePath(session.cwd, outRe.target);
+           this.vfs.writeFile(p, capture, { append: outRe.type === 'append' });
++          pipeInput = ''; // Redirected output is unavailable to the next pipeline stage.
+         } else if (!isLast) {
+           pipeInput = capture;
+         }
+@@ -496,7 +540,10 @@
+       // RAMWS: a streaming producer calls this between batches; it resolves at once unless the bounded output
+       // stage is congested (slow consumer / no credit), in which case the producer waits instead of allocating.
+       // Always a MACROtask so the worker's event loop can receive control records (pause/consumed) between batches.
+-      yield: () => new Promise((res) => defer(() => { if (this.host.flow && this.host.flow.paused()) this.host.flow.onDrain(res); else res(); })),
++      yield: () => new Promise((res, rej) => {
++        const finish = () => { if (io.signal.aborted || !session.alive) rej(new Error('interrupted')); else res(); };
++        defer(() => { if (io.signal.aborted || !session.alive) finish(); else if (this.host.flow && this.host.flow.paused()) this.host.flow.onDrain(finish); else finish(); });
++      }),
+       exit: (code) => { session.alive = false; session._exitCode = code || 0; },
+       cols: session.cols,
+       rows: session.rows
+@@ -549,12 +596,11 @@
+   _pathCandidates(session, token) {
+     let dirPart = token.includes('/') ? token.slice(0, token.lastIndexOf('/') + 1) : '';
+     const basePart = token.slice(dirPart.length);
+-    const absDir = resolvePath(session.cwd, dirPart || '.');
+     let entries;
+-    try { entries = this.vfs.readdir(absDir); } catch { return []; }
++    try { entries = this.vfs.readdir(resolvePath(session.cwd, dirPart || '.')); } catch { return []; }
+     return entries
+       .filter((e) => e.name.startsWith(basePart))
+-      .map((e) => dirPart + e.name + (e.type === 'dir' ? '/' : ''));
++      .map((e) => (dirPart + e.name + (e.type === 'dir' ? '/' : '')).replace(/[\s$`'"\\;|&<>#]/g, '\\$&'));
+   }
+ }
+ 
+--- a/src/vendor/spiral/pipeline.js
++++ b/src/vendor/spiral/pipeline.js
+@@ -8,7 +8,7 @@
+     if (/\s/.test(line[i])) { i++; continue; }
+     if (line[i] === '#') break;
+     const op = OPS.find(o => line.startsWith(o, i));
+-    if (op) { tokens.push({type:'op', value:op}); i += op.length; continue; }
++    if (op) { tokens.push({type:'op', value:op}); if (tokens.length > 512) throw new SyntaxError('too many tokens'); i += op.length; continue; }
+     const parts = []; let started = false;
+     const add = (text, expand, quoted) => { parts.push({text, expand, quoted}); started = true; };
+     while (i < line.length && !/\s/.test(line[i]) && !OPS.some(o => line.startsWith(o, i))) {
+@@ -46,12 +46,24 @@
+ }
+ export function expandWord(token, env) {
+   const parts = token.parts || [{text:token.value, expand:!token.quoted, quoted:!!token.quoted}];
+-  return parts.map((p,i) => {
+-    let s = p.text;
++  const encoder = new TextEncoder(); let result = '', size = 0;
++  for (let i = 0; i < parts.length; i++) {
++    const p = parts[i]; let s = p.text;
+     if (i === 0 && !p.quoted && (s === '~' || s.startsWith('~/'))) s = (env.get('HOME') || '/home/operator') + s.slice(1);
+-    if (p.expand) s = s.replace(/\$\{([A-Za-z_][A-Za-z0-9_]*|\?)\}|\$([A-Za-z_][A-Za-z0-9_]*|\?)/g, (_, a, b) => String(env.get(a || b) ?? ''));
+-    return s;
+-  }).join('');
++    if (p.expand) {
++      // Expand incrementally: a repeated variable must not allocate an unbounded intermediate string.
++      let expanded = '', cursor = 0, expandedBytes = 0;
++      const append = text => { expandedBytes += encoder.encode(text).length; if (size + expandedBytes > 16384) throw new Error('expanded word exceeds 16384 bytes'); expanded += text; };
++      for (const match of s.matchAll(/\$\{([A-Za-z_][A-Za-z0-9_]*|\?)\}|\$([A-Za-z_][A-Za-z0-9_]*|\?)/g)) {
++        append(s.slice(cursor, match.index)); append(String(env.get(match[1] || match[2]) ?? '')); cursor = match.index + match[0].length;
++      }
++      append(s.slice(cursor)); s = expanded;
++    }
++    size += encoder.encode(s).length;
++    if (size > 16384) throw new Error('expanded word exceeds 16384 bytes');
++    result += s;
++  }
++  return result;
+ }
+ export function parse(line, env, {deferExpansion = false} = {}) {
+   const tokens = tokenize(line); const segments = [];
+--- a/src/vendor/spiral/russl-field.js
++++ b/src/vendor/spiral/russl-field.js
+@@ -20,12 +20,24 @@
+ export function addressDistance(a,b){indices(a);indices(b);const d=Math.abs(a-b);if(!d)return {numerator:0,denominator:1};let v=0;let q=d;while(q%2===0){q/=2;v++;}return {numerator:1,denominator:2**v};}
+ export function hpuPixel(indicesValue){ordinal(indicesValue);const [component,ty,tx,y,x]=indicesValue;return {component:COMPONENTS[component],x:tx*16+x,y:ty*16+y,index:(ty*16+y)*64+tx*16+x};}
+ export function sampleBytes(samples){if(!(samples instanceof Float64Array)||samples.length!==SITES)throw new Error('field requires exactly 16,384 f64 samples');const out=new Uint8Array(SITES*8),v=new DataView(out.buffer);for(let i=0;i<SITES;i++){if(!Number.isFinite(samples[i]))throw new Error('field nonfinite sample');v.setFloat64(i*8,samples[i],true);}return out;}
+-export function stableJSON(value,depth=0){
+- if(depth>8)throw new Error('field metadata depth limit');
+- if(value===null||typeof value!=='object')return JSON.stringify(value);
+- if(Array.isArray(value)){if(value.length>128)throw new Error('field metadata array limit');return '['+value.map(x=>stableJSON(x,depth+1)).join(',')+']';}
+- const keys=Object.keys(value).sort();if(keys.length>128)throw new Error('field metadata key limit');
+- return '{'+keys.map(k=>JSON.stringify(k)+':'+stableJSON(value[k],depth+1)).join(',')+'}';
++export function stableJSON(value){
++ let nodes=0;
++ const visit=(item,depth)=>{
++  if(depth>8)throw new Error('field metadata depth limit');
++  if(++nodes>2048)throw new Error('field metadata node limit');
++  if(item===null||typeof item==='boolean')return JSON.stringify(item);
++  if(typeof item==='number'){if(!Number.isFinite(item))throw new Error('field metadata number must be finite');return JSON.stringify(item);}
++  if(typeof item==='string'){if(item.length>32768)throw new Error('field metadata text limit');return JSON.stringify(item);}
++  if(typeof item!=='object')throw new Error('field metadata requires JSON data');
++  if(Array.isArray(item)){
++   if(item.length>128)throw new Error('field metadata array limit');
++   const parts=[];for(let i=0;i<item.length;i++){if(!Object.hasOwn(item,i))throw new Error('field metadata sparse array');parts.push(visit(item[i],depth+1));}return '['+parts.join(',')+']';
++  }
++  if(Object.getPrototypeOf(item)!==Object.prototype&&Object.getPrototypeOf(item)!==null)throw new Error('field metadata object must be plain JSON data');
++  const keys=Object.keys(item).sort();if(keys.length>128)throw new Error('field metadata key limit');
++  return '{'+keys.map(k=>JSON.stringify(k)+':'+visit(item[k],depth+1)).join(',')+'}';
++ };
++ const out=visit(value,0);if(out.length>32768)throw new Error('field metadata text limit');return out;
+ }
+ const sampleCRC=samples=>crc32(sampleBytes(samples)).toString(16).padStart(8,'0');
+ function calibration(c){if(!c||Object.keys(c).sort().join(',')!=='kind,pitchMeters,wavelengthMeters,zMeters'||c.kind!=='SIMULATED'||c.pitchMeters!==8e-6||c.wavelengthMeters!==532e-9||!Number.isFinite(c.zMeters))throw new Error('field simulated calibration profile mismatch');return {...c};}
+@@ -42,7 +54,7 @@
+   const re=s[j],im=s[j+4096];
+   if(!Number.isFinite(re)||!Number.isFinite(im)||Math.abs(re)>1e12||Math.abs(im)>1e12||!Object.is(Math.fround(re),re)||!Object.is(Math.fround(im),im))throw new Error('real/imaginary sample must be bounded, exactly representable finite f32');
+   const intensity=re*re+im*im,phase=Math.atan2(im,re);
+-  if(!Number.isFinite(s[j+8192])||!Number.isFinite(s[j+12288])||!close(s[j+8192],intensity)||!close(s[j+12288],phase))throw new Error('derived intensity/phase does not agree with real/imaginary samples');
++  if(!Number.isFinite(s[j+8192])||s[j+8192]<0||!Number.isFinite(s[j+12288])||Math.abs(s[j+12288])>Math.PI||!close(s[j+8192],intensity)||!close(s[j+12288],phase))throw new Error('derived intensity/phase does not agree with real/imaginary samples');
+  }
+  return field;
+ }
+--- a/src/vendor/spiral/safe-regex.js
++++ b/src/vendor/spiral/safe-regex.js
+@@ -15,10 +15,15 @@
+     const finish = (error, result) => { if (settled) return; settled = true; clearTimeout(timer); signal?.removeEventListener('abort', abort); worker.terminate(); error ? reject(error) : resolve(result); };
+     const abort = () => finish(new Error('interrupted'));
+     const timer = setTimeout(() => finish(new Error('regular expression timed out (750 ms)')), 750);
+-    const receive = (data) => data?.error ? finish(new Error(data.error)) : finish(null, data);
+-    if (node) { worker.on('message', receive); worker.on('error', e => finish(e)); }
+-    else { worker.onmessage = e => receive(e.data); worker.onerror = () => finish(new Error('regex worker failed')); }
++    const receive = (data) => {
++      if (data?.error) finish(new Error(String(data.error).slice(0,512)));
++      else if (!data || typeof data.output !== 'string' || data.output.length > 524288 || !Number.isSafeInteger(data.matched) || data.matched < 0) finish(new Error('invalid regex worker result'));
++      else finish(null, data);
++    };
++    if (node) { worker.on('message', receive); worker.on('error', e => finish(e)); worker.on('exit', () => { if (!settled) finish(new Error('regex worker exited before replying')); }); }
++    else { worker.onmessage = e => receive(e.data); worker.onerror = () => finish(new Error('regex worker failed')); worker.onmessageerror = () => finish(new Error('regex worker message decode failure')); }
+     signal?.addEventListener('abort', abort, { once: true });
+-    worker.postMessage(options);
++    if (signal?.aborted) { abort(); return; }
++    try { worker.postMessage(options); } catch(error) { finish(error); }
+   });
+ }
+--- a/src/vendor/spiral/ssd.js
++++ b/src/vendor/spiral/ssd.js
+@@ -36,7 +36,7 @@
+   throw new Error('unsupported volume revision; raw recovery export is available');
+ }
+ export function writeVolume(record, expectedRevision) {
+-  if (!record || record.v !== 2 || !Number.isSafeInteger(expectedRevision) || expectedRevision < 0 || record.revision !== expectedRevision+1) throw new Error('invalid volume revision');
++  if (!record || record.v !== 2 || !Number.isSafeInteger(expectedRevision) || expectedRevision < 0 || !Number.isSafeInteger(record.revision) || record.revision !== expectedRevision+1) throw new Error('invalid volume revision');
+   return transaction('readwrite', (store,set,abort) => {
+     const req=store.get(DEVICE);
+     req.onsuccess=() => {
+--- a/src/vendor/spiral/state-codec.js
++++ b/src/vendor/spiral/state-codec.js
+@@ -9,7 +9,7 @@
+   if (typeof x === 'string') { if (x.length > 256) throw new Error('state text limit'); return x; }
+   if (x instanceof Uint8Array || x instanceof Float32Array) {
+     if (x.length > 4096) throw new Error('state array limit');
+-    if (x instanceof Float32Array && x.some(v => !Number.isFinite(v) || Math.abs(v) > 1e12)) throw new Error('invalid field value');
++    if (x instanceof Float32Array && x.some(v => !Number.isFinite(v))) throw new Error('invalid float state value');
+     // Explicit little-endian payload, independent of the host typed-array endianness.
+     const bytes = new Uint8Array(x.length * x.BYTES_PER_ELEMENT);
+     if (x instanceof Float32Array) { const dv = new DataView(bytes.buffer); x.forEach((v,i) => dv.setFloat32(i*4,v,true)); } else bytes.set(x);
+@@ -30,12 +30,14 @@
+     if (!Object.hasOwn(types, x.$type) || Object.keys(x).length !== 2 || typeof x.data !== 'string' || x.data.length > 21848 || x.data.length % 4 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(x.data)) throw new Error('invalid typed state');
+     const bytes = Buffer.from(x.data, 'base64'), C = types[x.$type];
+     if (bytes.length % C.BYTES_PER_ELEMENT) throw new Error('misaligned state array');
++    if (bytes.length / C.BYTES_PER_ELEMENT > 4096) throw new Error('state array limit');
+     if (C === Uint8Array) return new Uint8Array(bytes);
+     const result = new Float32Array(bytes.length / 4), dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+     result.forEach((_,i) => { result[i] = dv.getFloat32(i*4,true); }); return result;
+   }
+-  if (Array.isArray(x)) return x.map(v => unpack(v, depth + 1));
++  if (Array.isArray(x)) { if (x.length > 24) throw new Error('state list limit'); return x.map(v => unpack(v, depth + 1)); }
+   if (x && typeof x === 'object') {
++    if (Object.keys(x).length > 64) throw new Error('state key limit');
+     const out = {};
+     for (const [k,v] of Object.entries(x)) { if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(k) || ['__proto__','constructor','prototype'].includes(k)) throw new Error('invalid state key'); out[k] = unpack(v, depth + 1); }
+     return out;
+--- a/src/vendor/spiral/tiff-codec.js
++++ b/src/vendor/spiral/tiff-codec.js
+@@ -78,7 +78,7 @@
+  if(scalar(262,undefined,[3])!==1||scalar(277,1,[3])!==1||scalar(284,1,[3])!==1)throw new Error('TIFF only scalar BlackIsZero grayscale is supported');
+  if(scalar(266,1,[3])!==1||scalar(317,1,[3])!==1)throw new Error('TIFF fill order/predictor unsupported');
+  const orientation=scalar(274,1,[3]);int(orientation,1,8,'orientation');
+- for(const id of [254,255,280,281,290,291,300,318,319,320,321,322,323,324,325,330,338,340,341,346,347,512,513,514,529,530,531,532,700,34665,34675,34853,40965])if(tags.has(id))throw new Error(`TIFF semantic metadata/tag ${id} unsupported; preserve original file`);
++ for(const id of [254,255,280,281,290,291,300,301,318,319,320,321,322,323,324,325,330,338,340,341,343,344,345,346,347,512,513,514,529,530,531,532,700,32995,32996,32997,32998,33421,33422,34665,34675,34853,40965,50710,50711,50712,50713,50714,50715,50716,50717,50718,50719,50720])if(tags.has(id))throw new Error(`TIFF semantic metadata/tag ${id} unsupported; preserve original file`);
+  const rows=int(scalar(278,0xffffffff),1,0xffffffff,'rows per strip'),stripCount=Math.ceil(height/rows);
+  const offsets=values(273),counts=values(279);if(offsets.length!==stripCount||counts.length!==stripCount)throw new Error('TIFF strip count mismatch');
+  let total=0;const rowBytes=width*bits/8;
+--- a/src/vendor/spiral/vfs.js
++++ b/src/vendor/spiral/vfs.js
+@@ -31,7 +31,8 @@
+   const raw = String(input == null ? '' : input);
+   if (raw.length > 4096 || /[\\\x00-\x1f\x7f]/.test(raw)) throw new VFSError('EINVAL', 'invalid path');
+   const startAbs = raw.startsWith(SEP);
+-  const parts = startAbs ? [] : splitPath(cwd);
++  if (!startAbs && (typeof cwd !== 'string' || !cwd.startsWith(SEP))) throw new VFSError('EINVAL', 'absolute working directory required');
++  const parts = startAbs ? [] : splitPath(resolvePath('/', cwd));
+   for (const seg of splitPath(raw)) {
+     if (seg === '.') continue;
+     if (seg === '..') { parts.pop(); continue; }
+@@ -39,7 +40,9 @@
+     parts.push(seg);
+     if (parts.length > MAX_DEPTH) throw new VFSError('EINVAL', 'path too deep');
+   }
+-  return SEP + parts.join(SEP);
++  const resolved = SEP + parts.join(SEP);
++  if (resolved.length > 4096) throw new VFSError('EINVAL', 'path too long');
++  return resolved;
+ }
+ 
+ function basename(p) {
+@@ -97,8 +100,9 @@
+    * @param {number} [limits.maxNodes]  total files + directories, root included
+    */
+   constructor(limits = {}) {
+-    this.maxBytes = Number.isFinite(limits.maxBytes) ? limits.maxBytes : 2 * 1024 * 1024;
+-    this.maxNodes = Number.isFinite(limits.maxNodes) ? limits.maxNodes : 1500;
++    this.maxBytes = limits.maxBytes === undefined ? 2 * 1024 * 1024 : limits.maxBytes;
++    this.maxNodes = limits.maxNodes === undefined ? 1500 : limits.maxNodes;
++    if (!Number.isSafeInteger(this.maxBytes) || this.maxBytes < 0 || !Number.isSafeInteger(this.maxNodes) || this.maxNodes < 1) throw new VFSError('EINVAL', 'invalid filesystem quota');
+     this.usedBytes = 0;
+     this.nodeCount = 1;
+     this.root = dirNode();
+@@ -220,6 +224,7 @@
+     absPath = normal(absPath);
+     if (absPath === SEP) throw new VFSError('EPERM', 'cannot remove root');
+     const parent = this._walk(dirname(absPath));
++    if (parent.type !== 'dir') throw new VFSError('ENOTDIR', `not a directory: ${dirname(absPath)}`);
+     const name = basename(absPath);
+     const node = parent.children.get(name);
+     if (!node) throw new VFSError('ENOENT', `no such file or directory: ${absPath}`);
+@@ -280,8 +285,8 @@
+   importSnapshot(snap) {
+     if (!snap || snap.v !== 1 || !snap.root || snap.root.k !== 'd') throw new VFSError('EINVAL', 'unsupported snapshot');
+     let bytes = 0, nodes = 0;
+-    const dec = (o, depth) => {
+-      if (depth > 64) throw new VFSError('EINVAL', 'snapshot too deep');
++    const dec = (o, depth, pathLength = 0) => {
++      if (depth > MAX_DEPTH || pathLength > 4096) throw new VFSError('EINVAL', 'snapshot path limit');
+       if (!o || !Number.isInteger(o.m) || o.m < 0 || o.m > 0o7777 || !Number.isSafeInteger(o.t) || o.t < 0) throw new VFSError('EINVAL', 'bad node metadata');
+       nodes++;
+       if (nodes > this.maxNodes) throw new VFSError('EDQUOT', 'snapshot node quota');
+@@ -299,7 +304,7 @@
+         for (const pair of o.ch) {
+           if (!Array.isArray(pair) || pair.length !== 2 || !validName(pair[0])) throw new VFSError('EINVAL', 'bad entry name');
+           if (n.children.has(pair[0])) throw new VFSError('EINVAL', 'duplicate entry');
+-          n.children.set(pair[0], dec(pair[1], depth + 1));
++          n.children.set(pair[0], dec(pair[1], depth + 1, pathLength + pair[0].length + 1));
+         }
+         return n;
+       }
+--- a/src/vendor/spiral/volume-format.js
++++ b/src/vendor/spiral/volume-format.js
+@@ -0,0 +1,8 @@
++/** JSON escaping and indented backups can be much larger than the 2 MiB VFS content quota. */
++export const MAX_BACKUP_BYTES = 32 * 1024 * 1024;
++export const MAX_BACKUP_LABEL = '32 MiB';
++export function assertBackupSize(text) {
++  if (typeof text !== 'string' || text.length > MAX_BACKUP_BYTES || new TextEncoder().encode(text).length > MAX_BACKUP_BYTES) {
++    throw new Error(`backup exceeds ${MAX_BACKUP_LABEL}`);
++  }
++}
+--- a/src/vendor/vt/parser.js
++++ b/src/vendor/vt/parser.js
+@@ -96,7 +96,11 @@
+   /* ---- escape ---------------------------------------------------------- */
+ 
+   _esc(ch, code) {
++    if (code === 0x1b) { this.intermediates = ''; return; }
++    if (code === 0x18 || code === 0x1a) { this.state = S.GROUND; return; }
++    if (code < 0x20) { this._c0(code); return; }
+     if (code >= 0x20 && code <= 0x2f) { if (this.intermediates.length < MAX_INTERMEDIATES) this.intermediates += ch; return; } // collect, stay
++    if (this.intermediates) { this.state = S.GROUND; return; }
+     switch (ch) {
+       case '[': this.state = S.CSI; this.params = ''; this.intermediates = ''; return;
+       case ']': this.state = S.OSC; this.osc = ''; this.oscOverflow = false; return;
+@@ -140,7 +144,10 @@
+ 
+   _dispatchCsi(final) {
+     const t = this.term;
++    // Unsupported intermediate/private/colon forms must not alias a supported operation.
++    if (this.intermediates || !/^\??[0-9;]*$/.test(this.params)) return;
+     const { nums, priv } = this._numParams();
++    if (priv && final !== 'h' && final !== 'l') return;
+     const p = (i, d) => (nums[i] === undefined || Number.isNaN(nums[i]) ? d : nums[i]);
+ 
+     switch (final) {
+--- a/src/vendor/vt/renderer-canvas.js
++++ b/src/vendor/vt/renderer-canvas.js
+@@ -107,6 +107,7 @@
+ 
+   _viewportRows() {
+     const { screen } = this;
++    this.scrollOffset = Math.max(0, Math.min(screen.scrollback.length, this.scrollOffset));
+     if (this.scrollOffset <= 0) return screen.grid;
+     const sb = screen.scrollback;
+     const start = sb.length - this.scrollOffset;
+@@ -150,7 +151,8 @@
+           ctx.fillRect(xPix, yPix, this.cellW, this.cellH);
+         }
+ 
+-        if (cell.hidden || cell.ch === ' ') { this._maybeDecor(cell, xPix, yPix, fg); continue; }
++        if (cell.hidden) continue;
++        if (cell.ch === ' ') { this._maybeDecor(cell, xPix, yPix, fg); continue; }
+ 
+         ctx.fillStyle = fg;
+         let font = '';
+@@ -186,7 +188,7 @@
+     ctx.fillStyle = this.theme.cursor;
+     ctx.fillRect(xPix, yPix, this.cellW, this.cellH);
+     const cell = this.screen.grid[y] && this.screen.grid[y][x];
+-    if (cell && cell.ch !== ' ') {
++    if (cell && !cell.hidden && cell.ch !== ' ') {
+       ctx.fillStyle = this.theme.cursorText;
+       ctx.font = `${this.theme.fontSize}px ${this.theme.fontFamily}`;
+       ctx.fillText(cell.ch, xPix, yPix + this.baseline);
+--- a/src/vendor/vt/screen.js
++++ b/src/vendor/vt/screen.js
+@@ -138,11 +138,14 @@
+   cursorNextLine(n = 1) { this.cursorDown(n); this.cursor.x = 0; }
+   cursorPrevLine(n = 1) { this.cursorUp(n); this.cursor.x = 0; }
+ 
+-  saveCursor() { this.saved = { x: this.cursor.x, y: this.cursor.y, pen: { ...this.pen } }; }
++  saveCursor() { this.saved = { x: this.cursor.x, y: this.cursor.y, pen: { ...this.pen }, wrapNext: this.wrapNext }; }
+   restoreCursor() {
+     if (this.saved) {
+-      this.cursor.x = this.saved.x; this.cursor.y = this.saved.y;
++      // Saved coordinates may belong to a larger screen before a resize.
++      this.cursor.x = Math.min(this.cols - 1, this.saved.x);
++      this.cursor.y = Math.min(this.rows - 1, this.saved.y);
+       this.pen = { ...this.saved.pen };
++      this.wrapNext = !!this.saved.wrapNext && this.cursor.x === this.cols - 1;
+     }
+   }
+   setCursorVisible(v) { this.cursor.visible = !!v; }
+@@ -166,7 +169,7 @@
+       for (let y = 0; y < this.cursor.y; y++) { this.grid[y] = this._blankRow(); this.markDirty(y); }
+     } else {
+       // 2 = whole screen; 3 = screen + scrollback
+-      if (mode === 3) this.scrollback = [];
++      if (mode === 3) { this.scrollback = []; this.scrollbackCells = 0; }
+       for (let y = 0; y < this.rows; y++) { this.grid[y] = this._blankRow(); this.markDirty(y); }
+     }
+   }
+@@ -250,6 +253,7 @@
+       this.scrollTop = Math.max(0, top);
+       this.scrollBottom = Math.min(this.rows - 1, bottom);
+       this.cursor.x = 0; this.cursor.y = this.scrollTop;
++      this.wrapNext = false;
+     }
+   }
+ 
+@@ -291,8 +295,13 @@
+ 
+   _extendedColor(params, i, which) {
+     const mode = params[i + 1];
+-    if (mode === 5) { this.pen[which] = params[i + 2]; return i + 2; }
+-    if (mode === 2) { this.pen[which] = [params[i + 2] || 0, params[i + 3] || 0, params[i + 4] || 0]; return i + 4; }
++    const channel = n => Number.isInteger(n) && n >= 0 && n <= 255;
++    if (mode === 5) { if (channel(params[i + 2])) this.pen[which] = params[i + 2]; return i + 2; }
++    if (mode === 2) {
++      const color = params.slice(i + 2, i + 5);
++      if (color.length === 3 && color.every(channel)) this.pen[which] = color;
++      return i + 4;
++    }
+     return i;
+   }
+ 
+@@ -314,6 +323,9 @@
+   reset() {
+     this.pen = this._defaultPen();
+     this.cursor = { x: 0, y: 0, visible: true };
++    this.saved = null; this.wrapNext = false;
++    this.scrollback = []; this.scrollbackCells = 0;
++    this.dirty.clear();
+     this.scrollTop = 0; this.scrollBottom = this.rows - 1;
+     this._initGrid();
+     this._resetTabs();
+@@ -344,6 +356,8 @@
+     this.cursor.x = Math.min(this.cursor.x, cols - 1);
+     this.cursor.y = Math.min(this.cursor.y, rows - 1);
+     this._resetTabs();
++    this.wrapNext = false;
++    this.dirty.clear();
+     this.markAllDirty();
+   }
+ }
+--- a/src/version.js
++++ b/src/version.js
+@@ -1,3 +1,3 @@
+-export const VERSION = "2.2.0";
++export const VERSION = "2.2.1";
+ export const PRODUCT = "JA21 Silicon Console";
+ export const PROFILE = "LOCAL_BROWSER";
+--- a/tests/MANUAL_ACCEPTANCE.md
++++ b/tests/MANUAL_ACCEPTANCE.md
+@@ -1,6 +1,6 @@
+-# Native Windows startup acceptance — 2.2.0
++# Native Windows startup acceptance — 2.2.1
+ 
+-These checks are PENDING unless run on the target Windows machine. Static Node
++Full successful provisioning and browser checks are PENDING unless run on the target Windows machine. The 2.2.1 gate already parses native PowerShell and tests offline absent/corrupt-runtime refusals, hashes and synthetic ZIP extraction; those bounded checks do not complete this checklist. Static Node
+ launcher contracts are not substitutes for them. Preserve backup exports first.
+ 
+ | Check | Expected |
+@@ -25,7 +25,7 @@
+ Original full-application acceptance context is retained in the 2.1.0 audit report.
+ 
+ 
+-## 2.2.0 native Windows / TIFF lab acceptance
++## 2.2.1 native Windows / TIFF lab acceptance
+ 
+ On a Windows x64 or ARM64 device, verify first launch without Node/PATH, second
+ launch from the private cache, interrupted/hash-mismatched runtime rejection,
+@@ -44,3 +44,7 @@
+ These native checks have not been represented as completed by the offline fixture
+ suite. Normal HTTP Chromium navigation in the build environment was blocked with
+ ERR_BLOCKED_BY_ADMINISTRATOR; the application did not change that policy.
++
++## 2.2.1 acceptance evidence
++
++Optional `node tests/browser-production.mjs` uses a new temporary profile and the production server, CSP, worker, IndexedDB and Web Locks. Set PLAYWRIGHT_MODULE to an installed Playwright module if it is outside the project and CHROMIUM_PATH to a browser executable when needed. It requires a machine where the browser can launch and reach loopback. This audit could not complete it: Edge exited with native sandbox/crashpad access errors; the in-app browser could not reach the sandbox-hosted local origin. These failures are recorded as environment blockers, not passes or application failures.
+--- a/tests/browser-production.mjs
++++ b/tests/browser-production.mjs
+@@ -0,0 +1,139 @@
++/** Optional QA: real Chromium/Edge, served production CSP, workers, IndexedDB, Web Locks.
++ * Uses a fresh temporary browser context; never opens the user's browser profile.
++ * Requires separately supplied Playwright and a browser; neither is an app dependency.
++ * PLAYWRIGHT_MODULE may point to playwright/index.mjs; CHROMIUM_PATH selects a browser.
++ */
++import fs from 'node:fs/promises';
++import path from 'node:path';
++import assert from 'node:assert/strict';
++import { fileURLToPath, pathToFileURL } from 'node:url';
++import { build } from '../scripts/build.mjs';
++import { createServer } from '../scripts/serve.mjs';
++import { VERSION } from '../src/version.js';
++const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
++const report = { version: VERSION, status: 'RUNNING', fixture: false, scope: 'Real browser production UI, module worker, MessageChannel, IndexedDB, Web Locks and served CSP', tests: [], errors: [], startedUtc: new Date().toISOString() };
++const out = path.join(root, 'audit/BROWSER_PRODUCTION_RESULTS.json');
++const save = () => fs.writeFile(out, JSON.stringify(report, null, 2) + '\n');
++await fs.mkdir(path.dirname(out), { recursive: true });
++await save();
++let browser, context, server, profile;
++try {
++  const { chromium } = await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(process.env.PLAYWRIGHT_MODULE).href : 'playwright');
++  await build();
++  server = await createServer({ port: 0 });
++  const url = `http://127.0.0.1:${server.address().port}/`;
++  profile = await fs.mkdtemp(path.join(root, '..', 'browser-profile-'));
++  context = await chromium.launchPersistentContext(profile, { headless: true, chromiumSandbox: true, viewport: { width: 1440, height: 1000 }, acceptDownloads: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : process.platform === 'win32' ? { channel: 'msedge' } : {}) });
++  browser = context.browser();
++  report.browser = browser.version(); report.platform = process.platform; report.node = process.version;
++  await context.route('**/*', route => new URL(route.request().url()).origin === new URL(url).origin ? route.continue() : route.abort());
++  const page = await context.newPage();
++  page.setDefaultTimeout(15000);
++  page.on('pageerror', error => report.errors.push(String(error)));
++  const passed = name => { report.tests.push({ test: name, status: 'PASS' }); console.log('PASS:', name); };
++  const waitText = async (id, text) => page.waitForFunction(([id, text]) => document.getElementById(id).textContent.includes(text), [id, text]);
++  const online = () => page.waitForFunction(() => document.querySelector('#connection').textContent === 'Online' && document.querySelector('#transcript').textContent.includes('›'));
++  let serial = 0;
++  async function command(line) {
++    const marker = `qa_done_${++serial}`;
++    await page.locator('#command').fill(`${line}; echo ${marker}`);
++    await page.locator('#command-form button[type=submit]').click();
++    await page.waitForFunction(marker => document.querySelector('#transcript').textContent.split('\n').some(line => line.trim() === marker), marker);
++  }
++  const response = await page.goto(url); await online();
++  assert.equal(await page.locator('#version').textContent(), VERSION);
++  assert(response.headers()['content-security-policy'].includes("connect-src 'none'"));
++  passed('Production boot under served CSP with real module worker');
++  await command("export A=hello; echo '$A' \"$A\"; printf '😀a😀' | tr '😀a' '🙂b'");
++  assert((await page.locator('#transcript').textContent()).includes('$A hello'));
++  assert((await page.locator('#transcript').textContent()).includes('🙂b🙂'));
++  passed('Real MessageChannel terminal quoting and Unicode pipeline');
++  await command('hpu bytes'); await waitText('operation', 'byte chip');
++  passed('Software byte lanes publish real worker field previews');
++  await command('write /tmp/persist.txt production_saved');
++  await page.locator('[data-view=storage]').click();
++  await page.locator('#sync').click(); await waitText('notice', 'committed');
++  const downloadEvent = page.waitForEvent('download'); await page.locator('#backup').click();
++  const download = await downloadEvent;
++  const backupPath = path.join(root, 'audit/production-backup.json');
++  await download.saveAs(backupPath);
++  const backup = JSON.parse(await fs.readFile(backupPath, 'utf8'));
++  assert.equal(backup.v, 2); assert.equal(backup.version, VERSION);
++  assert(backup.sha256 && backup.snap && backup.revision > 0);
++  passed('Real IndexedDB transaction and validated full backup export');
++  const second = await context.newPage();
++  await second.goto(url);
++  await second.waitForFunction(() => document.querySelector('#connection').textContent === 'Blocked');
++  assert((await second.locator('#notice').textContent()).includes('writer'));
++  await second.close();
++  passed('Second browser window refused by the real single-writer Web Lock');
++  await page.reload(); await online();
++  await command('cat /tmp/persist.txt');
++  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  passed('Browser reload restores committed files and HPU state');
++  const oldTab = await page.locator('#tabs .current').textContent();
++  await page.locator('#reboot').click();
++  await page.waitForFunction(old => document.querySelector('#tabs .current')?.textContent !== old, oldTab);
++  await online();
++  await command('cat /tmp/persist.txt');
++  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  passed('Production reboot releases and reacquires the writer lock with data intact');
++  await page.locator('[data-view=russl]').click(); await waitText('russl-summary', 'absent');
++  await page.locator('#russl-capture').click(); await waitText('russl-summary', '16384');
++  await page.locator('#russl-value').fill('0.5'); await page.locator('#russl-edit').click();
++  await waitText('russl-site-output', 'effective');
++  assert.equal(JSON.parse(await page.locator('#russl-site-output').textContent()).effective, 0.5);
++  passed('Production TIFF capture and revision-checked staged pixel edit');
++  await page.locator('[data-view=console]').click();
++  await command('russl set 0 0 0 0 0 0.75');
++  await page.locator('[data-view=russl]').click();
++  // Refresh triggered by opening the view must complete before explicit operations.
++  await page.locator('#russl-refresh').click(); await page.waitForTimeout(200);
++  const fieldDownload = page.waitForEvent('download'); await page.locator('#russl-export').click();
++  await (await fieldDownload).saveAs(path.join(root, 'audit/PRODUCTION_FIELD.tif'));
++  page.once('dialog', dialog => dialog.accept()); await page.locator('#russl-apply').click();
++  await waitText('operation', 'RUSSL field apply');
++  passed('Production field TIFF download and explicit apply to live XPU');
++  await page.locator('[data-view=storage]').click();
++  // Malformed import must leave the running volume intact.
++  page.once('dialog', dialog => dialog.accept('RESTORE'));
++  await page.locator('#restore-file').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"v":2,"snap":{}}') });
++  await waitText('notice', 'checksum');
++  await page.locator('[data-view=console]').click(); await command('cat /tmp/persist.txt');
++  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  passed('Malformed backup restore rejected without losing the active volume');
++  await command('write /tmp/persist.txt changed_after_backup');
++  await page.locator('[data-view=storage]').click();
++  page.once('dialog', dialog => dialog.accept('RESTORE'));
++  await page.locator('#restore-file').setInputFiles(backupPath);
++  await waitText('notice', 'restored'); await online();
++  await page.locator('[data-view=console]').click(); await command('cat /tmp/persist.txt');
++  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  passed('Validated backup restore restarts the real worker and restores exact file content');
++  await page.locator('[data-view=storage]').click();
++  const previousDownload = page.waitForEvent('download'); await page.locator('#previous-backup').click();
++  const previous = await previousDownload; const previousPath = path.join(root, 'audit/production-previous-backup.json');
++  await previous.saveAs(previousPath);
++  const previousRecord = JSON.parse(await fs.readFile(previousPath, 'utf8'));
++  assert.equal(previousRecord.v, 2); assert(JSON.stringify(previousRecord.snap).includes('changed_after_backup'));
++  passed('Previous committed revision remains exportable after restore');
++  await page.locator('[data-view=console]').click();
++  await page.locator('#command').fill('echo \x1b[2J'); await page.locator('#command-form button[type=submit]').click();
++  await waitText('notice', 'terminal control characters');
++  passed('Command form rejects embedded terminal control bytes');
++  await page.screenshot({ path: path.join(root, 'audit/PRODUCTION_UI_DESKTOP.png'), fullPage: true });
++  await page.setViewportSize({ width: 390, height: 844 });
++  await page.screenshot({ path: path.join(root, 'audit/PRODUCTION_UI_MOBILE.png'), fullPage: true });
++  assert.equal(report.errors.length, 0, report.errors.join('\n'));
++  passed('Desktop/mobile layout renders without page exceptions');
++  report.status = 'PASS';
++} catch (error) {
++  report.status = context ? 'FAIL' : 'BLOCKED_ENVIRONMENT'; report.error = error.stack || String(error); process.exitCode = 1;
++  console.error(report.error);
++} finally {
++  await context?.close();
++  await browser?.close();
++  if (profile && path.dirname(profile) === path.dirname(root) && path.basename(profile).startsWith('browser-profile-')) await fs.rm(profile, { recursive: true, force: true });
++  if (server) { server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); }
++  report.finishedUtc = new Date().toISOString(); await save();
++}
+--- a/tests/compute-hardening.test.mjs
++++ b/tests/compute-hardening.test.mjs
+@@ -0,0 +1,144 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs/promises';
++import {Hpu,kerrCoherent,wignerGrid,energy} from '../src/vendor/spiral/hpu.js';
++import {decodeState,encodeState} from '../src/vendor/spiral/state-codec.js';
++import {BYTE_STAGES} from '../src/vendor/spiral/byte-tables.js';
++import {HARNESS_SOURCE} from '../src/vendor/spiral/chip-harness.js';
++import {encodeGrayTiff,decodeGrayTiff} from '../src/vendor/spiral/tiff-codec.js';
++import {captureHpu,encodeFieldTiff,decodeFieldTiff,stableJSON} from '../src/vendor/spiral/russl-field.js';
++import hpuCommands from '../src/vendor/spiral/commands/hpu.js';
++import {VFS} from '../src/vendor/spiral/vfs.js';
++import {Buffer as VBuffer} from '../src/vendor/spiral/buffer.js';
++
++test('phase retrieval seeds a nonzero target where resident phase is undefined',()=>{
++ const h=new Hpu();h.clear();const target=new Float32Array(4096).fill(.5);h._swapAmp(target);
++ assert.deepEqual(h.re,target);assert.equal(energy(h.re,h.im),1024);
++ assert(h.im.every(v=>v===0));
++ const before=h.save();assert.throws(()=>h._swapAmp(new Float32Array(3)));assert.deepEqual(h.save(),before);
++});
++
++test('invalid lens and gate arguments preserve field and byte caches',()=>{
++ const h=new Hpu();h.bytes();const before=h.save();
++ for(const value of [0,NaN,Infinity,'0.01',true]){assert.throws(()=>h.lens(value));assert.deepEqual(h.save(),before);}
++ for(const value of [null,true,'1',undefined,2]){assert.throws(()=>h.gate('and',value,1));assert.deepEqual(h.save(),before);}
++ assert.throws(()=>h.record('typo'));assert.deepEqual(h.save(),before);
++ assert.equal(h.replay(),null);assert.deepEqual(h.save(),before);
++});
++
++test('Wigner rendering rejects nonfinite coefficients and excessive work before allocation',()=>{
++ const cs=kerrCoherent(0,0,0);const w=wignerGrid(cs,1,.1);assert(Math.abs(w[0]-1/Math.PI)<1e-6);
++ for(const grid of [0,1.5,65,Infinity,'40'])assert.throws(()=>wignerGrid(cs,grid,3.6));
++ for(const span of [0,-1,9,Infinity,'3.6'])assert.throws(()=>wignerGrid(cs,40,span));
++ for(const state of [[],Array(12).fill({re:0,im:0}),[{re:NaN,im:0}],[{re:1,im:Infinity}]])assert.throws(()=>wignerGrid(state,40,3.6));
++});
++
++test('all byte-sized OAM values round trip and shifts preserve modulo/remainder semantics',()=>{
++ const h=new Hpu();for(let value=0;value<256;value++)assert.equal(h.oam(value).value,value);
++ for(const value of [0,1,2,3,85,128,173,255])for(let steps=1;steps<=7;steps++){
++  h.oam(value);let r=h.shift(1,steps);assert.equal(r.value,(value<<steps)&255);assert.equal(r.overflow,value>>>(8-steps)?1:0);
++  h.oam(value);r=h.shift(-1,steps);assert.equal(r.value,value>>>steps);assert.equal(r.rem,value&((1<<steps)-1));
++ }
++});
++
++test('OAM input rejects coercion and invalid shifts without discarding byte caches',()=>{
++ const h=new Hpu();h.oam(173);h.bytes();const before=h.save();
++ for(const value of [-1,256,2**32,1.5,true,'1',NaN]){assert.throws(()=>h.oam(value));assert.deepEqual(h.save(),before);}
++ for(const args of [[0,1],[1,0],[1,8],[-1,1.5],[true,1],[1,'1']]){assert.throws(()=>h.shift(...args));assert.deepEqual(h.save(),before);}
++});
++
++test('rightmost OAM well cannot read x=64 as x=0 in the following row',()=>{
++ const h=new Hpu();h.clear();h.re[33*64]=2;const r=h._readOam();assert.equal(r.value,128);
++});
++
++test('byte tables and metadata cannot be mutated after module initialization',()=>{
++ assert.throws(()=>{BYTE_STAGES[0].table[0]=0;},TypeError);
++ assert.throws(()=>{BYTE_STAGES[0].unique=1;},TypeError);
++ assert.throws(()=>{BYTE_STAGES.pop();},TypeError);
++});
++
++test('embedded C# reference is exactly the distributed source',async()=>{
++ const source=await fs.readFile(new URL('../src/vendor/spiral/ChipHarness.cs',import.meta.url),'utf8');
++ assert.equal(source.replace(/\r\n/g,'\n'),HARNESS_SOURCE.replace(/\r\n/g,'\n'));
++});
++
++test('forged HPU counters, recorded-object pairs and semantic metadata fail atomically',()=>{
++ const h=new Hpu();h.record('twin');const before=h.save();
++ for(const mutate of [s=>s.objectIm=null,s=>s.recorded='',s=>s.cycles=-1,s=>s.cycles=.5,s=>s.logical1=4097,s=>s.oamValue=1,s=>s.margin=2,s=>s.bloch=[1,1,1],s=>s.wignerN=39]){
++  const s=decodeState(before);mutate(s);assert.equal(h.load(encodeState(s)),false);assert.deepEqual(h.save(),before);
++ }
++});
++
++test('byte ledger claims must be reproduced from their sampled lanes',()=>{
++ const h=new Hpu();h.bytes();const before=h.save();
++ for(const mutate of [s=>s.byteStages[0].changed=(s.byteStages[0].changed+1)%4097,s=>s.byteStages[0].unique=25,s=>s.byteStages[0].equivalent=false,s=>s.byteStages[0].cpuCycles=1,s=>s.byteStages[2].same='',s=>s.byteStages[6].proof='invented']){
++  const s=decodeState(before);mutate(s);assert.equal(h.load(encodeState(s)),false);assert.deepEqual(h.save(),before);
++ }
++ for(const value of [0,8,'1',1.5,NaN])assert.throws(()=>h.tiffPlane(value));
++});
++
++test('high-amplitude valid fields preserve sampled intensity through HPU2 save/load',()=>{
++ const h=new Hpu();h.re.fill(Math.fround(1e12));h.im.fill(Math.fround(1e12));h.sample();
++ assert(h.ramI[0]>1e12&&h.ramI[0]<=Math.fround(2e24));const bytes=h.save(),copy=new Hpu();assert(copy.load(bytes));assert.deepEqual(copy.save(),bytes);
++ const s=decodeState(bytes);s.re[0]=Math.fround(2e12);assert.equal(copy.load(encodeState(s)),false);
++ s.re[0]=0;s.ramI[0]=Math.fround(3e24);assert.equal(copy.load(encodeState(s)),false);
++});
++
++test('canonical field metadata rejects unsupported values, sparse arrays and nonfinite aliases',()=>{
++ assert.equal(stableJSON({b:[1,true,null],a:'x'}),'{"a":"x","b":[1,true,null]}');
++ for(const value of [undefined,NaN,Infinity,()=>{},1n,Symbol('x'),new Date(),{a:undefined},{a:NaN},Array(2)])assert.throws(()=>stableJSON(value));
++ const cycle={};cycle.self=cycle;assert.throws(()=>stableJSON(cycle),/depth/);
++ assert.throws(()=>stableJSON(Array(128).fill(Array(128).fill(0))),/node/);
++});
++
++test('derived field slots reject negative intensity and phase beyond its physical range',()=>{
++ let f=captureHpu(new Hpu());f.samples[8192]=-Number.EPSILON;assert.throws(()=>encodeFieldTiff(f),/derived/);
++ const h=new Hpu();h.re[0]=-1;h.im[0]=0;f=captureHpu(h);f.samples[12288]=Math.PI+Number.EPSILON*2;assert.throws(()=>encodeFieldTiff(f),/derived/);
++ assert.equal(decodeFieldTiff(encodeFieldTiff(captureHpu(h))).samples[12288],Math.PI);
++});
++
++test('TIFF rejects unsupported tone curves, volumes, legacy sample semantics and raw-DNG transforms',()=>{
++ for(const id of [301,343,32995,32996,32997,32998,33421,33422,50712,50714,50717,50718,50719,50720]){
++  const bytes=encodeGrayTiff(1,1,new Uint8Array([1]),{description:'opaque'}),v=new DataView(bytes.buffer);const count=v.getUint16(8,true);
++  for(let i=0;i<count;i++){const p=10+i*12;if(v.getUint16(p,true)===270){v.setUint16(p,id,true);break;}}
++  assert.throws(()=>decodeGrayTiff(bytes),/semantic metadata/);
++ }
++});
++
++test('model step limits saturate without uint32 wrapping and reject invalid work requests atomically',()=>{
++ let h=new Hpu();assert.equal(h.cycle(2**32+1).cycles,8);
++ h=new Hpu();assert.equal(h.diffuse(2**32+1).cycles,16);
++ h=new Hpu();assert.equal(h.kuramoto(2**32+1).steps,12);
++ h=new Hpu();h.bytes();const before=h.save();
++ for(const method of ['cycle','diffuse','kuramoto'])for(const count of [NaN,Infinity,.5,'1',true]){assert.throws(()=>h[method](count));assert.deepEqual(h.save(),before);}
++ assert.throws(()=>h.gerchberg('typo',4),/target/);assert.deepEqual(h.save(),before);
++ assert.throws(()=>h.gerchberg('spots',1.5),/integer/);assert.deepEqual(h.save(),before);
++});
++
++function commandContext(hpu=new Hpu()){
++ const vfs=new VFS();vfs.mkdir('/var/hpu',{recursive:true});let output='';
++ return {ctx:{args:[],host:{hpu},vfs,resolve:path=>path,stdout:{write:s=>output+=s},stderr:{write:s=>output+=s}},output:()=>output};
++}
++
++test('HPU shell rolls back a valid high-amplitude field whose byte phase exceeds model bounds',async()=>{
++ const h=new Hpu();h.re.fill(Math.fround(1e12));h.im.fill(Math.fround(1e12));
++ const {ctx,output}=commandContext(h);ctx.args=['bytes'];let publications=0;ctx.host.hpuTouch=()=>publications++;
++ const state=h.save(),snapshot=ctx.vfs.exportSnapshot();assert.equal(await hpuCommands[0].run(ctx),1);
++ assert.deepEqual(h.save(),state);assert.deepEqual(ctx.vfs.exportSnapshot(),snapshot);assert.equal(publications,0);
++ assert.match(output(),/invalid complex field value/);assert.doesNotMatch(output(),/processor-1\.tif/);
++});
++
++test('HPU shell quota failure leaves no partial byte planes and preserves every derived cache',async()=>{
++ const {ctx,output}=commandContext();ctx.host.hpu.record('twin');ctx.host.hpu.frame();ctx.args=['bytes'];
++ const state=ctx.host.hpu.save(),snapshot=ctx.vfs.exportSnapshot();ctx.vfs.maxBytes=ctx.vfs.usedBytes+20000;
++ assert.equal(await hpuCommands[0].run(ctx),1);assert.deepEqual(ctx.host.hpu.save(),state);assert.deepEqual(ctx.vfs.exportSnapshot(),snapshot);
++ assert.doesNotMatch(output(),/BYTES/);
++});
++
++test('HPU shell publication failure restores original HPU and persisted file before reporting success',async()=>{
++ const {ctx,output}=commandContext();ctx.host.hpu.bytes();ctx.args=['pattern','vortex'];
++ ctx.vfs.writeFile('/var/hpu/field.bin',VBuffer.from(ctx.host.hpu.save()));const state=ctx.host.hpu.save(),snapshot=ctx.vfs.exportSnapshot();
++ ctx.host.hpuTouch=()=>{ctx.vfs.writeFile('/var/hpu/field.bin',VBuffer.from(ctx.host.hpu.save()));ctx.host.hpu.extra='unexpected';throw new Error('publication failed');};
++ assert.equal(await hpuCommands[0].run(ctx),1);assert.deepEqual(ctx.host.hpu.save(),state);assert.deepEqual(ctx.vfs.exportSnapshot(),snapshot);
++ assert.match(output(),/publication failed/);assert.doesNotMatch(output(),/phase mask set/);
++});
+--- a/tests/fixtures/independent-tiff/manifest.json
++++ b/tests/fixtures/independent-tiff/manifest.json
+@@ -1,6 +1,6 @@
+ {
+   "writer": "tifffile",
+-  "version": "2026.5.15",
++  "version": "2026.9.20",
+   "files": [
+     {
+       "file": "u1-classic-le.tif",
+--- a/tests/host-hardening.test.mjs
++++ b/tests/host-hardening.test.mjs
+@@ -0,0 +1,174 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import http from 'node:http';
++import fs from 'node:fs/promises';
++import path from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { spawnSync } from 'node:child_process';
++import { createHash } from 'node:crypto';
++import { createServer,parseServerArgs } from '../scripts/serve.mjs';
++import { build } from '../scripts/build.mjs';
++
++const root=fileURLToPath(new URL('../',import.meta.url));
++const fixture=async t=>{
++  await fs.mkdir(path.join(root,'audit'),{recursive:true});
++  const dir=await fs.mkdtemp(path.join(root,'audit','.host-fixture-'));
++  t.after(()=>fs.rm(dir,{recursive:true,force:true}));return dir;
++};
++const request=(port,url,method='GET')=>new Promise((resolve,reject)=>{
++  const req=http.request({host:'127.0.0.1',port,path:url,method},res=>{let body='';res.on('data',bytes=>body+=bytes);res.on('end',()=>resolve({status:res.statusCode,headers:res.headers,body}));});
++  req.on('error',reject);req.end();
++});
++
++test('host: CLI refuses ambiguous, orphan and out-of-range arguments before build',()=>{
++  assert.deepEqual(parseServerArgs([]),{port:8788,open:false});
++  assert.deepEqual(parseServerArgs(['--port','8791','--open']),{port:8791,open:true});
++  for(const args of [['8788'],['--open','--open'],['--port','8788','--port','8791'],['--port'],['--port','--open'],['--port','1023'],['--port','65536'],['--port','1e4'],['--unknown']])assert.throws(()=>parseServerArgs(args),/usage|port/);
++});
++
++test('host: Windows streams, device aliases and filename normalization are rejected',async t=>{
++  const dir=await fixture(t);await fs.writeFile(path.join(dir,'index.html'),'fixture');
++  const server=await createServer({port:0,root:dir});t.after(()=>server.close());const port=server.address().port;
++  for(const url of ['/index.html:secret.json','/index.html%3Asecret.json','/index.html.','/index.html%20','/CON.json','/nul.js','/COM1.js','/LPT9.html','/a//b.js','/a%3Fb.js','/a%7Cb.js'])assert.equal((await request(port,url)).status,400,url);
++  assert.equal((await request(port,'/')).status,200);
++  assert.equal((await request(port,'/index.html?ignored=1')).status,200);
++});
++
++test('host: oversized assets and directories are unavailable, HEAD reports length without body',async t=>{
++  const dir=await fixture(t);await fs.writeFile(path.join(dir,'index.html'),'fixture');
++  await fs.writeFile(path.join(dir,'oversize.js'),Buffer.alloc(2*1024*1024+1));await fs.mkdir(path.join(dir,'directory.json'));
++  const server=await createServer({port:0,root:dir});t.after(()=>server.close());const port=server.address().port;
++  assert.equal((await request(port,'/oversize.js')).status,404);assert.equal((await request(port,'/directory.json')).status,404);
++  const head=await request(port,'/','HEAD');assert.equal(head.status,200);assert.equal(head.body,'');assert.equal(head.headers['content-length'],'7');
++});
++
++test('build: invalid input preserves the previous complete distribution',async t=>{
++  const dir=await fixture(t);await fs.mkdir(path.join(dir,'web'));await fs.mkdir(path.join(dir,'dist'));
++  await fs.writeFile(path.join(dir,'web/index.html'),'new');await fs.writeFile(path.join(dir,'dist/index.html'),'previous');
++  await assert.rejects(build({root:dir}),/ENOENT/);assert.equal(await fs.readFile(path.join(dir,'dist/index.html'),'utf8'),'previous');
++});
++
++test('build: complete static publication excludes the Node-only worker',async t=>{
++  const dir=await fixture(t);await fs.mkdir(path.join(dir,'web'));await fs.mkdir(path.join(dir,'src'));await fs.mkdir(path.join(dir,'dist'));
++  await fs.writeFile(path.join(dir,'web/index.html'),'new');await fs.writeFile(path.join(dir,'src/app.js'),'export const value=1;');
++  await fs.writeFile(path.join(dir,'src/regex-worker-node.js'),'node-only');await fs.writeFile(path.join(dir,'dist/stale.js'),'stale');
++  await build({root:dir});assert.equal(await fs.readFile(path.join(dir,'dist/index.html'),'utf8'),'new');
++  await assert.rejects(fs.access(path.join(dir,'dist/src/regex-worker-node.js')),/ENOENT/);await assert.rejects(fs.access(path.join(dir,'dist/stale.js')),/ENOENT/);
++  assert.equal((await fs.readdir(dir)).filter(name=>name.startsWith('.dist-stage-')).length,0);
++});
++
++test('build: failed publication restores the previous complete distribution',async t=>{
++  const dir=await fixture(t);await fs.mkdir(path.join(dir,'web'));await fs.mkdir(path.join(dir,'src'));await fs.mkdir(path.join(dir,'dist'));
++  await fs.writeFile(path.join(dir,'web/index.html'),'new');await fs.writeFile(path.join(dir,'src/app.js'),'export const value=1;');
++  const dist=path.join(dir,'dist');await fs.writeFile(path.join(dist,'index.html'),'previous');
++  let failed=false;
++  const rename=async(from,to)=>{if(to===dist && !failed){failed=true;const error=new Error('simulated locked publication destination');error.code='EACCES';throw error;}return fs.rename(from,to);};
++  await assert.rejects(build({root:dir,rename}),/simulated locked publication/);
++  assert.equal(await fs.readFile(path.join(dist,'index.html'),'utf8'),'previous');
++  assert.equal((await fs.readdir(dir)).filter(name=>name.startsWith('.dist-stage-')).length,0);
++});
++
++test('build: failed rollback preserves and reports recoverable previous files',async t=>{
++  const dir=await fixture(t);await fs.mkdir(path.join(dir,'web'));await fs.mkdir(path.join(dir,'src'));await fs.mkdir(path.join(dir,'dist'));
++  await fs.writeFile(path.join(dir,'web/index.html'),'new');await fs.writeFile(path.join(dir,'src/app.js'),'export const value=1;');
++  const dist=path.join(dir,'dist');await fs.writeFile(path.join(dist,'index.html'),'previous');
++  const rename=async(from,to)=>{if(to===dist){const error=new Error('simulated unavailable destination');error.code='EACCES';throw error;}return fs.rename(from,to);};
++  let failure;try{await build({root:dir,rename});}catch(error){failure=error;}
++  assert(failure instanceof AggregateError);assert.match(failure.message,/previous distribution retained at/);
++  assert.equal(await fs.readFile(path.join(failure.recoveryPath,'index.html'),'utf8'),'previous');
++  assert(failure.recoveryPath.startsWith(dir+path.sep));
++});
++
++test('build: linked output cannot redirect a recursive build replacement',async t=>{
++  const dir=await fixture(t);await fs.mkdir(path.join(dir,'web'));await fs.mkdir(path.join(dir,'src'));await fs.mkdir(path.join(dir,'preserve'));
++  await fs.writeFile(path.join(dir,'preserve/keep.json'),'keep');
++  try{await fs.symlink(path.join(dir,'preserve'),path.join(dir,'dist'),process.platform==='win32'?'junction':'dir');}catch(error){if(['EPERM','EACCES'].includes(error.code)){t.skip('link creation unavailable');return;}throw error;}
++  await assert.rejects(build({root:dir}),/linked/);assert.equal(await fs.readFile(path.join(dir,'preserve/keep.json'),'utf8'),'keep');
++});
++
++test('launcher/native: PowerShell hash verification and linked-ancestor boundary', {skip:process.platform!=='win32'},async t=>{
++  const dir=await fixture(t);
++  const payload=path.join(root,'scripts/windows/bootstrap.ps1');
++  const source=String.raw`$ErrorActionPreference='Stop'
++$tokens=$null;$errors=$null
++$ast=[Management.Automation.Language.Parser]::ParseFile($env:JA21_TEST_PAYLOAD,[ref]$tokens,[ref]$errors)
++if($errors.Count){throw ($errors | Out-String)}
++foreach($function in $ast.EndBlock.Statements | Where-Object {$_ -is [Management.Automation.Language.FunctionDefinitionAst]}){. ([ScriptBlock]::Create($function.Extent.Text))}
++$dir=$env:JA21_TEST_DIRECTORY
++[void][IO.Directory]::CreateDirectory((Join-Path $dir 'target'))
++$linked=$false
++try{[void](New-Item -ItemType Junction -Path (Join-Path $dir 'linked') -Target (Join-Path $dir 'target'));$linked=$true}catch{[Console]::WriteLine('junction-unavailable')}
++if($linked){
++ $rejected=$false
++ try{New-PrivateDirectory (Join-Path $dir 'linked/child')}catch{if($_.Exception.Message -match 'reparse point'){$rejected=$true}else{throw}}
++ if(-not $rejected -or (Test-Path -LiteralPath (Join-Path $dir 'target/child'))){throw 'Linked ancestor was followed'}
++ [Console]::WriteLine('junction-boundary-pass')
++}
++[IO.File]::WriteAllText((Join-Path $dir 'sample.bin'),'modified')
++$rejected=$false
++try{Assert-FileHash (Join-Path $dir 'sample.bin') ('0'*64)}catch{if($_.Exception.Message -match 'SHA-256 mismatch'){$rejected=$true}else{throw}}
++if(-not $rejected){throw 'Wrong hash was accepted'}
++Assert-FileHash (Join-Path $dir 'sample.bin') $env:JA21_TEST_HASH
++[Console]::WriteLine('native-boundary-pass')
++`;
++  const ps=path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe');
++  const result=spawnSync(ps,['-NoLogo','-NoProfile','-NonInteractive','-Command',source],{encoding:'utf8',windowsHide:true,timeout:15000,env:{...process.env,JA21_TEST_PAYLOAD:payload,JA21_TEST_DIRECTORY:dir,JA21_TEST_HASH:createHash('sha256').update('modified').digest('hex')}});
++  assert.equal(result.error,undefined);assert.equal(result.status,0,result.stderr);assert.match(result.stdout,/native-boundary-pass/);
++  await t.test('linked-ancestor dynamic rejection',{skip:result.stdout.includes('junction-unavailable')?'Junction creation unavailable':false},()=>assert.match(result.stdout,/junction-boundary-pass/));
++});
++
++test('launcher/native: cmd preflight refuses absent/corrupt offline runtime without starting a server', {skip:process.platform!=='win32'},async t=>{
++  const dir=await fixture(t),app=path.join(dir,"app with spaces & apostrophe' bang! percent%");
++  await fs.mkdir(path.join(app,'scripts'),{recursive:true});await fs.mkdir(path.join(app,'src'));
++  await fs.copyFile(path.join(root,'Start-Console.cmd'),path.join(app,'Start-Console.cmd'));
++  await fs.copyFile(path.join(root,'package.json'),path.join(app,'package.json'));
++  for(const name of ['serve.mjs','build.mjs','verify.mjs'])await fs.writeFile(path.join(app,'scripts',name),'throw new Error("must not execute fixture");');
++  await fs.writeFile(path.join(app,'src/version.js'),'fixture');
++  const exe=path.join(process.env.SystemRoot,'System32/cmd.exe');
++  const run=()=>spawnSync(exe,['/d','/s','/c',`""${path.join(app,'Start-Console.cmd')}" --preflight"`],{encoding:'utf8',windowsHide:true,windowsVerbatimArguments:true,timeout:15000,env:{...process.env,JA21_OFFLINE:'1',JA21_NO_OPEN:'1',JA21_NO_PAUSE:'1',JA21_PORT:''}});
++  const missing=run();assert.equal(missing.error,undefined);assert.equal(missing.status,1,missing.stdout+missing.stderr);assert.match(missing.stdout,/Offline mode:/);
++  const pins=JSON.parse(await fs.readFile(path.join(root,'scripts/windows/runtime-lock.json'),'utf8'));
++  const nativeArch=(process.env.PROCESSOR_ARCHITEW6432 || process.env.PROCESSOR_ARCHITECTURE).toUpperCase();const architecture=nativeArch==='ARM64'?'arm64':'x64';
++  await fs.writeFile(path.join(app,'.runtime/downloads',pins.architectures[architecture].archive),'corrupt fixture ZIP');
++  const corrupt=run();assert.equal(corrupt.error,undefined);assert.equal(corrupt.status,1,corrupt.stdout+corrupt.stderr);assert.match(corrupt.stdout,/SHA-256 mismatch/);
++  assert(!/PREFLIGHT PASS|Starting local host|must not execute fixture/.test(missing.stdout+corrupt.stdout));
++  assert.equal((await fs.readdir(path.join(app,'.runtime'))).filter(name=>name.startsWith('node-v')).length,0);
++});
++
++test('launcher/native: minimal ZIP extraction ignores traversal entries and refuses duplicate executable entries', {skip:process.platform!=='win32'},async t=>{
++  const dir=await fixture(t);
++  const source=String.raw`$ErrorActionPreference='Stop'
++$tokens=$null;$errors=$null
++$ast=[Management.Automation.Language.Parser]::ParseFile($env:JA21_TEST_PAYLOAD,[ref]$tokens,[ref]$errors)
++if($errors.Count){throw ($errors | Out-String)}
++foreach($function in $ast.EndBlock.Statements | Where-Object {$_ -is [Management.Automation.Language.FunctionDefinitionAst]}){. ([ScriptBlock]::Create($function.Extent.Text))}
++Add-Type -AssemblyName System.IO.Compression.FileSystem
++Add-Type -AssemblyName System.IO.Compression
++$dir=$env:JA21_TEST_DIRECTORY
++foreach($duplicate in @($false,$true)){
++ $suffix=if($duplicate){'duplicate'}else{'valid'}
++ $archive=Join-Path $dir ($suffix+'.zip')
++ $stage=Join-Path $dir $suffix
++ [void][IO.Directory]::CreateDirectory($stage)
++ $zip=[IO.Compression.ZipFile]::Open($archive,[IO.Compression.ZipArchiveMode]::Create)
++ try{
++  $names=@('node-fixture/node.exe','node-fixture/LICENSE','node-fixture/README.md','../escape.js')
++  if($duplicate){$names+='node-fixture/node.exe'}
++  foreach($name in $names){$entry=$zip.CreateEntry($name);$output=$entry.Open();try{$bytes=[Text.Encoding]::UTF8.GetBytes('synthetic fixture, never executed');$output.Write($bytes,0,$bytes.Length)}finally{$output.Dispose()}}
++ }finally{$zip.Dispose()}
++ if($duplicate){
++  $rejected=$false
++  try{Expand-MinimalRuntime $archive 'node-fixture' $stage}catch{if($_.Exception.Message -match 'Expected one archive entry'){$rejected=$true}else{throw}}
++  if(-not $rejected){throw 'Duplicate executable entry accepted'}
++ }else{
++  Expand-MinimalRuntime $archive 'node-fixture' $stage
++  if(@([IO.Directory]::GetFiles($stage)).Count -ne 3){throw 'Unexpected extraction output'}
++ }
++}
++if([IO.File]::Exists((Join-Path $dir 'escape.js'))){throw 'Traversal entry was extracted'}
++[Console]::WriteLine('native-extraction-pass')
++`;
++  const ps=path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe');
++  const result=spawnSync(ps,['-NoLogo','-NoProfile','-NonInteractive','-Command',source],{encoding:'utf8',windowsHide:true,timeout:15000,env:{...process.env,JA21_TEST_PAYLOAD:path.join(root,'scripts/windows/bootstrap.ps1'),JA21_TEST_DIRECTORY:dir}});
++  assert.equal(result.error,undefined);assert.equal(result.status,0,result.stderr);assert.match(result.stdout,/native-extraction-pass/);
++});
+--- a/tests/launcher-contract.test.mjs
++++ b/tests/launcher-contract.test.mjs
+@@ -119,7 +119,7 @@
+  assert.match(ps,/\$env:JA21_OFFLINE -eq '1'/);
+  assert.match(ps,/\$mode -eq '--preflight'/);
+  assert.match(ps,/Server\/browser were not started/);
+- assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0'\)/);
++ assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0', '2\.2\.1'\)/);
+ });
+ test('launcher/static: logs and native error status are retained',()=>{
+  assert.match(ps,/launcher-\{0\}-\{1\}\.log/);
+--- a/tests/storage-hardening.test.mjs
++++ b/tests/storage-hardening.test.mjs
+@@ -0,0 +1,226 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { MessageChannel } from 'node:worker_threads';
++import { SpiralKernel } from '../src/vendor/spiral/kernel.js';
++import { VFS, resolvePath } from '../src/vendor/spiral/vfs.js';
++import { Environment } from '../src/vendor/spiral/env.js';
++import { parse, expandWord, tokenize } from '../src/vendor/spiral/pipeline.js';
++import { writeVolume, readVolume, DEVICE } from '../src/vendor/spiral/ssd.js';
++import { fakeIndexedDB } from './fake-idb.mjs';
++import { crc32, decodeState } from '../src/vendor/spiral/state-codec.js';
++import { RamLink } from '../src/lib/ram-link.js';
++import { PROTOCOL } from '../src/vendor/vws/frame.js';
++import { assertBackupSize, MAX_BACKUP_BYTES } from '../src/vendor/spiral/volume-format.js';
++
++function shell(limits) {
++  const kernel = new SpiralKernel({ limits });
++  const { sessionId } = kernel.openSession({ deferStart: true });
++  const session = kernel.sessions.get(sessionId);
++  let output = '';
++  kernel.on('data', event => { output += event.chunk; });
++  return { kernel, session, sessionId, get output() { return output; }, run: line => kernel._executeLine(session, line) };
++}
++
++test('SIGINT cancels later sequence and conditional commands', async () => {
++  for (const operator of [';', '||', '&&']) {
++    const s = shell();
++    const result = s.run(`sleep 10 ${operator} echo unsafe > /tmp/after`);
++    setTimeout(() => s.kernel.signal(s.sessionId, 'SIGINT'), 10);
++    assert.equal(await result, 130);
++    assert.equal(s.kernel.vfs.exists('/tmp/after'), false);
++  }
++});
++
++test('exit ends a pipeline before another stage can mutate the filesystem', async () => {
++  const s = shell();
++  assert.equal(await s.run('exit | echo unsafe > /tmp/after'), 0);
++  assert.equal(s.kernel.vfs.exists('/tmp/after'), false);
++});
++
++test('middle-stage redirection supplies empty input to its successor', async () => {
++  const s = shell();
++  assert.equal(await s.run('echo secret | echo redirected > /tmp/out | cat'), 0);
++  assert.equal(s.kernel.vfs.readFile('/tmp/out'), 'redirected\n');
++  assert.equal(s.output, '');
++});
++
++test('capture counts UTF-8 bytes and overflow never replaces a destination', async () => {
++  const s = shell({ captureBytes: 7 });
++  s.kernel.vfs.writeFile('/tmp/out', 'kept');
++  assert.equal(await s.run('printf 😀😀 > /tmp/out'), 1);
++  assert.equal(s.kernel.vfs.readFile('/tmp/out'), 'kept');
++  assert.match(s.output, /7 bytes/);
++});
++
++test('stderr has the same bounded terminal budget as stdout', async () => {
++  const s = shell({ captureBytes: 7 });
++  s.kernel.registry.register({ name: 'flood', run(ctx) { ctx.stderr.write('😀😀'); return 0; } });
++  assert.equal(await s.run('flood'), 1);
++  assert.match(s.output, /capture limit/);
++  assert.equal(s.output.includes('😀'), false);
++});
++
++test('management barrier delays mutations until the management commit completes', async () => {
++  const s = shell();
++  const resume = s.kernel.holdCommands();
++  let completed = false;
++  const result = s.run('echo later > /tmp/after').then(code => { completed = true; return code; });
++  await new Promise(resolve => setImmediate(resolve));
++  assert.equal(completed, false);
++  assert.equal(s.kernel.vfs.exists('/tmp/after'), false);
++  resume(); resume();
++  assert.equal(await result, 0);
++  assert.equal(s.kernel.vfs.readFile('/tmp/after'), 'later\n');
++});
++
++test('SIGINT cancels queued management-barrier work before it can mutate anything', async () => {
++  for (const interrupt of ['signal', 'input']) {
++    const s = shell(), resume = s.kernel.holdCommands();
++    const result = s.run('echo unsafe > /tmp/after; echo unsafe > /tmp/later');
++    assert.equal(s.kernel.status(s.sessionId).busy, true);
++    if (interrupt === 'signal') s.kernel.signal(s.sessionId, 'SIGINT');
++    else s.kernel.write(s.sessionId, '\x03');
++    assert.equal(await result, 130); // Cancellation settles even while management still holds the barrier.
++    resume(); await new Promise(resolve => setImmediate(resolve));
++    assert.equal(s.kernel.vfs.exists('/tmp/after'), false);
++    assert.equal(s.kernel.vfs.exists('/tmp/later'), false);
++    assert.equal(s.session.env.get('?'), '130');
++    assert.equal(s.kernel.status(s.sessionId).busy, false);
++  }
++});
++
++test('backup envelopes enforce their actual UTF-8 byte cap', () => {
++  assert.doesNotThrow(() => assertBackupSize('x'.repeat(MAX_BACKUP_BYTES)));
++  assert.throws(() => assertBackupSize('x'.repeat(MAX_BACKUP_BYTES + 1)), /32 MiB/);
++  assert.throws(() => assertBackupSize('😀'.repeat(MAX_BACKUP_BYTES / 4 + 1)), /32 MiB/);
++});
++
++test('tab completion escapes shell syntax in virtual filenames', () => {
++  const s = shell();
++  const name = 'weird;$HOME "file"';
++  s.kernel.vfs.writeFile(`/tmp/${name}`, 'kept');
++  const completion = s.kernel._complete(s.session, 'cat /tmp/weird', 14);
++  const plan = parse(completion.replace, s.session.env);
++  assert.equal(plan.length, 1);
++  assert.deepEqual(plan[0].pipeline[0].argv, ['cat', `/tmp/${name}`]);
++  assert.equal(s.kernel._complete(s.session, 'cat /bad\\path', 13), null);
++});
++
++test('environment count, bytes and unset tombstones are bounded atomically', () => {
++  const e = new Environment();
++  e.set('A', 'x'.repeat(65535));
++  assert.throws(() => e.set('A', 'x'.repeat(65536)), /quota/);
++  assert.equal(e.get('A').length, 65535);
++  e.set('?', '127');
++  assert.equal(e.get('?'), '127');
++  const names = new Environment();
++  for (let i = 0; i < 256; i++) names.unset(`V${i}`);
++  assert.throws(() => names.unset('extra'), /quota/);
++  assert.equal(names.vars.size, 256);
++});
++
++test('shell status remains writable when export exhausts environment slots', async () => {
++  const s = shell();
++  for (let i = 0; i < 255; i++) s.session.env.set(`V${i}`, 'x');
++  assert.equal(await s.run('export extra=value'), 1);
++  assert.equal(s.session.env.get('?'), '1');
++  assert.equal(await s.run('true'), 0);
++});
++
++test('word and command expansion reject amplification before command execution', async () => {
++  const env = new Environment({ A: 'x'.repeat(4096) });
++  assert.equal(expandWord(tokenize('$A')[0], env).length, 4096);
++  assert.throws(() => expandWord(tokenize('$A'.repeat(5))[0], env), /expanded word/);
++  const s = shell(); s.session.env.set('A', 'x'.repeat(4096));
++  await assert.rejects(() => s.run('echo ' + Array(17).fill('$A').join(' ')), /command quota/);
++  assert.equal(s.output, '');
++  assert.throws(() => tokenize('|'.repeat(1025)), /too many tokens/);
++});
++
++test('snapshot paths must remain addressable and import failure preserves the tree', () => {
++  const v = new VFS({ seed: false }); v.writeFile('/kept', 'kept');
++  const directory = () => ({ k: 'd', m: 493, t: 1, ch: [] });
++  const root = directory(); let node = root;
++  for (let i = 0; i < 17; i++) { const child = directory(); node.ch.push(['x'.repeat(255), child]); node = child; }
++  assert.throws(() => v.importSnapshot({ v: 1, root }), /path limit/);
++  assert.equal(v.readFile('/kept'), 'kept');
++  assert.throws(() => v.remove('/kept/child'), error => error.code === 'ENOTDIR');
++  for (const limits of [{ maxBytes: -1 }, { maxBytes: 1.5 }, { maxNodes: 0 }, { maxNodes: Infinity }]) assert.throws(() => new VFS({ seed: false, ...limits }), /quota/);
++});
++
++test('moving into a deep directory never publishes an inaccessible combined path', () => {
++  const v = new VFS({ seed: false });
++  const destination = '/' + Array(16).fill('x'.repeat(255)).join('/');
++  v.mkdir(destination, { recursive: true });
++  v.writeFile('/source', 'kept');
++  assert.throws(() => v.move('/source', destination), /path too long/);
++  assert.equal(v.readFile('/source'), 'kept');
++  assert.equal(v.readdir(destination).length, 0);
++  assert.equal(resolvePath('/a/..', 'b'), '/b');
++  assert.throws(() => resolvePath('relative', 'b'), /working directory/);
++});
++
++test('IndexedDB compare-and-swap rejects stale revisions without dropping previous data', async t => {
++  const previous = globalThis.indexedDB;
++  t.after(() => { globalThis.indexedDB = previous; });
++  globalThis.indexedDB = fakeIndexedDB([], () => {});
++  const first = { v: 2, revision: 1, marker: 'first' };
++  await writeVolume(first, 0);
++  await assert.rejects(() => writeVolume({ v: 2, revision: 1, marker: 'stale' }, 0), /concurrently/);
++  assert.deepEqual(await readVolume(), first);
++  await writeVolume({ v: 2, revision: 2, marker: 'next' }, 1);
++  assert.deepEqual(await readVolume(true), first);
++  assert.equal((await readVolume()).revision, 2);
++  assert.throws(() => writeVolume({ v: 2, revision: Number.MAX_SAFE_INTEGER + 1 }, Number.MAX_SAFE_INTEGER), /revision/);
++});
++
++function forgedState(value) {
++  const data = new TextEncoder().encode(JSON.stringify(value));
++  const bytes = new Uint8Array(data.length + 12), header = new DataView(bytes.buffer);
++  bytes.set([72, 80, 85, 50]); header.setUint32(4, data.length, true); header.setUint32(8, crc32(data), true); bytes.set(data, 12);
++  return bytes;
++}
++
++test('checksummed hostile state containers fail their structural quotas', () => {
++  assert.throws(() => decodeState(forgedState({ values: Array(25).fill(null) })), /list limit/);
++  assert.throws(() => decodeState(forgedState(Object.fromEntries(Array.from({ length: 65 }, (_, i) => [`K${i}`, null])))), /key limit/);
++  assert.throws(() => decodeState(forgedState({ bytes: { $type: 'Uint8Array', data: Buffer.alloc(4097).toString('base64') } })), /array limit/);
++});
++
++test('RamLink preserves RPC envelope, bounds pending requests and cleans clone failures', async t => {
++  const link = new RamLink();
++  const sent = [];
++  link.worker = { postMessage(message) { sent.push(message); }, terminate() {} };
++  t.after(() => link.destroy());
++  const pending = link.rpc('commands', { type: 'wrong', id: 'wrong', op: 'wrong' });
++  pending.catch(() => {});
++  assert.deepEqual(sent[0], { type: 'rpc', id: 'r1', op: 'commands' });
++  link.destroy(); await assert.rejects(pending, /stopped/);
++  link.worker = { postMessage() { throw new Error('clone failed'); }, terminate() {} };
++  await assert.rejects(() => link.rpc('commands'), /clone failed/);
++  assert.equal(link.pending.size, 0);
++  link.worker = { postMessage() {}, terminate() {} };
++  const waits = Array.from({ length: 64 }, () => link.rpc('commands'));
++  waits.forEach(p => p.catch(() => {}));
++  await assert.rejects(() => link.rpc('commands'), /too many pending/);
++  link.destroy(); await Promise.allSettled(waits);
++});
++
++test('RamLink rejects writes to closed terminals and isolates close callback errors', async t => {
++  const previous = globalThis.MessageChannel; globalThis.MessageChannel = MessageChannel;
++  t.after(() => { globalThis.MessageChannel = previous; });
++  const link = new RamLink(); link.ready = Promise.resolve(); link.epoch = 'test';
++  link.worker = { postMessage(message, ports) {
++    const port = ports[0];
++    port.on('message', m => { if (m.type === 'session.open') port.postMessage({ v: 3, epoch: 'test', sid: 's1', type: 'session.opened' }); });
++    port.postMessage({ v: 3, epoch: 'test', sid: null, type: 'hello', payload: { protocol: PROTOCOL } });
++    t.after(() => port.close());
++  }, terminate() {} };
++  let fault; link.addEventListener('fault', e => { fault = e.detail.message; });
++  const terminal = await link.open({ onClose() { throw new Error('callback failed'); } });
++  assert.doesNotThrow(() => terminal.close());
++  assert.equal(fault, 'callback failed');
++  assert.throws(() => terminal.write('x'), /closed/);
++  assert.equal(link.sockets.size, 0);
++  link.destroy();
++});
+--- a/tests/storage-race-adapter.mjs
++++ b/tests/storage-race-adapter.mjs
+@@ -0,0 +1,19 @@
++/** Test-only deterministic scheduling around Web Crypto; storage still uses the explicit IDB double. */
++import { parentPort } from 'node:worker_threads';
++let delay = false;
++const waiting = new Set();
++const digest = crypto.subtle.digest.bind(crypto.subtle);
++crypto.subtle.digest = async (...args) => {
++  if (delay) {
++    parentPort.postMessage({ kind: 'digest-paused' });
++    await new Promise(resolve => waiting.add(resolve));
++  }
++  return digest(...args);
++};
++parentPort.on('message', message => {
++  if (message.kind === 'digest-delay') {
++    delay = message.enabled;
++    if (!delay) { for (const resolve of waiting) resolve(); waiting.clear(); }
++  }
++});
++await import('./worker-adapter.mjs');
+--- a/tests/terminal-hardening.test.mjs
++++ b/tests/terminal-hardening.test.mjs
+@@ -0,0 +1,120 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { Screen } from '../src/vendor/vt/screen.js';
++import { Parser } from '../src/vendor/vt/parser.js';
++import { CanvasRenderer } from '../src/vendor/vt/renderer-canvas.js';
++import { SpiralKernel } from '../src/vendor/spiral/kernel.js';
++
++test('VT: restoring a cursor saved before shrinking cannot crash later output', () => {
++  const s = new Screen(100, 30), p = new Parser(s);
++  p.write('\x1b[30;100H\x1b7');
++  s.resize(10, 2);
++  p.write('\x1b8X');
++  assert.equal(s.grid[1][9].ch, 'X');
++  assert.equal(s.cursor.y, 1);
++});
++
++test('VT: reset discards pending autowrap and the old saved cursor', () => {
++  const s = new Screen(4, 2), p = new Parser(s);
++  p.write('abcd\x1b7\x1bc\x1b8X');
++  assert.equal(s.grid[0][0].ch, 'X');
++  assert.equal(s.cursor.y, 0);
++});
++
++test('VT: clear scrollback resets its cell budget before later scrolling', () => {
++  const s = new Screen(4, 2), p = new Parser(s);
++  p.write('a\r\nb\r\nc\r\n');
++  assert(s.scrollbackCells > 0);
++  p.write('\x1b[3J');
++  assert.equal(s.scrollbackCells, 0);
++  p.write('d\r\ne\r\n');
++  assert.equal(s.scrollbackCells, s.scrollback.reduce((n, row) => n + row.length, 0));
++});
++
++test('VT: unsupported escape forms cannot alias erase, cursor, or color operations', () => {
++  const s = new Screen(10, 2), p = new Parser(s);
++  p.write('visible');
++  const grid = structuredClone(s.grid), cursor = { ...s.cursor };
++  p.write('\x1b[?2J\x1b[2$J\x1b[1:2H\x1b(7');
++  assert.deepEqual(s.grid, grid);
++  assert.deepEqual(s.cursor, cursor);
++  assert.equal(s.saved, null);
++});
++
++test('VT: malformed extended colors preserve the preceding valid pen', () => {
++  const s = new Screen(10, 2), p = new Parser(s);
++  p.write('\x1b[31m\x1b[38;5;999mX\x1b[38;2;1;2mY');
++  assert.equal(s.grid[0][0].fg, 1);
++  assert.equal(s.grid[0][1].fg, 1);
++});
++
++test('VT: conceal never draws its glyph under the block cursor', () => {
++  const s = new Screen(4, 2), p = new Parser(s);
++  p.write('\x1b[8msecret\x1b[1;1H');
++  const glyphs = [];
++  const ctx = new Proxy({}, { get: (o, k) => o[k] ?? (k === 'measureText' ? () => ({ width: 80 }) : k === 'fillText' ? text => glyphs.push(text) : () => {}) });
++  const prior = globalThis.window;
++  globalThis.window = { devicePixelRatio: 1 };
++  try {
++    const renderer = new CanvasRenderer({ getContext: () => ctx, style: {}, width: 40, height: 40 }, s);
++    renderer.render();
++    assert.deepEqual(glyphs, []);
++    renderer.scrollOffset = 100;
++    s.eraseInDisplay(3);
++    assert.equal(renderer._viewportRows(), s.grid);
++    assert.equal(renderer.scrollOffset, 0);
++  } finally { if (prior === undefined) delete globalThis.window; else globalThis.window = prior; }
++});
++
++async function shell(line) {
++  const k = new SpiralKernel();
++  let output = '';
++  k.on('data', e => { output += e.chunk; });
++  const { sessionId } = k.openSession({ deferStart: true });
++  try { return { code: await k._executeLine(k.sessions.get(sessionId), line), output, vfs: k.vfs }; }
++  finally { k.closeSession(sessionId); }
++}
++
++test('commands: translation handles supplementary Unicode code points', async () => {
++  assert.equal((await shell('printf "😀a😀" | tr "😀a" "🙂b"')).output, '🙂b🙂');
++  for (const line of ['printf x | tr x', 'printf x | tr x ""', 'printf x | tr -d x y']) assert.notEqual((await shell(line)).code, 0);
++});
++
++test('commands: unsupported extra copy/move operands cannot silently mutate files', async () => {
++  for (const command of ['cp', 'mv']) {
++    const r = await shell(`write /tmp/a kept; ${command} /tmp/a /tmp/b /tmp/c`);
++    assert.notEqual(r.code, 0);
++    assert.equal(r.vfs.readFile('/tmp/a'), 'kept\n');
++    assert.equal(r.vfs.exists('/tmp/b'), false);
++  }
++});
++
++test('commands: find matches its root file and reports absent roots', async () => {
++  const r = await shell('write /tmp/a kept; find /tmp/a -name a -type f');
++  assert.equal(r.output, '/tmp/a\r\n');
++  assert.notEqual((await shell('find /tmp/missing')).code, 0);
++  assert.notEqual((await shell('rmdir')).code, 0);
++  assert.equal((await shell('write /tmp/😀 kept; find /tmp/😀 -name 😀 -type f')).output, '/tmp/😀\r\n');
++  assert.equal((await shell('write /tmp/😀 kept; find /tmp/😀 -name ? -type f')).output, '/tmp/😀\r\n');
++});
++
++test('VT: consecutive escapes restart the control sequence', () => {
++  const s = new Screen(10, 2), p = new Parser(s);
++  p.write('visible\x1b\x1b[2J');
++  assert(s.grid.every(row => row.every(cell => cell.ch === ' ')));
++});
++
++test('commands: repeated alias definitions have an atomic count and UTF-8 storage bound', async () => {
++  const k = new SpiralKernel(), { sessionId } = k.openSession({ deferStart: true }), s = k.sessions.get(sessionId);
++  try {
++    for (let i = 0; i < 128; i++) assert.equal(await k._executeLine(s, `alias a${i}='echo ok'`), 0);
++    assert.notEqual(await k._executeLine(s, 'alias overflow=echo'), 0);
++    assert.equal(Object.keys(s.aliases).length, 128);
++    assert.equal(await k._executeLine(s, 'alias a0="echo replaced"'), 0);
++    assert.equal(s.aliases.a0, 'echo replaced');
++    await k._executeLine(s, 'unalias ' + Object.keys(s.aliases).join(' '));
++    for (let i = 0; i < 17; i++) await k._executeLine(s, `alias b${i}='${'x'.repeat(4000)}'`);
++    assert(Object.keys(s.aliases).length <= 16);
++    assert.equal(s.aliases.b16, undefined);
++  } finally { k.closeSession(sessionId); }
++});
+--- a/tests/worker-hardening.test.mjs
++++ b/tests/worker-hardening.test.mjs
+@@ -0,0 +1,124 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { Worker, MessageChannel } from 'node:worker_threads';
++import { createHash } from 'node:crypto';
++import { encodeData, decodeData, KIND_INPUT } from '../src/vendor/vws/frame.js';
++import { VFS } from '../src/vendor/spiral/vfs.js';
++import { MAX_BACKUP_BYTES } from '../src/vendor/spiral/volume-format.js';
++const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
++
++async function wait(predicate) {
++  const start = Date.now();
++  while (Date.now() - start < 5000) { if (predicate()) return; await delay(5); }
++  throw new Error('worker hardening test timed out');
++}
++async function client(t, records = []) {
++  const worker = new Worker(new URL('./storage-race-adapter.mjs', import.meta.url), { workerData: { records } });
++  const messages = [], commits = [];
++  let paused = 0, sequence = 0;
++  worker.on('message', message => {
++    if (message.kind === 'lock') worker.postMessage({ kind: 'lock-result', id: message.id, result: true });
++    else if (message.kind === 'app') messages.push(message.data);
++    else if (message.kind === 'commit') commits.push(message.records);
++    else if (message.kind === 'digest-paused') paused++;
++  });
++  t.after(() => worker.terminate());
++  await wait(() => messages.some(m => m.type === 'ready' || m.type === 'error'));
++  const ready = messages.find(m => m.type === 'ready' || m.type === 'error');
++  assert.equal(ready.type, 'ready');
++  return { worker, messages, commits, epoch: ready.epoch, get paused() { return paused; }, async rpc(op, options = {}) {
++    const id = `test${++sequence}`;
++    worker.postMessage({ kind: 'message', data: { type: 'rpc', id, op, ...options } });
++    await wait(() => messages.some(m => m.type === 'rpc' && m.id === id));
++    const response = messages.find(m => m.type === 'rpc' && m.id === id);
++    if (response.error) throw new Error(response.error);
++    return response.result;
++  } };
++}
++async function terminal(t, client) {
++  const { port1, port2 } = new MessageChannel(); let sid, sequence = 0, consumed = 0, text = '';
++  const messages = [];
++  const send = (type, payload = {}, rid) => port1.postMessage({ v: 3, epoch: client.epoch, sid: sid || null, type, payload, rid });
++  port1.on('message', m => {
++    if (m instanceof Uint8Array) { const frame = decodeData(m); text += new TextDecoder().decode(frame.payload); consumed += frame.payload.length; send('flow.ack', { consumedBytes: consumed }); }
++    else { messages.push(m); if (m.type === 'hello') send('session.open', { cols: 80, rows: 24 }); else if (m.type === 'session.opened') { sid = m.sid; send('session.start'); } }
++  });
++  client.worker.postMessage({ kind: 'message', data: { type: 'attach' }, ports: [port2] }, [port2]);
++  t.after(() => port1.close());
++  await wait(() => sid !== undefined);
++  let statusSequence = 0;
++  return { get text() { return text; }, messages, send, write(line) { port1.postMessage(encodeData(KIND_INPUT, ++sequence, new TextEncoder().encode(line + '\r'))); }, async status() {
++    const rid = `status${++statusSequence}`; send('session.status', {}, rid);
++    await wait(() => messages.some(m => m.rid === rid)); return messages.find(m => m.rid === rid).payload;
++  } };
++}
++
++test('shell poweroff cannot abort another session and lose its in-flight work', async t => {
++  const c = await client(t), first = await terminal(t, c), second = await terminal(t, c);
++  first.write('sleep 1');
++  await delay(25);
++  assert.equal((await first.status()).busy, true);
++  second.write('poweroff');
++  await wait(() => second.text.includes('wait for other running commands'));
++  assert.equal(c.messages.some(m => m.type === 'halt'), false);
++  assert((await c.rpc('commands')).length > 40);
++  assert.equal((await first.status()).busy, true);
++  first.send('terminal.signal', { signal: 'SIGINT' });
++  await wait(() => first.text.includes('^C') || first.text.includes('\r\n'));
++  for (let i = 0; i < 20 && (await first.status()).busy; i++) await delay(10);
++  assert.equal((await first.status()).busy, false);
++  await c.rpc('power');
++  assert.equal(c.messages.some(m => m.type === 'halt'), true);
++});
++
++test('SIGINT during the shell power delay cancels the power operation', async t => {
++  const c = await client(t), term = await terminal(t, c);
++  term.write('poweroff');
++  await wait(() => term.text.includes('cutting power'));
++  term.send('terminal.signal', { signal: 'SIGINT' });
++  await delay(80);
++  assert.equal(c.messages.some(m => m.type === 'halt'), false);
++  assert((await c.rpc('commands')).length > 40);
++  assert.equal((await term.status()).busy, false);
++});
++
++test('TIFF management digest and commit exclude a command arriving during validation', async t => {
++  const c = await client(t), term = await terminal(t, c);
++  await term.status(); // Populate the read-only image digest before delaying subsequent digests.
++  const absent = await c.rpc('russl', { action: 'info' });
++  const start = c.commits.length;
++  c.worker.postMessage({ kind: 'digest-delay', enabled: true });
++  const captured = c.rpc('russl', { action: 'capture', args: { expected: absent.revision } });
++  await wait(() => c.paused > 0);
++  term.write('echo late > /tmp/race');
++  await delay(30);
++  c.worker.postMessage({ kind: 'digest-delay', enabled: false });
++  assert.equal((await captured).sites, 16384);
++  await wait(() => c.commits.length > start);
++  const firstCommit = c.commits[start].find(([key]) => key === 'nvme0n1')[1];
++  const committed = JSON.stringify(firstCommit.snap);
++  assert.equal(committed.includes('"race"'), false);
++  assert.equal(committed.includes('russl-field.tif'), true);
++  for (let i = 0; i < 30; i++) { if (!(await term.status()).busy) break; await delay(10); }
++  const file = await c.rpc('file', { path: '/tmp/race' });
++  assert.equal(new TextDecoder().decode(file.bytes), 'late\n');
++});
++
++test('legal escaped-control content boots, exports and restores above the former 4 MiB cap', async t => {
++  const vfs = new VFS(); vfs.writeFile('/tmp/control-text', '\x1b'.repeat(1024 * 1024));
++  const snap = vfs.exportSnapshot();
++  const record = { v: 2, revision: 1, snap, sha256: createHash('sha256').update(JSON.stringify(snap)).digest('hex') };
++  assert(JSON.stringify(record).length > 4 * 1024 * 1024);
++  const c = await client(t, [['nvme0n1', record]]);
++  const backup = await c.rpc('backup');
++  assert(Buffer.byteLength(backup) > 4 * 1024 * 1024);
++  assert(Buffer.byteLength(backup) < MAX_BACKUP_BYTES);
++  const before = (await c.rpc('file', { path: '/tmp/control-text' })).bytes;
++  assert.equal(before.length, 1024 * 1024); assert(before.every(byte => byte === 27));
++  await assert.rejects(() => c.rpc('restore', { text: '😀'.repeat(MAX_BACKUP_BYTES / 4 + 1) }), /32 MiB/);
++  assert.equal((await c.rpc('file', { path: '/tmp/control-text' })).bytes.length, before.length);
++  assert.equal((await c.rpc('restore', { text: backup })).restart, true);
++  const recovered = await client(t, c.commits.at(-1));
++  const after = (await recovered.rpc('file', { path: '/tmp/control-text' })).bytes;
++  assert.deepEqual(after, before);
++});
+--- a/tests/worker.test.mjs
++++ b/tests/worker.test.mjs
+@@ -1,5 +1,6 @@
+ import test from 'node:test';import assert from 'node:assert/strict';import { Worker,MessageChannel } from 'node:worker_threads';
+ import { encodeData,decodeData,KIND_INPUT,KIND_OUTPUT } from '../src/vendor/vws/frame.js';
++import { VERSION } from '../src/version.js';
+ const delay=ms=>new Promise(r=>setTimeout(r,ms));
+ class Broker {
+  constructor(){this.records=[];this.owner=null;this.children=[];}
+@@ -21,7 +22,7 @@
+ }
+ test('real Node worker integration with explicit storage/lock test doubles',async t=>{
+  const broker=new Broker();t.after(()=>broker.close());let client=broker.launch(),ready=await client.ready();assert.equal(ready.type,'ready');let term=await terminal(client,ready.epoch);t.after(()=>term.close());
+- await t.test('boot publishes consistent version and protocol',()=>{assert.equal(ready.version,'2.2.0');assert.equal(ready.protocol,'hermit.vws.v3');assert(broker.records.some(([k])=>k==='nvme0n1'));});
++ await t.test('boot publishes consistent version and protocol',()=>{assert.equal(ready.version,VERSION);assert.equal(ready.protocol,'hermit.vws.v3');assert(broker.records.some(([k])=>k==='nvme0n1'));});
+  await t.test('binary command input traverses parser and VFS',async()=>{await term.command('echo durable > /tmp/probe');const file=await client.rpc('file',{path:'/tmp/probe'});assert.equal(new TextDecoder().decode(file.bytes),'durable\n');});
+  await t.test('command registry exposes descriptors',async()=>{const commands=await client.rpc('commands');assert(commands.length>40);assert(commands.some(c=>c.name==='xpuinfo'));assert(commands.every(c=>typeof c.summary==='string'));});
+  await t.test('all twenty modeled gates execute over transport',async()=>{for(const op of ['and','or','nand','xor','xnor'])for(const a of [0,1])for(const b of [0,1])await term.command(`hpu gate ${op} ${a} ${b}`);assert.match(term.text,/XOR/);});
+--- a/web/index.html
++++ b/web/index.html
+@@ -1,7 +1,7 @@
+ <!doctype html>
+-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.0</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
++<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.1</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
+ <body>
+-<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.0</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
++<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.1</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
+ <nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL BROWSER · SOFTWARE XPU</span></nav>
+ <div id="notice" role="status" aria-live="polite" hidden></div>
+ <main>
+@@ -16,6 +16,6 @@
+ <article><h2>Format and execution boundary</h2><p>Bounded, finite grayscale TIFF: little/big endian, classic TIFF or small BigTIFF, uncompressed strips. Atlas imports require the exact declared placement profile and matching sample checksum. Unsupported metadata, compression or page stacking is rejected.</p><p>The corpus's language, mechanics and OME-Zarr proposals remain separate. This adapter does not execute metadata or turn TIFF pixels into independent silicon, optical hardware, or a complete RUSSL/MSSL runtime.</p></article></div></section>
+ <section id="commands" class="view"><div class="section-heading"><div class="eyebrow">REFERENCE</div><h1>Every command, one place.</h1><p>Search the live registry. “Insert” fills the command line without executing anything.</p></div><input type="search" id="search-commands" placeholder="Search names, descriptions, or usage" aria-label="Search commands"><div id="command-count" class="fine"></div><div id="command-list" class="command-list"></div></section>
+ <section id="storage" class="view"><div class="section-heading"><div class="eyebrow">ORIGIN-SCOPED STORAGE</div><h1>Your virtual volume.</h1><p>Two MiB of file contents, up to 1,500 nodes. Browser storage is not a backup and may be cleared or evicted.</p></div><div class="storage-actions"><button id="sync">Sync volume</button><button id="backup">Download backup</button><button id="previous-backup">Previous committed backup</button><button id="restore">Restore backup…</button><button id="persist">Request persistent storage</button><input id="restore-file" type="file" accept="application/json,.json" hidden></div><p id="storage-status" class="fine">No volume status yet.</p><form id="path-form"><label for="path">VFS path</label><input id="path" value="/var/hpu" maxlength="4096"><button>Open directory</button><button id="parent" type="button">Parent</button></form><div id="file-list"></div><p class="fine">Paths here belong to the virtual filesystem, not C:\ or D:\. Only selected exports are downloaded to your computer. Restore replaces the virtual volume after validation and preserves its previous committed revision.</p></section>
+-<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>A local static Node server opens this browser application. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software, not silicon acceleration</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. “GPU” loops in the input package are batched CPU loops, not hardware offload.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.0</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. Windows launchers provision a hash-verified private Node.js runtime on first use. No system Node.js installation is required.</p></article></div></section>
+-</main><footer><span>JA21 2.2.0 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
++<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>A local static Node server opens this browser application. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software, not silicon acceleration</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. “GPU” loops in the input package are batched CPU loops, not hardware offload.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.1</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. Windows launchers provision a hash-verified private Node.js runtime on first use. No system Node.js installation is required.</p></article></div></section>
++</main><footer><span>JA21 2.2.1 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
+ </body></html>

@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "files": [
+    "tests/codecs.py",
+    "tests/russl_interop.py",
+    "tests/browser_offline.py"
+  ],
+  "scope": "AST syntax only for active optional audit scripts"
+}

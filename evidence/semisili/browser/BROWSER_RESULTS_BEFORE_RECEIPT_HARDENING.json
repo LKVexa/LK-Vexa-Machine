@@ -1,0 +1,743 @@
+{
+  "schema": "JA21-SEMISILI-BROWSER-ACCEPTANCE/1",
+  "version": "2.3.0",
+  "startedAt": "2026-10-14T20:30:41.248Z",
+  "origin": "http://127.0.0.1:28431",
+  "scope": "Live browser worker, isolated IndexedDB volume, numerical CPU pipeline, WebGPU confirmation",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "secureContext": true,
+  "checks": [
+    {
+      "name": "production worker startup",
+      "status": "PASS",
+      "epoch": "e1a13820-55ed-48de-9e6b-02cf6afa73be"
+    },
+    {
+      "name": "CPU phase, neuron, Float32 readout",
+      "status": "PASS",
+      "receipt": {
+        "schema": "JA21-SEMISILI-RUN/1",
+        "engine": "2.3.0",
+        "serverEpoch": "e1a13820-55ed-48de-9e6b-02cf6afa73be",
+        "job": "9a0166c1-8293-4e54-9c1a-629f5d8d84d4",
+        "createdAt": 1792009843338,
+        "sourceFieldSha256": "8993539af09e4f92acf744f5810afaf75cdb8a69310f84c59c95ad86c53c2f9f",
+        "stateSha256": "131ea6861df88cdd3585dfbf835d905d0e3934bfa14b444390fbc344f48e25ea",
+        "summary": {
+          "samples": 4096,
+          "ring": "Z/(2^16)",
+          "modulus": 65536,
+          "operation": "mul",
+          "source": "field",
+          "inputBytes": 8192,
+          "bitPlaneBytes": 8192,
+          "bulkBlocks": 64,
+          "canonicalCellBytes": 20,
+          "canonicalFrameBytes": 81920,
+          "neuronSteps": 8,
+          "simulationTime": 2,
+          "historyFrames": 0,
+          "stateBytes": 164243,
+          "cpu": {
+            "status": "PASS",
+            "comparisonElements": 4096,
+            "phaseMinimumMargin": 0.4999999999781721,
+            "float32MinimumMargin": 0.49999892318737693,
+            "arithmetic": "independent BigInt oracle",
+            "neuronModel": "finite congruence-ball Euler update",
+            "phaseModel": "numerical complex phasors"
+          }
+        },
+        "gpu": {
+          "status": "NOT_RUN",
+          "gpu": {
+            "hardwareConfirmed": false
+          }
+        },
+        "coverage": {
+          "cpu": [
+            "phase arithmetic",
+            "Float32 phase readout",
+            "finite neuron update",
+            "Pixel160 state validation"
+          ],
+          "gpu": []
+        },
+        "status": "CPU_VALIDATED",
+        "publication": "PREVIEW"
+      }
+    },
+    {
+      "name": "atomic neuron and field commit",
+      "status": "PASS",
+      "stateSha256": "131ea6861df88cdd3585dfbf835d905d0e3934bfa14b444390fbc344f48e25ea"
+    },
+    {
+      "name": "reload and exact IndexedDB recovery",
+      "status": "PASS",
+      "epoch": "c421d9cf-d464-4fb0-a2b1-f5272bc2cbd4",
+      "stateSha256": "131ea6861df88cdd3585dfbf835d905d0e3934bfa14b444390fbc344f48e25ea"
+    },
+    {
+      "name": "Pixel160 TIFF round trip",
+      "status": "PASS",
+      "bytes": 82752
+    },
+    {
+      "name": "single-writer browser lock",
+      "status": "PASS"
+    },
+    {
+      "name": "hardware GPU add",
+      "status": "PASS",
+      "receipt": {
+        "schema": "JA21-SEMISILI-RUN/1",
+        "engine": "2.3.0",
+        "serverEpoch": "c421d9cf-d464-4fb0-a2b1-f5272bc2cbd4",
+        "job": "0bed2622-832a-4576-b0c5-d78bba26d65a",
+        "createdAt": 1792009845700,
+        "sourceFieldSha256": "ecfafac4b58dc377a96acdb091807a5ffd1dc9e3214879ad6b45ec7c34b4557d",
+        "stateSha256": "8c36fcb5ada15d1681ec85d881c46aa48e467e432fccd027cf65a8263035447b",
+        "summary": {
+          "samples": 4096,
+          "ring": "Z/(2^16)",
+          "modulus": 65536,
+          "operation": "add",
+          "source": "bank",
+          "inputBytes": 8192,
+          "bitPlaneBytes": 8192,
+          "bulkBlocks": 64,
+          "canonicalCellBytes": 20,
+          "canonicalFrameBytes": 81920,
+          "neuronSteps": 1,
+          "simulationTime": 2.25,
+          "historyFrames": 0,
+          "stateBytes": 164247,
+          "cpu": {
+            "status": "PASS",
+            "comparisonElements": 4096,
+            "phaseMinimumMargin": 0.49999999999272404,
+            "float32MinimumMargin": 0.4999995481048245,
+            "arithmetic": "independent BigInt oracle",
+            "neuronModel": "finite congruence-ball Euler update",
+            "phaseModel": "numerical complex phasors"
+          }
+        },
+        "gpu": {
+          "schema": "JA21-FINITE-GPU-CONFIRMATION/1",
+          "runId": "e681f2c5-cba5-4281-a1b8-14277dc1f2b0",
+          "status": "GPU_CONFIRMED",
+          "fixture": false,
+          "coverage": {
+            "stage": "finite-arithmetic",
+            "operation": "add",
+            "modulus": 65536,
+            "samples": 4096,
+            "dtype": "uint32 canonical residues",
+            "workgroupSize": 64
+          },
+          "gpu": {
+            "state": "GPU_CONFIRMED",
+            "fallback": false,
+            "adapter": {
+              "vendor": "intel",
+              "architecture": "xe-lpg",
+              "device": "",
+              "description": ""
+            },
+            "limits": {
+              "maxBufferSize": 2147483648,
+              "maxStorageBufferBindingSize": 2147483644,
+              "maxComputeWorkgroupSizeX": 1024,
+              "maxComputeInvocationsPerWorkgroup": 1024,
+              "maxComputeWorkgroupsPerDimension": 65535,
+              "maxStorageBuffersPerShaderStage": 16,
+              "maxUniformBuffersPerShaderStage": 12
+            },
+            "features": [
+              "depth32float-stencil8",
+              "rg11b10ufloat-renderable",
+              "bgra8unorm-storage",
+              "texture-formats-tier1",
+              "texture-compression-bc",
+              "dual-source-blending",
+              "core-features-and-limits",
+              "float32-filterable",
+              "indirect-first-instance",
+              "float32-blendable",
+              "subgroup-size-control",
+              "depth-clip-control",
+              "texture-compression-bc-sliced-3d",
+              "clip-distances",
+              "texture-formats-tier2",
+              "timestamp-query",
+              "shader-f16",
+              "primitive-index",
+              "texture-component-swizzle",
+              "subgroups"
+            ],
+            "apiConfirmed": true,
+            "hardwareConfirmed": true
+          },
+          "comparison": {
+            "status": "PASS",
+            "elements": 4096,
+            "mismatches": 0,
+            "firstMismatches": []
+          },
+          "timing": {
+            "wallMs": 1470.5,
+            "submitToReadbackMs": 11.400000002235174,
+            "gpuTimestampMs": null
+          },
+          "resources": {
+            "buffersCreated": 5,
+            "bufferDestroyAttempts": 5,
+            "buffersDestroyed": 5,
+            "deviceDestroyed": true,
+            "lateDeviceCleanupPending": false,
+            "cleanupErrors": []
+          },
+          "error": null
+        },
+        "coverage": {
+          "cpu": [
+            "phase arithmetic",
+            "Float32 phase readout",
+            "finite neuron update",
+            "Pixel160 state validation"
+          ],
+          "gpu": [
+            "finite ring arithmetic"
+          ]
+        },
+        "status": "CPU_AND_GPU_CONFIRMED",
+        "publication": "PREVIEW"
+      }
+    },
+    {
+      "name": "hardware GPU sub",
+      "status": "PASS",
+      "receipt": {
+        "schema": "JA21-SEMISILI-RUN/1",
+        "engine": "2.3.0",
+        "serverEpoch": "c421d9cf-d464-4fb0-a2b1-f5272bc2cbd4",
+        "job": "e8b89c94-8e25-438f-a602-93eee83a04c4",
+        "createdAt": 1792009845846,
+        "sourceFieldSha256": "ecfafac4b58dc377a96acdb091807a5ffd1dc9e3214879ad6b45ec7c34b4557d",
+        "stateSha256": "9742616476e043039760adeb97959a81c3a4b5b3e752085a4eb2f58c5844a172",
+        "summary": {
+          "samples": 4096,
+          "ring": "Z/(2^16)",
+          "modulus": 65536,
+          "operation": "sub",
+          "source": "bank",
+          "inputBytes": 8192,
+          "bitPlaneBytes": 8192,
+          "bulkBlocks": 64,
+          "canonicalCellBytes": 20,
+          "canonicalFrameBytes": 81920,
+          "neuronSteps": 1,
+          "simulationTime": 2.25,
+          "historyFrames": 0,
+          "stateBytes": 164247,
+          "cpu": {
+            "status": "PASS",
+            "comparisonElements": 4096,
+            "phaseMinimumMargin": 0.4999999999990772,
+            "float32MinimumMargin": 0.49999991190998117,
+            "arithmetic": "independent BigInt oracle",
+            "neuronModel": "finite congruence-ball Euler update",
+            "phaseModel": "numerical complex phasors"
+          }
+        },
+        "gpu": {
+          "schema": "JA21-FINITE-GPU-CONFIRMATION/1",
+          "runId": "31c7ef0b-39d7-4429-b5e6-1a97d2d56f87",
+          "status": "GPU_CONFIRMED",
+          "fixture": false,
+          "coverage": {
+            "stage": "finite-arithmetic",
+            "operation": "sub",
+            "modulus": 65536,
+            "samples": 4096,
+            "dtype": "uint32 canonical residues",
+            "workgroupSize": 64
+          },
+          "gpu": {
+            "state": "GPU_CONFIRMED",
+            "fallback": false,
+            "adapter": {
+              "vendor": "intel",
+              "architecture": "xe-lpg",
+              "device": "",
+              "description": ""
+            },
+            "limits": {
+              "maxBufferSize": 2147483648,
+              "maxStorageBufferBindingSize": 2147483644,
+              "maxComputeWorkgroupSizeX": 1024,
+              "maxComputeInvocationsPerWorkgroup": 1024,
+              "maxComputeWorkgroupsPerDimension": 65535,
+              "maxStorageBuffersPerShaderStage": 16,
+              "maxUniformBuffersPerShaderStage": 12
+            },
+            "features": [
+              "depth32float-stencil8",
+              "rg11b10ufloat-renderable",
+              "texture-formats-tier1",
+              "bgra8unorm-storage",
+              "texture-compression-bc",
+              "dual-source-blending",
+              "core-features-and-limits",
+              "float32-filterable",
+              "indirect-first-instance",
+              "float32-blendable",
+              "subgroup-size-control",
+              "depth-clip-control",
+              "texture-compression-bc-sliced-3d",
+              "texture-formats-tier2",
+              "timestamp-query",
+              "shader-f16",
+              "clip-distances",
+              "primitive-index",
+              "texture-component-swizzle",
+              "subgroups"
+            ],
+            "apiConfirmed": true,
+            "hardwareConfirmed": true
+          },
+          "comparison": {
+            "status": "PASS",
+            "elements": 4096,
+            "mismatches": 0,
+            "firstMismatches": []
+          },
+          "timing": {
+            "wallMs": 38.400000002235174,
+            "submitToReadbackMs": 6.100000001490116,
+            "gpuTimestampMs": null
+          },
+          "resources": {
+            "buffersCreated": 5,
+            "bufferDestroyAttempts": 5,
+            "buffersDestroyed": 5,
+            "deviceDestroyed": true,
+            "lateDeviceCleanupPending": false,
+            "cleanupErrors": []
+          },
+          "error": null
+        },
+        "coverage": {
+          "cpu": [
+            "phase arithmetic",
+            "Float32 phase readout",
+            "finite neuron update",
+            "Pixel160 state validation"
+          ],
+          "gpu": [
+            "finite ring arithmetic"
+          ]
+        },
+        "status": "CPU_AND_GPU_CONFIRMED",
+        "publication": "PREVIEW"
+      }
+    },
+    {
+      "name": "hardware GPU mul",
+      "status": "PASS",
+      "receipt": {
+        "schema": "JA21-SEMISILI-RUN/1",
+        "engine": "2.3.0",
+        "serverEpoch": "c421d9cf-d464-4fb0-a2b1-f5272bc2cbd4",
+        "job": "e22b622e-2146-4429-ac69-eac8abafe1cd",
+        "createdAt": 1792009845972,
+        "sourceFieldSha256": "ecfafac4b58dc377a96acdb091807a5ffd1dc9e3214879ad6b45ec7c34b4557d",
+        "stateSha256": "782d510d57377f006aaaf9192853908fb1571da5c444d75cec1509efbdb882c1",
+        "summary": {
+          "samples": 4096,
+          "ring": "Z/(2^16)",
+          "modulus": 65536,
+          "operation": "mul",
+          "source": "bank",
+          "inputBytes": 8192,
+          "bitPlaneBytes": 8192,
+          "bulkBlocks": 64,
+          "canonicalCellBytes": 20,
+          "canonicalFrameBytes": 81920,
+          "neuronSteps": 1,
+          "simulationTime": 2.25,
+          "historyFrames": 0,
+          "stateBytes": 164247,
+          "cpu": {
+            "status": "PASS",
+            "comparisonElements": 4096,
+            "phaseMinimumMargin": 0.49999982954657085,
+            "float32MinimumMargin": 0.4999989231851494,
+            "arithmetic": "independent BigInt oracle",
+            "neuronModel": "finite congruence-ball Euler update",
+            "phaseModel": "numerical complex phasors"
+          }
+        },
+        "gpu": {
+          "schema": "JA21-FINITE-GPU-CONFIRMATION/1",
+          "runId": "379483ba-0678-4370-9d25-5ebe2aec8086",
+          "status": "GPU_CONFIRMED",
+          "fixture": false,
+          "coverage": {
+            "stage": "finite-arithmetic",
+            "operation": "mul",
+            "modulus": 65536,
+            "samples": 4096,
+            "dtype": "uint32 canonical residues",
+            "workgroupSize": 64
+          },
+          "gpu": {
+            "state": "GPU_CONFIRMED",
+            "fallback": false,
+            "adapter": {
+              "vendor": "intel",
+              "architecture": "xe-lpg",
+              "device": "",
+              "description": ""
+            },
+            "limits": {
+              "maxBufferSize": 2147483648,
+              "maxStorageBufferBindingSize": 2147483644,
+              "maxComputeWorkgroupSizeX": 1024,
+              "maxComputeInvocationsPerWorkgroup": 1024,
+              "maxComputeWorkgroupsPerDimension": 65535,
+              "maxStorageBuffersPerShaderStage": 16,
+              "maxUniformBuffersPerShaderStage": 12
+            },
+            "features": [
+              "depth32float-stencil8",
+              "rg11b10ufloat-renderable",
+              "texture-formats-tier1",
+              "bgra8unorm-storage",
+              "texture-compression-bc",
+              "dual-source-blending",
+              "core-features-and-limits",
+              "float32-filterable",
+              "indirect-first-instance",
+              "float32-blendable",
+              "subgroup-size-control",
+              "depth-clip-control",
+              "texture-compression-bc-sliced-3d",
+              "timestamp-query",
+              "texture-formats-tier2",
+              "shader-f16",
+              "clip-distances",
+              "primitive-index",
+              "texture-component-swizzle",
+              "subgroups"
+            ],
+            "apiConfirmed": true,
+            "hardwareConfirmed": true
+          },
+          "comparison": {
+            "status": "PASS",
+            "elements": 4096,
+            "mismatches": 0,
+            "firstMismatches": []
+          },
+          "timing": {
+            "wallMs": 36.900000002235174,
+            "submitToReadbackMs": 7.199999999254942,
+            "gpuTimestampMs": null
+          },
+          "resources": {
+            "buffersCreated": 5,
+            "bufferDestroyAttempts": 5,
+            "buffersDestroyed": 5,
+            "deviceDestroyed": true,
+            "lateDeviceCleanupPending": false,
+            "cleanupErrors": []
+          },
+          "error": null
+        },
+        "coverage": {
+          "cpu": [
+            "phase arithmetic",
+            "Float32 phase readout",
+            "finite neuron update",
+            "Pixel160 state validation"
+          ],
+          "gpu": [
+            "finite ring arithmetic"
+          ]
+        },
+        "status": "CPU_AND_GPU_CONFIRMED",
+        "publication": "PREVIEW"
+      }
+    },
+    {
+      "name": "hardware GPU negate",
+      "status": "PASS",
+      "receipt": {
+        "schema": "JA21-SEMISILI-RUN/1",
+        "engine": "2.3.0",
+        "serverEpoch": "c421d9cf-d464-4fb0-a2b1-f5272bc2cbd4",
+        "job": "ddbc1905-0bd5-49ab-a8cc-26713bf17c5a",
+        "createdAt": 1792009846088,
+        "sourceFieldSha256": "ecfafac4b58dc377a96acdb091807a5ffd1dc9e3214879ad6b45ec7c34b4557d",
+        "stateSha256": "277cd0a6de0db3f86fe4d5464106c40c4766528ecdd309fae1c788b44bcc87e9",
+        "summary": {
+          "samples": 4096,
+          "ring": "Z/(2^16)",
+          "modulus": 65536,
+          "operation": "negate",
+          "source": "bank",
+          "inputBytes": 8192,
+          "bitPlaneBytes": 8192,
+          "bulkBlocks": 64,
+          "canonicalCellBytes": 20,
+          "canonicalFrameBytes": 81920,
+          "neuronSteps": 1,
+          "simulationTime": 2.25,
+          "historyFrames": 0,
+          "stateBytes": 164250,
+          "cpu": {
+            "status": "PASS",
+            "comparisonElements": 4096,
+            "phaseMinimumMargin": 0.4999999999973923,
+            "float32MinimumMargin": 0.4999989231851494,
+            "arithmetic": "independent BigInt oracle",
+            "neuronModel": "finite congruence-ball Euler update",
+            "phaseModel": "numerical complex phasors"
+          }
+        },
+        "gpu": {
+          "schema": "JA21-FINITE-GPU-CONFIRMATION/1",
+          "runId": "543a3f62-6bb2-469d-b0f4-49e954a044a9",
+          "status": "GPU_CONFIRMED",
+          "fixture": false,
+          "coverage": {
+            "stage": "finite-arithmetic",
+            "operation": "negate",
+            "modulus": 65536,
+            "samples": 4096,
+            "dtype": "uint32 canonical residues",
+            "workgroupSize": 64
+          },
+          "gpu": {
+            "state": "GPU_CONFIRMED",
+            "fallback": false,
+            "adapter": {
+              "vendor": "intel",
+              "architecture": "xe-lpg",
+              "device": "",
+              "description": ""
+            },
+            "limits": {
+              "maxBufferSize": 2147483648,
+              "maxStorageBufferBindingSize": 2147483644,
+              "maxComputeWorkgroupSizeX": 1024,
+              "maxComputeInvocationsPerWorkgroup": 1024,
+              "maxComputeWorkgroupsPerDimension": 65535,
+              "maxStorageBuffersPerShaderStage": 16,
+              "maxUniformBuffersPerShaderStage": 12
+            },
+            "features": [
+              "depth32float-stencil8",
+              "rg11b10ufloat-renderable",
+              "bgra8unorm-storage",
+              "texture-formats-tier1",
+              "texture-compression-bc",
+              "dual-source-blending",
+              "core-features-and-limits",
+              "float32-filterable",
+              "indirect-first-instance",
+              "float32-blendable",
+              "subgroup-size-control",
+              "depth-clip-control",
+              "texture-compression-bc-sliced-3d",
+              "texture-formats-tier2",
+              "clip-distances",
+              "timestamp-query",
+              "shader-f16",
+              "primitive-index",
+              "texture-component-swizzle",
+              "subgroups"
+            ],
+            "apiConfirmed": true,
+            "hardwareConfirmed": true
+          },
+          "comparison": {
+            "status": "PASS",
+            "elements": 4096,
+            "mismatches": 0,
+            "firstMismatches": []
+          },
+          "timing": {
+            "wallMs": 38.80000000074506,
+            "submitToReadbackMs": 5,
+            "gpuTimestampMs": null
+          },
+          "resources": {
+            "buffersCreated": 5,
+            "bufferDestroyAttempts": 5,
+            "buffersDestroyed": 5,
+            "deviceDestroyed": true,
+            "lateDeviceCleanupPending": false,
+            "cleanupErrors": []
+          },
+          "error": null
+        },
+        "coverage": {
+          "cpu": [
+            "phase arithmetic",
+            "Float32 phase readout",
+            "finite neuron update",
+            "Pixel160 state validation"
+          ],
+          "gpu": [
+            "finite ring arithmetic"
+          ]
+        },
+        "status": "CPU_AND_GPU_CONFIRMED",
+        "publication": "PREVIEW"
+      }
+    },
+    {
+      "name": "hardware GPU complement",
+      "status": "PASS",
+      "receipt": {
+        "schema": "JA21-SEMISILI-RUN/1",
+        "engine": "2.3.0",
+        "serverEpoch": "c421d9cf-d464-4fb0-a2b1-f5272bc2cbd4",
+        "job": "84bfd1ec-236b-4c46-9a22-909ffc34ea82",
+        "createdAt": 1792009846209,
+        "sourceFieldSha256": "ecfafac4b58dc377a96acdb091807a5ffd1dc9e3214879ad6b45ec7c34b4557d",
+        "stateSha256": "0ab8605bd679fb610c88f315f9f8487663281288bf316c9d3abe76f11f78a136",
+        "summary": {
+          "samples": 4096,
+          "ring": "Z/(2^16)",
+          "modulus": 65536,
+          "operation": "complement",
+          "source": "bank",
+          "inputBytes": 8192,
+          "bitPlaneBytes": 8192,
+          "bulkBlocks": 64,
+          "canonicalCellBytes": 20,
+          "canonicalFrameBytes": 81920,
+          "neuronSteps": 1,
+          "simulationTime": 2.25,
+          "historyFrames": 0,
+          "stateBytes": 164254,
+          "cpu": {
+            "status": "PASS",
+            "comparisonElements": 4096,
+            "phaseMinimumMargin": 0.499999999998316,
+            "float32MinimumMargin": 0.4999999119042009,
+            "arithmetic": "independent BigInt oracle",
+            "neuronModel": "finite congruence-ball Euler update",
+            "phaseModel": "numerical complex phasors"
+          }
+        },
+        "gpu": {
+          "schema": "JA21-FINITE-GPU-CONFIRMATION/1",
+          "runId": "951d429f-ccfc-4e3a-920c-848c9a139ef5",
+          "status": "GPU_CONFIRMED",
+          "fixture": false,
+          "coverage": {
+            "stage": "finite-arithmetic",
+            "operation": "complement",
+            "modulus": 65536,
+            "samples": 4096,
+            "dtype": "uint32 canonical residues",
+            "workgroupSize": 64
+          },
+          "gpu": {
+            "state": "GPU_CONFIRMED",
+            "fallback": false,
+            "adapter": {
+              "vendor": "intel",
+              "architecture": "xe-lpg",
+              "device": "",
+              "description": ""
+            },
+            "limits": {
+              "maxBufferSize": 2147483648,
+              "maxStorageBufferBindingSize": 2147483644,
+              "maxComputeWorkgroupSizeX": 1024,
+              "maxComputeInvocationsPerWorkgroup": 1024,
+              "maxComputeWorkgroupsPerDimension": 65535,
+              "maxStorageBuffersPerShaderStage": 16,
+              "maxUniformBuffersPerShaderStage": 12
+            },
+            "features": [
+              "depth32float-stencil8",
+              "rg11b10ufloat-renderable",
+              "texture-formats-tier1",
+              "bgra8unorm-storage",
+              "texture-compression-bc",
+              "dual-source-blending",
+              "core-features-and-limits",
+              "float32-filterable",
+              "indirect-first-instance",
+              "float32-blendable",
+              "subgroup-size-control",
+              "depth-clip-control",
+              "texture-compression-bc-sliced-3d",
+              "timestamp-query",
+              "texture-formats-tier2",
+              "shader-f16",
+              "clip-distances",
+              "primitive-index",
+              "texture-component-swizzle",
+              "subgroups"
+            ],
+            "apiConfirmed": true,
+            "hardwareConfirmed": true
+          },
+          "comparison": {
+            "status": "PASS",
+            "elements": 4096,
+            "mismatches": 0,
+            "firstMismatches": []
+          },
+          "timing": {
+            "wallMs": 39.099999997764826,
+            "submitToReadbackMs": 6.400000002235174,
+            "gpuTimestampMs": null
+          },
+          "resources": {
+            "buffersCreated": 5,
+            "bufferDestroyAttempts": 5,
+            "buffersDestroyed": 5,
+            "deviceDestroyed": true,
+            "lateDeviceCleanupPending": false,
+            "cleanupErrors": []
+          },
+          "error": null
+        },
+        "coverage": {
+          "cpu": [
+            "phase arithmetic",
+            "Float32 phase readout",
+            "finite neuron update",
+            "Pixel160 state validation"
+          ],
+          "gpu": [
+            "finite ring arithmetic"
+          ]
+        },
+        "status": "CPU_AND_GPU_CONFIRMED",
+        "publication": "PREVIEW"
+      }
+    },
+    {
+      "name": "invalid restore retains saved volume",
+      "status": "PASS"
+    },
+    {
+      "name": "browser persistence grant",
+      "status": "INFO",
+      "granted": false,
+      "meaning": "Grant is separate from verified reload persistence; retain exported backups."
+    }
+  ],
+  "status": "PASS",
+  "finishedAt": "2026-10-14T20:30:46.307Z"
+}

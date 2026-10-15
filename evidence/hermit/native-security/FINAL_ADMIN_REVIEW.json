@@ -1,0 +1,49 @@
+{
+  "format": "ja21-final-admin-review/1",
+  "recordedAt": "2026-10-14T23:21:54.516Z",
+  "scope": "Read-only review of app/admin-link/xpu-delegation/RamLink/WebSocket boundaries, with requested regression and acceptance documentation additions.",
+  "findings": [
+    {
+      "id": "pending-admin-pane-closure",
+      "status": "FIXED_BY_ROOT",
+      "location": "applications/silicon/src/app.js remove/addTerminal",
+      "detail": "Closing an Administrator pane before its async open returned previously left the elevation/connection alive. Root now cancels the pending AdminLink and rejects/closes late returned sockets."
+    },
+    {
+      "id": "post-ready-worker-fault-order",
+      "status": "FIXED_AND_REGRESSION_TESTED",
+      "location": "applications/silicon/src/lib/ram-link.js fatal worker handlers",
+      "detail": "Fault notification previously ran before epoch/worker teardown, leaving the UI marked Online after a runtime worker failure. Six tests now verify teardown, pending cleanup, closed sockets and successful restart before notifications."
+    }
+  ],
+  "regressionTests": {
+    "file": "applications/silicon/tests/ram-link-lifecycle.test.mjs",
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "fixtures": "Controlled Worker with real MessageChannels; actual RamLink code; no browser storage or native elevation."
+  },
+  "nativePolicy": {
+    "file": "native-security/AdminBoundaryPolicy.cs",
+    "assertions": 32,
+    "pass": 32,
+    "fail": 0,
+    "addedChecks": "150-character path passes, 151 and 200 reject before IO, 150-character Unicode path passes."
+  },
+  "layoutGuidance": [
+    "Keep XPU 1/XPU 2 mapped to the same existing worker and one separate explicit Windows Administrator capability.",
+    "Bind each pane input to its record; avoid routing Administrator input through a shared mutable active target.",
+    "Retain pending-open cancellation and late-socket guards, and fence reused pane callbacks by record identity/generation.",
+    "Keep quick XPU catalog commands targeted at XPU panes."
+  ],
+  "acceptanceGuide": "docs/ADMINISTRATOR-ACCEPTANCE.md",
+  "nativeAcceptanceStatus": {
+    "uacStartup": "NOT_RUN",
+    "actualNativeIpc": "BLOCKED_IN_CODEX_TOOL_CONTEXT_ERROR_ACCESS_DENIED_5",
+    "endToEndNativeDelegation": "PENDING_ORDINARY_WINDOWS_ACCEPTANCE"
+  },
+  "notes": [
+    "This review does not replace the final packaged byte/seal verification.",
+    "The forthcoming three-pane UI should be checked through real browser interaction after root finishes its layout changes."
+  ]
+}

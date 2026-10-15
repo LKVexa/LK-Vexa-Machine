@@ -1,0 +1,11 @@
+{
+  "sourceVersion": "2.0.0-ramws.1",
+  "sourceZipSha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e",
+  "sourceHashes": {
+    "protocol/codec.js": "265aedca8ddda85ba81dba51b11ad57cd1e95bad233ecc10fbef1b18d5d762b8",
+    "protocol/envelope.schema.json": "340a0f34cc69c546ce8091a029b5509e53d32d3b1977db15fac132cadf8aa4d4",
+    "protocol/protocol-meta.json": "0a33802714673bb7b717259468f60e6faa9b18246448da70abf272a2fa356983",
+    "LICENSE": "63748d1e0d8ac97258b42b6631100fed0ddcae97ebfb0274697e4623ffabaa09"
+  },
+  "adaptation": "Dependency-free strict codec factory repackaged as ESM; exact source schema/meta embedded; transport state lives in new bounded adapters."
+}

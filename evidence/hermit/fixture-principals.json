@@ -1,0 +1,1 @@
+[{"sub":"same-user","tenant":"local","tokenSha256":"0f007385b6f9d4b7eeb2748605afe1a984a0a3bfa3f014d09e2a784ce9e5cd1a","capabilities":["terminal"],"revoked":true},{"sub":"same-user","tenant":"local","tokenSha256":"412dc46cc9e3cb26f29f7c1415c556349af62904c5d15b0a2d8cfdc5cfa22b34","capabilities":["terminal"]}]

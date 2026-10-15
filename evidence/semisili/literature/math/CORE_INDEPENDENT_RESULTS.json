@@ -1,0 +1,17 @@
+{
+  "profile": "SEMISILI-CORE-INDEPENDENT-ACCEPTANCE/1",
+  "status": "PASS",
+  "phaseCases": 344580,
+  "bitPlaneSamples": 25440,
+  "valuationCases": 16384,
+  "ultrametricTriples": 98304,
+  "neuronSamples": 262208,
+  "guardRejections": 13,
+  "runtime": "v24.21.0",
+  "finishedUTC": "2026-10-14T20:05:19.187Z",
+  "sourceSHA256": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+  "limits": [
+    "Numerical CPU phase model; GPU integer confirmation and browser acceptance are separate gates.",
+    "Finite ring and bounded hierarchical CNN; no physical quantum/optical hardware or trained accuracy claim."
+  ]
+}

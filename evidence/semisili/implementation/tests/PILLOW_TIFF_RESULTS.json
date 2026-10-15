@@ -1,0 +1,113 @@
+{
+  "profile": "SEMISILI-PIXEL160-PILLOW-ACCEPTANCE/1",
+  "status": "PASS_WITH_DECODER_LIMITATION",
+  "files": [
+    {
+      "name": "generic-II-big.tiff",
+      "sha256": "f000f3ac1316164076dd68dad5e8c8d9fe82b09b992f918bb1d0e9385f0f53d8",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow Image.open",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "generic-II-classic.tiff",
+      "sha256": "5d2acc07b385416bfbbe1ab445a9eb7b1d308d410648503470f5fc2b0a031e15",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow Image.open",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "generic-MM-big.tiff",
+      "sha256": "84fedfa01aaf39aff2ec16f6aa0050b9fc621acf306bd56601745a6d0eccfa60",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow independent IFD parser with endian-aware BigTIFF flag; raw uncompressed byte raster",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "generic-MM-classic.tiff",
+      "sha256": "21e22246ba1461e23dc109095889c29b3853e6d5cb5f939ee5e1f48c3db9ea9d",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow Image.open",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "neuron-II-big.tiff",
+      "sha256": "fe30bcf14afc570920500ec1736fb4ea9647f6e2939f589b702a768522cb764e",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow Image.open",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "neuron-II-classic.tiff",
+      "sha256": "2610af13c6b954367913de9ac08dd4808a4a995986c7f5920b4feac947a84a37",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow Image.open",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "neuron-MM-big.tiff",
+      "sha256": "b99c608a329dc1d7785e3ad7bbe6203b53d85c01cb93f90cbea25a5512169c96",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow independent IFD parser with endian-aware BigTIFF flag; raw uncompressed byte raster",
+      "size": [
+        20,
+        4096
+      ]
+    },
+    {
+      "name": "neuron-MM-classic.tiff",
+      "sha256": "315050938537258e05eb40ade21db0981debd3e1c568dd4f801ea5c58b6ebf9e",
+      "decodedSamples": 81920,
+      "decodedLogicalCells": 4096,
+      "method": "Pillow Image.open",
+      "size": [
+        20,
+        4096
+      ]
+    }
+  ],
+  "decoderLimitations": [
+    {
+      "name": "generic-MM-big.tiff",
+      "normalImageOpen": "FAILED",
+      "reason": "cannot identify image file 'D:\\\\Codex\\\\2026-10-13\\\\pl\\\\work\\\\semisili-xpu\\\\implementation\\\\tests\\\\codec-artifacts\\\\generic-MM-big.tiff'",
+      "localParserFinding": "TiffImagePlugin.py ImageFileDirectory_v2.__init__ and TiffImageFile._open use ifh[2] == 43 rather than endian-aware uint16 magic."
+    },
+    {
+      "name": "neuron-MM-big.tiff",
+      "normalImageOpen": "FAILED",
+      "reason": "cannot identify image file 'D:\\\\Codex\\\\2026-10-13\\\\pl\\\\work\\\\semisili-xpu\\\\implementation\\\\tests\\\\codec-artifacts\\\\neuron-MM-big.tiff'",
+      "localParserFinding": "TiffImagePlugin.py ImageFileDirectory_v2.__init__ and TiffImageFile._open use ifh[2] == 43 rather than endian-aware uint16 magic."
+    }
+  ],
+  "decodedSamples": 655360,
+  "decoder": "Pillow 12.3.0",
+  "finishedUTC": "2026-10-14T20:18:15.418102+00:00",
+  "fixtureCanonicalSHA256": "28c6bc52b546f287ed6fd24eb1f12e148d7dea7b1049f37d8f6faa4b20581f0c",
+  "testSHA256": "bab3e1b90cdba5666fcdfa416f4c7c1d72b404ef5476e90da06a15a324caaf28"
+}

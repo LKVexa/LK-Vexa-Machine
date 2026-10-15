@@ -1,0 +1,20 @@
+{
+  "schema": "JA21-GPU-POLICY-TESTS/1",
+  "status": "PASS",
+  "generatedAt": "2026-10-14T20:15:22.397Z",
+  "node": "v24.21.0",
+  "exitCode": 0,
+  "error": null,
+  "summary": {
+    "tests": 49,
+    "pass": 49,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "duration_ms": 233.5013
+  },
+  "sourceSha256": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+  "scope": "Marked WebGPU API fixtures and independent BigInt arithmetic oracle. These tests do not compile WGSL or establish actual GPU hardware execution.",
+  "liveGpuExecution": "NOT_RUN",
+  "hardwareConfirmed": false
+}

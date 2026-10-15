@@ -1,0 +1,385 @@
+{
+  "version": "2.1.0",
+  "protocol": "hermit.vws.v3",
+  "node": "v22.16.0",
+  "syntaxFiles": 45,
+  "resolvedLocalImports": 45,
+  "results": [
+    {
+      "test": "release versions agree",
+      "status": "PASS"
+    },
+    {
+      "test": "wire protocol v3 is explicit",
+      "status": "PASS"
+    },
+    {
+      "test": "zero third-party runtime/build packages",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/app.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/app.js -> ./version.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/app.js -> ./lib/ram-link.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/app.js -> ./vendor/vt/screen.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/app.js -> ./vendor/vt/parser.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/app.js -> ./vendor/vt/renderer-canvas.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/lib/ram-link.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/lib/ram-link.js -> ../vendor/vws/frame.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/events.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/ram-worker.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ../version.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./spiral/kernel.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./spiral/vfs.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./spiral/commands/ram.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./spiral/ssd.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./spiral/hpu.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./spiral/buffer.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./vws/frame.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/ram-worker.js -> ./vws/flow.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/buffer.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/byte-tables.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/chip-harness.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/browser.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/browser.js -> ./util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/coreutils.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/coreutils.js -> ../safe-regex.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/coreutils.js -> ../buffer.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/coreutils.js -> ./util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/fs.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/fs.js -> ./util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/hpu.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/hpu.js -> ./util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/hpu.js -> ../buffer.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/hpu.js -> ../chip-harness.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/hpu.js -> ../byte-tables.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/index.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/index.js -> ./system.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/index.js -> ./fs.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/index.js -> ./coreutils.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/index.js -> ./browser.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/index.js -> ./ram.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/index.js -> ./hpu.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/ram.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/ram.js -> ./util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/system.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/commands/system.js -> ./util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/commands/util.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/env.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/hpu.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/hpu.js -> ./state-codec.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/hpu.js -> ./byte-tables.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/kernel.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ../events.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ./vfs.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ./registry.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ./env.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ./pipeline.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ./line-reader.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/kernel.js -> ./commands/index.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/line-reader.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/pipeline.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/regex-evaluator.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/regex-worker-node.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/regex-worker-node.js -> ./regex-evaluator.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/regex-worker.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/regex-worker.js -> ./regex-evaluator.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/registry.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/safe-regex.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/ssd.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/state-codec.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/state-codec.js -> ./buffer.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/spiral/vfs.js",
+      "status": "PASS"
+    },
+    {
+      "test": "local-only module src/vendor/spiral/vfs.js -> ./buffer.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/vt/parser.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/vt/renderer-canvas.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/vt/screen.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/vws/flow.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/vendor/vws/frame.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse src/version.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse scripts/build.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse scripts/check.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse scripts/serve.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse scripts/test.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse scripts/verify.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse tests/core.test.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse tests/fake-idb.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse tests/offline-ui-link.js",
+      "status": "PASS"
+    },
+    {
+      "test": "parse tests/server.test.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse tests/worker-adapter.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "parse tests/worker.test.mjs",
+      "status": "PASS"
+    },
+    {
+      "test": "HTML has no inline handlers or scripts",
+      "status": "PASS"
+    }
+  ]
+}

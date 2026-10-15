@@ -1,0 +1,13 @@
+{
+  "schema": "JA21/PACKAGING_VERIFIER_CORRECTION/1",
+  "status": "CORRECTED_VERIFIER_EXPECTATION",
+  "recordedUTC": "2026-10-14T23:35:03.360Z",
+  "candidateArchiveSha256": "1abb72c2e363443a7e6a2322d9b5fd797a36c33c4168622d1ce90bb40f85c100",
+  "failure": "Independent verifier incorrectly expected root/component SHA256SUMS lists to omit FILES_MANIFEST.json.",
+  "correctContract": "Both lists intentionally include FILES_MANIFEST.json and exclude only their own SHA256SUMS.txt. Outer/component manifests themselves exclude both self-referential files.",
+  "archivePayloadIssue": false,
+  "runtimeChanged": false,
+  "previousVerifierSha256": "fc97e45b535d6ba5f4710c92e158df16181a301322947365968171673a0a20c8",
+  "correctedVerifierSha256": "2123cb5fcbd4143487343ad8bc64025413e2bb2ad8da9dabf61c0b69c542a6b8",
+  "preservation": "The exact prior candidate and reports will be retained under outputs/previous-attempts; the final candidate will include the corrected verifier source."
+}

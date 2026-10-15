@@ -1,0 +1,51 @@
+{
+  "schema": "JA21/ARM64_RUNTIME_BYTES/1",
+  "status": "PASS_ARM64_BYTES_AND_PROVISIONING_CONTRACTS",
+  "checkedUtc": "2026-10-14T04:23:08.4947839Z",
+  "hostArchitecture": "X64",
+  "processArchitecture": "X64",
+  "powerShell": "5.1.26100.9444",
+  "officialSource": "https://nodejs.org/download/release/v24.21.0/SHASUMS256.txt",
+  "archive": {
+    "name": "node-v24.21.0-win-arm64.zip",
+    "length": 33679608,
+    "sha256": "8779b1bde1d39f8d420e3b57aa657b39891af434d3de44a919044cec06785921"
+  },
+  "executable": {
+    "name": "win-arm64/node.exe",
+    "sha256": "dff59da18b6ffe1bf1ca99e1d2af4906080c481740619f5b5098c0fca28bd9b7",
+    "peMachine": "0xAA64",
+    "peFormat": "PE32+"
+  },
+  "extraction": [
+    "LICENSE",
+    "node.exe",
+    "README.md"
+  ],
+  "negativeMachineCheck": "PASS: actual ARM64 executable rejected when x64 expected",
+  "nativeArm64Startup": "NOT_RUN",
+  "reason": "Host is Windows x64; user selected the browser virtual console rather than a Windows ARM64 VM.",
+  "limits": [
+    "Official HTTPS hashes, not independent PGP validation.",
+    "The actual ARM64 executable was inspected and hashed, never executed.",
+    "Resolver, malformed PE, wrong-version and wrong-architecture probe contracts execute under native Windows PowerShell on x64."
+  ],
+  "targetRunner": "Native-Acceptance.cmd arm64",
+  "availableExecution": {
+    "vmwareWorkstationInstalled": false,
+    "virtualBoxInstalled": false,
+    "selectedUserPath": "JA21 browser virtual console",
+    "wsl": "Executable exists; subsystem reports not installed",
+    "qemuInstalled": false,
+    "arm64": "No attached ARM64 Windows target",
+    "native": "Windows x64"
+  },
+  "contractTests": {
+    "runner": "node --test tests/arm64-contract.test.mjs",
+    "tests": 4,
+    "scope": "Actual Windows PowerShell x64 execution of native-architecture resolution, synthetic PE header rejection, real x64 Node identity probe, and opposite-host acceptance refusal; not ARM64 executable execution",
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0
+  }
+}

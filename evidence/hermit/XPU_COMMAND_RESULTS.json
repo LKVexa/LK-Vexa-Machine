@@ -1,0 +1,90 @@
+{
+  "schema": "JA21-XPU-TERMINAL-VALIDATION/1",
+  "createdAt": "2026-10-14T22:09:58.299Z",
+  "status": "PASS",
+  "exitCode": 0,
+  "runtime": "Node.js v24.21.0 Windows x64",
+  "engine": "D:/Codex/2026-10-13/pl/work/blank-console-arm64/project/JA21-Silicon-Console/applications/silicon",
+  "tests": {
+    "total": 20,
+    "pass": 20,
+    "fail": 0,
+    "skip": 0,
+    "invalidPositionalCases": 37
+  },
+  "testCommand": "node --test --test-reporter=tap tests/xpu-terminal.test.mjs",
+  "coverage": [
+    "strict bounded finite-ring arguments",
+    "default GPU requirement and explicit CPU mode",
+    "detached preview without automatic save",
+    "explicit v4 UUID token save",
+    "AbortSignal forwarding and late accepted save reporting",
+    "actual SpiralKernel shell parsing",
+    "production worker MessagePort CPU preview -> explicit commit -> bank continuation",
+    "production worker unavailable WebGPU -> no publication",
+    "production worker SIGINT during awaited digest -> shell exit 130 and no publication"
+  ],
+  "fixtureAttribution": {
+    "storage": "fakeIndexedDB",
+    "writerLock": "broker fixture",
+    "terminal": "actual production worker and MessagePort protocol",
+    "gpu": "actual Node capability unavailable; no GPU fixture or physical GPU confirmation claimed"
+  },
+  "initialAttempt": {
+    "pass": 19,
+    "fail": 1,
+    "reason": "Cancellation test incorrectly expected stderr after abort; terminal intentionally suppresses output. Fixed by asserting shell exit 130 and ordering SIGINT through a same-port status acknowledgement before releasing a fixture digest gate.",
+    "raw": "xpu-terminal-evidence/INITIAL_TEST_RUN.tap"
+  },
+  "raw": "xpu-terminal-evidence/XPU_TERMINAL_TESTS.tap",
+  "sourceFiles": {
+    "src/vendor/spiral/commands/semisili.js": {
+      "bytes": 4267,
+      "sha256": "8e52cd4f19bd782f8e5e1a410c870be95a7d508e4a34728b538be4e7bf5b0f5c"
+    },
+    "tests/xpu-terminal.test.mjs": {
+      "bytes": 15493,
+      "sha256": "1ff364df8e24b48702d37d7d9276a0dd464ecff7125d1b16e43e50b823732368"
+    },
+    "src/vendor/spiral/commands/index.js": {
+      "bytes": 1568,
+      "sha256": "97d230bdbde7480d35d9061235c3bdc721a356449a6108acadc174ec74d30bc8"
+    }
+  },
+  "changedFiles": {
+    "src/vendor/spiral/commands/semisili.js": "new guarded xpu command pack",
+    "tests/xpu-terminal.test.mjs": "20 CLI and production worker terminal tests",
+    "src/vendor/spiral/commands/index.js": "only existing xpuinfo summary/status text updated; root owns semisili registration"
+  },
+  "unverified": [
+    "Browser WebSocket terminal end-to-end operation is outside this focused test",
+    "Actual browser IndexedDB durability is outside storage fixtures",
+    "No new hardware GPU computation was measured by these tests"
+  ],
+  "clientPage": {
+    "path": "web/terminal.html",
+    "module": "src/ramws-terminal.js",
+    "syntaxCheck": "PASS",
+    "liveBrowserValidation": "PENDING_ROOT",
+    "ownsWorker": false,
+    "ownsRamLink": false,
+    "connectionPolicy": "explicit same-origin HTTP loopback Connect/Disconnect; no input replay or automatic reconnect",
+    "pastePolicy": "one editable line, C0/C1 stripped, at most 4096 UTF-16 characters",
+    "geometry": {
+      "minCols": 2,
+      "maxCols": 400,
+      "minRows": 1,
+      "maxRows": 200
+    },
+    "sources": {
+      "web/terminal.html": {
+        "bytes": 3367,
+        "sha256": "e014b8f8961ea3baf80867514bb154445207d978b4b63ab6527231ba45caa091"
+      },
+      "src/ramws-terminal.js": {
+        "bytes": 8444,
+        "sha256": "1464d4f38285794f6bcec7eeb1bf3c226269652a5c3db092b835363e2eebd573"
+      }
+    }
+  }
+}

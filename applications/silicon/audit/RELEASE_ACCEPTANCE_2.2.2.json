@@ -1,0 +1,212 @@
+{
+  "schema": "JA21/RELEASE_ACCEPTANCE/1",
+  "version": "2.2.2",
+  "status": "PASS_SCOPED_GATES_BROWSER_PENDING",
+  "checkedUtc": "2026-10-14T04:42:42.023604+00:00",
+  "core": {
+    "status": "PASS_FOR_OFFLINE_GATE",
+    "total": 311,
+    "passed": 308,
+    "skipped": 3,
+    "failed": 0
+  },
+  "nativeCSharp": {
+    "status": "PASS",
+    "assertions": 598,
+    "sourceSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4"
+  },
+  "nativeTiff": {
+    "status": "PASS",
+    "decoder": "Pillow",
+    "version": "12.3.0",
+    "nativeTiffs": 35,
+    "jsTiffs": 35,
+    "pixelsPerImplementation": 143360,
+    "checks": [
+      {
+        "file": "enumerated-processor-1.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "enumerated-processor-2.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "enumerated-processor-3.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "enumerated-processor-4.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "enumerated-processor-5.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "enumerated-processor-6.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "enumerated-processor-7.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-1.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-2.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-3.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-4.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-5.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-6.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "reversed-processor-7.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-1.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-2.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-3.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-4.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-5.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-6.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "random-processor-7.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-1.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-2.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-3.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-4.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-5.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-6.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "zero-processor-7.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-1.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-2.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-3.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-4.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-5.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-6.tif",
+        "status": "PASS",
+        "pixels": 4096
+      },
+      {
+        "file": "maximum-processor-7.tif",
+        "status": "PASS",
+        "pixels": 4096
+      }
+    ]
+  },
+  "nativeX64": "PASS_NATIVE_WINDOWS_STARTUP",
+  "arm64BytesAndContracts": "PASS_ARM64_BYTES_AND_PROVISIONING_CONTRACTS",
+  "nativeArm64": "NOT_RUN",
+  "productionBrowser": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "scenarios": 0,
+    "fixture": false
+  },
+  "nextAction": "Run optional portable browser validation kit in a normal Windows session and review its actual result"
+}

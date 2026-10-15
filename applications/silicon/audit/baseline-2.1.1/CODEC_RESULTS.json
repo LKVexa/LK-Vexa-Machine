@@ -1,0 +1,18 @@
+{
+  "decoder": "Pillow",
+  "decoderVersion": "12.3.0",
+  "tests": [
+    {
+      "test": "16-bit TIFF: all 4096 decoded samples match",
+      "status": "PASS"
+    },
+    {
+      "test": "animated GIF: every pixel of both frames matches",
+      "status": "PASS"
+    },
+    {
+      "test": "high-entropy GIF: all 4096 decoded samples match",
+      "status": "PASS"
+    }
+  ]
+}

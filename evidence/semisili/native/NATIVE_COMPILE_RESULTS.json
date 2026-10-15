@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "consoleVersion": "1.3.0",
+  "engineVersion": "2.3.0",
+  "frameworkCompiler": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+  "warningsAsErrors": true,
+  "target": "x64",
+  "mainFileVersion": "1.3.0.0",
+  "mainProductVersion": "Console 1.3.0; software CPU/XPU 2.3.0; base browser 9.8.7",
+  "mainBuildExit": 0,
+  "acceptanceBuildExit": 0,
+  "policyBuildExit": 0,
+  "files": [
+    {
+      "path": "host/Build-SiliconConsole.cmd",
+      "bytes": 1135,
+      "sha256": "9d7478f820e87dc5eca8339eb66b62871281232a733d146c42730027a484cca4"
+    },
+    {
+      "path": "host/JA21VirtualBrowser.cs",
+      "bytes": 231598,
+      "sha256": "dd76a714f2b3b1478f985f872ad10041f9f0ef95dade20a426e72fae476785df"
+    },
+    {
+      "path": "host/Vec1Substrate.cs",
+      "bytes": 49058,
+      "sha256": "9b50f7f3bc918cb4f92dd3b6b93fca6bb830f2eccd222fc612c9ccc7846f6538"
+    },
+    {
+      "path": "host/PortableDesktop.cs",
+      "bytes": 12431,
+      "sha256": "e7fa6d5bc4a140c67974f452d8d8e2462affb10e0f10dee2aea66f574f873b3b"
+    },
+    {
+      "path": "host/LiveWebContracts.cs",
+      "bytes": 719,
+      "sha256": "1c5accc5037564e3bb1dbe2912d7e47329ce063322a0c4efabc92035d586fd9d"
+    },
+    {
+      "path": "host/SiliconApp.cs",
+      "bytes": 7646,
+      "sha256": "cd34233eb11a2957e340005bb3a8bf153c34b337d26e8ce4f96315b43ae87ab0"
+    },
+    {
+      "path": "host/LiveWebBridge.cs",
+      "bytes": 19452,
+      "sha256": "d5ee976ad0b881762f498393b26a4dcc68c7d2f24997b8a291e6d58ab44d7bc9"
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "bytes": 12756,
+      "sha256": "1f10c691aba7c14734ec014c7ca4ed6e31994aaa3ba240b53d0cde11a6579744"
+    },
+    {
+      "path": "tools/Build-Silicon-Acceptance.cmd",
+      "bytes": 1239,
+      "sha256": "e706e7ae2db9e117f0189797cb7105b955813138bf47e224bee7eff5c7af39ed"
+    },
+    {
+      "path": "tools/SiliconWebView2Acceptance.cs",
+      "bytes": 21483,
+      "sha256": "4d49a7c9e9e35f9e9d32cb479ee3c07ad023fce4df17255c5c508f0198b93509"
+    },
+    {
+      "path": "tools/SiliconPolicyAcceptance.cs",
+      "bytes": 9476,
+      "sha256": "97105d644fb2c4c0d3337e110757ec1d2b9db1cdae6d2a039c49b28c24965ed0"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "bytes": 220160,
+      "sha256": "7653ecc183e3ca62311e146000c9365e88ebd8903677dc5566306a10c95e3f85"
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe",
+      "bytes": 239616,
+      "sha256": "423ac6e5ec809c8f2d4548e2172bf2ebd88f6449dfa2f21c9470a23179338956"
+    }
+  ],
+  "scope": "Native presenter compilation and headless host policy; browser, persistence and GPU require separate live validation."
+}

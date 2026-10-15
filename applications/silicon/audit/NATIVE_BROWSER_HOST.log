@@ -1,0 +1,5 @@
+Built JA21 2.2.0: static, no third-party runtime packages.
+JA21 Silicon Console 2.2.0
+http://127.0.0.1:8788/
+Local static host only. No network WebSocket or host shell.
+Press Ctrl+C to stop. Changing the port creates a different browser-storage origin.

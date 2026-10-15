@@ -1,0 +1,136 @@
+TAP version 13
+# Subtest: Fixed native bridge starts hidden without shell; no elevation/open or host command occurs on authentication
+ok 1 - Fixed native bridge starts hidden without shell; no elevation/open or host command occurs on authentication
+  ---
+  duration_ms: 679.3704
+  type: 'test'
+  ...
+# Subtest: Foreign session, duplicate input id, nonfinite or oversized native envelopes cannot execute
+ok 2 - Foreign session, duplicate input id, nonfinite or oversized native envelopes cannot execute
+  ---
+  duration_ms: 1772.7943
+  type: 'test'
+  ...
+# Subtest: Native stdout parsing supports split UTF-8 but rejects malformed output and bounds partial records
+ok 3 - Native stdout parsing supports split UTF-8 but rejects malformed output and bounds partial records
+  ---
+  duration_ms: 1115.2587
+  type: 'test'
+  ...
+# Subtest: Correlated delegation waits for actual completion, supports escaped 64 KiB results, and returns UNKNOWN on timeout
+ok 4 - Correlated delegation waits for actual completion, supports escaped 64 KiB results, and returns UNKNOWN on timeout
+  ---
+  duration_ms: 533.0168
+  type: 'test'
+  ...
+# Subtest: Unsolicited completion, repeated target delegation, and ambiguous success are rejected without fabricating execution
+ok 5 - Unsolicited completion, repeated target delegation, and ambiguous success are rejected without fabricating execution
+  ---
+  duration_ms: 246.0841
+  type: 'test'
+  ...
+# Subtest: Non-Windows admin profile refuses attach and reports unavailable
+ok 6 - Non-Windows admin profile refuses attach and reports unavailable
+  ---
+  duration_ms: 0.3316
+  type: 'test'
+  ...
+# Subtest: Outgoing close obeys UTF-8 byte limit, Unicode boundaries and valid code policy
+ok 7 - Outgoing close obeys UTF-8 byte limit, Unicode boundaries and valid code policy
+  ---
+  duration_ms: 1.4587
+  type: 'test'
+  ...
+# Subtest: Broker refuses non-loopback configuration
+ok 8 - Broker refuses non-loopback configuration
+  ---
+  duration_ms: 0.6133
+  type: 'test'
+  ...
+# Subtest: Ticket requests enforce origin, header, query, role, JSON size and single use
+ok 9 - Ticket requests enforce origin, header, query, role, JSON size and single use
+  ---
+  duration_ms: 149.9738
+  type: 'test'
+  ...
+# Subtest: WebSocket admission and RFC parser reject foreign origin, Host, query, subprotocol and unmasked frames
+ok 10 - WebSocket admission and RFC parser reject foreign origin, Host, query, subprotocol and unmasked frames
+  ---
+  duration_ms: 111.0585
+  type: 'test'
+  ...
+# Subtest: Same browser-owner path routes exact terminal bytes, confirms admission only, applies credit and isolates sessions
+ok 11 - Same browser-owner path routes exact terminal bytes, confirms admission only, applies credit and isolates sessions
+  ---
+  duration_ms: 273.8688
+  type: 'test'
+  ...
+# Subtest: Sequence replay, stale epoch, over-credit, and owner loss do not replay or mutate another session
+ok 12 - Sequence replay, stale epoch, over-credit, and owner loss do not replay or mutate another session
+  ---
+  duration_ms: 262.1465
+  type: 'test'
+  ...
+# Subtest: Queue cap, active session cap, duplicate owner and non-reused channel lifecycle are enforced
+ok 13 - Queue cap, active session cap, duplicate owner and non-reused channel lifecycle are enforced
+  ---
+  duration_ms: 316.1197
+  type: 'test'
+  ...
+# Subtest: Owner execution acknowledgment cannot exceed real accepted input; malformed owner resets all dependent sessions
+ok 14 - Owner execution acknowledgment cannot exceed real accepted input; malformed owner resets all dependent sessions
+  ---
+  duration_ms: 117.8773
+  type: 'test'
+  ...
+# Subtest: Fresh server epoch and expired tickets prevent session resurrection
+ok 15 - Fresh server epoch and expired tickets prevent session resurrection
+  ---
+  duration_ms: 85.7471
+  type: 'test'
+  ...
+# Subtest: WebSocket hosting is an explicit CLI opt-in and preserves existing default argument results
+ok 16 - WebSocket hosting is an explicit CLI opt-in and preserves existing default argument results
+  ---
+  duration_ms: 1.116
+  type: 'test'
+  ...
+# Subtest: Default host retains denied connections and does not expose relay admission endpoints
+ok 17 - Default host retains denied connections and does not expose relay admission endpoints
+  ---
+  duration_ms: 649.5599
+  type: 'test'
+  ...
+# Subtest: Opt-in host rewrites served HTML CSP and HEAD length without mutating native/local assets
+ok 18 - Opt-in host rewrites served HTML CSP and HEAD length without mutating native/local assets
+  ---
+  duration_ms: 437.071
+  type: 'test'
+  ...
+# Subtest: Opt-in ticket bootstrap is admitted before static-method filtering and rejects cross-site requests
+ok 19 - Opt-in ticket bootstrap is admitted before static-method filtering and rejects cross-site requests
+  ---
+  duration_ms: 707.0819
+  type: 'test'
+  ...
+# Subtest: Server shutdown closes registered WebSocket peers and removes the gateway upgrade handler
+ok 20 - Server shutdown closes registered WebSocket peers and removes the gateway upgrade handler
+  ---
+  duration_ms: 1465.992
+  type: 'test'
+  ...
+# Subtest: Regenerated launcher retains earlier supported versions and opts in only for engine 2.4.0
+ok 21 - Regenerated launcher retains earlier supported versions and opts in only for engine 2.4.0
+  ---
+  duration_ms: 2.7155
+  type: 'test'
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4433.3484

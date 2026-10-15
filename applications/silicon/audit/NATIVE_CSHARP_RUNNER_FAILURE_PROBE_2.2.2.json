@@ -1,0 +1,22 @@
+{
+  "tiffReport": {
+    "status": "INVALIDATED",
+    "reason": "A new native validation run has started.",
+    "startedUtc": "2026-10-14T04:39:41.0639772Z"
+  },
+  "purpose": "Expected SDK failure invalidates earlier PASS reports in a separate owned working folder",
+  "nativeReport": {
+    "status": "INVALIDATED",
+    "reason": "A new native validation run has started.",
+    "startedUtc": "2026-10-14T04:39:41.0639772Z"
+  },
+  "expectedFailure": {
+    "status": "FAIL",
+    "stage": "SDK",
+    "startedUtc": "2026-10-14T04:39:41.0639772Z",
+    "sourceSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4",
+    "error": "The term 'D:\\Codex\\2026-10-13\\pl\\work\\native-csharp\\failure-state\\missing-dotnet.exe' is not recognized as a name of a cmdlet, function, script file, or executable program.\r\nCheck the spelling of the name, or if a path was included, verify that the path is correct and try again.",
+    "finishedUtc": "2026-10-14T04:39:41.5456727Z"
+  },
+  "status": "PASS"
+}

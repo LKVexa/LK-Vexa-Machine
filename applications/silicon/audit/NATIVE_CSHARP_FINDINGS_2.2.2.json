@@ -1,0 +1,28 @@
+{
+  "baselineVersion": "2.2.1",
+  "targetVersion": "2.2.2",
+  "baselineSourceSha256": "cd785c18ff4f2789fbe9f4df390b3f4a343543f68b0ff4c9465769be13be17ca",
+  "fixedSourceSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4",
+  "baselineCompilation": "PASS: .NET SDK 8.0.426, 0 warnings, 0 errors.",
+  "findings": [
+    {
+      "id": "NATIVE-RESULT-MUTATION",
+      "status": "FIXED",
+      "reproduction": "After Wrap, alter h.Planes[0][0], replace h.Planes[1] with empty array, change h.Route[0]/h.Chip[0]. Native assertion Result snapshots protect verified outputs returned False; exported pixels changed and replacement could make export fail.",
+      "fix": "Defensive result snapshots, cloned input and single complete-result publication; concurrent Wrap encodes its own snapshot.",
+      "regression": "Native mutation assertions and 128 parallel Wrap calls pass."
+    },
+    {
+      "id": "NATIVE-BYTE-CALIBRATION",
+      "status": "FIXED",
+      "reproduction": "Pillow read C# byte TIFF ResolutionUnit=2 (INCH), X/YResolution=3175/1, while JS byte planes are uncalibrated. These LUT output bytes/route IDs have no measured physical pixel calibration.",
+      "fix": "ResolutionUnit=1 (NONE), X/YResolution=1/1; explicit top-left orientation, planar layout and unsigned integer sample format.",
+      "regression": "Pillow verifies uncalibrated metadata and all 4,096 pixels in each of 35 C# and 35 JS files."
+    }
+  ],
+  "additionalHardening": "ArgumentNullException names ram; length exceptions name ram; TIFF index validated consistently before unsampled state.",
+  "limitations": [
+    "Execution was Windows x64 .NET, not native ARM64 .NET or physical silicon.",
+    "Browser application does not compile or invoke C#; native source stays reference/test material."
+  ]
+}

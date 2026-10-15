@@ -1,0 +1,18 @@
+{
+  "version": "2.1.0",
+  "status": "PASS_FOR_OFFLINE_GATE",
+  "node": "v22.16.0",
+  "tests": 135,
+  "failed": 0,
+  "excluded": [
+    "Native Windows .cmd execution",
+    "Normal-browser worker/IndexedDB/Web Locks/CSP integration",
+    "Native C# compilation",
+    "Physical GPU/XPU or quantum hardware",
+    "Live advisory-database scan"
+  ],
+  "optional": [
+    "python tests/codecs.py (Pillow)",
+    "python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)"
+  ]
+}

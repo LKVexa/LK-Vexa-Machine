@@ -1,0 +1,750 @@
+--- PAGE 1 ---
+The Bit and the Anti-Bit: Mimicking
+Cosmic Quantum States to Unlock
+Digital Holography
+Introduction
+The pursuit of fully realized digital holography represents one of the most formidable challenges
+in modern optical engineering, computational physics, and quantum information theory. For
+decades, the objective has been the seamless reconstruction of three-dimensional light fields
+that provide perfect depth cues—motion parallax, binocular disparity, and
+accommodation—indistinguishable from physical reality. However, classical computational
+paradigms have consistently encountered an insurmountable mathematical and thermodynamic
+bottleneck: the exponential scaling of computational complexity required to process and project
+wavefield propagation at the tera-pixel scale
+1
+. It has become increasingly evident that classical
+models of computation, constrained by standard serial processing and localized information
+theory, cannot support the data architectures required for next-generation volumetric displays.
+To bypass this barrier, theoretical frameworks have begun looking toward the foundational
+structures of the universe itself. The universe, according to modern theoretical physics, may
+fundamentally operate as a holographic information structure
+2
+. Through the lens of the
+holographic principle, the Anti-de Sitter/Conformal Field Theory (AdS/CFT) correspondence,
+and advanced tensor networks, spacetime geometry and gravity are understood as emergent
+properties of lower-dimensional quantum entanglement
+3
+. Unlocking digital holography requires
+mimicking these exact cosmic quantum states. By transitioning from classical bits to quantum
+superpositions, and adopting novel theoretical constructs such as the bit and anti-bit model—a
+framework designed to probe non-local tomography and gravitationally induced
+entanglement—computational holography can undergo a fundamental paradigm shift
+6
+.
+The convergence of the bit/anti-bit algebraic framework, tensor network architectures, and
+biphoton interferometry provides the requisite blueprint for Quantum Computer-Generated
+Holography (QGH)
+1
+. This report provides an exhaustive technical analysis of how cosmic-like
+quantum states, non-local tomography, and entanglement structures must be harnessed to
+decode the bulk-boundary mechanisms of the universe and, subsequently, apply those exact
+principles to generate and manipulate tera-pixel digital holograms.
+The Thermodynamic Limits of Classical Computation
+To understand the necessity of mimicking cosmic quantum states, it is first required to establish
+the thermodynamic and informational boundaries of the classical bit. The concept of the bit,
+traditionally confined to binary logic, inherently possesses a physical and thermodynamic reality.
+Landauer's principle establishes the minimal thermodynamic cost associated with the
+processing of information, formally stating that the amount of heat produced when erasing a
+classical bit—setting a state with equal probabilities of being 0 or 1 strictly to 1 or 0—is strictly
+
+--- PAGE 2 ---
+bounded
+8
+.
+Here, is the Boltzmann constant and is the temperature of the environment
+8
+. In highly
+optimized classical systems such as Static Random-Access Memory (SRAM), information is
+typically maintained using intersecting conductors known as the bit line and the anti-bit line
+8
+. In
+such architectures, the state of the memory cell is defined by the voltage differential between
+the bit line ( ) and the anti-bit line ( ). According to Kirchhoff's circuit law, analytical
+solutions for these systems demonstrate a stable state where defines a logical
+0, while defines a logical 1
+8
+.
+However, as computational scales approach the atomic level required for tera-pixel holographic
+displays, thermal fluctuations increasingly dominate. The voltages and transition from
+deterministic values to probabilistic distributions
+8
+. Finite-time operations in
+nanoscale classical systems result in excess heat production, necessitating finite-time
+generalizations of Landauer’s principle:
+where represents the duration of the protocol and denotes the expected dynamic
+activity of the system
+8
+. Integrating entropy production over the duration of the erasure
+protocol reveals a stark physical limit: decreasing the erasure error inevitably leads to an
+exponential increase in total thermodynamic dissipation
+8
+. The thermodynamics of the classical
+bit and its physical counterpart, the anti-bit line, represent the absolute limits of classical
+computation.
+Koomey’s law, which states that the number of computations executable per joule of dissipated
+energy doubles approximately every 1.6 years, is rapidly approaching a hard physical wall due
+to these thermal constraints
+8
+. The energy requirements to compute a tera-pixel hologram
+classically would result in catastrophic energy consumption and heat dissipation due to this
+fundamental erasure cost
+8
+. Surmounting this limit requires abandoning the classical, localized
+binary architecture in favor of quantum systems where information is conserved unitarily rather
+than erased disruptively.
+
+--- PAGE 3 ---
+The Mathematical Formalism of the Anti-Bit and
+Quantum Message Spaces
+In quantum mechanics, the concept of the "anti-bit" evolves from a mere physical wire in an
+SRAM circuit into a profound algebraic construct. Historically, the prefix "anti-" in physics traces
+back to the Dirac equation, which predicted the existence of antimatter by allowing for negative
+energy states—particles possessing the same mass but opposite charge and physical
+behaviors, such as the positron (anti-electron) spiraling in the opposite direction of an electron
+within an electromagnetic field
+9
+. In advanced quantum information theory, the "anti-bit" assumes
+a structural role, representing specific states, operational inverses, or constrained Hilbert space
+sectors that allow for the modeling of complex, non-classical interactions without the entropic
+penalties of classical bit erasure
+10
+.
+To circumvent Landauer's limit in the calculation of digital holograms, information must be
+processed within a Quantum Message Space (QMS). A quantum message space is defined as
+a Hilbert space coupled with an orthonormal basis indexed by the elements
+of the free group on two bits
+10
+. In this advanced algebraic topology, the values 0 and 1
+are defined as bits that construct positive messages, whereas the values 2 and 3 operate as the
+anti-bit values
+10
+. The free group identity is represented by the empty string
+10
+.
+Any quantum state in this message space functions as a message source, inducing a
+probability distribution with a weight determined by the trace
+10
+. When evaluating the entropy
+dynamics, if is a prior state before measurement, the probability that a received message
+equals a bit string is given by
+10
+. Should a measurement occur
+and alter the state to , the information lost by the system (or entropy gained) is
+quantifiable as
+10
+.
+The Destructive Read Memory Cell and Reversible Operations
+To process holography unitarily, classical read/write mechanisms must be replaced by quantum
+operations that utilize these anti-bits. Consider a Destructive Read Memory Cell existing in state
+where
+10
+. Reading and restoring the stored bit without triggering a classical
+erasure penalty requires measuring the observable , which determines whether a
+message exists
+10
+.
+The state transitions are governed by unitary operators , where is the
+unique unitary operator mapping the state to
+10
+. To write a value to the cell, the
+system utilizes the anti-bit values to perform a reversible erasure. Applying the anti-bit operator
+
+--- PAGE 4 ---
+to yields , which returns the empty string if , but results in if
+10
+. Subsequently applying combinations of anti-bit operators, such as ,
+allows the system to shift bits in and out like a shift register, managing bit strings of arbitrary
+length while conserving the total number of bits
+10
+.
+By treating memory as a quantum message space populated by bits and algebraic anti-bits,
+computational systems can execute continuous, reversible unitary operations. This
+fundamentally eliminates the Landauer erasure limit that currently bottlenecks classical
+holographic processing units.
+Cosmic Entanglement and the Bose-Marletto-Vedral
+Paradigm
+To engineer computational systems capable of processing holographic scales of information,
+theorists study how the universe inherently processes information—specifically, how gravity
+mediates entanglement. A critical development in this domain is the Bose-Marletto-Vedral
+(BMV) experiment, which explores whether a locally classical mediator (such as a gravitational
+field) can entangle two distant quantum masses
+6
+. Proving this mathematically requires a
+framework that steps beyond standard quantum theory, giving rise to the bit and anti-bit model
+6
+.
+The bit and anti-bit model is a toy theory explicitly constructed to demonstrate how
+entanglement can be generated through local interactions with a gravitational mediator that is
+strictly classical (i.e., it does not exhibit observable spacetime superpositions)
+6
+. The model
+scrutinizes various constraints, including fermions obeying parity superselection rules and
+non-Abelian Ising anyons—particles frequently utilized in lattice gauge field theory and
+topological quantum computing
+6
+.
+In the bit/anti-bit formalism, systems are comprised of bits ( ) and anti-bits ( ), both
+associated with standard two-dimensional Hilbert spaces ( )
+7
+. However, the
+rules governing their interactions and pure states differ profoundly from classical composite
+systems. A system consisting exclusively of bits, denoted as , or exclusively of
+anti-bits, denoted as , allows for no superpositions
+7
+. The pure states are strictly tensor
+products of computational basis states:
+Because no superpositions are permitted in homogenous systems, they behave locally like
+purely classical bits
+7
+. The non-classicality emerges solely when bits and anti-bits are combined.
+In a mixed composite system of bits and anti-bits where , the
+
+--- PAGE 5 ---
+permissible pure states are expanded. They take the form:
+Here, is an -bit classical basis state, and the composite
+basis state is defined by a permutation mapping the bits to the anti-bits
+7
+.
+Superpositions of states sharing the same matching permutation are strictly valid
+7
+.
+Non-Local Tomography and its Computational Implications
+Because the allowed states of bit and anti-bit composites are strictly larger than those in a
+standard classical composition, the theory exhibits non-local tomography
+6
+. Local tomography is
+a foundational assumption in standard quantum mechanics, postulating that the global state of a
+composite system can be entirely deduced by performing correlated measurements on its local
+subsystems
+6
+. In non-locally tomographic theories, the global state contains topological
+information that is utterly invisible to any set of local measurements
+6
+.
+Feature Standard Quantum
+Theory
+Bit / Anti-Bit Model
+(BMV)
+Computational
+Holography
+Implication
+System Locality Tomographically
+Local
+Non-Locally
+Tomographic
+Eliminates the need
+to compute
+independent,
+localized pixel data
+sequentially.
+Superposition
+Constraints
+Universal across all
+Hilbert spaces
+Restricted to mixed
+composite
+states
+Allows for highly
+compressed
+point-cloud
+encoding without
+full quantum
+overhead.
+Mediator State
+Dynamics
+Requires quantum
+superposition to
+mediate
+entanglement
+Can remain strictly
+classical (bits) while
+mediating
+entanglement
+Enables classical
+intermediate
+hardware to handle
+quantum-generated
+
+--- PAGE 6 ---
+holographic phase
+data.
+Entanglement
+Generation
+Mediated via
+quantum exchange
+operators
+Mediated via
+permutation and
+classical swapping
+operations
+Drastically reduces
+the computational
+complexity of
+tracking lightwave
+interactions.
+To simulate the BMV experiment, a specific permutation of anti-bits and bits is constructed, for
+example, arranged sequentially as
+7
+. The first quantum system
+(Qubit 1) is encoded in the pair , the second quantum system (Qubit 2) in
+, and the classical gravitational mediator is represented by the purely classical bits
+7
+. Through simple classical bit-swapping operations across the local classical bit
+sector, entanglement is mediated between the distant qubits. The mediator never enters a
+superposition and maintains a fully classical local description, proving that classical mediators
+can entangle quantum states
+6
+.
+This cosmic parallel has profound implications for digital holography. If the universe utilizes
+non-locally tomographic structures to generate emergent entanglement across spacetime
+without requiring the underlying medium to be in a globally superposed state, then
+computational holography must harness analogous non-local data structures. By abandoning
+strictly localized pixel-by-pixel wavefield calculations and adopting algorithms where the global
+holographic state is encoded in non-local permutations (analogous to the bit anti-bit composite
+states), the computational burden of tracking independent localized phases is eliminated.
+The Holographic Principle and Spacetime as
+Computation
+The necessity of utilizing quantum mechanics to calculate holograms is fundamentally validated
+by the universe's own architecture. The holographic principle is a property of string theories and
+a theoretical pillar of quantum gravity postulating that the full physical description of a volume of
+space (the bulk) can be entirely encoded on a lower-dimensional boundary surrounding that
+region
+3
+.
+This principle originates from black hole thermodynamics. Bekenstein and Hawking
+demonstrated that the maximum entropy (and thus the information capacity) of a black hole
+scales not with its three-dimensional volume, but with the two-dimensional surface area of its
+event horizon
+3
+. Therefore, the information content of all matter and energy that falls into a black
+hole is perfectly isomorphic to the thermal fluctuations inscribed on the boundary surface,
+
+--- PAGE 7 ---
+rendering the 3D interior theoretically illusory
+3
+.
+Attempts to generalize this entropy bound to broader spacetimes faced paradoxes, such as
+"Wheeler's bags of gold"—solutions in general relativity where an arbitrarily large volume is
+bounded by a small surface area, seemingly violating holographic capacity
+3
+. However,
+frameworks such as the Fischler-Susskind holographic bound and Raphael Bousso's covariant
+entropy bound, which is based upon null hypersurfaces, successfully extended the holographic
+mapping to general cosmological spacetimes
+3
+. Ultimately, these bounds confirm that
+holographic noise—the root-mean-square transverse holographic fluctuation amplitude at the
+Planck length—encodes the fundamental information limits of reality
+3
+.
+The most precise mathematical realization of this principle is the Anti-de Sitter/Conformal Field
+Theory (AdS/CFT) correspondence (Maldacena duality)
+3
+. It establishes an exact equivalence
+between a higher-dimensional quantum gravity theory formulated in negatively curved Anti-de
+Sitter (AdS) space (the bulk) and a Conformal Field Theory (CFT) residing strictly on the
+lower-dimensional boundary
+3
+. In this framework, the three-dimensional reality experienced as
+continuous spacetime is a holographic projection generated by quantum entanglement
+operating on a distant, two-dimensional boundary
+2
+. The entangled qubits on the boundary
+weave together the fabric of spacetime, creating an emergent geometry that obeys Einstein's
+general relativity
+2
+.
+If the 3D spacetime is the "screen," the higher-dimensional boundary is the "processor"
+executing the computations
+2
+. This cosmic duality implies that any ultimate volumetric
+holographic display must mathematically mirror AdS/CFT. It must map a heavily condensed,
+lower-dimensional dataset (the 2D Spatial Light Modulator) into a fully projected, interactive 3D
+bulk volume without information loss.
+Tensor Networks: The Computational Scaffolding of
+Holography
+To bridge the theoretical elegance of AdS/CFT with actionable computational algorithms,
+physicists rely on Tensor Networks. A tensor network is a systematic graphical and algebraic
+formulation used to efficiently represent complex quantum many-body wavefunctions in an
+exponentially large Hilbert space by breaking down the global state into a network of
+interconnected local tensors
+4
+. Tensor networks naturally obey entanglement area laws, making
+them the perfect framework for translating the boundary CFT into bulk holographic geometry
+11
+.
+Multiscale Entanglement Renormalization Ansatz (MERA)
+The Multiscale Entanglement Renormalization Ansatz (MERA) is a hierarchical, layered tensor
+network designed to capture the properties of critical systems and conformal field theories
+11
+.
+MERA features a causal-cone structure composed of distinct elements:
+● Disentanglers: Tensors that remove local entanglement between adjacent sites to
+simplify the state representation before scaling
+12
+.
+● Isometries: Coarse-graining tensors that map the disentangled state into a
+lower-dimensional effective Hilbert space, iterating this process across multiple scales
+12
+.
+The structure of MERA reproduces the hyperbolic geometry of an AdS time-slice. The extra
+
+--- PAGE 8 ---
+dimension introduced by the iterative layers of the MERA network is precisely identified as the
+emergent holographic radial direction in the AdS bulk
+4
+.
+Matrix Product States (MPS) and Statistical Mechanics
+For one-dimensional quantum states, the corresponding tensor network is the Matrix Product
+State (MPS)
+12
+. The MPS decomposes a global quantum state into a chain of rank-three tensors,
+providing a highly compressed format for describing complex correlations.
+The application of MPS to holographic modeling is deeply tied to statistical mechanics. In the
+double-scaled Sachdev-Ye-Kitaev (DSSYK) model—a prominent model for holographic duality
+and quantum chaos—the transfer matrix is diagonalized using chord number states
+and q-deformed oscillators
+15
+. Specifically, the creation and annihilation operators of chords
+dictate the moment of the transfer matrix
+15
+. Remarkably, the transfer matrix of DSSYK maps
+directly to the Markov matrix of the Asymmetric Simple Exclusion Process (ASEP), a
+statistical mechanical model governing particle hopping on a 1D lattice
+15
+.
+The stationary state of ASEP is exactly formulated as an MPS of an open XXZ spin chain
+15
+. In
+this formulation, state configurations are defined by paths through the tensor network. When
+parameter , the state is represented as a sum over Dyck paths with unit coefficients,
+identically mirroring the ground state of the Fredkin spin chain
+15
+. By adding an extra height
+direction as a holographic coordinate, the MPS expands into a multi-layered holographic tensor
+network composed of 4-index tensors with finite bond dimensions
+15
+.
+By importing these exact tensor network frameworks into computational engineering, one can
+map the algorithms of MERA and MPS into field-programmable gate arrays (FPGAs) or
+quantum processors. A holographic display driven by tensor networks bypasses classical ray
+tracing; it constructs the 2D hologram by running the MERA tensor network in reverse,
+mathematically projecting the 3D point-cloud (the AdS bulk) onto the spatial light modulator (the
+boundary CFT)
+16
+.
+Classical Bottlenecks in Computer-Generated
+Holography (CGH)
+To fully appreciate the necessity of adopting tensor networks and quantum models, one must
+quantify the failure of classical Computer-Generated Holography (CGH). The fundamental goal
+of CGH is to compute the interference fringe patterns generated by light waves emitted from a
+3D object and store them on a two-dimensional Spatial Light Modulator (SLM)
+1
+.
+Pioneering efforts by Benton's group at the Massachusetts Institute of Technology developed
+acousto-optic modulator-based displays that produced horizontal parallax with large viewing
+angles, while contemporary systems utilize liquid crystal displays
+1
+. However, the primary metrics
+for a holographic display—the size of the reconstructed image and its viewing angle—are
+heavily bounded by the physical properties of the SLM, specifically the total number of pixels
+and the pixel pitch (the physical distance between adjacent pixels). The maximum viewing
+
+--- PAGE 9 ---
+angle is dictated by the diffraction limit:
+where is the wavelength of the illuminating light
+1
+.
+If an advanced 4K resolution SLM is utilized, possessing a pixel pitch of and
+illuminated by a standard red laser ( ), the resulting viewing angle is an
+incredibly narrow , and the image size is confined to a microscopic
+1
+. To
+achieve a practical, life-sized 3D holographic image—for instance, measuring
+with a viewing angle at —the SLM would require a
+pixel pitch of and a staggering total of over 1 tera-pixel ( pixels)
+1
+.
+Calculating the wavefield propagation for a 1 tera-pixel hologram from a 1 tera-point 3D object
+cloud using classical algorithms involves immense computational costs. Even with highly
+optimized acceleration algorithms—such as polygon-based, layer-based, light-field algorithms,
+or sparse matrix multiplication—classical GPUs and FPGAs cannot achieve video-rate
+generation at the tera-pixel scale
+1
+. The rendering process falls victim to the thermodynamic
+limits of the classical bit.
+Quantum Computer-Generated Holography (QGH)
+The solution to this computational apocalypse lies in Quantum Computer-Generated
+Holography (QGH). As proposed by Shimobaba and Ito, QGH fundamentally abandons serial
+classical processing in favor of quantum mechanical parallelism
+1
+.
+In the QGH paradigm, the traditional point-cloud algorithm is mapped onto a quantum
+computational framework
+1
+. The spatial coordinates and phase information of the 3D point-cloud
+data are encoded not as classical binary strings, but as superposition states of qubits
+1
+. Because
+the state space of a quantum computer grows exponentially as with the addition of
+qubits, an immense amount of spatial data can be represented with a relatively small number of
+highly entangled qubits.
+Once the point-cloud data is initialized as a global superposition state, the interactions of all
+lightwaves emitted from the point cloud onto the hologram plane are calculated simultaneously
+using the intrinsic principles of quantum mechanics
+1
+. Instead of computing discrete ray traces,
+the quantum processor applies a series of unitary transformations across the entire
+superposition state simultaneously.
+
+--- PAGE 10 ---
+The Acceleration Factor
+The impact of this quantum parallelism is mathematically profound. For the standard of
+calculating a 1 tera-pixel hologram from 1 tera-object points, analytical studies reveal that QGH
+accelerates the hologram computation by a factor of (a one-million-fold acceleration)
+compared to classical computer-generated holography
+1
+.
+Computationa
+l Paradigm
+Data
+Representatio
+n
+Core
+Mathematical
+Operation
+Scale
+Capacity
+Relative
+Acceleration
+(Tera-pixel)
+Classical CGH Binary Arrays Iterative
+Ray/Wave
+Tracing
+Giga-pixel
+(Max)
+1x (Baseline)
+Quantum CGH
+(QGH)
+Qubit
+Superpositions
+Global Unitary
+Transformation
+s
+Tera-pixel and
+beyond
+x
+The implementation of QGH mirrors the underlying physics of cosmic quantum states. Just as
+the bit/anti-bit model demonstrated that non-locally tomographic permutations can entangle
+disparate components without tracking classical intermediaries
+7
+, QGH leverages global
+entanglement to bypass the need to compute independent pixel values. Furthermore, the
+unitary transformations applied in the quantum circuit to generate the QGH interference pattern
+are mathematically isomorphic to the tensor network operations that map bulk object data to the
+boundary SLM.
+Biphoton Digital Holography: Capturing Quantum
+Phase
+While QGH focuses on calculating synthetic holograms utilizing quantum computation, the
+realization of fully unlocked digital holography also requires the ability to capture, measure, and
+image complex physical light fields utilizing quantum states. Classical quantitative phase
+imaging (QPI) relies on interferometric stability to measure the phase delay introduced by
+transparent objects, commonly used in label-free biological imaging
+18
+. However, classical
+imaging is fundamentally limited by the Rayleigh diffraction limit and standard shot noise. By
+employing entangled quantum states of light, specifically spatially entangled photon pairs, these
+limitations are surpassed
+18
+.
+Biphoton digital holography operates in analogy to off-axis digital holography, but shifts the
+paradigm into the quantum regime
+19
+. High-dimensional biphoton states, which possess
+unbounded degrees of freedom such as orbital angular momentum (OAM), time-bins, and
+
+--- PAGE 11 ---
+spatial radial modes, are utilized to encode massive amounts of phase and amplitude
+information
+19
+.
+The Mechanism of Biphoton Holography
+The generation of highly correlated spatial photon pairs is typically achieved through
+Spontaneous Parametric Down-Conversion (SPDC)
+19
+. A high-frequency pump laser illuminates
+a 0.5-mm-thick type-I -barium borate (BBO) nonlinear crystal
+19
+. Inside the crystal, single
+pump photons are probabilistically annihilated to create a pair of lower-frequency, highly
+entangled photons (signal and idler).
+In biphoton digital holography, a spatial superposition of two distinct pump fields is created—an
+unknown state containing the structural information of an object, and a known reference state
+(typically an 810 nm classical comparison standard)
+18
+. As the superposed pump beam
+undergoes SPDC, the spatial characteristics and phases are directly transferred to the
+generated biphoton wavefunctions
+19
+.
+The mathematical representation of the coincidence count rate, which measures the
+simultaneous detection of an idler photon at coordinate and a signal photon at coordinate
+, is defined by the absolute square of the total biphoton wavefunction
+19
+:
+where represents the reference biphoton state and represents the unknown state
+19
+.
+The expansion of this equation generates the cross-term , which constitutes
+the quantum interference pattern
+19
+.
+To capture this pattern without laborious raster scanning, ultra-fast event-based time-tagging
+cameras, such as the TPX3CAM, are employed
+18
+. Operating across a pixel
+matrix, these cameras detect the arrival time of individual photons with nanosecond resolution,
+allowing for the simultaneous extraction of spatial and temporal correlations
+18
+. By filtering these
+coincidence measurements and isolating the spatial correlations, the phase and amplitude of
+the unknown biphoton state are precisely reconstructed
+19
+.
+This reconstruction heavily utilizes the Transport of Intensity Equation (TIE), valid for paraxial
+propagation of fields with irrotational phase
+18
+. The TIE equates to a Poisson equation for the
+phase, taking the form:
+
+--- PAGE 12 ---
+where is the unknown phase and is the Laplacian in the transverse coordinates
+18
+.
+Accelerated State Tomography
+Historically, characterizing the full quantum state of high-dimensional biphotons required
+exhaustive projective measurements, a process whose complexity scales quadratically with the
+dimensionality of the Hilbert space
+19
+. Biphoton digital holography revolutionizes this process. By
+parallelizing the measurements across the TPX3CAM array and utilizing interferometric phase
+reconstruction, the measurement time is reduced to mere seconds. This represents an
+acceleration of three orders of magnitude over previous methods, achieving highly reliable
+characterizations with an average fidelity of 87% across arbitrary spatial mode bases
+19
+.
+This optical achievement is the physical inverse of QGH. While QGH uses qubits to compute
+classical interference fringes for projection, biphoton digital holography uses quantum
+interference to compute and extract the state of a physical object.
+Synthesizing Cosmic Models and Digital Architectures
+The ultimate unlocking of digital holography rests upon recognizing that computational
+algorithms, optical engineering, and cosmological models are converging upon the exact same
+mathematical structures.
+1. The Architecture of Data: Standard classical rendering treats space as a fundamentally
+localized grid of voxels, a method proven computationally and thermodynamically fatal for
+tera-pixel resolutions
+1
+. The bit/anti-bit model in the BMV experiment demonstrates that
+nature operates differently. Entanglement and structural information can be mediated by
+entirely non-locally tomographic systems without requiring localized superpositions of the
+mediator
+6
+. Holographic software must adopt this non-local approach, abandoning
+pixel-by-pixel tracking for global topological data structures utilizing quantum message
+spaces and algebraic anti-bits
+7
+.
+2. The Mechanism of Translation: The holographic principle dictates that a 3D bulk volume
+is perfectly isomorphic to a 2D boundary, constrained by covariant entropy bounds and
+holographic noise
+3
+. The mathematical tool utilized to compute this translation in physics is
+the tensor network—specifically MERA and continuous Matrix Product States mapped
+through systems like ASEP and Fredkin spin chains
+11
+. These tensor networks natively act
+as highly efficient compression algorithms and quantum error-correcting codes
+21
+.
+Therefore, the operating systems driving future spatial light modulators must be
+programmed fundamentally using tensor network contraction algorithms, allowing an
+extremely dense 2D phase map to unspool into a robust 3D light field.
+3. The Engine of Execution: Translating these tensor networks from theory to projection
+requires the acceleration factor provided by Quantum Computer-Generated
+Holography
+1
+. Only by mapping the point-cloud data to the superposition states of qubits
+can the simultaneous lightwave interactions be processed at the tera-pixel scale
+1
+.
+When an object is captured via the high-fidelity entanglement scanning of biphoton digital
+holography
+19
+, its phase data is inherently quantum. That quantum state can be fed directly into
+
+--- PAGE 13 ---
+the QGH tensor network pipeline without the need to destructively collapse it into classical bits.
+The quantum processor maintains the phase superposition, computes the boundary geometry,
+and projects the resulting interference pattern via the SLM. This creates a purely quantum
+computational pipeline from capture to display, fundamentally bypassing the Landauer
+thermodynamic limits of classical bit erasure
+8
+.
+The pursuit of volumetric, tera-pixel digital holography represents a frontier that cannot be
+conquered by scaling up existing classical technologies. The mathematical limits of viewing
+angles, pixel density, and computational capacity dictate that traditional computer-generated
+holography is fundamentally obsolete at this requisite scale. Instead, the paradigm must shift
+toward the fundamental quantum mechanics that govern the architecture of spacetime itself. To
+fully unlock digital holography is not merely to build a better display; it is to engineer a localized,
+computable mimicry of the quantum fabric of the universe itself.
+Works cited
+1. Quantum computer-generated holography - Optica Open - Figshare,
+https://preprints.opticaopen.org/articles/preprint/Quantum_computer-generated_h
+olography/27123561
+2. Space-time may be a sort of hologram generated by quantum,
+https://www.reddit.com/r/space/comments/bm6sq4/spacetime_may_be_a_sort_of
+_hologram_generated_by/
+3. Holographic principle - Wikipedia,
+https://en.wikipedia.org/wiki/Holographic_principle
+4. Tensor Networks Initiative - Perimeter Institute,
+https://perimeterinstitute.ca/tensor-networks-initiative
+5. Holography beyond AdS/CFT by Nicholas S Salzetta A dissertation,
+https://escholarship.org/content/qt3jx0w209/qt3jx0w209.pdf?v=lg
+6. Bose-Marletto-Vedral experiment without observable spacetime,
+https://arxiv.org/pdf/2506.21122
+7. https://arxiv.org/abs/2506.21122
+8. Learning optimal erasure of a Static Random Access Memory,
+https://www.researchgate.net/publication/385528586_Learning_optimal_erasure_
+of_a_Static_Random_Access_Memory
+9. Physicists have observed the light spectrum of antimatter for first time,
+https://www.reddit.com/r/Futurology/comments/5jdrbw/physicists_have_observed_
+the_light_spectrum_of/
+10. Introduction to Quantum Message Space - arXiv, https://arxiv.org/pdf/cs/0507032
+11. Hyperinvariant Tensor Networks and Holography. - Semantic Scholar,
+https://www.semanticscholar.org/paper/Hyperinvariant-Tensor-Networks-and-Holo
+graphy.-Evenbly/b28d09e5d8193376620a820406278fcf0fab673e
+12. Tensor network - Wikipedia, https://en.wikipedia.org/wiki/Tensor_network
+13. Review Articles & Learning Resources - Tensor Network,
+https://tensornetwork.org/reviews_resources.html
+14. Lorentzian Holographic Gravity and the Time-Energy ... - SID,
+
+--- PAGE 14 ---
+https://www.sid.ir/fileserver/je/38732-279722-x-1134001.pdf
+15. Holographic tensor network for double-scaled SYK - SciPost.org,
+https://scipost.org/SciPostPhys.19.4.083/pdf
+16. MicroCloud Hologram Inc. Utilizes FPGA to Accelerate Tensor,
+https://www.moomoo.com/news/post/64175579/microcloud-hologram-inc-utilizes-f
+pga-to-accelerate-tensor-network-computing
+17. Tomoyoshi Shimobaba Professor at Chiba University - ResearchGate,
+https://www.researchgate.net/profile/Tomoyoshi-Shimobaba-2
+18. Quantum phase imaging via diffraction of correlated bi-photon states,
+https://pubs.aip.org/aip/app/article/11/6/066116/3395181/Quantum-phase-imaging￾via-diffraction-of
+19. Interferometric imaging of amplitude and phase of spatial biphoton,
+https://www.researchgate.net/publication/373116232_Interferometric_imaging_of_
+amplitude_and_phase_of_spatial_biphoton_states
+20. Fig. 8 Noise reduction factor (NRF) and Fano factor as a function of,
+https://www.researchgate.net/figure/Noise-reduction-factor-NRF-and-Fano-factor￾as-a-function-of-the-averaging-filter-size_fig5_372308525
+21. Holographic codes from hyperinvariant tensor networks - PMC - NIH,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10640591/
+22. Tensor network models of AdS/qCFT - Quantum Journal,
+https://quantum-journal.org/papers/q-2022-02-03-643/

@@ -1,0 +1,196 @@
+{
+  "schema": "JA21/IDEAPAD_CPU_AUDIT/1",
+  "date": "2026-10-14",
+  "generatedUtc": "2026-10-14T19:30:45.412149+00:00",
+  "consoleVersion": "1.2.1",
+  "engineVersion": "2.2.2",
+  "conclusion": "JA21 is a specialized JavaScript field-and-byte software processor model executed on the Intel host CPU; not a physical JA21 silicon chip or general-purpose instruction-set CPU.",
+  "physicalJa21Silicon": false,
+  "generalPurposeCpuEmulation": false,
+  "armIsaEmulation": false,
+  "computationVerified": true,
+  "endToEndVerified": false,
+  "browserPersistenceVerified": false,
+  "host": {
+    "schema": "JA21/HOST_PROBE/1",
+    "timestampUtc": "2026-10-14T18:31:21.9500092Z",
+    "manufacturer": "LENOVO",
+    "model": "83KS",
+    "family": "IdeaPad 5 2-in-1 16IAL10",
+    "registryProcessor": "Intel(R) Core(TM) Ultra 7 255U",
+    "cpuid": {
+      "available": true,
+      "vendor": "GenuineIntel",
+      "brand": "Intel(R) Core(TM) Ultra 7 255U",
+      "family": 6,
+      "model": 181,
+      "stepping": 0,
+      "hypervisorPresent": true,
+      "leaf1": [
+        722512,
+        411043840,
+        -330869,
+        -1077150721
+      ]
+    },
+    "processArchitecture": "X64",
+    "osArchitecture": "X64",
+    "osVersion": "Microsoft Windows NT 10.0.26200.0",
+    "logicalProcessorsAvailableToProcess": 14,
+    "probeRuntime": ".NET 10.0.11",
+    "avx2Support": true,
+    "limitation": "Registry and process CPUID identify the execution host, not manufacturing authenticity. Hypervisor presence may reflect Windows virtualization security; no JA21 hardware acceleration is established."
+  },
+  "checks": {
+    "core": {
+      "status": "PASS_WITH_ENVIRONMENT_RERUNS",
+      "total": 311,
+      "passed": 308,
+      "failed": 0,
+      "skipped": 3,
+      "method": "Initial full run plus exact unchanged affected-file reruns after network permission and isolated startup preparation; raw initial failures retained. See CORE_FINAL_RESULTS.json.",
+      "scope": "Fresh engine tests; not a live WebView2 acceptance."
+    },
+    "nativeReference": {
+      "status": "PASS",
+      "assertions": 598,
+      "laneInputComparisons": 368640,
+      "selectorSamples": 20480,
+      "concurrentWraps": 128,
+      "independentNativeTiffs": 35,
+      "independentJsTiffs": 35,
+      "scope": "Fresh C# reference compilation and execution on Windows x64; C# is not invoked by the browser engine."
+    },
+    "nativeConsole": {
+      "status": "PASS",
+      "compilation": {
+        "productionExe": "PASS",
+        "liveAcceptanceExe": "PASS",
+        "headlessPolicyExe": "PASS",
+        "warnings": 0,
+        "errors": 0,
+        "warningsAsErrors": true,
+        "platform": "x64"
+      },
+      "defaultPreflight": "PASS",
+      "blankPreflight": "PASS",
+      "policyChecks": 28,
+      "runtimeFiles": 113,
+      "mappedIntegrity": "PASS",
+      "scope": "Current console 1.2.1 native/static gate. No successful GUI CPU execution is implied."
+    },
+    "backtest": {
+      "status": "PASS",
+      "exhaustiveLaneComparisons": 1536,
+      "exhaustiveSelectorComparisons": 256,
+      "rawRAMDatasets": 73,
+      "rawLaneByteComparisons": 1794048,
+      "rawSelectorByteComparisons": 299008,
+      "fieldDatasets": 40,
+      "fieldSampleByteComparisons": 163840,
+      "fieldLaneByteComparisons": 983040,
+      "fieldSelectorByteComparisons": 163840,
+      "stateRoundTrips": 113,
+      "malformedStateRejections": 27,
+      "rejectionStateUnchangedChecks": 26,
+      "tiffPixelsDecoded": 258048,
+      "tiffsForIndependentReader": 63,
+      "oamRoundTrips": 256,
+      "oamShiftCases": 3584,
+      "gateTruthCases": 20,
+      "analyticPropagationCases": 28,
+      "propagationReversibilityCases": 12,
+      "resetCases": 40,
+      "deterministicReplayCases": 12,
+      "scope": "Software regression, independent analytic/selector checks, state replay and independent TIFF decoding; not IndexedDB persistence."
+    },
+    "liveBrowser": {
+      "status": "BLOCKED_ENVIRONMENT",
+      "browserValidationPassed": false,
+      "cpuOnlineObserved": false,
+      "sandboxDisabled": false,
+      "error": "System.TimeoutException: Production bridge initialization and mapping timed out after 30000 ms.\r\n   at VBJA21.SiliconWebView2Acceptance.PumpUntil(Func`1 done, Int32 timeout, String label)\r\n   at VBJA21.SiliconWebView2Acceptance.Run(String root, String work)",
+      "scope": "Fresh production WebView2 acceptance blocked before worker and storage checks."
+    }
+  },
+  "benchmark": {
+    "schema": "JA21-HOST-BENCHMARK-REPEAT/1",
+    "status": "PASS",
+    "sameFixture": true,
+    "sameProductionSource": true,
+    "runOne": "BENCHMARK_RESULTS.json",
+    "runTwo": "BENCHMARK_RESULTS_SECOND_PROCESS.json",
+    "freshProcesses": 2,
+    "totalMeasuredOperations": 1700,
+    "comparison": [
+      {
+        "name": "byte pipeline",
+        "sameOutputs": true,
+        "firstP50ms": 0.7117187499999993,
+        "secondP50ms": 0.6673312500000002,
+        "checksum": "01daf3b21d22f91f4f1ca7fa47bfe620872b4c0157a0155d5eef77bc596de02f"
+      },
+      {
+        "name": "complex field lens and propagation",
+        "sameOutputs": true,
+        "firstP50ms": 0.9938666666666714,
+        "secondP50ms": 0.9785500000000033,
+        "checksum": "aaee4f7a34c50d4c0ed848fcdd19bec614439dc7ce6434872f6c7ae30f041291"
+      },
+      {
+        "name": "seven byte-plane TIFF exports",
+        "sameOutputs": true,
+        "firstP50ms": 0.3057666666666705,
+        "secondP50ms": 0.30725000000001046,
+        "checksum": "f0c1fa5350cf69329fdafabcce0c582f7b026cc137132de628077bdcd0ba2ac5"
+      },
+      {
+        "name": "HPU state encode and restore",
+        "sameOutputs": true,
+        "firstP50ms": 13.07546666666667,
+        "secondP50ms": 12.711450000000013,
+        "checksum": "ac6d50bae8d503c7e93d1080e3d1ea2d52748e7ed0683bb7b8468b2ed01c3f99"
+      }
+    ]
+  },
+  "packagingFix": {
+    "staleBaselineManifestEntries": 5,
+    "finding": "The old internal manifest listed five inactive historical files absent from the 1.2.0 ZIP. Existing listed files match their recorded hashes. The 1.2.1 manifest is regenerated from exactly shipped eligible bytes.",
+    "evidence": "audit/BASELINE_INNER_MANIFEST_FINDING.json"
+  },
+  "runtimeSealHardening": {
+    "addedMetadata": [
+      "applications/silicon/VERSION",
+      "applications/silicon/package.json"
+    ],
+    "runtimeFiles": 113,
+    "finding": "Component VERSION is read by native startup and package.json by static verification. Both were present in the full release but outside the prior 111-file seal. They are now sealed, and the reseal tool is updated.",
+    "evidence": "RUNTIME_METADATA_SEAL_FINDING.json"
+  },
+  "architecturalLimits": [
+    "Six LUT identities contain four distinct functions; lanes 1,3,6 duplicate one another.",
+    "Farthest-change selector is mathematically a binary threshold: 0..127 -> 255; 128..255 -> 0. Duplicate lanes 3 and 6 never win.",
+    "At lit sites (amplitude >=1e-6), phase writeback maps output bytes to equivalent physical phases -pi and +pi, discarding prior phase while preserving magnitude within floating rounding. Darker sites are skipped; raw byte-plane exports remain distinct.",
+    "cpuCycles=4096*4 and gpuWarps=4096/32 are modeled counts, not hardware counters or evidence of GPU computation.",
+    "No independently programmable Hpu ISA, program counter/register file, ARM decoder, MMU or interrupt system was found.",
+    "No active RTL, netlist/layout, PDK, FPGA bitstream, device driver or GPU-compute artifact was found in the 132-file active scope."
+  ],
+  "limitations": [
+    "Baseline-derived Boolean polynomial oracle checks regression equivalence, not an independent specification of arbitrary lookup lane 1.",
+    "Benchmarks run production computation under Node, not the live WebView2 UI. They are short observations with uncontrolled power/temperature/background activity.",
+    "CPUID and Windows registry identify the observed host; they do not certify die manufacturing authenticity. Hypervisor-present flag was observed.",
+    "Additional supplementary native-oracle attempt was NOT_RUN; standard fresh C# reference validation passed independently.",
+    "Prior console 1.2.0 full Python suite and launcher contracts are historical evidence, not newly executed 1.2.1 tests.",
+    "Current live browser persistence/worker/reload/write-lock/restore gate remains unverified."
+  ],
+  "sources": [
+    {
+      "title": "Lenovo PSREF: IdeaPad 5 2-in-1 16IAL10 / IdeaPad 5i 2-in-1",
+      "url": "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_5_2_in_1_16IAL10"
+    },
+    {
+      "title": "Intel Core Ultra 7 255U specifications",
+      "url": "https://www.intel.com/content/www/us/en/products/sku/241860/intel-core-ultra-7-processor-255u-12m-cache-up-to-5-20-ghz/specifications.html"
+    }
+  ]
+}

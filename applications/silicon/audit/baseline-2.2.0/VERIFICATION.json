@@ -1,0 +1,28 @@
+{
+  "version": "2.2.0",
+  "status": "PASS_FOR_OFFLINE_GATE",
+  "node": "v22.16.0",
+  "platform": "linux",
+  "startedUtc": "2026-10-13T00:29:53.104Z",
+  "excluded": [
+    "Native Windows cmd.exe/PowerShell execution, download, and runtime probe",
+    "Normal-browser worker/IndexedDB/Web Locks/CSP integration",
+    "Native C# compilation",
+    "Physical GPU/XPU or quantum hardware",
+    "Live advisory-database scan"
+  ],
+  "optional": [
+    "node scripts/make-tiff-examples.mjs followed by python tests/russl_interop.py (NumPy, tifffile, Pillow)",
+    "python tests/codecs.py (Pillow)",
+    "python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)"
+  ],
+  "tests": 244,
+  "passed": 244,
+  "failed": 0,
+  "skipped": 0,
+  "cancelled": 0,
+  "todo": 0,
+  "staticLauncherChecks": 18,
+  "staticLauncherNote": "Text/packaging contracts only; does not parse or execute PowerShell on Windows.",
+  "finishedUtc": "2026-10-13T00:29:59.864Z"
+}

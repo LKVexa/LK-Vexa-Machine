@@ -1,0 +1,58 @@
+{
+  "product": "JA21 Silicon Console",
+  "version": "2.2.0",
+  "baseline": "2.1.1",
+  "status": "PASS_FOR_SCOPED_OFFLINE_EVALUATION",
+  "generatedUtc": "2026-10-13T00:29:52.897447+00:00",
+  "nodeGate": {
+    "tests": 244,
+    "passed": 244,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "staticLauncherChecks": 18,
+    "node": "v22.16.0",
+    "platform": "linux"
+  },
+  "activeJavaScript": {
+    "syntaxFiles": 53,
+    "resolvedLocalImports": 58
+  },
+  "offlineBrowser": {
+    "passed": 15,
+    "pageErrors": [],
+    "mode": "OFFLINE_UI_FIXTURE"
+  },
+  "independentTiff": {
+    "passed": 12,
+    "externalWriterFixtures": 16,
+    "library": "tifffile",
+    "version": "2026.5.15"
+  },
+  "inheritedTiffGif": {
+    "passed": 3,
+    "library": "Pillow",
+    "version": "12.3.0"
+  },
+  "addressVectors": 16384,
+  "samplesPerAtlas": 16384,
+  "atlasRawPayloadBytes": 131072,
+  "exampleTiffs": 12,
+  "corpusFilesInventoried": 325,
+  "corpusArchiveSHA256": "4adec0988b7e9de5e82d6c43d910112341373d18207545f4df2be431cbb66eb1",
+  "baselineReferenceFilesUnchanged": 33,
+  "normalBrowserProbe": "BLOCKED_OR_FAILED",
+  "normalBrowserError": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:8788/\nCall log:\n  - navigating to \"http://127.0.0.1:8788/\", waiting until \"domcontentloaded\"\n",
+  "limitations": [
+    "Native Windows cmd/PowerShell execution and runtime transfer not tested",
+    "Normal browser IndexedDB/Web Locks/worker/CSP integration blocked by managed HTTP navigation policy",
+    "Browser scenarios use real application/model plus explicit in-memory link adapter",
+    "Node worker scenarios use actual Node workers plus explicit storage/lock doubles",
+    "Bounded finite scalar TIFF profile only; not every legal TIFF is supported",
+    "Small BigTIFF only; no above-4-GiB file test",
+    "No complete RUSSL/MSSL interpreter, RUSS container, OME-Zarr adapter, or independent image execution",
+    "No native GPU/XPU, quantum hardware, new hardware throughput, or C# build verification",
+    "References preserved; nested research/native archives not re-audited",
+    "Hash provenance, not cryptographic signature certification; root baseline licensing remains unresolved"
+  ]
+}

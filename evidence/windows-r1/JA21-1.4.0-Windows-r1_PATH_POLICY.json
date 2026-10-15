@@ -1,0 +1,30 @@
+{
+  "schema": "JA21/WINDOWS_EXTRACTION_POLICY/1",
+  "archiveExtractionStatus": "PASS",
+  "extractionParent": "D:\\Codex",
+  "archiveRoot": "JA21",
+  "extractionRoot": "D:\\Codex\\JA21",
+  "members": 377,
+  "limitsUtf16": {
+    "file": 239,
+    "directory": 247,
+    "component": 255
+  },
+  "maxFile": {
+    "path": "D:\\Codex\\JA21\\helper\\DF_Small\\vm\\BOTTLE_ROCKET_3.0.0_MODEL_OPERATIONAL_110K\\deploy\\BOTTLE_ROCKET_SIM_CORE_3.0.0_MODEL.brimg",
+    "utf16Units": 123
+  },
+  "maxDirectory": {
+    "path": "D:\\Codex\\JA21\\helper\\DF_Small\\vm\\BOTTLE_ROCKET_3.0.0_MODEL_OPERATIONAL_110K\\evidence\\q17",
+    "utf16Units": 88
+  },
+  "maxMemberComponentUtf16": 48,
+  "violations": [],
+  "nativeProfile": {
+    "status": "NOT_CHECKED",
+    "reason": "No explicit native profile path supplied",
+    "limitUtf16": 150
+  },
+  "scope": "Destination-specific UTF-16 path policy only. No extraction, CRC, signature, startup, Administrator, or native profile I/O validation performed.",
+  "archive": "D:\\Codex\\2026-10-13\\pl\\outputs\\JA21-1.4.0-Windows-r1.zip"
+}

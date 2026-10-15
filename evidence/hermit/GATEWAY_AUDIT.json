@@ -1,0 +1,23 @@
+{
+  "schema": "ja21.hermit.gateway-audit-summary.v1",
+  "source": "D:/downloads/hermit-ramws_2.0.0-ramws.1(3).zip",
+  "sourceSha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e",
+  "checks": {"total": 15, "pass": 12, "expectedIssuesReproduced": 3, "fail": 0},
+  "findings": [
+    {"id": "G01", "status": "REPRODUCED", "finding": "Default local launcher enables snapshots rejected by LOCAL_VOLATILE"},
+    {"id": "G02", "status": "SOURCE_CONFIRMED", "finding": "Standalone gateway starts an independent Node kernel rather than browser XPU"},
+    {"id": "G03", "status": "REPRODUCED", "finding": "Revoked credential session survives through another live credential for same principal"},
+    {"id": "G04", "status": "REPRODUCED", "finding": "Outgoing close payload can exceed 125 UTF-8 bytes"},
+    {"id": "G05", "status": "SOURCE_CONFIRMED", "finding": "Public bind and automatic external fabric discovery unsuitable for local console integration"},
+    {"id": "G06", "status": "SOURCE_CONFIRMED", "finding": "Proposed limits document differs from effective gateway settings"}
+  ],
+  "architectureRecommendation": "HERMIT VT/protocol adapted to existing RamLink; optional loopback relay to same browser worker; no independent Node compute kernel",
+  "productionEdits": false,
+  "listenerStarted": false,
+  "dependenciesInstalled": false,
+  "externalDeployment": false,
+  "hostCommandExecution": false,
+  "rawResults": "GATEWAY_AUDIT_TESTS.json",
+  "report": "GATEWAY_AUDIT.md",
+  "primaryProtocolSource": "https://www.rfc-editor.org/rfc/rfc6455.html#section-5.5"
+}

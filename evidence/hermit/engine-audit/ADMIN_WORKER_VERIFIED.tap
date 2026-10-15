@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: Delegation selects each real session SID and returns only after the durable SSD flush
+ok 1 - Delegation selects each real session SID and returns only after the durable SSD flush
+  ---
+  duration_ms: 172.3103
+  type: 'test'
+  ...
+# Subtest: Delegated nonzero exit status and CPU XPU preview/save complete without rpcBusy deadlock
+ok 2 - Delegated nonzero exit status and CPU XPU preview/save complete without rpcBusy deadlock
+  ---
+  duration_ms: 215.476
+  type: 'test'
+  ...
+# Subtest: Stale SID, control characters, partial input line and simultaneous target requests fail without replay
+ok 3 - Stale SID, control characters, partial input line and simultaneous target requests fail without replay
+  ---
+  duration_ms: 235.5254
+  type: 'test'
+  ...
+# Subtest: Closing the real target during a delegated command reports unknown outcome and releases the target
+ok 4 - Closing the real target during a delegated command reports unknown outcome and releases the target
+  ---
+  duration_ms: 148.1892
+  type: 'test'
+  ...
+# Subtest: Storage failure returns code2 and FAILED persistence instead of successful delegated save (IndexedDB fault fixture)
+ok 5 - Storage failure returns code2 and FAILED persistence instead of successful delegated save (IndexedDB fault fixture)
+  ---
+  duration_ms: 166.2161
+  type: 'test'
+  ...
+# Subtest: Correlated cancellation aborts only the intended delegated job, keeps its guard until completion, and never replays admitted IDs
+ok 6 - Correlated cancellation aborts only the intended delegated job, keeps its guard until completion, and never replays admitted IDs
+  ---
+  duration_ms: 264.6213
+  type: 'test'
+  ...
+# Subtest: Captured delegated output is bounded at64KiB with UTF-8-safe truncation and real completion
+ok 7 - Captured delegated output is bounded at64KiB with UTF-8-safe truncation and real completion
+  ---
+  duration_ms: 270.153
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1571.8852

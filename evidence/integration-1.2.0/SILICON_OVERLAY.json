@@ -1,0 +1,23 @@
+{
+  "status": "APPLIED",
+  "consoleVersion": "1.2.0",
+  "siliconEngineVersion": "2.2.2",
+  "sourceModuleChanges": 0,
+  "changes": [
+    {
+      "path": "applications/silicon/web/index.html",
+      "beforeSha256": "dc77096e91b538ea719b16300a642463e0811b09bbebd1f0f73239ecde5efade",
+      "afterSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84",
+      "reason": "WebView2 local mapping integration CSP/referrer overlay; engine modules unchanged"
+    },
+    {
+      "path": "applications/silicon/dist/index.html",
+      "beforeSha256": "dc77096e91b538ea719b16300a642463e0811b09bbebd1f0f73239ecde5efade",
+      "afterSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84",
+      "reason": "WebView2 local mapping integration CSP/referrer overlay; engine modules unchanged"
+    }
+  ],
+  "limitations": [
+    "Mapped resources do not produce WebResourceRequested; HTTP-only directives frame-ancestors/COOP/COEP are not asserted from meta. Native host owns navigation/resource boundary."
+  ]
+}

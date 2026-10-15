@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "sdkVersion": "8.0.426",
+  "runtimeVersion": "8.0.32",
+  "compiler": "Roslyn C# 4.11.0-3.25569.22 (3fb752d4)",
+  "rid": "win-x64",
+  "officialArchiveUrl": "https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.426/dotnet-sdk-8.0.426-win-x64.zip",
+  "officialArchiveSha512": "10261657109f1c62126f106a9ac966739b025b5f6b4a9f88ab7c6e73cacce9aec771895daa3267b8da933a83c32ee91bf458dc6704e1ddcd9bcf0d5edd036abb",
+  "actualArchiveSha512": "10261657109f1c62126f106a9ac966739b025b5f6b4a9f88ab7c6e73cacce9aec771895daa3267b8da933a83c32ee91bf458dc6704e1ddcd9bcf0d5edd036abb",
+  "metadataUrl": "https://builds.dotnet.microsoft.com/dotnet/release-metadata/8.0/releases.json",
+  "metadataSha256": "dbb319574ff52bc3ec9873334edcde26a0e06e866d9f01a70efbc1f53ea48748",
+  "retrievedUtc": "2026-10-14T04:15:47.099622+00:00",
+  "compiledAssemblySha256": "8d517274fc894bc10b7ddab1ed6fd0b88ab26176125be97bc4b2c3fc4904de90",
+  "scope": "Official portable SDK extracted into task working directory; no NuGet packages, global SDK install, trust or policy change."
+}

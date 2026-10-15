@@ -1,0 +1,30 @@
+JA21 SILICON CONSOLE 2.2.2 — end-to-end hardening patch
+
+1. Export a full-volume backup from your previous application. Close its window
+   and local static host. Do not clear browser/site storage.
+2. Extract the complete release to a short local folder, such as D:\Codex\JA21_2.2.2.
+3. Double-click Start-Console.cmd. The private hash-pinned runtime bootstrap is
+   included; global Node/PATH/admin rights are not required. First setup needs
+   internet or the exact cached runtime archive. Node binaries are not bundled.
+4. Keep the launch window open. Use the same browser profile and address:
+   http://127.0.0.1:8788/
+5. Open TIFF pixel lab > Capture live field. Read/edit a real or imaginary site.
+   Capture/import/edit stages data only. Apply to live XPU is explicit, resets
+   transient processor/recording/spool state, and asks for GUI confirmation.
+6. Download field TIFF or Download SHA-256 receipt. Supported field examples are
+   in examples\tiffs. Normal visual phase TIFFs are not lossless HPU backups.
+7. Double-click Verify.cmd to repeat the Node gate and native Windows PowerShell
+   parsing/boundary checks. Normal-browser and ARM64 acceptance remain separate.
+
+Terminal example (one line at a time):
+  russl capture
+  russl get 0 0 0 0 0
+  russl set 0 0 0 0 0 0.5
+  russl verify
+  russl apply
+  sync
+
+The live complex grid remains 64x64. The new atlas has four scalar components per
+pixel, addressed as [4,4,4,16,16] in a 128x128 Float64 TIFF. This is executable host
+software operating on image data, not independent image/hardware execution.
+See README.md, AUDIT_REPORT.md and docs\RUSSL_PIXEL_PROFILE.md.

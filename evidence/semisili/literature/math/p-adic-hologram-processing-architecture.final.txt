@@ -1,0 +1,508 @@
+--- PAGE 1 ---
+Advanced Numerical Theory and
+Optimization in Computational
+Holography: Integrating p-Adic
+Architectures, 1-Bit LAMB, and RAM
+Sampling for Ultra-Efficient TIFF
+Holograms
+The generation, transmission, and rendering of computer-generated holograms (CGH)
+represent one of the most formidable computational challenges in modern optics and spatial
+computing. The synthesis of high-fidelity, three-dimensional wavefields relies on the numerical
+manipulation of massive datasets, which are consistently bound by rigid constraints in memory
+bandwidth, computational latency, and physical hardware display limits. Achieving real-time,
+high-resolution volumetric displays necessitates moving beyond isolated incremental
+improvements and instead requires a fundamental convergence of disparate scientific
+disciplines. This includes large-scale distributed machine learning optimization,
+non-Archimedean numerical theory, highly optimized memory access paradigms, and binary
+optical modulation.
+This report establishes a comprehensive theoretical and architectural framework for
+synthesizing "super-efficient" processable Tagged Image File Format (TIFF) holograms. The
+proposed framework relies on four foundational pillars, each addressing a specific bottleneck in
+the holographic pipeline. First, the 1-bit LAMB (Layer-wise Adaptive Moments optimizer for
+Batch training) algorithm provides a highly communication-efficient distributed training regime
+for the massive deep neural networks tasked with predicting complex holographic fringe
+patterns. Second, p-adic numerical theory and ultrametric architectures furnish a mathematically
+rigorous foundation for memory addressing, aligning natively with the hierarchical quadtree
+structures of tiled TIFF formats and enabling lossless topological data management. Third, RAM
+sampling and Look-Up Table (LUT) techniques eliminate redundant runtime wave propagation
+calculations, bypassing traditional Fourier or Fresnel transform bottlenecks. Finally, Direct
+Binary Search (DBS) optimization and Lee holography principles enable the translation of these
+complex, continuous wavefields onto ultra-fast 1-bit Digital Micromirror Devices (DMDs) or
+binary Spatial Light Modulators (SLMs). By unifying these methodologies, it is possible to
+achieve previously unattainable efficiencies in the generation and display of dynamic
+holographic content.
+1. Large-Scale Optimization in Holographic Machine
+Learning: The 1-Bit LAMB Framework
+The synthesis of complex holograms is increasingly driven by deep neural networks (DNNs),
+which learn to map three-dimensional spatial coordinates or point clouds to two-dimensional
+
+--- PAGE 2 ---
+complex phase masks. Training these models to achieve high spatial frequencies and accurate
+depth cues requires immense batch sizes and massive parameter synchronization across
+distributed computing nodes. The standard LAMB optimizer was developed to successfully
+scale batch sizes to the tens of thousands without accuracy degradation, enabling batch sizes
+of 32K for ImageNet and up to 64K or 96K for BERT pre-training when combined with Nesterov
+momentum and specific learning rate schedulers like LANS. However, the full-precision
+communication overhead in a data-parallel distributed environment severely limits overall
+throughput, particularly for the dense models required in optical field prediction.
+1.1 The Theoretical Foundation of LAMB and the 1-Bit Compression
+Paradigm
+To address systemic communication bottlenecks, the 1-bit LAMB framework introduces
+aggressive gradient and momentum compression while preserving the sample-wise
+convergence speed of its full-precision counterpart. Traditional 1-bit gradient compression
+techniques suffer catastrophic performance drops when applied to adaptive optimizers like
+Adam or LAMB. This degradation occurs because non-linear operations—such as dividing by
+the square root of the second moment—destroy the coordinate-wise adaptivity when a single
+shared scaling factor (magnitude) is applied to a compressed gradient vector.
+The underlying optimization problem seeks to minimize a non-convex loss function f(\bm{x}) =
+\frac{1}{n} \sum_{i=1}^n \mathbb{E}_{\bm{\xi} \sim \mathcal{D}_i} F(\bm{x}, \bm{\xi}), where
+\bm{x} \in \mathbb{R}^d represents the model parameters, d is the dimensionality of the model,
+and \mathcal{D}_i is the data distribution on the i-th worker. The full-precision LAMB algorithm
+updates the first moment \bm{m}_t (momentum) and the second moment \bm{v}_t (variance) at
+layer l and time step t as follows:
+\bm{m}_t^{(l)} = \beta_1 \bm{m}_{t-1}^{(l)} + (1-\beta_1)\bm{g}_t^{(l)} \bm{v}_t^{(l)} = \beta_2
+\bm{v}_{t-1}^{(l)} + (1-\beta_2)(\bm{g}_t^{(l)})^2
+Bias corrections are applied to yield \hat{\bm{m}}_t^{(l)} = \bm{m}_t^{(l)} / (1-\beta_1^t) and
+\hat{\bm{v}}_t^{(l)} = \bm{v}_t^{(l)} / (1-\beta_2^t). A scaling vector is computed as \bm{u}_t^{(l)}
+= \frac{\hat{\bm{m}}_t^{(l)}}{\sqrt{\hat{\bm{v}}_t^{(l)}} + \epsilon}, and the parameters are
+updated using an adaptive layer-wise learning rate governed by a scaling function \phi:
+\bm{x}_{t+1}^{(l)} = \bm{x}_t^{(l)} - \eta_t
+\frac{\phi(\Vert{}\bm{x}_t^{(l)}\Vert{})}{\Vert{}\bm{u}_t^{(l)}\Vert{}} \bm{u}_t^{(l)}
+In the 1-bit LAMB framework, a non-linear scaling problem emerges if 1-bit compression is
+applied naively. The primary innovation of 1-bit LAMB is circumventing this by freezing the
+variance term \bm{v}_t^{(l)} after a predefined warm-up stage. Empirical studies on large-scale
+models indicate that the warm-up stage typically accounts for 16.7% to 19.2% of the total
+training steps. For instance, in a training cycle of 5,993 steps, the first 1,000 steps are utilized to
+establish stable, full-precision second moments. During this phase, hyperparameters are strictly
+tuned, with typical values set at \beta_1 = 0.9 and \beta_2 = 0.999.
+Following this warm-up, the algorithm enters the compression stage, utilizing a randomized
+compressing operator \mathc[span_16](start_span)[span_16](end_span)al{C}_\omega(\cdot).
+The compression operator reduces the precision of the communicated momentum to 1 bit (e.g.,
+utilizing coordinate-wise signs accompanied by a shared magnitude over the entire tensor),
+drastically shrinking the necessary communication volume across the distributed network.
+
+--- PAGE 3 ---
+1.2 Error Compensation Mechanisms and System Implementation
+The critical mechanism enabling 1-bit LAMB to match full-precision convergence is its highly
+robust error compensation architecture. When a worker node compresses its momentum
+\bm{m}_t^{(i)}, it calculates a local compression error \bm{\delta}_t^{(i)} = \bm{m}_t^{(i)} +
+\bm{\delta}_{t-1}^{(i)} - \mathcal{C}_\omega(\bm{m}_t^{(i)} + \bm{\delta}_{t-1}^{(i)}). The
+compressed momentum \hat{\bm{m}}_t^{(i)} is then transmitted to the central server or
+parameter server. The server aggregates these compressed vectors, applies a global
+compression operator to the average, tracks a global error \bar{\bm{\delta}}_t, and broadcasts
+the globally compressed momentum back to the workers.
+Because 1-bit compression cannot represent an exact numerical zero, parameters with constant
+zero gradients (such as specific padding embeddings in NLP or masked spatial regions in
+holographic generation) continuously accumulate compression errors. To mitigate this drift, 1-bit
+LAMB employs momentum masks for parameters with stable zero gradients, effectively isolating
+them from the error compensation loop and preventing divergence.
+To rigorously justify this approach, theoretical convergence bounds depend on specific
+assumptions regarding the objective function. Assumption 1 requires a Lipschitzian gradient,
+ensuring that \Vert{}\nabla f(\bm{x}) - \nabla f(\bm{y})\Vert{} \le L \Vert{}\bm{x} - \bm{y}\Vert{},
+and Assumption 2 requires bounded variance such that the stochastic gradient computed on
+each worker is unbiased with \mathbb{E}_{\bm{\xi} \sim \mathcal{D}} \Vert{}\nabla f(\bm{x};
+\bm{\xi}) - \nabla f(\bm{x}[span_21](start_span)[span_21](end_span))\Vert{}^2 \le \sigma^2.
+Under these conditions, variations of 1-bit adaptive optimizers achieve an \epsilon-approximate
+first-order stationary point, ensuring that \mathbb{E}\Vert{}\nabla f(\bm{x})\Vert{}^2 \le
+\eps[span_27](start_span)[span_27](end_span)[span_28](start_span)[span_28](end_span)ilon
+at a convergence rate proportional to O(1/\sqrt{nT}).
+Metric / Parameter Uncompressed LAMB 1-Bit LAMB
+Communication Precision 32-bit / 16-bit (FP32/FP16) 1-bit (during compression
+stage)
+Second Moment (\bm{v}_t) Continuously updated
+throughout
+Frozen after 16.7% - 19.2%
+warm-up
+Error Compensation Not required Local and Global \bm{\delta}_t
+tracking
+Communication Volume O(d) bits per transfer Up to 4.6x reduction
+End-to-End Speedup Baseline Up to 2.8x (System dependent)
+System implementation is equally critical to realizing these theoretical gains. Advanced
+frameworks like DeepSpeed implement 1-bit LAMB using the PyTorch NCCL (NVIDIA Collective
+Communications Library) backend. By bypassing less efficient MPI-based protocols,
+NCCL-based 1-bit LAMB allows compressed communication to achieve near-linear scaling
+across massive GPU clusters. Evaluations demonstrate that 1-bit LAMB operating on standard
+Ethernet networks (4.1 Gbps effective bandwidth, 4 GPUs per node) can achieve comparable
+training throughput to uncompressed LAMB operating on high-end InfiniBand networks (near
+100 Gbps effective bandwidth, 8 GPUs per node). This hardware-agnostic efficiency is vital
+when training models to generate gigapixel-scale holograms, transforming weeks of compute
+time into days.
+2. Non-Archimedean Geometry: p-Adic Numerical
+
+--- PAGE 4 ---
+Theory and Ultrametric Data Architectures
+Traditional models of continuous space assume Euclidean geometry, which is governed by
+Archimedean norms. However, the hierarchical data structures required to represent massive
+synthetic wavefields—such as the massive quadtrees utilized in tiled TIFF images—are
+fundamentally non-Archimedean. Analyzing these spatial hierarchies through the lens of p-adic
+numerical theory provides a rigorous, unified, and highly efficient mathematical framework for
+memory addressing, caching, and signal processing.
+2.1 The Topology of p-Adic Numbers and Ultrametric Spaces
+The field of p-adic numbers, denoted as \mathbb{Q}_p, is defined as the topological completion
+of the rational numbers
+\mathbb[span_37](start_span)[span_37](end_span)[span_38](start_span)[span_38](end_span)[
+span_39](start_span)[span_39](end_span){Q} with respect to the p-adic absolute value
+\vert{}\cdot\vert{}_p. For any non-zero rational number x = p^\gamma \frac{a}{b}, where a and b
+are integers strictly coprime to a fixed prime p, the p-adic norm is defined as \vert{}x\vert{}_p =
+p^{-\gamma}.
+Unlike the standard absolute value on the real number line, the p-adic norm satisfies the strong
+triangle inequality:
+\vert{}x + y\vert{}_p \le \max(\vert{}x\vert{}_p, \vert{}y\vert{}_p)
+This foundational property engenders an ultrametric space possessing highly counter-intuitive
+geometric characteristics: all triangles are isosceles, and any point within a p-adic ball can be
+considered its center. Furthermore, the topology dictates that two p-adic balls are either
+completely disjoint, or one is strictly contained within the other, entirely eliminating overlapping
+boundaries. The ring of p-adic integers, \mathbb{Z}_p, consists of all elements x \in
+\mathbb{Q}_p such that \vert{}x\vert{}_p \le 1, effectively forming a closed unit ball containing
+zero.
+A p-adic integer can be uniquely represented as an infinite formal series x = \sum_{i=0}^\infty
+a_i p^i, where the digits a_i \in \{0, 1, \dots, p-1\}. This base-p expansion is identical in structure
+to a hierarchical, multi-way tree. If p=2, the 2-adic integers correspond directly to infinite binary
+strings. This topological structure maps natively to the quadtree decomposition (where
+branching factors are powers of 2, essentially treating coordinates as 2-adic pairs) used
+extensively in spatial computing, building information models, and image processing.
+2.2 Bruhat-Tits Trees, van der Put Basis, and Hierarchical Memory
+Addressing
+The geometric gap between continuous optical fields and discrete hierarchical storage formats
+is bridged by canonical p-adic space. The arithmetic geometry of the bulk space is commonly
+mapped onto a Bruhat-Tits tree T_p, a highly symmetric infinite graph where each vertex
+possesses exactly p+1 neighbors. In computational holography, where massive tiled TIFF
+images must be stored and accessed recursively, a quadtree representation linearizes 2D space
+for optimized run-length encoded data storage and computational efficiency.
+By utilizing p-adic addresses (or quad tesseral addressing), the operation of finding a
+neighboring memory block or translating a spatial coordinate transforms from complex
+multidimensional arithmetic into simple bitwise interleaving or p-adic arithmetic without carries.
+
+--- PAGE 5 ---
+Recent advancements in neural architectures, such as p-adic neural networks (v-PuNNs),
+exploit this topology. The v-PuNN utilizes neurons that function directly as characteristic
+functions of p-adic balls, enabling a lossless, white-box representation of hierarchies. This leads
+to Transparent Ultrametric Representation Learning (TURL), where every parameter is a p-adic
+number with a direct structural interpretation. The Finite Hierarchical Approximation Theorem
+states that a depth-K v-PuNN universally approximates any function on a K-level hierarchy,
+demonstrating empirical success such as achieving 99.96% accuracy on complex taxonomies in
+under 16 minutes on a 32 GB CPU.
+To represent continuous functions in this space, the van der Put basis provides an orthonormal
+basis over p-adic fields, expanding functions into series of characteristic functions of p-adic
+balls. A continuous function f: \mathbb{Z}_p \to \mathbb{Q}_p can be uniformly approximated
+using this basis, allowing the spatial frequencies of a hologram to be mapped perfectly to the
+specific resolution scales embedded within a quadtree data structure.
+2.3 Signal Processing: The Vladimirov Operator and p-Adic Fourier
+Transform
+Because holography is fundamentally a study of Fourier optics and wave propagation,
+translating these operations to a p-adic architecture necessitates a p-adic equivalent of
+differentiation and frequency analysis. The Vladimirov-Taibleson operator serves as the p-adic
+analog of the fractional Laplacian, defining fractional differentiation on non-Archimedean fields.
+The operator D^\alpha acts on a complex-valued function f(x) of a p-adic argument as:
+D^\alpha f(x) = \frac{1}{\Gamma_p(-\alpha)} \int_{\mathbb{Q}_p}
+\frac{f(x)-f(y)}{\vert{}x-y\vert[span_72](start_span)[span_72](end_span)[span_74](start_span)[sp
+an_74](end_span){}_p^{1+\alpha}} d\mu(y)
+where \mu(y) represents the Haar measure, normalized such that the measure of the unit ball
+\mu(\mathbb{Z}_p) = 1.
+Simultaneously, the p-adic Fourier transform maps functions over \mathbb{Q}_p into an
+ultrametric frequency domain. It relies on the additive character \chi(\xi x) = \exp(2\pi i \{\xi x\}),
+where \{\cdot\} denotes the fractional part of the p-adic number. For a function f \in
+L^1(\mathbb{Q}_p), the transform is defined as:
+\mathcal{F}[f](\xi) = \int_{\mathbb{Q}_p} \chi(\xi x) f(x) d\mu(x)
+Wavelet analysis in this ultrametric space behaves natively as p-adic spectral analysis. The
+eigenfunctions of the Vladimirov operator form a basis of p-adic wavelets, directly decomposing
+a spatial field into resolution levels. The Monna map \rho: \mathbb{Q}_p \to \mathbb{R}^+
+transforms these p-adic wavelets into standard Haar wavelets on the positive half-line, bridging
+the non-Archimedean logic back to real-world display hardware. When generating CGH, utilizing
+p-adic Fourier transforms natively decomposes the hologram into perfectly disjoint spatial tiles.
+This inherently prepares the data for the tiled TIFF format and drastically reduces computational
+overhead during memory retrieval by ensuring that adjacent spatial features are co-located in
+memory.
+3. High-Efficiency Holographic Rendering: Look-Up
+Tables and RAM Sampling
+While deep learning provides the global holographic phase map and p-adic addressing
+
+--- PAGE 6 ---
+optimizes data traversal, the physical rendering of Computer-Generated Holograms requires the
+precise numerical synthesis of optical wavefronts. The core calculation for point-cloud-based
+CGH consists of a massive double summation of all visible object points for each individual pixel
+on the hologram plane.
+3.1 The Computational Bottleneck in Wavefront Synthesis
+For a hologram plane positioned at z=0, the complex amplitude H(x_h, y_h) generated by an
+arbitrary 3D point cloud is given by the Rayleigh-Sommerfeld diffraction integral, computationally
+discretized as:
+H(x_h, y_h) = \sum_{j=1}^N a_j \frac{\exp(i k \Vert{}p_j - x\Vert{})}{\Vert{}p_j - x\Vert{}}
+where a_j is the real amplitude of the j-th point, p_j = (x_j, y_j, z_j) is its 3D coordinate, x = (x_h,
+y_h, 0) is the 2D hologram pixel coordinate, and k is the optical wavenumber. In modern
+high-resolution displays, the number of point sources N can easily exceed tens of millions. The
+requirement to evaluate this distance metric and complex exponential for every combination of
+N points and P pixels leads to an
+O([span_82](start_span)[span_82](end_span)[span_83](start_span)[span_83](end_span)N
+\times P) complexity. This dense, many-to-many mapping creates a computational bottleneck
+that severely exceeds the processing capabilities of even high-end CPUs.
+3.2 RAM Sampling, Precomputed Look-Up Tables, and WRP
+To circumvent these strict arithmetic limits, advanced rendering algorithms shift the
+computational burden from the Arithmetic Logic Units (ALUs) directly to memory bandwidth via
+RAM sampling and Look-Up Tables (LUTs). In an LUT architecture, the elemental interference
+fringe patterns of point sources at various quantized depths and lateral positions are
+precalculated offline. These complex distributions are stored dynamically in the RAM or GPU
+VRAM.
+During runtime, the algorithm uses the 3D coordinates of the object points as direct memory
+addresses to fetch the corresponding precalculated wavefronts. The fetched patterns are then
+linearly accumulated to form the final hologram. Furthermore, combining LUTs with Wavefront
+Recording Plane (WRP) methods allows the complex field to be first calculated on a virtual
+plane close to the 3D object, drastically reducing the active area of the fringe pattern that needs
+to be accessed and summed, before propagating the unified WRP field to the final hologram
+plane.
+Computational Paradigm Traditional Double Summation RAM Sampling (LUT + WRP)
+Wavefront Generation Evaluated continuously at
+runtime
+Precomputed and fetched via
+addressing
+Algorithmic Complexity O(N \times P) (Points \times
+Pixels)
+O(N) (Memory fetch and
+accumulate)
+Primary Hardware Bottleneck Arithmetic Logic Units (ALUs) Memory Bandwidth / DMA
+Speed
+Precision Exact analytic precision Quantized based on the
+discrete LUT grid
+3.3 GPU Parallelization and Nonuniform Sampling
+The practical execution of the LUT approach relies heavily on GPU parallelization utilizing
+
+--- PAGE 7 ---
+frameworks like the Compute Unified Device Architecture (CUDA). To prevent memory race
+conditions when multiple object points attempt to update the same hologram pixel, the
+parallelization is typically sample-driven rather than point-driven. Each thread is assigned a
+specific hologram plane sample and iterates through the visible point array.
+Further efficiency is achieved through non-uniform RAM sampling. Instead of computing the
+complex amplitude for every node on a dense regular grid, an array of random sampling points
+is precomputed and copied into the GPU memory. The Common Visibility Group (CVG)
+approximation divides the hologram plane into small groups where all samples within a CVG
+share an identical set of visible object points. The visibility is computed only once with respect to
+the center of the CVG, dramatically pruning the computational tree. When tested on
+high-resolution targets, GPU implementations of these techniques achieve calculation times of
+approximately 7.24 seconds, compared to 346.6 seconds for standard CPU implementations,
+representing nearly a 48x speedup. Combined with p-adic memory mapping, CUDA thread
+blocks exhibit extremely high cache-hit rates, enabling near real-time generation of the target
+wavefront.
+4. Hardware Realization: Binary Optics, DMDs, and
+1-Bit Modulation
+Generating the complex amplitude field mathematically is only half the challenge; the resultant
+field must be physically displayed. While grayscale, phase-only Spatial Light Modulators (SLMs)
+exist (using liquid crystal technology), they are heavily hindered by slow refresh rates, often
+maxing out around 60 Hz to 240 Hz. In contrast, Digital Micromirror Devices (DMDs)—operating
+via binary amplitude modulation, where mirrors physically tilt to an "on" or "off" state—provide
+1-bit switching speeds in excess of 22 kHz. This extreme temporal bandwidth enables rich
+spatial multiplexing, albeit at the steep cost of requiring the continuous, multi-level wavefront to
+be aggressively compressed into a 1-bit binary hologram.
+4.1 Binarization Techniques: Direct Binary Search (DBS) and
+Simulated Annealing
+Translating a continuous-tone complex hologram into a binary representation requires intense
+optimization algorithms, as naive thresholding ruins image fidelity and introduces severe
+diffraction artifacts. The Direct Binary Search (DBS) algorithm is a highly effective, non-linear
+optimization method used to minimize the Mean Squared Error (MSE) between the target image
+and the image optically reconstructed from the binary hologram.
+DBS operates in a rigorous iterative loop modeled on Markov chain principles: 1. An initial
+random binary hologram H_b(m, n) is generated. The reconstructed field is computed via Fast
+Fourier Transforms (FFT), establishing a baseline MSE_0. 2. A single pixel is toggled (inverted
+from 0 to 1, or 1 to 0). 3. The new reconstructed image is calculated, yielding MSE_{mn}. 4. The
+difference \Delta E = MSE_{mn} - MSE_0 is evaluated. If \Delta E < 0, the toggle reduces the
+error and is retained. If positive, the toggle is rejected and undone.
+Because performing a full inverse FFT for every trial pixel toggle is computationally prohibitive
+(the asymptotic computational complexity scales aggressively with the hologram
+space-bandwidth product), the optimized DBS algorithm again relies on RAM sampling. The
+diffraction field contribution of a single pixel is precomputed as an LUT. Consequently,
+
+--- PAGE 8 ---
+evaluating a trial inversion merely requires adding or subtracting this precomputed field vector
+from the current reconstruction array, reducing the complexity by over two orders of magnitude.
+Advanced variants like Simulated Annealing Binary Search (SABS) incorporate a probabilistic
+acceptance of error-increasing toggles to escape local minima, decreasing the final MSE of the
+reconstructed field by an additional 32% compared to standard simulated annealing.
+4.2 Lee Holography and the Efficiency-Speckle Trade-off
+An alternative to the computationally heavy DBS is the Lee hologram method, which encodes
+complex wavefields into binary amplitude fringes by spatially shifting a grating structure. The
+required spatial frequency of the binary hologram \nu(x,y) is deterministically dictated by the
+desired carrier frequency k and the target phase change \phi(x,y):
+\nu(x,y) = k + \frac{1}{2\pi} \frac{\partial \phi(x,y)}{\partial x}
+While the Lee method is deterministic and allows the DMD to function as a fast phase
+modulator, it strictly bounds the overall diffraction efficiency. Because binary amplitude
+modulators discard all light hitting the "off" pixels, and the binary grating necessarily diffracts
+energy into multiple unwanted harmonic orders, the theoretical maximum object efficiency for an
+amplitude-only binary CGH cannot exceed 10% to 50%.
+Furthermore, utilizing coherent illumination on a binary pixel grid inherently produces severe
+speckle noise due to inter-pixel interference. There exists a fundamental trade-off between
+diffraction efficiency, spatial resolution, and speckle reduction. Hologram tiling—where an array
+of slightly modified sub-holograms is projected—can mitigate speckle noise by averaging out
+the coherent artifacts over time or space, though it reduces the effective spatial bandwidth
+product. DMDs compensate for this lower per-frame spatial resolution by utilizing their ultra-fast
+frame rates to integrate multiple tiled patterns temporally, generating a high-quality,
+time-averaged 3D scene suitable for applications like Optical Diffraction Tomography (ODT),
+achieving refractive index sensitivities as fine as 3.15 \times 10^{-4}.
+4.3 Hardware-Level 1-Bit Error Compensation
+Much like the 1-bit LAMB optimizer at the software level, physical hardware rendering must
+compensate for 1-bit truncation errors. Hardware-efficient designs utilizing the floor function
+Q_{trunc}(x) = \lfloor x \rfloor confine the truncation error to (-1, 0], introducing a systematic
+negative bias of -0.5 in accumulator logic. In a convolution or spatial integration operation
+accumulating N products, this bias degrades image fidelity. Implementations utilizing the
+AEMAC (Approximate Error-compensated MAC) architecture conditionally inject a bias of +1
+during low-precision modes. This shifts the error interval to (0, 1], resulting in a positive mean
+bias of +0.5. By hybridizing these modes dynamically, the statistical sum of the errors centers on
+zero, reducing the Mean Absolute Error (MAE) from 0.9614 to 0.8008 without requiring complex
+rounding circuitry. This ensures that the 1-bit processing pipeline maintains extreme fidelity from
+the neural network layers directly down to the physical DMD mirrors.
+5. Synthesizing the Paradigm: Ultra-Efficient TIFF
+Holograms via Convergent Architecture
+The integration of 1-bit LAMB optimization, p-adic ultrametric architectures, RAM sampling, and
+binary DMD optics leads to a novel rendering paradigm: the end-to-end generation of
+
+--- PAGE 9 ---
+"super-efficient processable TIFF holograms."
+The TIFF (Tagged Image File Format) standard is highly optimized for storing and transmitting
+gigapixel-scale images via tiling. Instead of parsing linear scanlines, tiled TIFFs partition the
+image into discrete rectangular blocks configured specifically by the TileWidth and TileLength
+directory tags. This spatial blocking inherently maps to a quadtree (a 2-adic mathematical
+structure), where each tile represents a spatial domain of discourse at a specific hierarchical
+depth, natively supporting multi-resolution pyramids.
+5.1 The Integrated Computational Pipeline
+The architectural synthesis operates through a unified, fully integrated pipeline:
+1. Model Training via 1-Bit LAMB: A massive deep neural network is trained to predict
+optimal holographic fringes from 3D inputs. The network leverages the 1-bit LAMB
+optimizer. Momentum states are quantized to 1-bit precision for high-throughput
+inter-node communication over Ethernet or InfiniBand, while local and global error
+compensation ensures zero degradation in the convergence toward high-quality fringe
+mappings.
+2. Data Structure and p-Adic Addressing: The output of the network is formulated as a
+high-resolution tiled TIFF file. The spatial coordinates of the 3D scene and the
+corresponding 2D TIFF tiles are mapped using p-adic integer representations and the van
+der Put basis. This ultrametric mapping natively reflects the scaling and nesting of the
+spatial hierarchy, enabling O(1) coordinate resolution and memory fetches.
+3. Runtime Synthesis via RAM Sampling: When a dynamic scene update is required, the
+system bypasses continuous Fourier transforms. Instead, it queries the p-adic quadtree to
+fetch precomputed elemental wavefronts stored in LUTs in the VRAM. This RAM sampling
+reconstructs the complex field at the Wavefront Recording Plane via simple,
+hardware-accelerated linear accumulation.
+4. Binarization via DBS-LUT: The accumulated continuous field must be mapped to the
+1-bit physical device. An accelerated Direct Binary Search algorithm evaluates pixel flips.
+Because the spatial domain is partitioned into TIFF tiles, the DBS process is
+independently parallelized across tiles. The error evaluation utilizes the same LUTs from
+the RAM sampling phase, ensuring ultra-fast convergence to an optimal 1-bit
+representation.
+5. Physical Display via DMA: The resulting 1-bit tiled TIFF arrays are pushed via
+uncompressed Direct Memory Access (DMA) to the frame buffer of the DMD. The 22 kHz
+operating frequency of the DMD temporally multiplexes these binary tiles, extinguishing
+speckle noise, suppressing diffraction artifacts, and projecting a continuous-tone, highly
+efficient volumetric image.
+This convergence establishes a profound symmetry of dimensionality and bit-depth across the
+entire technological stack. The 1-bit network gradients communicating across distributed
+computing nodes perfectly mirror the 1-bit pixels switching on the physical DMD mirror array.
+The continuous spatial physics of light are aggressively discretized—both geometrically (via
+p-adic hierarchical trees) and bit-wise (via 1-bit gradient compression and 1-bit binary
+holograms)—yet the system leverages statistical error compensation and high-frequency
+temporal integration to flawlessly simulate a continuous analog reality.
+
+--- PAGE 10 ---
+6. Conclusion
+The real-time processing and display of complex, dynamic holography necessitate moving
+decidedly beyond traditional continuous Cartesian grids and computationally heavy 32-bit
+floating-point arithmetics. By adopting the 1-bit LAMB optimizer, massive machine learning
+models can be trained with unprecedented communication efficiency to predict complex optical
+fields. By structuring these fields as tiled TIFFs addressed via p-adic ultrametric geometry,
+memory bottlenecks are mitigated through hierarchical RAM sampling and LUT retrieval. Finally,
+employing look-up-table-accelerated Direct Binary Search or Lee holography enables the
+ultra-fast projection of these fields onto high-bandwidth 1-bit Digital Micromirror Devices, while
+1-bit accumulator error compensation ensures high physical fidelity.
+This synthesis proves that the enduring constraints of computational holography—specifically
+network bandwidth, ALU compute load, and spatial modulator limitations—are optimally
+addressed when algorithms, data structures, and physical hardware are unified under a
+common philosophy of discrete, hierarchical, and error-compensated 1-bit processing. The
+integration of non-Archimedean numerical theory and deep learning optimization described
+herein offers a definitive and mathematically rigorous blueprint for the next generation of
+super-efficient volumetric rendering technologies.
+Works cited
+1. Computer-Generated Holography as a Generic Display Technology,
+https://www.macs.hw.ac.uk/~ruth/year4VEs/Resources/Holography.pdf 2. Hardware
+Implementations of Computer Generated Holography,
+https://www.repository.cam.ac.uk/bitstreams/3ae28f24-cf06-46bb-b024-15f41f06e85c/download
+3. SLAMB: Accelerated Large Batch Training with Sparse,
+https://proceedings.mlr.press/v202/xu23v/xu23v.pdf 4. 1-bit LAMB: Communication Efficient
+Large-Scale Large-Batch, https://arxiv.org/html/2104.06069v2 5. [PDF] 1-bit LAMB:
+Communication Efficient Large-Scale Large-Batch,
+https://www.semanticscholar.org/paper/1-bit-LAMB%3A-Communication-Efficient-Large-Scale-Li
+-Awan/5d21acef02a2035d0c5e3b8f70d4d3c9a164855f 6. MAXIMIZING COMMUNICATION
+EFFICIENCY FOR LARGE-SCALE, https://openreview.net/pdf?id=-CefY2EOupj 7. STEP:
+Learning N:M Structured Sparsity Masks from Scratch with,
+https://openreview.net/pdf?id=0O7b2Y198V 8. 1-bit LAMB: Communication Efficient
+Large-Scale ... - DeepSpeed, https://www.deepspeed.ai/tutorials/onebit-lamb/ 9. DeepSpeed:
+Accelerating large-scale model inference and training,
+https://www.microsoft.com/en-us/research/blog/deepspeed-accelerating-large-scale-model-infer
+ence-and-training-via-system-optimizations-and-compression/ 10. v-PuNNs: van der Put Neural
+Networks for Transparent Ultrametric, https://arxiv.org/pdf/2508.01010? 11. All Resources |
+Wolfram Function Repository, https://resources.wolframcloud.com/FunctionRepository/all 12.
+Massively Parallel Algorithms for High-Dimensional Euclidean, https://arxiv.org/pdf/2308.00503
+13. p-adic Bochner–Riesz operators and their functional dynamics,
+https://www.sciopen.com/local/article_pdf/10.3934/math.2026748.pdf 14. p-Adic Mathematical
+Physics - arXiv, https://arxiv.org/pdf/1705.04758 15. What are p-Adic Numbers? What are They
+Used for?, https://www.asiapacific-mathnews.com/03/0304/0001_0006.pdf 16.
+arXiv:math-ph/0012019v3 23 Feb 2001, https://arxiv.org/pdf/math-ph/0012019 17. Computations
+with p-adic numbers - arXiv, https://arxiv.org/pdf/1701.06794 18. Ergodic Theory of p-adic
+
+--- PAGE 11 ---
+Transformations - Carolina Digital Repository, https://cdr.lib.unc.edu/downloads/7m01bk766 19.
+You could have invented Fenwick trees | Journal of Functional,
+https://www.cambridge.org/core/journals/journal-of-functional-programming/article/you-could-hav
+e-invented-fenwick-trees/B4628279D4E54229CED97249E96F721D 20. Topological analysis of
+3D building models using a spatial query,
+https://www.researchgate.net/publication/223798537_Topological_analysis_of_3D_building_mo
+dels_using_a_spatial_query_language 21. p-Adic AdS/CFT - Princeton University,
+https://collaborate.princeton.edu/en/publications/p-adic-adscft/ 22. p-adic AdS/CFT
+correspondence in nLab, https://ncatlab.org/nlab/show/p-adic+AdS%2FCFT+correspondence
+23. Bruhat-Tits tree in nLab, https://ncatlab.org/nlab/show/Bruhat-Tits+tree 24. Geometry,
+Topology and p-Adic Numbers in Geospatial Data,
+https://publikationen.bibliothek.kit.edu/1000175338/155154247 25. TESSERAL ADDRESSING -
+Computer Science, https://intranet.csc.liv.ac.uk/~frans/OldResearch/dGKBIS/tesseral.html 26.
+The p-adic Z-transform - Semantic Scholar,
+https://pdfs.semanticscholar.org/f393/2a38c1fdb2460d536017dd4aae7064378253.pdf 27. In
+Need of a Specialist in Non-Archimedean Functional Analysis,
+https://www.reddit.com/r/math/comments/rdl4km/in_need_of_a_specialist_in_nonarchimedean/
+28. arXiv:2407.05561v1 [math.PR] 8 Jul 2024, https://arxiv.org/pdf/2407.05561 29. Top 42
+papers published in the topic of Haar wavelet in 2002,
+https://scispace.com/topics/haar-wavelet-rv562vfc/2002 30. Computer generated hologram from
+point cloud using graphics, https://opg.optica.org/abstract.cfm?uri=ao-48-36-6841 31. The
+state-of-the-art in computer generated holography for 3D display,
+https://www.light-am.com/article/doi/10.37188/lam.2022.035 32. [PDF] Binary mask
+programmable hologram. - Semantic Scholar,
+https://www.semanticscholar.org/paper/Binary-mask-programmable-hologram.-Tsang-Poon/a23
+1578c291a11ec08cfa5d8f76baf7ad39212ff 33. Computer-Generated Hologram Based on
+Reference Light ... - MDPI, https://www.mdpi.com/2076-3417/11/16/7199 34. Interactive
+Computation of Holograms Using a Look-up Table, http://www.lucente.us/past/pubs/jei92.html
+35. One-eighth look-up table method for effectively generating computer,
+https://scholar.korea.ac.kr/item/3bd34518-5611-4282-9ccf-0f3c8a1879a1 36. TCIA Publications
+- The Cancer Imaging Archive, https://cancerimagingarchive.net/Publications.html 37. A dual
+interpretation for direct binary search and its implications for,
+https://www.researchgate.net/publication/5589093_A_dual_interpretation_for_direct_binary_sea
+rch_and_its_implications_for_tone_reproduction_and_texture_quality 38. Optimization of
+DMD-based independent amplitude and phase,
+https://www.researchgate.net/publication/344469124_Optimization_of_DMD-based_independen
+t_amplitude_and_phase_modulation_a_spatial_resolution_and_quantization 39. Thermal
+stability of wavefront shaping using a DMD as a spatial light,
+https://opg.optica.org/abstract.cfm?uri=oe-29-25-41808 40. Direct binary search method for
+high-resolution holographic image, https://opg.optica.org/abstract.cfm?uri=oe-30-15-26856 41.
+Accelerating Photonic Integrated Circuit Design: Traditional, ML and,
+https://arxiv.org/html/2506.18435v2 42. Binary Computer-Generated Holograms by
+Simulated-Annealing, https://www.mdpi.com/2304-6732/9/8/581 43. Efficient design of
+direct-binary-search computer-generated holograms,
+https://opg.optica.org/abstract.cfm?uri=josaa-8-4-652 44. Reverse design of pixel-type terahertz
+band-pass filters, https://opg.optica.org/abstract.cfm?uri=oe-30-2-957 45. Holographic
+tomographic volumetric additive manufacturing - PMC,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11814129/ 46. Dynamic holography using pixelated
+
+--- PAGE 12 ---
+light modulators, https://opg.optica.org/abstract.cfm?uri=ao-49-25-f47 47. Synthesis of digital
+holograms by direct binary search, https://opg.optica.org/fulltext.cfm?uri=ao-26-14-2788 48.
+Time-multiplexed structured illumination using a DMD for optical,
+https://arxiv.org/pdf/1612.00044 49. Breaking the DSP Wall: A Software–Hardware Co-Designed
+... - MDPI, https://www.mdpi.com/2079-9292/15/8/1586 50. DeepD3, an open framework for
+automated quantification of,
+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011774 51. Docuwide
+6030/6050: User Guide (Printer) | PDF - Scribd,
+https://www.scribd.com/document/582887492/Printer 52. binary image file: Topics by
+Science.gov, https://www.science.gov/topicpages/b/binary+image+file 53. Copyright
+Undertaking - PolyU Electronic Theses,
+https://theses.lib.polyu.edu.hk/bitstream/200/12127/3/6591.pdf

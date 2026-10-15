@@ -1,0 +1,1 @@
+{"status":"PASS","assertions":32,"uacStarted":false,"powershellStarted":false,"webViewWindowCreated":false,"scope":"Actual compiled native source and document token checks; dispatcher queue fixtures do not execute UI callbacks or start the bridge"}

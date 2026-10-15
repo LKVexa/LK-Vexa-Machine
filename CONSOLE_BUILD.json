@@ -1,0 +1,119 @@
+{
+  "product": "JA21 Software CPU Console",
+  "console_version": "1.4.0",
+  "base_browser_version": "9.8.7",
+  "starts_blank": false,
+  "visible_tabs": false,
+  "search_bar": false,
+  "buttons": false,
+  "default_size": [
+    1440,
+    900
+  ],
+  "minimum_size": [
+    420,
+    360
+  ],
+  "original_backup_preserved": true,
+  "simulation_integration": "Embedded JA21 software CPU/XPU 2.4.0 at a secure local WebView2 origin",
+  "source_integrity": "Active runtime verified; 191 pre-existing absent legacy references recorded in provenance/source-audit.json",
+  "release_date": "2026-10-14",
+  "license": "GPL-3.0-only",
+  "copyright": "Copyright (C) 2026 RUSSELL PHILIP SMITHSON",
+  "validation": {
+    "date": "2026-10-14",
+    "status": "PASS_WITH_REMAINING_LIVE_GATES",
+    "current_report": "evidence/hermit/RELEASE_VALIDATION.json",
+    "regression": {
+      "tests": 461,
+      "passed": 458,
+      "failed": 0,
+      "skipped": 3,
+      "cancelled": 0,
+      "evidence": "evidence/hermit/engine-audit/TEST_RESULTS.tap"
+    },
+    "liveBrowser": {
+      "status": "PASS",
+      "evidence": "evidence/hermit/browser/LIVE_BROWSER_VALIDATION_THREE_PANES_2.4.0.json",
+      "fixture": false,
+      "fallback": false,
+      "gpuOperations": 5,
+      "arithmeticSamples": 20480,
+      "mismatches": 0,
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "xe-lpg",
+        "device": "",
+        "description": ""
+      },
+      "reloadRecovery": "PASS",
+      "writerLock": "PASS",
+      "tiffRoundTrip": "PASS",
+      "invalidRestoreRetention": "PASS",
+      "persistedStorageGrant": false
+    },
+    "nativeWebView2Acceptance": {
+      "status": "PASS",
+      "checks": 8,
+      "fixture": false,
+      "evidence": "evidence/hermit/native-startup/NATIVE_WEBVIEW2_ACCEPTANCE_FINAL.json"
+    },
+    "nativeHostProcessRelaunch": {
+      "status": "PASS",
+      "actualProductionEntry": true,
+      "distinctNativeProcesses": true,
+      "exactFileRecovery": true,
+      "exactFieldPreviewRecovery": true,
+      "evidence": "evidence/hermit/native-startup/NATIVE_MAIN_PROCESS_RELAUNCH_FINAL.json"
+    },
+    "remaining_live_gates": {
+      "nativeAdministratorIpc": {
+        "status": "BLOCKED_ENVIRONMENT",
+        "reason": "Minimal local named-pipe probes receive Windows ERROR_ACCESS_DENIED (5) in this execution environment. No policy was changed."
+      },
+      "administratorUacStartup": {
+        "status": "NOT_RUN",
+        "reason": "No elevated helper was started. Ordinary Windows operator acceptance is documented in docs/ADMINISTRATOR-ACCEPTANCE.md."
+      },
+      "nativeAdministratorToXpuDelegation": {
+        "status": "NOT_RUN",
+        "reason": "Actual worker delegation and protocol fixtures pass; elevated end-to-end IPC still requires ordinary Windows acceptance."
+      },
+      "nativeWebView2GpuComputation": {
+        "status": "NOT_RUN",
+        "reason": "Actual GPU arithmetic was verified in the live browser; native QA verifies worker, byte lanes, storage and restoration."
+      },
+      "completeBrowserRuntimeProcessShutdown": {
+        "status": "NOT_RUN",
+        "reason": "Distinct native host process relaunch and exact recovery pass; exit of every WebView2 broker process was not asserted."
+      },
+      "nativeArm64Startup": {
+        "status": "NOT_RUN",
+        "reason": "This package targets Windows x64 and the JA21 JavaScript software XPU. It does not claim an ARM instruction-set runtime or ARM64 OS boot."
+      }
+    },
+    "prior_validation": "Historical baseline reports and reference files are preserved byte-exact."
+  },
+  "publication_policy": "Complete source and original component evidence; mutable workspace, caches and transient QA files excluded",
+  "software_cpu": {
+    "version": "2.4.0",
+    "folder": "applications/silicon",
+    "origin": "https://ja21-silicon.invalid/",
+    "engine": "JavaScript module worker",
+    "runtime": "WebView2 inside native console",
+    "node_required_for_launch": false,
+    "arm64_os_boot_required": false
+  },
+  "software_cpu_console": true,
+  "silicon_version": "2.4.0",
+  "terminal_layout": {
+    "panes": [
+      "XPU 1",
+      "XPU 2",
+      "Administrator PowerShell"
+    ],
+    "independent_inputs": true,
+    "administrator_connection": "explicit Windows elevation",
+    "narrow_windows": "stacked panes"
+  }
+}

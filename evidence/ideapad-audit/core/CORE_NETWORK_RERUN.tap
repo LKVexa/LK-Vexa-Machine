@@ -1,0 +1,137 @@
+TAP version 13
+# Subtest: host: Windows streams, device aliases and filename normalization are rejected
+ok 1 - host: Windows streams, device aliases and filename normalization are rejected
+  ---
+  duration_ms: 3469.2329
+  type: 'test'
+  ...
+# Subtest: host: oversized assets and directories are unavailable, HEAD reports length without body
+ok 2 - host: oversized assets and directories are unavailable, HEAD reports length without body
+  ---
+  duration_ms: 5725.54
+  type: 'test'
+  ...
+# Subtest: local static host boundary
+    # Subtest: bind address is loopback
+    ok 1 - bind address is loopback
+      ---
+      duration_ms: 1.5276
+      type: 'test'
+      ...
+    # Subtest: HTML and CSP are served
+    ok 2 - HTML and CSP are served
+      ---
+      duration_ms: 11.5085
+      type: 'test'
+      ...
+    # Subtest: HEAD has no body
+    ok 3 - HEAD has no body
+      ---
+      duration_ms: 2.9488
+      type: 'test'
+      ...
+    # Subtest: Host rebinding
+    ok 4 - Host rebinding
+      ---
+      duration_ms: 2.8186
+      type: 'test'
+      ...
+    # Subtest: foreign Origin
+    ok 5 - foreign Origin
+      ---
+      duration_ms: 1.3575
+      type: 'test'
+      ...
+    # Subtest: cross-site fetch
+    ok 6 - cross-site fetch
+      ---
+      duration_ms: 1.0699
+      type: 'test'
+      ...
+    # Subtest: POST
+    ok 7 - POST
+      ---
+      duration_ms: 2.1171
+      type: 'test'
+      ...
+    # Subtest: traversal
+    ok 8 - traversal
+      ---
+      duration_ms: 0.7957
+      type: 'test'
+      ...
+    # Subtest: encoded traversal
+    ok 9 - encoded traversal
+      ---
+      duration_ms: 0.6703
+      type: 'test'
+      ...
+    # Subtest: double encoding
+    ok 10 - double encoding
+      ---
+      duration_ms: 0.7804
+      type: 'test'
+      ...
+    # Subtest: NUL
+    ok 11 - NUL
+      ---
+      duration_ms: 0.8104
+      type: 'test'
+      ...
+    # Subtest: backslash
+    ok 12 - backslash
+      ---
+      duration_ms: 0.561
+      type: 'test'
+      ...
+    # Subtest: hidden dotfile
+    ok 13 - hidden dotfile
+      ---
+      duration_ms: 0.578
+      type: 'test'
+      ...
+    # Subtest: root manifest
+    ok 14 - root manifest
+      ---
+      duration_ms: 2.7792
+      type: 'test'
+      ...
+    # Subtest: references not served
+    ok 15 - references not served
+      ---
+      duration_ms: 3.3988
+      type: 'test'
+      ...
+    # Subtest: legacy scaffold not served
+    ok 16 - legacy scaffold not served
+      ---
+      duration_ms: 2.3425
+      type: 'test'
+      ...
+    # Subtest: JavaScript MIME
+    ok 17 - JavaScript MIME
+      ---
+      duration_ms: 2.3708
+      type: 'test'
+      ...
+    1..17
+ok 3 - local static host boundary
+  ---
+  duration_ms: 62.3001
+  type: 'test'
+  ...
+# Subtest: static host rejects symlink traversal
+ok 4 - static host rejects symlink traversal # SKIP symlink creation not permitted
+  ---
+  duration_ms: 3708.6476
+  type: 'test'
+  ...
+1..4
+# tests 21
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 13184.149

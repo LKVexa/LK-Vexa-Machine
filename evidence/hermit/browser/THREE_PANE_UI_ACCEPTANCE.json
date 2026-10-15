@@ -1,0 +1,57 @@
+{
+  "schema": "JA21/THREE_PANE_BROWSER_ACCEPTANCE/1",
+  "status": "PASS",
+  "version": "2.4.0",
+  "origin": "http://127.0.0.1:28434",
+  "method": "Real browser UI actions through the supported browser controls, with DOM transcript observation.",
+  "checks": [
+    {
+      "name": "Three simultaneously visible panes, two connected XPUs and disconnected Administrator",
+      "status": "PASS"
+    },
+    {
+      "name": "XPU 1 command writes virtual file, XPU 2 reads exact content and its own marker",
+      "status": "PASS",
+      "file": "/tmp/ja21-three-panes.txt",
+      "content": "PANE-ONE",
+      "secondMarker": "PANE-TWO"
+    },
+    {
+      "name": "Closing XPU 1 disables only its input; XPU 2 remains usable",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit XPU 1 reconnect recovers exact shared file",
+      "status": "PASS"
+    },
+    {
+      "name": "Worker reboot creates new terminal canvases and recovers exact shared file",
+      "status": "PASS",
+      "restartedCanvasLabels": [
+        "Terminal 4; command input is below",
+        "Terminal 5; command input is below"
+      ]
+    },
+    {
+      "name": "Disconnected Administrator pane input remains disabled",
+      "status": "PASS"
+    },
+    {
+      "name": "Owner loss disconnects standalone WebSocket client with UNKNOWN/no-replay notice",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit WebSocket reconnect retains exactly one appended marker",
+      "status": "PASS",
+      "file": "/tmp/ramws-reconnect-1609.txt",
+      "content": "one-admission"
+    }
+  ],
+  "adminElevationRequested": false,
+  "sourceHashes": {
+    "applications/silicon/src/app.js": "15d0aba7a93c7d33dfe90b319ad34f08ab9e1cd9b02c701f2bcfdc2d499cc86a",
+    "applications/silicon/web/index.html": "e8a4a097e3ed894c69b3a286c5d2e7063f2d021c4241a29a02f417f1bf68b760",
+    "applications/silicon/web/style.css": "fd34208699036a410eae55990b58eec24dcbe53dd5be27d1dedf5b51eed75252"
+  },
+  "scope": "Final three-pane browser UI and shared worker checks. Earlier WebSocket reconnect check used the same transport bytes; no elevated helper was opened."
+}

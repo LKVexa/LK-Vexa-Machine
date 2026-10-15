@@ -1,0 +1,35 @@
+{
+  "version": "2.2.2",
+  "status": "PASS_FOR_OFFLINE_GATE",
+  "node": "v24.21.0",
+  "platform": "win32",
+  "startedUtc": "2026-10-14T17:23:49.960Z",
+  "excluded": [
+    "This core gate does not itself provision the private runtime; separate x64 download/cache/preflight evidence is recorded under audit. Full fresh-machine/ARM64 startup remains a separate acceptance check.",
+    "Normal-browser worker/IndexedDB/Web Locks/CSP integration",
+    "Native C# compilation",
+    "Physical GPU/XPU or quantum hardware",
+    "Live advisory-database scan"
+  ],
+  "optional": [
+    "node scripts/make-tiff-examples.mjs followed by python tests/russl_interop.py (NumPy, tifffile, Pillow)",
+    "python tests/codecs.py (Pillow)",
+    "python tests/browser_offline.py (Playwright + Chromium; explicit in-memory fixture)",
+    "node tests/browser-production.mjs (Playwright + Chromium/Edge; real production integration, separate acceptance gate)"
+  ],
+  "windowsPowerShellParse": {
+    "status": "PASS",
+    "version": "5.1.26100.9711",
+    "scope": "Parse only; no runtime provisioning or application execution"
+  },
+  "tests": 311,
+  "passed": 308,
+  "failed": 0,
+  "skipped": 3,
+  "cancelled": 0,
+  "todo": 0,
+  "staticLauncherChecks": 18,
+  "nativeLauncherBoundaryChecks": 7,
+  "staticLauncherNote": "Text/packaging contracts only. Native PowerShell parsing and safe failure-path execution are reported separately; successful runtime provisioning is excluded.",
+  "finishedUtc": "2026-10-14T17:24:14.584Z"
+}

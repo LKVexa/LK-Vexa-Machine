@@ -1,0 +1,48 @@
+{
+  "kind": "source_behavior_probe_with_fake_peer",
+  "hardwareOrNetworkEvidence": false,
+  "sourceVersion": "2.0.0-ramws.1",
+  "findings": {
+    "malformedBinary": {
+      "error": {
+        "name": "ReferenceError",
+        "message": "Cannot access 'protoErr' before initialization"
+      },
+      "closes": []
+    },
+    "noncontiguousOutput": {
+      "output": [
+        "\r\n\u001b[1;33m[output gap: expected #1, received #2]\u001b[0m\r\n",
+        "A"
+      ],
+      "closes": []
+    },
+    "staleEpochAck": {
+      "status": {
+        "sessionId": "w1",
+        "cwd": "",
+        "cols": 80,
+        "rows": 24,
+        "busy": false,
+        "nodes": [],
+        "dfRoot": null,
+        "photon": {
+          "url": null,
+          "token": false
+        },
+        "remote": true,
+        "connection": "connected",
+        "unacknowledgedInputs": 0,
+        "creditRemaining": 1048576,
+        "epoch": "Epoch_AAAAAAAAAAAAAA",
+        "fabric": false
+      },
+      "closes": []
+    },
+    "inputBackpressure": {
+      "queuedBinaryMessages": 256,
+      "bufferedAmount": 2098944,
+      "closes": []
+    }
+  }
+}

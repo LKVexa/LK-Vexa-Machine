@@ -1,0 +1,14 @@
+{
+  "code": 2147483651,
+  "profile": "D:\\Codex\\2026-10-13\\pl\\work\\browser-runtime\\direct-profile-hy05i9",
+  "args": [
+    "--user-data-dir=D:\\Codex\\2026-10-13\\pl\\work\\browser-runtime\\direct-profile-hy05i9",
+    "--headless",
+    "--dump-dom",
+    "--timeout=8000",
+    "--enable-logging=stderr",
+    "data:text/html,<title>JA21 direct smoke</title><p>OK</p>"
+  ],
+  "stdout": "",
+  "stderr": ""
+}

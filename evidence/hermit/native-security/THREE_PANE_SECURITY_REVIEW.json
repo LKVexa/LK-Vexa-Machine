@@ -1,0 +1,38 @@
+{
+  "format": "ja21-three-pane-security-review/1",
+  "recordedAt": "2026-10-14T23:28:45.180Z",
+  "status": "NO_CRITICAL_FINDINGS",
+  "mode": "Read-only source review; root performed browser interaction tests separately.",
+  "reviewed": {
+    "path": "applications/silicon/src/app.js",
+    "bytes": 28283,
+    "sha256": "97330f829ad21ffa5b369ae06e2008536c7f40039fe31d9f01c16fdc4a7d9138"
+  },
+  "checks": [
+    "Fixed XPU 1/XPU 2/Admin pane mapping retains one compute worker and a separate explicit host capability.",
+    "Each pane form resolves its own record and passes an explicit target to sendCommand; administrator input does not depend on another pane focus.",
+    "XPU catalog actions explicitly select an XPU, preventing accidental host-shell dispatch.",
+    "Form input rejects C0/C1 controls; canvas paste becomes one editable line; raw terminal key input is bounded by its transport.",
+    "Closed/removed socket writes and Ctrl+C are guarded and errors handled.",
+    "Removing a pending Administrator pane immediately cancels AdminLink; an async open returning late is closed.",
+    "Removed-record onData/onClose callbacks cannot mutate a new session in reused pane DOM.",
+    "Reopening reserves the fixed slot and chooses its actual local/WebSocket worker session for delegation."
+  ],
+  "nonBlockingObservations": [
+    {
+      "location": "applications/silicon/src/app.js:95",
+      "detail": "Shared status polling can overwrite a closed active Administrator session disconnect reason with the generic Administrator label because it does not skip closed records or inspect connection state. Per-pane Closed state and input disabling remain correct.",
+      "suggestedFix": "Skip t.closed/t.removed in the shared status poll or render the returned connection value."
+    },
+    {
+      "location": "docs/ADMINISTRATOR-ACCEPTANCE.md Open the release step 3",
+      "detail": "Use the actual Connect PowerShell button label within the Administrator PowerShell pane."
+    }
+  ],
+  "verificationBoundary": {
+    "ordinaryNativeUiAndMainProcessRelaunch": "Root reports actual successful validation.",
+    "administratorUacStartup": "NOT_RUN",
+    "actualAdministratorToXpuNativeIpc": "PENDING_ORDINARY_WINDOWS_ACCEPTANCE"
+  },
+  "sourceEditsByThisReview": false
+}

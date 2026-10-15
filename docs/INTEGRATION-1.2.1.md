@@ -1,0 +1,15 @@
+# Console 1.2.1 processor identity audit patch
+
+This patch corrects execution descriptions after tracing the combined console from its native x64 entry to WebView2, the JavaScript module worker and Hpu methods. It does not change the software engine version 2.2.2 or any JavaScript algorithm.
+
+The selected JA21 software component is a specialized field-and-byte processor model. It is executed by the Windows host processor and creates no physical JA21 silicon chip. It has no general-purpose CPU ISA, ARM decoder, architectural program counter/register file, MMU or interrupt model. The shell parses text commands and calls JavaScript functions. The outer native presenter also uses separate software browser-policy interpreters and a software document engine.
+
+Six fixed 256-entry table identities contain four distinct byte functions: tables 1/3/6 are identical, table 2 is `(255 - 2 × input) mod 256`, table 4 returns 255 and table 5 returns 0. The max-absolute-change selector, with lowest-index tie resolution, outputs 255 for inputs 0–127 and 0 for 128–255. Tables 3 and 6 never win the duplicate-table ties. The phase writeback uses `(selected / 255) × 2π − π`, so both possible selected outputs represent the same phase modulo 2π. Lit field sites lose their previous phase and retain magnitude within floating-point rounding; this is an architectural limitation of the shipped byte operation, not a verified general CPU program or independently specified instruction.
+
+The engine's historical source comment mentioning fetch/decode/execute/writeback is modeled accounting for a direct lookup and array write; it is not an implemented four-stage ISA pipeline. `cpuCycles = 4096 × 4` and `gpuWarps = 4096 / 32` are serialized compatibility names for model counts. Both loops run on CPU in JavaScript. Modeled counts derive from the sample dimensions; Landauer-related values are calculated proxies. `performance.now()` measures software elapsed time rather than hardware cycle counters.
+
+The native console maps sealed local files directly through Microsoft WebView2; it requires no Node server. The integrated System page now states this path and the exact model limits. The compiled native startup log explicitly says WebView2 executes JavaScript, avoiding confusion with the absence of PowerShell script startup.
+
+Current native compilation, mapped integrity and preflight evidence is under `evidence/integration-1.2.1/`. Live WebView2 worker execution and persistence remain **UNVERIFIED** until `Test Silicon CPU.cmd` passes in a normal Windows session. Previous `evidence/integration-1.2.0/`, component reports and baseline files are retained as historical evidence; none is upgraded to a current live pass.
+
+Console version and native assembly metadata are 1.2.1. The component stays 2.2.2 and the native presenter compatibility marker stays 9.8.7. Current change/hash ledgers identify the exact modified files. The patch is independently reviewable and the source console remains unchanged.

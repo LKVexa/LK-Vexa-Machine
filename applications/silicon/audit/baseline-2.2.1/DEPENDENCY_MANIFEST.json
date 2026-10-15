@@ -1,0 +1,99 @@
+{
+  "schema": "JA21/DEPENDENCY_MANIFEST/1",
+  "version": "2.2.1",
+  "profile": "LOCAL_BROWSER",
+  "formatNote": "Descriptive manifest, not an SPDX or CycloneDX certification",
+  "runtimeNpmPackages": [],
+  "buildNpmPackages": [],
+  "externalPrerequisites": [
+    {
+      "name": "Node.js",
+      "minimum": "22.12.0",
+      "tested": "v24.21.0 (Windows core gate); pinned v24.21.0 x64 native preflight",
+      "recommendation": "current supported LTS patch",
+      "windowsDelivery": "First-run private runtime bootstrap; no system Node requirement",
+      "windowsPinned": "24.21.0",
+      "windowsNativeTested": true,
+      "lock": "scripts/windows/runtime-lock.json",
+      "windowsNativeScope": "x64 download/hash/minimal extraction/executable probe/preflight; browser startup not certified"
+    },
+    {
+      "name": "Windows PowerShell",
+      "minimum": "5.1",
+      "scope": "Windows .cmd bootstrap only",
+      "systemPathRequired": false
+    },
+    {
+      "name": "browser",
+      "requiredAPIs": [
+        "module workers",
+        "MessageChannel",
+        "IndexedDB",
+        "Web Locks",
+        "Web Crypto",
+        "Canvas",
+        "secure context"
+      ]
+    }
+  ],
+  "sourceComponents": [
+    {
+      "name": "SPIRAL shell/VFS",
+      "location": "src/vendor/spiral",
+      "origin": "supplied archive, repaired"
+    },
+    {
+      "name": "HPU numerical simulator",
+      "location": "src/vendor/spiral/hpu.js",
+      "origin": "supplied archive, repaired"
+    },
+    {
+      "name": "VT parser/Canvas renderer",
+      "location": "src/vendor/vt",
+      "origin": "supplied archive, integrated"
+    },
+    {
+      "name": "wire v3 worker/client",
+      "location": "src/vendor/ram-worker.js; src/lib/ram-link.js",
+      "origin": "local hardening rewrite"
+    },
+    {
+      "name": "native-module UI and static host",
+      "location": "src/app.js; web; scripts",
+      "origin": "local release refactor"
+    },
+    {
+      "name": "RUSSL scoped TIFF/pixel adapter",
+      "location": "src/vendor/spiral/russl-*.js; tiff-codec.js",
+      "origin": "RUSSL corpus 2.0.0 rules plus new application placement",
+      "scope": "bounded scalar TIFF, not full language/OME-Zarr conformance"
+    }
+  ],
+  "excludedReferenceRoots": [
+    "references",
+    "audit/legacy-scaffold.zip",
+    "audit/original-runtime.zip"
+  ],
+  "originalDeclaredNpmCounts": {
+    "runtime": 56,
+    "development": 14
+  },
+  "licenseNote": "No blanket root license inferred; existing input notices retained. See THIRD_PARTY_NOTICES.md.",
+  "optionalAuditTools": [
+    "Python",
+    "NumPy",
+    "tifffile",
+    "Pillow",
+    "Playwright",
+    "Chromium"
+  ],
+  "officialRuntimeReview": {
+    "checkedDate": "2026-10-13",
+    "latestLts": "24.21.0",
+    "retainedPin": true,
+    "index": "https://nodejs.org/download/release/index.json",
+    "checksums": "https://nodejs.org/download/release/v24.21.0/SHASUMS256.txt",
+    "advisoryIndex": "https://nodejs.org/en/blog/vulnerability",
+    "scope": "Official release index/checksum/advisory-index review. No claim of exhaustive CVE absence or OpenPGP validation."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "JA21/BASELINE_INNER_MANIFEST_FINDING/1",
+  "generatedUtc": "2026-10-14T19:01:46.051072+00:00",
+  "baselineFile": "D:\\Codex\\2026-10-13\\pl\\outputs\\JA21_Software_CPU_Console_1.2.0.zip",
+  "baselineSha256": "03c5f4420707a8c4b5005a8543f73c175fd89ff439b1a5312fe65a2d4d1ba24f",
+  "baselineModified": false,
+  "status": "STALE_INNER_MANIFEST_REFERENCES",
+  "archiveMembers": 7868,
+  "innerManifestEntries": 7853,
+  "actualEligibleArchiveMembers": 7848,
+  "actualPredicateSource": "tools/package_paths.py:package_files (immutable1.2.0 source)",
+  "actualPredicateSourceSha256": "f77d50b39da8e17da11a1c24fc3e17708d2731b24ebe3b29128803fd7b9b8587",
+  "packagingPredicateSource": "D:\\Codex\\2026-10-13\\pl\\work\\ideapad-cpu-audit\\package-audit-release.py",
+  "packagingPredicateAst": "def package_path(name):\n    parts = PurePosixPath(name).parts\n    leaf = parts[-1]\n    lower = leaf.lower()\n    return not (any((p in {'.git', '.hg', '.svn', '__pycache__', '.pytest_cache', 'logs'} for p in parts)) or parts[0] in {'workspace', 'runtime', 'work'} or parts[:2] == ('substrate', 'runtime') or (name in {'package.integrity.json', 'console.json', 'FILES_MANIFEST.json', 'SHA256SUMS.txt'}) or leaf.endswith(('.pyc', '.tmp')) or (leaf == '.vec1.lock') or lower.endswith(('.log', '_log.json')) or ('.log.' in lower))",
+  "predicateDisagreements": [],
+  "missingEligibleEntries": [],
+  "extraListedEntriesNotEligibleArchiveMembers": [
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brctl",
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brverify",
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brvm-core.o",
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brvm-core61.stripped.o",
+    "substrate/DF_Xtra_Large/vm/QUORUM_LCTL_MSSL_2.1.0/toolchain/lctl_1_6_1_rc1/runtime/bin/lctl-hyperfederated.jar"
+  ],
+  "listedButAbsentArchiveMembers": [
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brctl",
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brverify",
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brvm-core.o",
+    "engine/df_medium/baseline/vm/BOTTLE_ROCKET_5.0.0_VM_110K_RC/release/bin/brvm-core61.stripped.o",
+    "substrate/DF_Xtra_Large/vm/QUORUM_LCTL_MSSL_2.1.0/toolchain/lctl_1_6_1_rc1/runtime/bin/lctl-hyperfederated.jar"
+  ],
+  "existingMembersListedButExcludedByPredicate": [],
+  "duplicateManifestEntries": [],
+  "existingEntryHashOrSizeMismatches": [],
+  "missingEntriesCoveredByOuterManifest": true,
+  "outerCoverageScope": "Full ZIP CRC and outer7866hash check already performed byroot. There are zero omitted eligible shipped paths; the five stale inner entries refer to absent archive members and are not present in the full distribution manifest.",
+  "explanation": "The baseline inner package manifest retains five stale references to historical build artifacts absent from the ZIP. Every eligible shipped archive member is listed, and all existing listed payload sizes/hashes match. This is a stale-entry coverage defect, not a payload hash mismatch or missing coverage of an existing file. Regenerate1.2.1 inner package entries from exact merged archive bytes under the shipped path predicate; preservebaseline archive and record the finding.",
+  "remediation": "Regenerate current1.2.1 package.integrity.json using all exact eligible merged payload paths; validate exactset equality, duplicateabsence, hashes and sizes, separatelyfrombaselinecheck."
+}

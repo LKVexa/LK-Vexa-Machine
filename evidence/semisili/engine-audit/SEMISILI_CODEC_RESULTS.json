@@ -1,0 +1,27 @@
+{
+  "profile": "SEMISILI-CODEC-INDEPENDENT-ACCEPTANCE/1",
+  "status": "PASS",
+  "pixelVectors": 34,
+  "fieldWords": 20480,
+  "coordinateCases": 4096,
+  "stateRoundtrips": 5,
+  "tiffRoundtrips": 8,
+  "malformedRejections": 72,
+  "tiffOracleBytes": 655360,
+  "maximumAcceptedStateBytes": 1475201,
+  "runtime": "v24.21.0",
+  "finishedUTC": "2026-10-14T20:47:06.177Z",
+  "sourceSHA256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+  "testSHA256": "01ca56fb8c48f1cd3b363efc9cd056cbbfc0b624984285ece2da21c7c58d9313",
+  "adapterSHA256": {
+    "tiff-codec.js": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936",
+    "state-codec.js": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a",
+    "buffer.js": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"
+  },
+  "limits": [
+    "Opaque uint32 storage preserves bits but does not validate neuron physics or float finiteness.",
+    "TIFF stores 20 uint8 samples per logical cell; no 160-bit display pixel claim.",
+    "CRC32 detects accidental corruption and provides no authenticity guarantee.",
+    "Browser persistence and GPU acceptance are separate integration gates."
+  ]
+}

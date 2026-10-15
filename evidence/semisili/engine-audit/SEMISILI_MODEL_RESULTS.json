@@ -1,0 +1,16 @@
+{
+  "profile": "SEMISILI-MODEL-INDEPENDENT-ACCEPTANCE/1",
+  "status": "PASS",
+  "analyticSamples": 4096,
+  "stateRoundTrips": 19,
+  "tiffRoundTrips": 6,
+  "continuations": 12,
+  "guardRejections": 16,
+  "cachedCurrentHistoryCases": 1,
+  "finishedUTC": "2026-10-14T20:47:08.957Z",
+  "sourceSHA256": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+  "codecSHA256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+  "limits": [
+    "Detached CPU preparation and canonical state/TIFF behavior only. Actual GPU confirmation, publication and browser persistence remain separate gates."
+  ]
+}

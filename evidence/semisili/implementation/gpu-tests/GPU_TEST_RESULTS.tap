@@ -1,0 +1,305 @@
+TAP version 13
+# Subtest: every finite operation agrees across canonical residues and uint32 boundaries
+    # Subtest: 2 add
+    ok 1 - 2 add
+      ---
+      duration_ms: 5.8817
+      type: 'test'
+      ...
+    # Subtest: 2 sub
+    ok 2 - 2 sub
+      ---
+      duration_ms: 0.4514
+      type: 'test'
+      ...
+    # Subtest: 2 mul
+    ok 3 - 2 mul
+      ---
+      duration_ms: 0.3483
+      type: 'test'
+      ...
+    # Subtest: 2 negate
+    ok 4 - 2 negate
+      ---
+      duration_ms: 0.332
+      type: 'test'
+      ...
+    # Subtest: 2 complement
+    ok 5 - 2 complement
+      ---
+      duration_ms: 0.3885
+      type: 'test'
+      ...
+    # Subtest: 3 add
+    ok 6 - 3 add
+      ---
+      duration_ms: 0.3566
+      type: 'test'
+      ...
+    # Subtest: 3 sub
+    ok 7 - 3 sub
+      ---
+      duration_ms: 0.2993
+      type: 'test'
+      ...
+    # Subtest: 3 mul
+    ok 8 - 3 mul
+      ---
+      duration_ms: 0.3212
+      type: 'test'
+      ...
+    # Subtest: 3 negate
+    ok 9 - 3 negate
+      ---
+      duration_ms: 0.7729
+      type: 'test'
+      ...
+    # Subtest: 3 complement
+    ok 10 - 3 complement
+      ---
+      duration_ms: 0.353
+      type: 'test'
+      ...
+    # Subtest: 9 add
+    ok 11 - 9 add
+      ---
+      duration_ms: 0.2461
+      type: 'test'
+      ...
+    # Subtest: 9 sub
+    ok 12 - 9 sub
+      ---
+      duration_ms: 0.2067
+      type: 'test'
+      ...
+    # Subtest: 9 mul
+    ok 13 - 9 mul
+      ---
+      duration_ms: 0.2067
+      type: 'test'
+      ...
+    # Subtest: 9 negate
+    ok 14 - 9 negate
+      ---
+      duration_ms: 0.2326
+      type: 'test'
+      ...
+    # Subtest: 9 complement
+    ok 15 - 9 complement
+      ---
+      duration_ms: 0.3425
+      type: 'test'
+      ...
+    # Subtest: 16 add
+    ok 16 - 16 add
+      ---
+      duration_ms: 0.2629
+      type: 'test'
+      ...
+    # Subtest: 16 sub
+    ok 17 - 16 sub
+      ---
+      duration_ms: 0.6107
+      type: 'test'
+      ...
+    # Subtest: 16 mul
+    ok 18 - 16 mul
+      ---
+      duration_ms: 0.1618
+      type: 'test'
+      ...
+    # Subtest: 16 negate
+    ok 19 - 16 negate
+      ---
+      duration_ms: 0.2248
+      type: 'test'
+      ...
+    # Subtest: 16 complement
+    ok 20 - 16 complement
+      ---
+      duration_ms: 0.2405
+      type: 'test'
+      ...
+    # Subtest: 257 add
+    ok 21 - 257 add
+      ---
+      duration_ms: 0.2063
+      type: 'test'
+      ...
+    # Subtest: 257 sub
+    ok 22 - 257 sub
+      ---
+      duration_ms: 0.1663
+      type: 'test'
+      ...
+    # Subtest: 257 mul
+    ok 23 - 257 mul
+      ---
+      duration_ms: 0.1711
+      type: 'test'
+      ...
+    # Subtest: 257 negate
+    ok 24 - 257 negate
+      ---
+      duration_ms: 0.4887
+      type: 'test'
+      ...
+    # Subtest: 257 complement
+    ok 25 - 257 complement
+      ---
+      duration_ms: 0.4869
+      type: 'test'
+      ...
+    # Subtest: 65536 add
+    ok 26 - 65536 add
+      ---
+      duration_ms: 0.1495
+      type: 'test'
+      ...
+    # Subtest: 65536 sub
+    ok 27 - 65536 sub
+      ---
+      duration_ms: 0.1254
+      type: 'test'
+      ...
+    # Subtest: 65536 mul
+    ok 28 - 65536 mul
+      ---
+      duration_ms: 0.1562
+      type: 'test'
+      ...
+    # Subtest: 65536 negate
+    ok 29 - 65536 negate
+      ---
+      duration_ms: 0.147
+      type: 'test'
+      ...
+    # Subtest: 65536 complement
+    ok 30 - 65536 complement
+      ---
+      duration_ms: 0.1261
+      type: 'test'
+      ...
+    1..30
+ok 1 - every finite operation agrees across canonical residues and uint32 boundaries
+  ---
+  duration_ms: 16.3893
+  type: 'test'
+  ...
+# Subtest: highest uint32-safe product and negative residue use the expected finite semantics
+ok 2 - highest uint32-safe product and negative residue use the expected finite semantics
+  ---
+  duration_ms: 0.3702
+  type: 'test'
+  ...
+# Subtest: binary negation is identity while digit complement flips the bit
+ok 3 - binary negation is identity while digit complement flips the bit
+  ---
+  duration_ms: 0.2025
+  type: 'test'
+  ...
+# Subtest: 4096 samples and a partial final workgroup preserve every residue
+ok 4 - 4096 samples and a partial final workgroup preserve every residue
+  ---
+  duration_ms: 1.606
+  type: 'test'
+  ...
+# Subtest: invalid shape, residue, operation and arithmetic bounds never request a GPU
+ok 5 - invalid shape, residue, operation and arithmetic bounds never request a GPU
+  ---
+  duration_ms: 0.9788
+  type: 'test'
+  ...
+# Subtest: invalid timeout and signal are rejected before hardware discovery
+ok 6 - invalid timeout and signal are rejected before hardware discovery
+  ---
+  duration_ms: 0.252
+  type: 'test'
+  ...
+# Subtest: unsupported API, insecure context, null adapter and request failures report no comparison
+ok 7 - unsupported API, insecure context, null adapter and request failures report no comparison
+  ---
+  duration_ms: 0.6755
+  type: 'test'
+  ...
+# Subtest: fallback and unknown adapter identity cannot become hardware proof
+ok 8 - fallback and unknown adapter identity cannot become hardware proof
+  ---
+  duration_ms: 0.3985
+  type: 'test'
+  ...
+# Subtest: insufficient or unknown adapter limits fail before device creation
+ok 9 - insufficient or unknown adapter limits fail before device creation
+  ---
+  duration_ms: 0.1815
+  type: 'test'
+  ...
+# Subtest: shader, allocation, scoped OOM and uncaptured errors destroy every owned resource
+ok 10 - shader, allocation, scoped OOM and uncaptured errors destroy every owned resource
+  ---
+  duration_ms: 0.499
+  type: 'test'
+  ...
+# Subtest: readback rejection, malformed range and submit failure never expose a result
+ok 11 - readback rejection, malformed range and submit failure never expose a result
+  ---
+  duration_ms: 0.3321
+  type: 'test'
+  ...
+# Subtest: every mismatch is counted and diagnostics stay bounded
+ok 12 - every mismatch is counted and diagnostics stay bounded
+  ---
+  duration_ms: 0.9081
+  type: 'test'
+  ...
+# Subtest: caller mutation while requestDevice waits does not change input, oracle or returned ownership
+ok 13 - caller mutation while requestDevice waits does not change input, oracle or returned ownership
+  ---
+  duration_ms: 0.2029
+  type: 'test'
+  ...
+# Subtest: device loss interrupts a pending map and releases resources
+ok 14 - device loss interrupts a pending map and releases resources
+  ---
+  duration_ms: 0.1311
+  type: 'test'
+  ...
+# Subtest: typed-array subclass copy hooks cannot alias or replace owned input
+ok 15 - typed-array subclass copy hooks cannot alias or replace owned input
+  ---
+  duration_ms: 0.1418
+  type: 'test'
+  ...
+# Subtest: already aborted and mid-map abort never publish late output
+ok 16 - already aborted and mid-map abort never publish late output
+  ---
+  duration_ms: 10.2207
+  type: 'test'
+  ...
+# Subtest: timeout bounds discovery and destroys devices arriving after return
+ok 17 - timeout bounds discovery and destroys devices arriving after return
+  ---
+  duration_ms: 119.9554
+  type: 'test'
+  ...
+# Subtest: cleanup failures and cancellation during cleanup suppress confirmation
+ok 18 - cleanup failures and cancellation during cleanup suppress confirmation
+  ---
+  duration_ms: 0.806
+  type: 'test'
+  ...
+# Subtest: only the packaged literal shader is dispatched, regardless of extra input data
+ok 19 - only the packaged literal shader is dispatched, regardless of extra input data
+  ---
+  duration_ms: 0.1606
+  type: 'test'
+  ...
+1..19
+# tests 49
+# suites 0
+# pass 49
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 233.5013

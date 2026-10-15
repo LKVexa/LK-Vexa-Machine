@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "target": "Windows .NET Framework x64 native console host",
+  "compiler": {
+    "path": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+    "fileVersion": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+    "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+  },
+  "warningsAsErrors": true,
+  "warningLevel": 4,
+  "compileExitCode": 0,
+  "warnings": 0,
+  "errors": 0,
+  "output": {
+    "path": "JA21-Silicon-Console.exe",
+    "bytes": 219648,
+    "sha256": "60fd7f66b2ebe12d61d754613729979a99fed84ef52697f2658b4be9836ae12c",
+    "fileVersion": "1.2.0.0"
+  },
+  "sources": [
+    {
+      "path": "host/JA21VirtualBrowser.cs",
+      "sha256": "dd76a714f2b3b1478f985f872ad10041f9f0ef95dade20a426e72fae476785df"
+    },
+    {
+      "path": "host/Vec1Substrate.cs",
+      "sha256": "9b50f7f3bc918cb4f92dd3b6b93fca6bb830f2eccd222fc612c9ccc7846f6538"
+    },
+    {
+      "path": "host/PortableDesktop.cs",
+      "sha256": "e7fa6d5bc4a140c67974f452d8d8e2462affb10e0f10dee2aea66f574f873b3b"
+    },
+    {
+      "path": "host/LiveWebContracts.cs",
+      "sha256": "1c5accc5037564e3bb1dbe2912d7e47329ce063322a0c4efabc92035d586fd9d"
+    },
+    {
+      "path": "host/SiliconApp.cs",
+      "sha256": "86877788b6082e99792f5d41d0f8b45ad7e3530a7a2d2627271c85997e4de38c"
+    },
+    {
+      "path": "host/LiveWebBridge.cs",
+      "sha256": "d5ee976ad0b881762f498393b26a4dcc68c7d2f24997b8a291e6d58ab44d7bc9"
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "sha256": "e9bd313b98a1494172b24f408f69ebb838fb13e533fdf5a6aeea8161a133c11a"
+    }
+  ],
+  "build": "host/Build-SiliconConsole.cmd",
+  "claims": [
+    "Compiled seven actual production C# source units against .NET Framework/WPF and pinned WebView2 SDK",
+    "Native CLI refused unknown arguments with exit1 and readable diagnostics",
+    "28 focused headless policy/mapped-tree checks passed against the actual compiled EXE"
+  ],
+  "excluded": [
+    "Actual WebView2 process/browser/IndexedDB/worker acceptance",
+    "Native ARM64 execution or physical CPU/silicon proof"
+  ]
+}

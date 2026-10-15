@@ -1,0 +1,47 @@
+LK/Vexa Machine
+Publication baseline: JA21 console 1.4.0 / software XPU engine 2.4.0
+Copyright (C) 2026 RUSSELL PHILIP SMITHSON
+SPDX-License-Identifier: GPL-3.0-only
+
+For the original console/integration and applicable project-owned material:
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+The current GPL-3.0-only grant covers the copyright holder's original
+console, JA21 CPU/XPU and HERMIT terminal/protocol material, including the
+project's source, documentation and integration changes to the extent of
+the applicable contributors' rights. It supersedes earlier reserved-rights,
+UNLICENSED and no-public-distribution statements for that owned material.
+The original HERMIT attribution, Copyright (c) 2026 David Paul Russell,
+is retained. Historical records are preserved as provenance.
+
+This grant does not replace independently applicable component licenses,
+transfer third-party copyright, or extend to independently authored
+research papers and imported works. Their existing rights and notices
+remain applicable.
+
+This publication retains the supplied console's original ownership grant,
+historical notices and complete GPL text. The inherited root notices and
+component notices remain evidence of the terms applicable to each work.
+
+The software derives from the user-supplied JA21 Blank Virtual Console,
+JA21 presenter/DF_Medium portable VM, JA21 software CPU/XPU source and
+HERMIT terminal/protocol material. Publication changes include repository
+documentation and licensing records. These changes do not imply additional
+runtime verification or change the measured release limitations.
+
+Microsoft WebView2 SDK adapter binaries retain their package terms and
+notices. Installed Windows, .NET/WPF and WebView2 Evergreen Runtime remain
+separate platform components. No Microsoft or Free Software Foundation
+endorsement is asserted. See LICENSING.md for the component map and
+the scope of the project grant.

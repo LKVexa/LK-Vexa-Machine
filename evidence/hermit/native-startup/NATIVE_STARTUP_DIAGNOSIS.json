@@ -1,0 +1,169 @@
+{
+  "schema": "JA21/NATIVE_STARTUP_DIAGNOSIS/1",
+  "status": "REPRODUCED_AND_ISOLATED",
+  "createdAt": "2026-10-14T22:38:53.117Z",
+  "sdk": "1.0.4191.47",
+  "runtime": "155.0.4283.45",
+  "nativeCompile": {
+    "status": "PASS",
+    "exitCode": 0,
+    "warningsAsErrors": true,
+    "target": "x64",
+    "probeVersions": 2
+  },
+  "cases": [
+    {
+      "path": "raw-ambient-20261014T223441-8b033794/RESULT.json",
+      "sha256": "bdb87b4a487cd8554b1941d5d2a9c025df15ac205bf94fdc0366bd7239877f0d",
+      "status": "PASS",
+      "mode": "raw",
+      "environment": "ambient",
+      "hresult": null,
+      "stage": "controller-create",
+      "runtimeVersion": "155.0.4283.45",
+      "environmentCreated": true,
+      "parentIsWindow": true,
+      "windowVisible": true,
+      "profileWrite": true,
+      "controllerCreated": true,
+      "elevated": false,
+      "securityFlagsChanged": false
+    },
+    {
+      "path": "composition-ambient-20261014T223456-0723fdbe/RESULT.json",
+      "sha256": "8ece824763faf1ab931262d846bbe777e650c2d96b035110a70983b4b5438afb",
+      "status": "FAIL",
+      "mode": "composition",
+      "environment": "ambient",
+      "hresult": "0x8000FFFF",
+      "stage": "controller-create",
+      "runtimeVersion": "155.0.4283.45",
+      "environmentCreated": true,
+      "parentIsWindow": true,
+      "windowVisible": true,
+      "profileWrite": true,
+      "controllerCreated": false,
+      "elevated": false,
+      "securityFlagsChanged": false
+    },
+    {
+      "path": "windowed-ambient-20261014T223504-e063295e/RESULT.json",
+      "sha256": "925f2f31a50940bcb1254e3aba466134df8c8982ea09a5e038895e06b8774293",
+      "status": "PASS",
+      "mode": "windowed",
+      "environment": "ambient",
+      "hresult": null,
+      "stage": "controller-create",
+      "runtimeVersion": "155.0.4283.45",
+      "environmentCreated": true,
+      "parentIsWindow": true,
+      "windowVisible": true,
+      "profileWrite": true,
+      "controllerCreated": true,
+      "elevated": false,
+      "securityFlagsChanged": false
+    },
+    {
+      "path": "windowed-relocated-20261014T223604-a02a3185/RESULT.json",
+      "sha256": "e01d2c5006915b6e0ce50aebbf7c8716c40e04c119b472440bd16aea6a321a55",
+      "status": "PASS",
+      "mode": "windowed",
+      "environment": "relocated",
+      "hresult": null,
+      "stage": "controller-create",
+      "runtimeVersion": "155.0.4283.45",
+      "environmentCreated": true,
+      "parentIsWindow": true,
+      "windowVisible": true,
+      "profileWrite": true,
+      "controllerCreated": true,
+      "elevated": false,
+      "securityFlagsChanged": false
+    },
+    {
+      "path": "composition-relocated-20261014T223624-3192bfde/RESULT.json",
+      "sha256": "9edd4f29a5ac5b41d6810c47ce183eb340b500101d1f4a1b7b2d364491daa4de",
+      "status": "FAIL",
+      "mode": "composition",
+      "environment": "relocated",
+      "hresult": "0x8000FFFF",
+      "stage": "controller-create",
+      "runtimeVersion": "155.0.4283.45",
+      "environmentCreated": true,
+      "parentIsWindow": true,
+      "windowVisible": true,
+      "profileWrite": true,
+      "controllerCreated": false,
+      "elevated": false,
+      "securityFlagsChanged": false
+    },
+    {
+      "path": "raw-composition-ambient-20261014T224020-d7b54a62/RESULT.json",
+      "sha256": "a12586f914c152fc53a74f84f1355343dd2766805c3b193c531b6cde37d394a6",
+      "status": "FAIL",
+      "mode": "raw-composition",
+      "environment": "ambient",
+      "hresult": "0x8000FFFF",
+      "stage": "controller-create",
+      "runtimeVersion": "155.0.4283.45",
+      "environmentCreated": true,
+      "parentIsWindow": true,
+      "windowVisible": true,
+      "profileWrite": true,
+      "controllerCreated": false,
+      "elevated": false,
+      "securityFlagsChanged": false
+    }
+  ],
+  "artifacts": {
+    "StartupProbe.cs": {
+      "bytes": 6598,
+      "sha256": "5379de1b097bd2d567601d6768b04cf1d24e2a124ad269315fa80d243e6f8faf"
+    },
+    "StartupProbe.exe": {
+      "bytes": 14848,
+      "sha256": "d789ca7929d36bf998d5a5914741d05d24846e1e7843f3043313fcf75a7bd3c1"
+    },
+    "sdk/Microsoft.Web.WebView2.Core.dll": {
+      "bytes": 698208,
+      "sha256": "e6f54c8ce208e3797c427d01ad671b47cb25abc85604753d6ec2546d0ffef550"
+    },
+    "sdk/Microsoft.Web.WebView2.Wpf.dll": {
+      "bytes": 86368,
+      "sha256": "6942b85a3388ece45febde5584d2bfc035d84315f2dd5a4a47913f01a0193800"
+    },
+    "sdk/WebView2Loader.dll": {
+      "bytes": 163680,
+      "sha256": "c66e4a92fdc7a216118e43b7a5024ea2200e8c43f9310bf20d96a0084f82c5bc"
+    },
+    "StartupProbe2.cs": {
+      "bytes": 6873,
+      "sha256": "f07aecc8ebf6e686fd8184ba85bf5877df10d8693646a1e448bcfcf1bbef1f44"
+    },
+    "StartupProbe2.exe": {
+      "bytes": 15360,
+      "sha256": "b0086b5cdb5fbd7488cb5009ec98d2641aca232980bb5a9324de7aa8f2f26291"
+    }
+  },
+  "finding": "The exact reported Catastrophic failure / Window creation request failed is isolated to CreateCoreWebView2CompositionControllerAsync itself, reproduced both through the WPF composition control and directly with the validated top-level HWND. Environment creation, profile write, visible STA HWND and standard WPF/raw controller creation succeed.",
+  "causeBoundary": "Observed API-level failure is established. Its underlying runtime/OS mechanism and the exact user-launched copy have not been identified. It is not a document-navigation, certificate or virtual-origin failure in these reproductions.",
+  "candidateFix": "Use standard WPF WebView2 for the existing bare ConsoleMode content host; retain composition hosting where the full browser requires WPF overlays. Use the common IWebView2 interface and FrameworkElement adapter. Keep all mapped-origin/resource/permission/navigation boundaries.",
+  "productEditsApplied": false,
+  "liveApplicationBootVerified": false,
+  "browserPersistenceVerified": false,
+  "uacInvoked": false,
+  "privilegedExecution": false,
+  "securityFlagsChanged": false,
+  "primarySources": [
+    {
+      "url": "https://learn.microsoft.com/en-us/microsoft-edge/webview2/platforms/wpf",
+      "supports": "Shared IWebView2 interface; standard WPF HwndHost airspace limitation and composition purpose."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.wpf.webview2compositioncontrol.ensurecorewebview2async?view=webview2-dotnet-1.0.3912.50",
+      "supports": "Explicit UI control initialization with a pre-created environment and initialization-completion behavior."
+    }
+  ],
+  "preservation": "Production native source files and packaging readiness untouched. All probe states retained under this diagnostic folder.",
+  "updatedAt": "2026-10-14T22:40:55.081Z"
+}

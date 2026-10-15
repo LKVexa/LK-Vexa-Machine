@@ -1,0 +1,12 @@
+{
+  "schema": "JA21/RUNTIME_METADATA_SEAL_FINDING/1",
+  "status": "FIXED_IN_FINAL_PACKAGE",
+  "initialCandidateSha256": "3bde79f4a1a00c55e7936ed7bdfc45116a90cde246e1da568db478e0ba79e986",
+  "files": ["applications/silicon/VERSION", "applications/silicon/package.json"],
+  "presentInFullPackage": true,
+  "oldRuntimeSealFiles": 111,
+  "newRuntimeSealFiles": 113,
+  "finding": "Native startup reads component VERSION; the static verifier reads package.json. Both were outside the old runtime seal. A fresh seal-only extraction failed on the missing VERSION. Exact full ZIP bytes already contained both files. The final seal includes them and the reseal tool preserves this coverage.",
+  "initialLog": "packaging-attempts/before-metadata-seal/JA21_Software_CPU_Console_1.2.1_NATIVE_PREFLIGHT.log",
+  "scope": "Runtime dependency coverage and metadata integrity hardening; no CPU engine algorithm change. Final packaged-runtime success is recorded separately and bound to the final archive hash."
+}

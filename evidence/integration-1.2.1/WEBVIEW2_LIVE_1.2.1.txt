@@ -1,0 +1,6 @@
+PASS: Production runtime seal and mapped software CPU closure
+System.TimeoutException: Production bridge initialization and mapping timed out after 30000 ms.
+   at VBJA21.SiliconWebView2Acceptance.PumpUntil(Func`1 done, Int32 timeout, String label)
+   at VBJA21.SiliconWebView2Acceptance.Run(String root, String work)
+RESULT: BLOCKED_ENVIRONMENT
+Result: D:\Codex\2026-10-13\pl\work\ideapad-cpu-audit\project\JA21-Silicon-Console\workspace\silicon-acceptance\20261014-184340-66b6b7dd\silicon-webview2-acceptance.json

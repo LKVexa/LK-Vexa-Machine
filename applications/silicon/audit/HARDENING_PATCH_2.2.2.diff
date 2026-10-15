@@ -1,0 +1,1400 @@
+--- a/Native-Acceptance.cmd
++++ b/Native-Acceptance.cmd
+@@ -0,0 +1,16 @@
++@echo off
++setlocal EnableExtensions DisableDelayedExpansion
++set "JA21_ACCEPTANCE_SCRIPT=%~dp0scripts\windows\native-acceptance.ps1"
++set "JA21_ACCEPTANCE_ARCH=%~1"
++if "%JA21_ACCEPTANCE_ARCH%"=="" set "JA21_ACCEPTANCE_ARCH=arm64"
++if not "%~2"=="" goto :usage
++if /i "%JA21_ACCEPTANCE_ARCH%"=="arm64" goto :run
++if /i "%JA21_ACCEPTANCE_ARCH%"=="x64" goto :run
++:usage
++echo Usage: Native-Acceptance.cmd [arm64 ^| x64]
++exit /b 1
++:run
++set "JA21_PSHOST=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
++if exist "%SystemRoot%\Sysnative\WindowsPowerShell\v1.0\powershell.exe" set "JA21_PSHOST=%SystemRoot%\Sysnative\WindowsPowerShell\v1.0\powershell.exe"
++"%JA21_PSHOST%" -NoLogo -NoProfile -NonInteractive -Command "$ErrorActionPreference='Stop';try{& ([ScriptBlock]::Create([IO.File]::ReadAllText($env:JA21_ACCEPTANCE_SCRIPT))) -ExpectedArchitecture $env:JA21_ACCEPTANCE_ARCH}catch{[Console]::Error.WriteLine($_.Exception.Message);exit 1}"
++exit /b %ERRORLEVEL%
+--- a/Start-Console.cmd
++++ b/Start-Console.cmd
+@@ -22,7 +22,7 @@
+ if not "%JA21_NO_PAUSE%"=="1" pause
+ exit /b 1
+ #==JA21_POWERSHELL_PAYLOAD==
+-# JA21 Silicon Console 2.2.1 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.2.2 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -108,7 +108,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.2.1'
++        $request.UserAgent = 'JA21-Silicon-Console/2.2.2'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -185,10 +185,63 @@
+     } finally { $zip.Dispose() }
+ }
+ 
+-function Confirm-Runtime([string]$NodePath, [string]$ExpectedVersion) {
++function Resolve-WindowsRuntimeArchitecture([string]$NativeArchitecture) {
++    if ([string]::IsNullOrWhiteSpace($NativeArchitecture)) { throw 'Windows did not report its native architecture.' }
++    switch ($NativeArchitecture.ToUpperInvariant()) {
++        'X64' { return 'x64' }
++        'AMD64' { return 'x64' }
++        'ARM64' { return 'arm64' }
++        default { throw "Unsupported Windows architecture: $NativeArchitecture. This build requires x64 or ARM64 Windows." }
++    }
++}
++
++function Get-WindowsRuntimeArchitecture {
++    # OSArchitecture refers to Windows itself, even when PowerShell runs under
++    # WOW64/emulation. Older .NET Framework installations may lack this type.
++    $nativeArchitecture = $null
++    try { $nativeArchitecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() } catch {}
++    if (-not $nativeArchitecture) {
++        $nativeArchitecture = $env:PROCESSOR_ARCHITEW6432
++        if (-not $nativeArchitecture) { $nativeArchitecture = $env:PROCESSOR_ARCHITECTURE }
++    }
++    return Resolve-WindowsRuntimeArchitecture $nativeArchitecture
++}
++
++function Assert-RuntimeMachine([string]$NodePath, [string]$ExpectedArchitecture) {
++    Assert-PlainPath $NodePath
++    $expectedMachine = switch ($ExpectedArchitecture) {
++        'x64' { 0x8664 }
++        'arm64' { 0xAA64 }
++        default { throw "Unknown expected runtime architecture: $ExpectedArchitecture" }
++    }
++    $stream = $null
++    $reader = $null
++    try {
++        $stream = [IO.File]::Open($NodePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
++        $reader = New-Object IO.BinaryReader($stream)
++        if ($stream.Length -lt 64 -or $reader.ReadUInt16() -ne 0x5A4D) { throw 'Runtime has no valid DOS/PE header.' }
++        $stream.Position = 0x3C
++        $peOffset = $reader.ReadUInt32()
++        if ($peOffset -lt 64 -or [long]$peOffset + 26 -gt $stream.Length) { throw 'Runtime PE header offset is outside the executable.' }
++        $stream.Position = $peOffset
++        if ($reader.ReadUInt32() -ne 0x00004550) { throw 'Runtime has no valid PE signature.' }
++        $machine = $reader.ReadUInt16()
++        $stream.Position = [long]$peOffset + 20
++        $optionalLength = $reader.ReadUInt16()
++        if ($optionalLength -lt 2 -or [long]$peOffset + 24 + $optionalLength -gt $stream.Length) { throw 'Runtime PE optional header is truncated.' }
++        $stream.Position = [long]$peOffset + 24
++        if ($reader.ReadUInt16() -ne 0x020B) { throw 'Runtime must use a 64-bit PE32+ executable header.' }
++        if ($machine -ne $expectedMachine) { throw ('Runtime PE machine 0x{0:X4} does not match Windows {1}.' -f $machine, $ExpectedArchitecture) }
++    } finally {
++        if ($reader) { $reader.Dispose() } elseif ($stream) { $stream.Dispose() }
++    }
++}
++
++function Confirm-Runtime([string]$NodePath, [string]$ExpectedVersion, [string]$ExpectedArchitecture) {
++    Assert-RuntimeMachine $NodePath $ExpectedArchitecture
+     $info = New-Object Diagnostics.ProcessStartInfo
+     $info.FileName = $NodePath
+-    $info.Arguments = '--version'
++    $info.Arguments = '-p "JSON.stringify({version:process.version,arch:process.arch,platform:process.platform})"'
+     $info.UseShellExecute = $false
+     $info.CreateNoWindow = $true
+     $info.RedirectStandardOutput = $true
+@@ -205,10 +258,14 @@
+         }
+         $stdout = $stdoutTask.GetAwaiter().GetResult().Trim()
+         $stderr = $stderrTask.GetAwaiter().GetResult().Trim()
+-        if ($process.ExitCode -ne 0 -or $stdout -cne ('v' + $ExpectedVersion)) {
+-            throw ('Private Node.js version probe failed. Exit={0}; stdout={1}; stderr={2}' -f $process.ExitCode, $stdout, $stderr)
+-        }
+-        Write-LaunchLog ('Verified executable reports ' + $stdout)
++        if ($process.ExitCode -ne 0) {
++            throw ('Private Node.js runtime probe failed. Exit={0}; stdout={1}; stderr={2}' -f $process.ExitCode, $stdout, $stderr)
++        }
++        try { $probe = $stdout | ConvertFrom-Json } catch { throw 'Private Node.js runtime probe did not return valid JSON.' }
++        if ($probe.version -cne ('v' + $ExpectedVersion) -or $probe.arch -cne $ExpectedArchitecture -or $probe.platform -cne 'win32') {
++            throw ('Private Node.js runtime identity mismatch. Expected v{0}/win32/{1}; stdout={2}' -f $ExpectedVersion, $ExpectedArchitecture, $stdout)
++        }
++        Write-LaunchLog ('Verified executable reports {0} / {1} / {2}' -f $probe.version, $probe.platform, $probe.arch)
+     } catch {
+         throw ('Private runtime could not run: ' + $_.Exception.Message + '. Security controls were not disabled. Check the Windows error and launcher log.')
+     } finally { $process.Dispose() }
+@@ -230,15 +287,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1')) {
+-        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0 and 2.2.1 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.2.2')) {
++        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1 and 2.2.2 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.2.1 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.2.2 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+@@ -251,13 +308,7 @@
+             throw 'JA21_PORT must be an integer in 1024..65535. The default 8788 preserves the existing browser-storage origin.'
+         }
+     }
+-    $osArch = $env:PROCESSOR_ARCHITEW6432
+-    if (-not $osArch) { $osArch = $env:PROCESSOR_ARCHITECTURE }
+-    switch ($osArch.ToUpperInvariant()) {
+-        'AMD64' { $arch = 'x64' }
+-        'ARM64' { $arch = 'arm64' }
+-        default { throw "Unsupported Windows architecture: $osArch. This build requires x64 or ARM64 Windows." }
+-    }
++    $arch = Get-WindowsRuntimeArchitecture
+     $nodeVersion = '24.21.0'
+     $pins = @{
+         x64 = @{
+@@ -300,6 +351,7 @@
+         New-PrivateDirectory $script:StagePath
+         Expand-MinimalRuntime $archive $folder $script:StagePath
+         Assert-FileHash (Join-Path $script:StagePath 'node.exe') $pin.Exe
++        Assert-RuntimeMachine (Join-Path $script:StagePath 'node.exe') $arch
+         [IO.Directory]::Move($script:StagePath, $runtime)
+         $script:StagePath = $null
+         Write-LaunchLog 'Private runtime installed atomically; npm and global PATH were not used.'
+@@ -309,7 +361,7 @@
+     if (-not (Test-Path -LiteralPath (Join-Path $runtime 'LICENSE') -PathType Leaf)) {
+         throw 'The private runtime is incomplete: its upstream LICENSE is missing. Remove only its .runtime/node-v... directory and retry.'
+     }
+-    Confirm-Runtime $node $nodeVersion
++    Confirm-Runtime $node $nodeVersion $arch
+     $script:RuntimeLock.Dispose(); $script:RuntimeLock = $null
+     Write-LaunchLog ('Runtime path: ' + $node)
+     if ($mode -eq '--preflight') {
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-2.2.1
++2.2.2
+--- a/native/README.md
++++ b/native/README.md
+@@ -2,6 +2,16 @@
+ 
+ `src/vendor/spiral/ChipHarness.cs` is retained as inspectable reference source. Its exact text is also in `chip-harness.js` for explicit virtual-file export by `hpu bytes`; tests compare its LUTs against the JavaScript tables. The browser does not compile or call C#, and the launchers do not invoke .NET.
+ 
+-`Cpu` performs a scalar loop. `Gpu` performs a nested 32-wide batched CPU loop; its historical method name is retained, not a hardware claim. `Wrap` builds seven data TIFFs from a 4096-byte sample. TIFF payloads are not code execution containers. The C# code has not been compiled or native-executed in this environment, so LUT/text parity is not a .NET correctness certificate.
++`Cpu` performs a scalar loop. `Gpu` performs a nested 32-wide batched CPU loop; its historical method name is retained, not a hardware claim. `Wrap` builds seven data TIFFs from a 4096-byte sample. TIFF payloads are not code execution containers. Byte planes and route IDs are uncalibrated data. Result getters return defensive copies, sampling publishes a complete verified snapshot, and concurrent `Wrap` calls retain their own seven outputs.
++
++The 2.2.2 validation compiled and ran the distributed C# source with a task-local Microsoft .NET SDK 8.0.426, .NET runtime 8.0.32, Windows x64. Five complete sample vectors include all 256 possible input bytes. The driver checks all six scalar, batched and sampled lanes, the seventh selector and chosen outputs, invalid inputs, result mutation, deterministic exports, and 128 concurrent wraps. Pillow independently verifies all pixels of 35 C# TIFFs and the corresponding 35 JavaScript TIFFs. Exact results and SDK provenance are in `audit/NATIVE_CSHARP_RESULTS_2.2.2.json`, `audit/NATIVE_CSHARP_TIFF_RESULTS_2.2.2.json` and `audit/NATIVE_CSHARP_SDK_2.2.2.json`.
++
++To reproduce with .NET SDK 8 or a later SDK capable of targeting net8.0, Node and Python with Pillow:
++
++```powershell
++pwsh -NoProfile -File native/Validate.ps1 -Dotnet 'C:\path\to\dotnet.exe' -Node 'C:\path\to\node.exe' -Python 'C:\path\to\python.exe'
++```
++
++The project uses no NuGet packages. Its package sources are cleared; build/cache/output paths stay in `.local/native-validation` by default. Pass `-WorkDirectory` for another working folder. `results/VALIDATION.json` records the aggregate RUNNING, PASS or FAIL status and current source checksum. Each run invalidates the runner's two previous result reports before starting, so a failed rerun cannot retain an old overall success. The script disables SDK telemetry, development-certificate generation and global-tool PATH registration. The SDK is not bundled in the release and is not required to launch the browser console. This native result certifies execution on Windows x64, not ARM64 hardware or physical silicon.
+ 
+ Original, unmodified vendor source is preserved in `audit/original-runtime.zip`. Native DLLs/desktop launchers in nested references remain inert and are not installed or covered by the active local edition's runtime tests.
+--- a/native/ReferenceTests/ChipHarness.ReferenceTests.csproj
++++ b/native/ReferenceTests/ChipHarness.ReferenceTests.csproj
+@@ -0,0 +1,16 @@
++<Project Sdk="Microsoft.NET.Sdk">
++  <PropertyGroup>
++    <OutputType>Exe</OutputType>
++    <TargetFramework>net8.0</TargetFramework>
++    <ImplicitUsings>enable</ImplicitUsings>
++    <Nullable>disable</Nullable>
++    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
++    <Deterministic>true</Deterministic>
++    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
++    <RestoreSources></RestoreSources>
++  </PropertyGroup>
++  <ItemGroup>
++    <Compile Include="../../src/vendor/spiral/ChipHarness.cs" Link="ChipHarness.cs" />
++    <Compile Include="Program.cs" />
++  </ItemGroup>
++</Project>
+--- a/native/ReferenceTests/NuGet.Config
++++ b/native/ReferenceTests/NuGet.Config
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<configuration>
++  <packageSources><clear /></packageSources>
++</configuration>
+--- a/native/ReferenceTests/Program.cs
++++ b/native/ReferenceTests/Program.cs
+@@ -0,0 +1,128 @@
++using System.Runtime.InteropServices;
++using System.Security.Cryptography;
++using System.Text.Json;
++using Spiral.Hpu;
++
++if (args.Length != 2) throw new ArgumentException("Usage: reference-tests <vectors-dir> <results-dir>");
++string vectors = Path.GetFullPath(args[0]), results = Path.GetFullPath(args[1]);
++Directory.CreateDirectory(results);
++int assertions = 0;
++void Check(bool condition, string message)
++{
++    assertions++;
++    if (!condition) throw new InvalidOperationException(message);
++}
++void Same(byte[] actual, byte[] expected, string message) => Check(actual.SequenceEqual(expected), message);
++void Throws<T>(Action action, string message) where T : Exception
++{
++    assertions++;
++    try { action(); } catch (T) { return; }
++    throw new InvalidOperationException(message);
++}
++string Hash(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
++var h = new ChipHarness();
++Throws<InvalidOperationException>(() => h.Tiff(1), "TIFF before sampling must fail");
++foreach (int index in new[] { -1, 0, 8 })
++    Throws<ArgumentOutOfRangeException>(() => h.Tiff(index), "invalid TIFF index before sampling");
++var enumeratedRoute = File.ReadAllBytes(Path.Combine(vectors, "enumerated-route.bin"));
++for (int b = 0; b < 256; b++)
++{
++    int pick = enumeratedRoute[b] - 1;
++    Check(ChipHarness.RouteOf((byte)b) == pick, $"RouteOf({b})");
++}
++var vectorNames = JsonSerializer.Deserialize<string[]>(File.ReadAllText(Path.Combine(vectors, "vectors.json")));
++var outputs = new List<object>();
++foreach (string name in vectorNames)
++{
++    byte[] ram = File.ReadAllBytes(Path.Combine(vectors, name + "-input.bin"));
++    byte[] untouched = (byte[])ram.Clone();
++    var tiffs = h.Wrap(ram);
++    Check(tiffs.Length == 7, name + " TIFF count");
++    for (int s = 0; s < 6; s++)
++    {
++        byte[] want = File.ReadAllBytes(Path.Combine(vectors, $"{name}-lane-{s + 1}.bin"));
++        Same(h.Cpu(s, ram), want, $"{name} CPU lane {s + 1}");
++        Same(h.Gpu(s, ram), want, $"{name} batched lane {s + 1}");
++        Same(h.Planes[s], want, $"{name} sampled lane {s + 1}");
++        File.WriteAllBytes(Path.Combine(results, $"{name}-lane-{s + 1}.bin"), h.Planes[s]);
++    }
++    Same(h.Route, File.ReadAllBytes(Path.Combine(vectors, name + "-route.bin")), name + " selector");
++    Same(h.Chip, File.ReadAllBytes(Path.Combine(vectors, name + "-chip.bin")), name + " selected byte");
++    Same(ram, untouched, name + " input was modified");
++    File.WriteAllBytes(Path.Combine(results, name + "-route.bin"), h.Route);
++    File.WriteAllBytes(Path.Combine(results, name + "-chip.bin"), h.Chip);
++    for (int s = 0; s < 7; s++)
++    {
++        Same(tiffs[s], h.Tiff(s + 1), name + " repeated TIFF is deterministic");
++        string file = $"{name}-processor-{s + 1}.tif";
++        File.WriteAllBytes(Path.Combine(results, file), tiffs[s]);
++        outputs.Add(new { file, sha256 = Hash(tiffs[s]) });
++    }
++}
++for (int s = 0; s < 6; s++)
++{
++    foreach (int length in new[] { 32, 64, 256, 4096, 4128 })
++    {
++        byte[] ram = Enumerable.Range(0, length).Select(i => (byte)(i & 255)).ToArray();
++        Same(h.Cpu(s, ram), h.Gpu(s, ram), $"valid whole-warp length {length}");
++    }
++    foreach (int length in new[] { 0, 1, 31, 33, 255, 4095, 4097 })
++    {
++        Throws<ArgumentException>(() => h.Cpu(s, new byte[length]), "CPU invalid length");
++        Throws<ArgumentException>(() => h.Gpu(s, new byte[length]), "batched invalid length");
++    }
++    Throws<ArgumentException>(() => h.Cpu(s, null), "CPU null input");
++    Throws<ArgumentException>(() => h.Gpu(s, null), "batched null input");
++}
++foreach (int processor in new[] { int.MinValue, -1, 6, 7, int.MaxValue })
++{
++    Throws<ArgumentOutOfRangeException>(() => h.Cpu(processor, new byte[32]), "CPU invalid processor");
++    Throws<ArgumentOutOfRangeException>(() => h.Gpu(processor, new byte[32]), "batched invalid processor");
++}
++byte[] priorRoute = h.Route, priorChip = h.Chip;
++byte[][] priorPlanes = h.Planes;
++foreach (byte[] ram in new byte[][] { null, Array.Empty<byte>(), new byte[32], new byte[4095], new byte[4097] })
++{
++    Throws<ArgumentException>(() => h.Sample(ram), "Sample invalid input");
++    Throws<ArgumentException>(() => h.Wrap(ram), "Wrap invalid input");
++    Same(h.Route, priorRoute, "invalid input changed selector");
++    Same(h.Chip, priorChip, "invalid input changed output");
++    for (int s = 0; s < 6; s++) Same(h.Planes[s], priorPlanes[s], "invalid input changed lane");
++}
++foreach (int index in new[] { int.MinValue, -1, 0, 8, int.MaxValue })
++    Throws<ArgumentOutOfRangeException>(() => h.Tiff(index), "invalid TIFF index");
++byte[] beforeLane = h.Tiff(1), beforeRoute = h.Tiff(7);
++byte[][] exposedPlanes = h.Planes;
++exposedPlanes[0][0] ^= 255;
++exposedPlanes[1] = Array.Empty<byte>();
++h.Route[0] = 255;
++h.Chip[0] ^= 255;
++bool resultSnapshots = h.Tiff(1).SequenceEqual(beforeLane) && h.Tiff(7).SequenceEqual(beforeRoute)
++    && h.Planes[1].Length == 4096 && h.Chip.SequenceEqual(priorChip);
++Console.WriteLine("Result snapshots protect verified outputs: " + resultSnapshots);
++Check(resultSnapshots, "public result arrays allow corrupting verified outputs");
++byte[][] zeroTiffs = new ChipHarness().Wrap(new byte[4096]);
++byte[][] maximumTiffs = new ChipHarness().Wrap(Enumerable.Repeat((byte)255, 4096).ToArray());
++var shared = new ChipHarness();
++int concurrentFailures = 0;
++Parallel.For(0, 128, i =>
++{
++    byte[] ram = Enumerable.Repeat((byte)((i & 1) == 0 ? 0 : 255), 4096).ToArray();
++    byte[][] expected = (i & 1) == 0 ? zeroTiffs : maximumTiffs;
++    byte[][] actual = shared.Wrap(ram);
++    for (int s = 0; s < 7; s++)
++        if (!actual[s].SequenceEqual(expected[s])) Interlocked.Increment(ref concurrentFailures);
++});
++Check(concurrentFailures == 0, "concurrent Wrap mixed outputs from distinct inputs");
++var report = new
++{
++    status = "PASS", assertions, sdk = Environment.GetEnvironmentVariable("JA21_NATIVE_SDK"),
++    runtime = Environment.Version.ToString(), framework = RuntimeInformation.FrameworkDescription,
++    os = RuntimeInformation.OSDescription, processArchitecture = RuntimeInformation.ProcessArchitecture.ToString(),
++    osArchitecture = RuntimeInformation.OSArchitecture.ToString(), vectors = vectorNames,
++    laneInputComparisons = vectorNames.Length * 4096 * 6 * 3,
++    selectorSamples = vectorNames.Length * 4096, tiffFiles = outputs.Count, tiffPixels = outputs.Count * 4096,
++    concurrentWraps = 128, sourceSha256 = Hash(File.ReadAllBytes(Path.Combine(vectors, "ChipHarness.cs"))), outputs
++};
++File.WriteAllText(Path.Combine(results, "native-results.json"), JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true }) + "\n");
++Console.WriteLine(JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true }));
+--- a/native/Validate.ps1
++++ b/native/Validate.ps1
+@@ -0,0 +1,77 @@
++[CmdletBinding()]
++param(
++    [string]$Dotnet = 'dotnet',
++    [string]$Node = 'node',
++    [string]$Python = 'python',
++    [string]$WorkDirectory = ''
++)
++$ErrorActionPreference = 'Stop'
++$root = Split-Path -Parent $PSScriptRoot
++if (-not $WorkDirectory) { $WorkDirectory = Join-Path $root '.local\native-validation' }
++$work = [IO.Path]::GetFullPath($WorkDirectory)
++[void][IO.Directory]::CreateDirectory($work)
++$env:DOTNET_CLI_HOME = Join-Path $work 'cli-home'
++$env:APPDATA = Join-Path $work 'appdata'
++$env:LOCALAPPDATA = Join-Path $work 'localappdata'
++$env:NUGET_PACKAGES = Join-Path $work 'packages'
++$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
++$env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'
++$env:DOTNET_GENERATE_ASPNET_CERTIFICATE = 'false'
++$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = 'false'
++$project = Join-Path $PSScriptRoot 'ReferenceTests\ChipHarness.ReferenceTests.csproj'
++$config = Join-Path $PSScriptRoot 'ReferenceTests\NuGet.Config'
++$vectors = Join-Path $work 'vectors'
++$results = Join-Path $work 'results'
++[void][IO.Directory]::CreateDirectory($results)
++$aggregatePath = Join-Path $results 'VALIDATION.json'
++$aggregate = [ordered]@{
++    status = 'RUNNING'
++    stage = 'SDK'
++    startedUtc = [DateTime]::UtcNow.ToString('o')
++    sourceSha256 = (Get-FileHash -LiteralPath (Join-Path $root 'src\vendor\spiral\ChipHarness.cs') -Algorithm SHA256).Hash.ToLowerInvariant()
++}
++function Save-Aggregate { $aggregate | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $aggregatePath -Encoding utf8 }
++Save-Aggregate
++# Invalidate only this runner's two report files before any subprocess can fail.
++foreach ($name in @('native-results.json', 'native-tiff-results.json')) {
++    @{status='INVALIDATED'; reason='A new native validation run has started.'; startedUtc=$aggregate.startedUtc} |
++        ConvertTo-Json | Set-Content -LiteralPath (Join-Path $results $name) -Encoding utf8
++}
++$binary = Join-Path $work 'bin'
++$intermediate = (Join-Path $work 'obj') + [IO.Path]::DirectorySeparatorChar
++try {
++    $sdkOutput = & $Dotnet --version
++    if ($LASTEXITCODE -ne 0) { throw 'A .NET SDK with net8.0 targeting support is required.' }
++    $env:JA21_NATIVE_SDK = ($sdkOutput -join "`n").Trim()
++    $aggregate.sdk = $env:JA21_NATIVE_SDK
++    $aggregate.stage = 'JavaScript vectors'; Save-Aggregate
++    & $Node (Join-Path $root 'tests\native-vectors.mjs') $vectors
++    if ($LASTEXITCODE -ne 0) { throw 'JavaScript vector generation failed.' }
++    $aggregate.stage = 'C# compilation'; Save-Aggregate
++    & $Dotnet build $project --configuration Release "-p:RestoreConfigFile=$config" "-p:BaseIntermediateOutputPath=$intermediate" --output $binary
++    if ($LASTEXITCODE -ne 0) { throw 'C# compilation failed.' }
++    $aggregate.stage = 'Native assertions'; Save-Aggregate
++    & $Dotnet (Join-Path $binary 'ChipHarness.ReferenceTests.dll') $vectors $results
++    if ($LASTEXITCODE -ne 0) { throw 'Native C# validation failed.' }
++    $aggregate.stage = 'Independent TIFF decode'; Save-Aggregate
++    & $Python (Join-Path $root 'tests\native-tiff.py') $vectors $results
++    if ($LASTEXITCODE -ne 0) { throw 'Independent TIFF verification failed; Pillow is required.' }
++    $native = Get-Content -LiteralPath (Join-Path $results 'native-results.json') -Raw | ConvertFrom-Json
++    $tiff = Get-Content -LiteralPath (Join-Path $results 'native-tiff-results.json') -Raw | ConvertFrom-Json
++    if ($native.status -ne 'PASS' -or $tiff.status -ne 'PASS' -or $native.sourceSha256 -ne $aggregate.sourceSha256) {
++        throw 'Native result status or source checksum disagrees with this run.'
++    }
++    $aggregate.assertions = $native.assertions
++    $aggregate.nativeTiffs = $tiff.nativeTiffs
++    $aggregate.pixelsPerImplementation = $tiff.pixelsPerImplementation
++    $aggregate.status = 'PASS'
++    $aggregate.stage = 'Complete'
++    Write-Host "Native C#/JavaScript/Pillow validation PASS. Reports: $results"
++} catch {
++    $aggregate.status = 'FAIL'
++    $aggregate.error = $_.Exception.Message
++    throw
++} finally {
++    $aggregate.finishedUtc = [DateTime]::UtcNow.ToString('o')
++    Save-Aggregate
++}
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.2.1",
++  "version": "2.2.2",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "ja21-silicon-console",
+-      "version": "2.2.1",
++      "version": "2.2.2",
+       "engines": {
+         "node": ">=22.12.0"
+       },
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "ja21-silicon-console",
+-  "version": "2.2.1",
++  "version": "2.2.2",
+   "private": true,
+   "type": "module",
+   "description": "Local browser virtual console and software XPU reference simulator",
+--- a/scripts/windows/bootstrap.ps1
++++ b/scripts/windows/bootstrap.ps1
+@@ -1,4 +1,4 @@
+-# JA21 Silicon Console 2.2.1 - Windows PowerShell 5.1-compatible source.
++# JA21 Silicon Console 2.2.2 - Windows PowerShell 5.1-compatible source.
+ # The .cmd contains this same readable payload so it also works as a one-file
+ # replacement launcher for an already extracted 2.1.0 package.
+ # No network script evaluation, npm install, elevation, or policy changes.
+@@ -84,7 +84,7 @@
+         $request.AllowAutoRedirect = $false
+         $request.Timeout = 30000
+         $request.ReadWriteTimeout = 30000
+-        $request.UserAgent = 'JA21-Silicon-Console/2.2.1'
++        $request.UserAgent = 'JA21-Silicon-Console/2.2.2'
+         # Use Windows' configured proxy and normal certificate validation.
+         $request.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+         if ($request.Proxy) { $request.Proxy.Credentials = [Net.CredentialCache]::DefaultNetworkCredentials }
+@@ -161,10 +161,63 @@
+     } finally { $zip.Dispose() }
+ }
+ 
+-function Confirm-Runtime([string]$NodePath, [string]$ExpectedVersion) {
++function Resolve-WindowsRuntimeArchitecture([string]$NativeArchitecture) {
++    if ([string]::IsNullOrWhiteSpace($NativeArchitecture)) { throw 'Windows did not report its native architecture.' }
++    switch ($NativeArchitecture.ToUpperInvariant()) {
++        'X64' { return 'x64' }
++        'AMD64' { return 'x64' }
++        'ARM64' { return 'arm64' }
++        default { throw "Unsupported Windows architecture: $NativeArchitecture. This build requires x64 or ARM64 Windows." }
++    }
++}
++
++function Get-WindowsRuntimeArchitecture {
++    # OSArchitecture refers to Windows itself, even when PowerShell runs under
++    # WOW64/emulation. Older .NET Framework installations may lack this type.
++    $nativeArchitecture = $null
++    try { $nativeArchitecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() } catch {}
++    if (-not $nativeArchitecture) {
++        $nativeArchitecture = $env:PROCESSOR_ARCHITEW6432
++        if (-not $nativeArchitecture) { $nativeArchitecture = $env:PROCESSOR_ARCHITECTURE }
++    }
++    return Resolve-WindowsRuntimeArchitecture $nativeArchitecture
++}
++
++function Assert-RuntimeMachine([string]$NodePath, [string]$ExpectedArchitecture) {
++    Assert-PlainPath $NodePath
++    $expectedMachine = switch ($ExpectedArchitecture) {
++        'x64' { 0x8664 }
++        'arm64' { 0xAA64 }
++        default { throw "Unknown expected runtime architecture: $ExpectedArchitecture" }
++    }
++    $stream = $null
++    $reader = $null
++    try {
++        $stream = [IO.File]::Open($NodePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
++        $reader = New-Object IO.BinaryReader($stream)
++        if ($stream.Length -lt 64 -or $reader.ReadUInt16() -ne 0x5A4D) { throw 'Runtime has no valid DOS/PE header.' }
++        $stream.Position = 0x3C
++        $peOffset = $reader.ReadUInt32()
++        if ($peOffset -lt 64 -or [long]$peOffset + 26 -gt $stream.Length) { throw 'Runtime PE header offset is outside the executable.' }
++        $stream.Position = $peOffset
++        if ($reader.ReadUInt32() -ne 0x00004550) { throw 'Runtime has no valid PE signature.' }
++        $machine = $reader.ReadUInt16()
++        $stream.Position = [long]$peOffset + 20
++        $optionalLength = $reader.ReadUInt16()
++        if ($optionalLength -lt 2 -or [long]$peOffset + 24 + $optionalLength -gt $stream.Length) { throw 'Runtime PE optional header is truncated.' }
++        $stream.Position = [long]$peOffset + 24
++        if ($reader.ReadUInt16() -ne 0x020B) { throw 'Runtime must use a 64-bit PE32+ executable header.' }
++        if ($machine -ne $expectedMachine) { throw ('Runtime PE machine 0x{0:X4} does not match Windows {1}.' -f $machine, $ExpectedArchitecture) }
++    } finally {
++        if ($reader) { $reader.Dispose() } elseif ($stream) { $stream.Dispose() }
++    }
++}
++
++function Confirm-Runtime([string]$NodePath, [string]$ExpectedVersion, [string]$ExpectedArchitecture) {
++    Assert-RuntimeMachine $NodePath $ExpectedArchitecture
+     $info = New-Object Diagnostics.ProcessStartInfo
+     $info.FileName = $NodePath
+-    $info.Arguments = '--version'
++    $info.Arguments = '-p "JSON.stringify({version:process.version,arch:process.arch,platform:process.platform})"'
+     $info.UseShellExecute = $false
+     $info.CreateNoWindow = $true
+     $info.RedirectStandardOutput = $true
+@@ -181,10 +234,14 @@
+         }
+         $stdout = $stdoutTask.GetAwaiter().GetResult().Trim()
+         $stderr = $stderrTask.GetAwaiter().GetResult().Trim()
+-        if ($process.ExitCode -ne 0 -or $stdout -cne ('v' + $ExpectedVersion)) {
+-            throw ('Private Node.js version probe failed. Exit={0}; stdout={1}; stderr={2}' -f $process.ExitCode, $stdout, $stderr)
+-        }
+-        Write-LaunchLog ('Verified executable reports ' + $stdout)
++        if ($process.ExitCode -ne 0) {
++            throw ('Private Node.js runtime probe failed. Exit={0}; stdout={1}; stderr={2}' -f $process.ExitCode, $stdout, $stderr)
++        }
++        try { $probe = $stdout | ConvertFrom-Json } catch { throw 'Private Node.js runtime probe did not return valid JSON.' }
++        if ($probe.version -cne ('v' + $ExpectedVersion) -or $probe.arch -cne $ExpectedArchitecture -or $probe.platform -cne 'win32') {
++            throw ('Private Node.js runtime identity mismatch. Expected v{0}/win32/{1}; stdout={2}' -f $ExpectedVersion, $ExpectedArchitecture, $stdout)
++        }
++        Write-LaunchLog ('Verified executable reports {0} / {1} / {2}' -f $probe.version, $probe.platform, $probe.arch)
+     } catch {
+         throw ('Private runtime could not run: ' + $_.Exception.Message + '. Security controls were not disabled. Check the Windows error and launcher log.')
+     } finally { $process.Dispose() }
+@@ -206,15 +263,15 @@
+         }
+     }
+     $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
+-    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1')) {
+-        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0 and 2.2.1 only.'
++    if ($package.name -ne 'ja21-silicon-console' -or $package.version -notin @('2.1.0', '2.1.1', '2.2.0', '2.2.1', '2.2.2')) {
++        throw 'This launcher supports JA21 Silicon Console 2.1.0, 2.1.1, 2.2.0, 2.2.1 and 2.2.2 only.'
+     }
+     Set-Location -LiteralPath $root
+     [Environment]::CurrentDirectory = $root
+     $logs = Join-Path $root 'logs'
+     New-PrivateDirectory $logs
+     $script:LogPath = Join-Path $logs ('launcher-{0}-{1}.log' -f [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'), $PID)
+-    Write-LaunchLog ('JA21 launcher 2.2.1 | application ' + $package.version)
++    Write-LaunchLog ('JA21 launcher 2.2.2 | application ' + $package.version)
+     Write-LaunchLog ('Package: ' + $root)
+     Write-LaunchLog ('Log: ' + $script:LogPath)
+     # Environment cleanup is limited to this launcher/child process. PATH is untouched.
+@@ -227,13 +284,7 @@
+             throw 'JA21_PORT must be an integer in 1024..65535. The default 8788 preserves the existing browser-storage origin.'
+         }
+     }
+-    $osArch = $env:PROCESSOR_ARCHITEW6432
+-    if (-not $osArch) { $osArch = $env:PROCESSOR_ARCHITECTURE }
+-    switch ($osArch.ToUpperInvariant()) {
+-        'AMD64' { $arch = 'x64' }
+-        'ARM64' { $arch = 'arm64' }
+-        default { throw "Unsupported Windows architecture: $osArch. This build requires x64 or ARM64 Windows." }
+-    }
++    $arch = Get-WindowsRuntimeArchitecture
+     $nodeVersion = '24.21.0'
+     $pins = @{
+         x64 = @{
+@@ -276,6 +327,7 @@
+         New-PrivateDirectory $script:StagePath
+         Expand-MinimalRuntime $archive $folder $script:StagePath
+         Assert-FileHash (Join-Path $script:StagePath 'node.exe') $pin.Exe
++        Assert-RuntimeMachine (Join-Path $script:StagePath 'node.exe') $arch
+         [IO.Directory]::Move($script:StagePath, $runtime)
+         $script:StagePath = $null
+         Write-LaunchLog 'Private runtime installed atomically; npm and global PATH were not used.'
+@@ -285,7 +337,7 @@
+     if (-not (Test-Path -LiteralPath (Join-Path $runtime 'LICENSE') -PathType Leaf)) {
+         throw 'The private runtime is incomplete: its upstream LICENSE is missing. Remove only its .runtime/node-v... directory and retry.'
+     }
+-    Confirm-Runtime $node $nodeVersion
++    Confirm-Runtime $node $nodeVersion $arch
+     $script:RuntimeLock.Dispose(); $script:RuntimeLock = $null
+     Write-LaunchLog ('Runtime path: ' + $node)
+     if ($mode -eq '--preflight') {
+--- a/scripts/windows/native-acceptance.ps1
++++ b/scripts/windows/native-acceptance.ps1
+@@ -0,0 +1,141 @@
++# Run on the Windows architecture being accepted, from an extracted package.
++# This provisions the pinned private runtime, runs core verification and checks
++# the production loopback host. Browser persistence has its own acceptance gate.
++param(
++    [ValidateSet('arm64', 'x64')][string]$ExpectedArchitecture = 'arm64',
++    [ValidateRange(1024,65535)][int]$Port = 8792
++)
++Set-StrictMode -Version 2.0
++$ErrorActionPreference = 'Stop'
++$ExpectedArchitecture = $ExpectedArchitecture.ToLowerInvariant()
++$script:LogPath = $null
++$scriptDirectory = $PSScriptRoot
++if (-not $scriptDirectory -and $env:JA21_ACCEPTANCE_SCRIPT) { $scriptDirectory = [IO.Path]::GetDirectoryName($env:JA21_ACCEPTANCE_SCRIPT) }
++if (-not $scriptDirectory) { throw 'Run Native-Acceptance.cmd from the extracted package, or run this saved script directly.' }
++$root = [IO.Path]::GetFullPath((Join-Path $scriptDirectory '../..'))
++$bootstrap = Join-Path $scriptDirectory 'bootstrap.ps1'
++$tokens = $null; $errors = $null
++$ast = [Management.Automation.Language.Parser]::ParseFile($bootstrap, [ref]$tokens, [ref]$errors)
++if ($errors.Count) { throw ($errors | Out-String) }
++# Load only reviewed function declarations; do not execute bootstrap main.
++foreach ($function in $ast.EndBlock.Statements | Where-Object { $_ -is [Management.Automation.Language.FunctionDefinitionAst] }) {
++    . ([ScriptBlock]::Create($function.Extent.Text))
++}
++Assert-PlainPath $root
++$audit = Join-Path $root 'audit'
++New-PrivateDirectory $audit
++$reportPath = Join-Path $audit ('NATIVE_ACCEPTANCE_' + $ExpectedArchitecture + '.json')
++Assert-PlainPath $reportPath
++$report = [ordered]@{
++    schema = 'JA21/NATIVE_WINDOWS_ACCEPTANCE/1'
++    status = 'RUNNING'
++    startedUtc = [DateTime]::UtcNow.ToString('o')
++    requestedArchitecture = $ExpectedArchitecture
++    hostArchitecture = $null
++    windowsPowerShell = $PSVersionTable.PSVersion.ToString()
++    packageVersion = $null
++    runtime = $null
++    preflight = $null
++    coreVerification = $null
++    host = $null
++    browserPersistence = 'SEPARATE_GATE'
++    limits = @('Does not validate physical silicon or GPU execution.', 'Does not validate browser persistence or .NET reference execution.')
++}
++function Save-AcceptanceReport { [IO.File]::WriteAllText($reportPath, (($report | ConvertTo-Json -Depth 8) + [Environment]::NewLine), (New-Object Text.UTF8Encoding($false))) }
++function Start-AcceptanceProcess([string]$Executable, [string]$Arguments) {
++    $info = New-Object Diagnostics.ProcessStartInfo
++    $info.FileName = $Executable
++    $info.Arguments = $Arguments
++    $info.WorkingDirectory = $root
++    $info.UseShellExecute = $false
++    $info.CreateNoWindow = $true
++    $info.RedirectStandardOutput = $true
++    $info.RedirectStandardError = $true
++    $info.EnvironmentVariables['JA21_NO_PAUSE'] = '1'
++    $info.EnvironmentVariables['JA21_NO_OPEN'] = '1'
++    foreach ($name in @('NODE_OPTIONS', 'NODE_PATH', 'NODE_EXTRA_CA_CERTS', 'NODE_ICU_DATA', 'NODE_REDIRECT_WARNINGS', 'NODE_V8_COVERAGE', 'OPENSSL_CONF', 'OPENSSL_MODULES', 'SSLKEYLOGFILE')) {
++        $info.EnvironmentVariables.Remove($name)
++    }
++    $process = New-Object Diagnostics.Process
++    $process.StartInfo = $info
++    if (-not $process.Start()) { $process.Dispose(); throw 'Windows did not start acceptance process.' }
++    return $process
++}
++function Invoke-AcceptanceStep([string]$Arguments, [int]$TimeoutMilliseconds) {
++    $process = Start-AcceptanceProcess (Join-Path $env:SystemRoot 'System32/cmd.exe') $Arguments
++    try {
++        $stdoutTask = $process.StandardOutput.ReadToEndAsync()
++        $stderrTask = $process.StandardError.ReadToEndAsync()
++        if (-not $process.WaitForExit($TimeoutMilliseconds)) { try { $process.Kill() } catch {}; throw 'Native launcher acceptance step timed out.' }
++        $stdout = $stdoutTask.GetAwaiter().GetResult()
++        $stderr = $stderrTask.GetAwaiter().GetResult()
++        Write-Host $stdout
++        if ($stderr) { Write-Host $stderr }
++        if ($process.ExitCode -ne 0) { throw ('Native launcher acceptance step exited {0}: {1}' -f $process.ExitCode, ($stdout + $stderr)) }
++        return [ordered]@{status='PASS';exitCode=$process.ExitCode;stdout=$stdout;stderr=$stderr}
++    } finally { $process.Dispose() }
++}
++function Receive-AcceptanceResponse([string]$Path) {
++    $request = [Net.HttpWebRequest]::Create(('http://127.0.0.1:' + $Port + $Path))
++    $request.Proxy = $null
++    $request.Timeout = 1000
++    $request.ReadWriteTimeout = 1000
++    $request.AllowAutoRedirect = $false
++    $response = $null; $reader = $null
++    try {
++        $response = $request.GetResponse()
++        $reader = New-Object IO.StreamReader($response.GetResponseStream())
++        return [ordered]@{status=[int]$response.StatusCode;type=$response.ContentType;body=$reader.ReadToEnd();csp=$response.Headers['Content-Security-Policy']}
++    } finally { if ($reader) { $reader.Dispose() }; if ($response) { $response.Close() }; $request.Abort() }
++}
++$hostProcess = $null
++try {
++    Save-AcceptanceReport
++    $report.hostArchitecture = Get-WindowsRuntimeArchitecture
++    if ($report.hostArchitecture -cne $ExpectedArchitecture) { throw ('Native acceptance requires Windows {0}; this host is {1}. No emulation/contract result is substituted.' -f $ExpectedArchitecture, $report.hostArchitecture) }
++    $package = Get-Content -LiteralPath (Join-Path $root 'package.json') -Raw | ConvertFrom-Json
++    $report.packageVersion = $package.version
++    $launcher = Join-Path $root 'Start-Console.cmd'
++    $report.preflight = Invoke-AcceptanceStep ('/d /s /c ""' + $launcher + '" --preflight"') 360000
++    $pins = Get-Content -LiteralPath (Join-Path $scriptDirectory 'runtime-lock.json') -Raw | ConvertFrom-Json
++    $node = Join-Path $root ('.runtime/node-v' + $pins.nodeVersion + '-win-' + $ExpectedArchitecture + '/node.exe')
++    Confirm-Runtime $node $pins.nodeVersion $ExpectedArchitecture
++    $report.runtime = [ordered]@{version=$pins.nodeVersion;platform='win32';architecture=$ExpectedArchitecture;peMachineVerified=$true;path=$node}
++    $report.coreVerification = Invoke-AcceptanceStep ('/d /s /c ""' + $launcher + '" --verify"') 180000
++    # Refuse an existing listener so a response from another console cannot be
++    # mistaken for startup of this process. The production host binds loopback.
++    $listener = New-Object Net.Sockets.TcpListener([Net.IPAddress]::Loopback, $Port)
++    try { $listener.ExclusiveAddressUse = $true; $listener.Start() } finally { $listener.Stop() }
++    $hostProcess = Start-AcceptanceProcess $node ('"' + (Join-Path $root 'scripts/serve.mjs') + '" --port ' + $Port)
++    $hostStdout = $hostProcess.StandardOutput.ReadToEndAsync()
++    $hostStderr = $hostProcess.StandardError.ReadToEndAsync()
++    $clock = [Diagnostics.Stopwatch]::StartNew()
++    $index = $null
++    while (-not $index -and $clock.Elapsed.TotalSeconds -lt 20) {
++        if ($hostProcess.HasExited) { throw ('Host exited before ready: ' + $hostStderr.GetAwaiter().GetResult()) }
++        try { $index = Receive-AcceptanceResponse '/' } catch { Start-Sleep -Milliseconds 100 }
++    }
++    if (-not $index -or $index.status -ne 200 -or $index.body -notmatch [Regex]::Escape(('JA21 Silicon Console ' + $package.version))) { throw 'Production host did not serve the expected console.' }
++    if (-not $index.csp -or $index.csp -notmatch "default-src 'none'") { throw 'Production host CSP was missing or unexpected.' }
++    $version = Receive-AcceptanceResponse '/src/version.js'
++    $worker = Receive-AcceptanceResponse '/src/vendor/ram-worker.js'
++    if ($version.status -ne 200 -or $version.body -notmatch [Regex]::Escape($package.version) -or $worker.status -ne 200 -or $worker.type -notmatch 'javascript') { throw 'Production host version/worker module response failed.' }
++    if ($hostProcess.HasExited) { throw 'Production host exited during acceptance.' }
++    $report.host = [ordered]@{status='PASS';origin=('http://127.0.0.1:' + $Port);indexStatus=$index.status;versionStatus=$version.status;workerStatus=$worker.status;csp=$index.csp}
++    $report.status = 'PASS_NATIVE_WINDOWS_STARTUP'
++} catch {
++    $report.status = 'FAIL'
++    $report.error = $_.Exception.Message
++    Write-Host ('NATIVE ACCEPTANCE FAILED: ' + $_.Exception.Message)
++} finally {
++    if ($hostProcess) {
++        if (-not $hostProcess.HasExited) { try { $hostProcess.Kill(); [void]$hostProcess.WaitForExit(5000) } catch {} }
++        if ($hostProcess.HasExited -and $report.host) { $report.host.stdout = $hostStdout.GetAwaiter().GetResult(); $report.host.stderr = $hostStderr.GetAwaiter().GetResult() }
++        $hostProcess.Dispose()
++    }
++    $report.finishedUtc = [DateTime]::UtcNow.ToString('o')
++    Save-AcceptanceReport
++}
++Write-Host ('Acceptance evidence: ' + $reportPath)
++if ($report.status -eq 'PASS_NATIVE_WINDOWS_STARTUP') { exit 0 }
++exit 1
+--- a/scripts/windows/runtime-lock.json
++++ b/scripts/windows/runtime-lock.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "JA21/WINDOWS_RUNTIME_LOCK/1",
+-  "consoleVersion": "2.2.1",
++  "consoleVersion": "2.2.2",
+   "nodeVersion": "24.21.0",
+   "lts": "Krypton",
+   "verifiedDate": "2026-10-13",
+--- a/src/vendor/spiral/ChipHarness.cs
++++ b/src/vendor/spiral/ChipHarness.cs
+@@ -26,9 +26,35 @@
+         new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 }
+     };
+ 
+-    public byte[][] Planes { get; private set; } = new byte[Processors][];
+-    public byte[] Route { get; private set; } = System.Array.Empty<byte>();
+-    public byte[] Chip { get; private set; } = System.Array.Empty<byte>();
++    sealed class SampleResult
++    {
++        public readonly byte[][] Planes;
++        public readonly byte[] Route;
++        public readonly byte[] Chip;
++        public SampleResult(byte[][] planes, byte[] route, byte[] chip)
++        {
++            Planes = planes;
++            Route = route;
++            Chip = chip;
++        }
++    }
++    volatile SampleResult result = new SampleResult(
++        new byte[Processors][], System.Array.Empty<byte>(), System.Array.Empty<byte>());
++
++    /// <summary>Snapshots preserve verified outputs when callers edit returned arrays.</summary>
++    public byte[][] Planes
++    {
++        get
++        {
++            var current = result;
++            var copy = new byte[Processors][];
++            for (int s = 0; s < Processors; s++)
++                copy[s] = current.Planes[s] == null ? null : (byte[])current.Planes[s].Clone();
++            return copy;
++        }
++    }
++    public byte[] Route => (byte[])result.Route.Clone();
++    public byte[] Chip => (byte[])result.Chip.Clone();
+ 
+     public static int RouteOf(byte sample)
+     {
+@@ -49,7 +75,8 @@
+     public byte[] Cpu(int processor, byte[] ram)
+     {
+         if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));
+-        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException("RAM sample must fill whole warps.");
++        if (ram == null) throw new System.ArgumentNullException(nameof(ram));
++        if (ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException("RAM sample must fill whole warps.", nameof(ram));
+         var table = Tables[processor];
+         var lane = new byte[ram.Length];
+         for (int i = 0; i < ram.Length; i++)
+@@ -60,7 +87,8 @@
+     public byte[] Gpu(int processor, byte[] ram)
+     {
+         if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));
+-        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException("RAM sample must fill whole warps.");
++        if (ram == null) throw new System.ArgumentNullException(nameof(ram));
++        if (ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException("RAM sample must fill whole warps.", nameof(ram));
+         var table = Tables[processor];
+         var lane = new byte[ram.Length];
+         int warps = ram.Length / Warp;
+@@ -78,44 +106,59 @@
+ 
+     public void Sample(byte[] ram)
+     {
+-        if (ram == null || ram.Length != Width * Height)
+-            throw new System.ArgumentException("RAM sample must be 4096 bytes.");
+-        Route = new byte[ram.Length];
+-        Chip = new byte[ram.Length];
++        result = ComputeSample(ram);
++    }
++
++    SampleResult ComputeSample(byte[] ram)
++    {
++        if (ram == null) throw new System.ArgumentNullException(nameof(ram));
++        if (ram.Length != Width * Height)
++            throw new System.ArgumentException("RAM sample must be 4096 bytes.", nameof(ram));
++        // Work from one input snapshot and publish only a complete verified result.
++        var input = (byte[])ram.Clone();
++        var nextPlanes = new byte[Processors][];
++        var nextRoute = new byte[input.Length];
++        var nextChip = new byte[input.Length];
+         for (int s = 0; s < Processors; s++)
+         {
+-            var cpu = Cpu(s, ram);
+-            var gpu = Gpu(s, ram);
+-            for (int i = 0; i < ram.Length; i++)
++            var cpu = Cpu(s, input);
++            var gpu = Gpu(s, input);
++            for (int i = 0; i < input.Length; i++)
+                 if (cpu[i] != gpu[i])
+                     throw new System.InvalidOperationException("Scalar and batched software lanes diverged.");
+-            Planes[s] = cpu;
+-        }
+-        for (int i = 0; i < ram.Length; i++)
+-        {
+-            int pick = RouteOf(ram[i]);
+-            Route[i] = (byte)(pick + 1);
+-            Chip[i] = Planes[pick][i];
+-        }
++            nextPlanes[s] = cpu;
++        }
++        for (int i = 0; i < input.Length; i++)
++        {
++            int pick = RouteOf(input[i]);
++            nextRoute[i] = (byte)(pick + 1);
++            nextChip[i] = nextPlanes[pick][i];
++        }
++        return new SampleResult(nextPlanes, nextRoute, nextChip);
+     }
+ 
+     /// <summary>Index 1–6 is that processor's TIFF. Index 7 is the controller route.</summary>
+     public byte[] Tiff(int index)
+     {
+-        if (Planes[0] == null) throw new System.InvalidOperationException("Call Sample first.");
++        return Tiff(index, result);
++    }
++
++    static byte[] Tiff(int index, SampleResult current)
++    {
+         if (index < 1 || index > 7) throw new System.ArgumentOutOfRangeException(nameof(index));
++        if (current.Planes[0] == null) throw new System.InvalidOperationException("Call Sample first.");
+         var samples = new ushort[Width * Height];
+         if (index == 7)
+         {
+             for (int i = 0; i < samples.Length; i++)
+             {
+-                int r = Route[i];
++                int r = current.Route[i];
+                 samples[i] = (ushort)((r << 8) | r);
+             }
+         }
+         else
+         {
+-            var lane = Planes[index - 1];
++            var lane = current.Planes[index - 1];
+             for (int i = 0; i < samples.Length; i++)
+                 samples[i] = (ushort)(lane[i] * 257);
+         }
+@@ -125,9 +168,10 @@
+     /// <summary>Sample the RAM bytes and return the seven TIFF payloads.</summary>
+     public byte[][] Wrap(byte[] ram)
+     {
+-        Sample(ram);
++        var current = ComputeSample(ram);
++        result = current;
+         var all = new byte[7][];
+-        for (int i = 0; i < 7; i++) all[i] = Tiff(i + 1);
++        for (int i = 0; i < 7; i++) all[i] = Tiff(i + 1, current);
+         return all;
+     }
+ 
+@@ -141,12 +185,15 @@
+             new[] { 259, 3, 1, 1 },
+             new[] { 262, 3, 1, 1 },
+             new[] { 273, 4, 1, 0 },
++            new[] { 274, 3, 1, 1 },
+             new[] { 277, 3, 1, 1 },
+             new[] { 278, 4, 1, height },
+             new[] { 279, 4, 1, width * height * 2 },
+             new[] { 282, 5, 1, 0 },
+             new[] { 283, 5, 1, 0 },
+-            new[] { 296, 3, 1, 2 },
++            new[] { 284, 3, 1, 1 },
++            new[] { 296, 3, 1, 1 },
++            new[] { 339, 3, 1, 1 },
+         };
+         int ifd = 8;
+         int nTags = tags.Length;
+@@ -168,8 +215,8 @@
+         U32(4, ifd);
+         U16(ifd, nTags);
+         tags[5][3] = strip;
+-        tags[9][3] = xres;
+-        tags[10][3] = yres;
++        tags[10][3] = xres;
++        tags[11][3] = yres;
+         int p = ifd + 2;
+         foreach (var tag in tags)
+         {
+@@ -181,9 +228,10 @@
+             p += 12;
+         }
+         U32(p, 0);
+-        U32(xres, 3175);
++        // LUT bytes and route IDs carry no physical pixel calibration.
++        U32(xres, 1);
+         U32(xres + 4, 1);
+-        U32(yres, 3175);
++        U32(yres, 1);
+         U32(yres + 4, 1);
+         for (int i = 0; i < samples.Length; i++) U16(strip + i * 2, samples[i]);
+         return outb;
+--- a/src/vendor/spiral/chip-harness.js
++++ b/src/vendor/spiral/chip-harness.js
+@@ -1 +1 @@
+-export const HARNESS_SOURCE = "namespace Spiral.Hpu;\n\n/// <summary>\n/// Scalar and 32-wide batched CPU reference loops for six lookup-table lanes.\n/// Gpu is a retained compatibility method name; no GPU API is called.\n/// Six table identities represent four distinct byte transformations.\n/// Sample verifies equality of both software loops; a seventh selector chooses\n/// the largest absolute byte change, resolving ties to the lowest lane index.\n/// TIFF exports carry the computed data; the images do not execute themselves.\n/// This source is not compiled or invoked by the browser application.\n/// </summary>\npublic sealed class ChipHarness\n{\n    public const int Width = 64;\n    public const int Height = 64;\n    public const int Processors = 6;\n    public const int Warp = 32;\n\n    static readonly byte[][] Tables =\n    {\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1,255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255 },\n        new byte[] { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 }\n    };\n\n    public byte[][] Planes { get; private set; } = new byte[Processors][];\n    public byte[] Route { get; private set; } = System.Array.Empty<byte>();\n    public byte[] Chip { get; private set; } = System.Array.Empty<byte>();\n\n    public static int RouteOf(byte sample)\n    {\n        int best = -1;\n        int pick = 0;\n        for (int s = 0; s < Processors; s++)\n        {\n            int delta = System.Math.Abs(Tables[s][sample] - sample);\n            if (delta > best)\n            {\n                best = delta;\n                pick = s;\n            }\n        }\n        return pick;\n    }\n\n    public byte[] Cpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\");\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        for (int i = 0; i < ram.Length; i++)\n            lane[i] = table[ram[i]];\n        return lane;\n    }\n\n    public byte[] Gpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null || ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\");\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        int warps = ram.Length / Warp;\n        for (int warp = 0; warp < warps; warp++)\n        {\n            int start = warp * Warp;\n            for (int laneId = 0; laneId < Warp; laneId++)\n            {\n                int i = start + laneId;\n                lane[i] = table[ram[i]];\n            }\n        }\n        return lane;\n    }\n\n    public void Sample(byte[] ram)\n    {\n        if (ram == null || ram.Length != Width * Height)\n            throw new System.ArgumentException(\"RAM sample must be 4096 bytes.\");\n        Route = new byte[ram.Length];\n        Chip = new byte[ram.Length];\n        for (int s = 0; s < Processors; s++)\n        {\n            var cpu = Cpu(s, ram);\n            var gpu = Gpu(s, ram);\n            for (int i = 0; i < ram.Length; i++)\n                if (cpu[i] != gpu[i])\n                    throw new System.InvalidOperationException(\"Scalar and batched software lanes diverged.\");\n            Planes[s] = cpu;\n        }\n        for (int i = 0; i < ram.Length; i++)\n        {\n            int pick = RouteOf(ram[i]);\n            Route[i] = (byte)(pick + 1);\n            Chip[i] = Planes[pick][i];\n        }\n    }\n\n    /// <summary>Index 1–6 is that processor's TIFF. Index 7 is the controller route.</summary>\n    public byte[] Tiff(int index)\n    {\n        if (Planes[0] == null) throw new System.InvalidOperationException(\"Call Sample first.\");\n        if (index < 1 || index > 7) throw new System.ArgumentOutOfRangeException(nameof(index));\n        var samples = new ushort[Width * Height];\n        if (index == 7)\n        {\n            for (int i = 0; i < samples.Length; i++)\n            {\n                int r = Route[i];\n                samples[i] = (ushort)((r << 8) | r);\n            }\n        }\n        else\n        {\n            var lane = Planes[index - 1];\n            for (int i = 0; i < samples.Length; i++)\n                samples[i] = (ushort)(lane[i] * 257);\n        }\n        return EncodeGray16(Width, Height, samples);\n    }\n\n    /// <summary>Sample the RAM bytes and return the seven TIFF payloads.</summary>\n    public byte[][] Wrap(byte[] ram)\n    {\n        Sample(ram);\n        var all = new byte[7][];\n        for (int i = 0; i < 7; i++) all[i] = Tiff(i + 1);\n        return all;\n    }\n\n    static byte[] EncodeGray16(int width, int height, ushort[] samples)\n    {\n        int[][] tags =\n        {\n            new[] { 256, 4, 1, width },\n            new[] { 257, 4, 1, height },\n            new[] { 258, 3, 1, 16 },\n            new[] { 259, 3, 1, 1 },\n            new[] { 262, 3, 1, 1 },\n            new[] { 273, 4, 1, 0 },\n            new[] { 277, 3, 1, 1 },\n            new[] { 278, 4, 1, height },\n            new[] { 279, 4, 1, width * height * 2 },\n            new[] { 282, 5, 1, 0 },\n            new[] { 283, 5, 1, 0 },\n            new[] { 296, 3, 1, 2 },\n        };\n        int ifd = 8;\n        int nTags = tags.Length;\n        int ifdBytes = 2 + nTags * 12 + 4;\n        int xres = ifd + ifdBytes;\n        int yres = xres + 8;\n        int strip = yres + 8;\n        var outb = new byte[strip + width * height * 2];\n        void U16(int at, int value) { outb[at] = (byte)value; outb[at + 1] = (byte)(value >> 8); }\n        void U32(int at, int value)\n        {\n            outb[at] = (byte)value;\n            outb[at + 1] = (byte)(value >> 8);\n            outb[at + 2] = (byte)(value >> 16);\n            outb[at + 3] = (byte)(value >> 24);\n        }\n        U16(0, 0x4949);\n        U16(2, 42);\n        U32(4, ifd);\n        U16(ifd, nTags);\n        tags[5][3] = strip;\n        tags[9][3] = xres;\n        tags[10][3] = yres;\n        int p = ifd + 2;\n        foreach (var tag in tags)\n        {\n            U16(p, tag[0]);\n            U16(p + 2, tag[1]);\n            U32(p + 4, tag[2]);\n            if (tag[1] == 3) U16(p + 8, tag[3]);\n            else U32(p + 8, tag[3]);\n            p += 12;\n        }\n        U32(p, 0);\n        U32(xres, 3175);\n        U32(xres + 4, 1);\n        U32(yres, 3175);\n        U32(yres + 4, 1);\n        for (int i = 0; i < samples.Length; i++) U16(strip + i * 2, samples[i]);\n        return outb;\n    }\n}\n";
++export const HARNESS_SOURCE = "namespace Spiral.Hpu;\n\n/// <summary>\n/// Scalar and 32-wide batched CPU reference loops for six lookup-table lanes.\n/// Gpu is a retained compatibility method name; no GPU API is called.\n/// Six table identities represent four distinct byte transformations.\n/// Sample verifies equality of both software loops; a seventh selector chooses\n/// the largest absolute byte change, resolving ties to the lowest lane index.\n/// TIFF exports carry the computed data; the images do not execute themselves.\n/// This source is not compiled or invoked by the browser application.\n/// </summary>\npublic sealed class ChipHarness\n{\n    public const int Width = 64;\n    public const int Height = 64;\n    public const int Processors = 6;\n    public const int Warp = 32;\n\n    static readonly byte[][] Tables =\n    {\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1,255,253,251,249,247,245,243,241,239,237,235,233,231,229,227,225,223,221,219,217,215,213,211,209,207,205,203,201,199,197,195,193,191,189,187,185,183,181,179,177,175,173,171,169,167,165,163,161,159,157,155,153,151,149,147,145,143,141,139,137,135,133,131,129,127,125,123,121,119,117,115,113,111,109,107,105,103,101,99,97,95,93,91,89,87,85,83,81,79,77,75,73,71,69,67,65,63,61,59,57,55,53,51,49,47,45,43,41,39,37,35,33,31,29,27,25,23,21,19,17,15,13,11,9,7,5,3,1 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 },\n        new byte[] { 255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255 },\n        new byte[] { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },\n        new byte[] { 254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,128,246,128,130,0,254,128,130,0,134,0,2,0,254,144,146,0,150,0,2,0,158,0,2,0,6,0,2,0,254,176,178,0,182,0,2,0,190,0,2,0,6,0,2,0,190,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,240,242,0,246,0,2,0,254,0,2,0,6,0,2,0,254,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0,254,48,50,0,54,0,2,0,62,0,2,0,6,0,2,0,62,16,18,0,22,0,2,0,30,0,2,0,6,0,2,0 }\n    };\n\n    sealed class SampleResult\n    {\n        public readonly byte[][] Planes;\n        public readonly byte[] Route;\n        public readonly byte[] Chip;\n        public SampleResult(byte[][] planes, byte[] route, byte[] chip)\n        {\n            Planes = planes;\n            Route = route;\n            Chip = chip;\n        }\n    }\n    volatile SampleResult result = new SampleResult(\n        new byte[Processors][], System.Array.Empty<byte>(), System.Array.Empty<byte>());\n\n    /// <summary>Snapshots preserve verified outputs when callers edit returned arrays.</summary>\n    public byte[][] Planes\n    {\n        get\n        {\n            var current = result;\n            var copy = new byte[Processors][];\n            for (int s = 0; s < Processors; s++)\n                copy[s] = current.Planes[s] == null ? null : (byte[])current.Planes[s].Clone();\n            return copy;\n        }\n    }\n    public byte[] Route => (byte[])result.Route.Clone();\n    public byte[] Chip => (byte[])result.Chip.Clone();\n\n    public static int RouteOf(byte sample)\n    {\n        int best = -1;\n        int pick = 0;\n        for (int s = 0; s < Processors; s++)\n        {\n            int delta = System.Math.Abs(Tables[s][sample] - sample);\n            if (delta > best)\n            {\n                best = delta;\n                pick = s;\n            }\n        }\n        return pick;\n    }\n\n    public byte[] Cpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null) throw new System.ArgumentNullException(nameof(ram));\n        if (ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\", nameof(ram));\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        for (int i = 0; i < ram.Length; i++)\n            lane[i] = table[ram[i]];\n        return lane;\n    }\n\n    public byte[] Gpu(int processor, byte[] ram)\n    {\n        if (processor < 0 || processor >= Processors) throw new System.ArgumentOutOfRangeException(nameof(processor));\n        if (ram == null) throw new System.ArgumentNullException(nameof(ram));\n        if (ram.Length == 0 || ram.Length % Warp != 0) throw new System.ArgumentException(\"RAM sample must fill whole warps.\", nameof(ram));\n        var table = Tables[processor];\n        var lane = new byte[ram.Length];\n        int warps = ram.Length / Warp;\n        for (int warp = 0; warp < warps; warp++)\n        {\n            int start = warp * Warp;\n            for (int laneId = 0; laneId < Warp; laneId++)\n            {\n                int i = start + laneId;\n                lane[i] = table[ram[i]];\n            }\n        }\n        return lane;\n    }\n\n    public void Sample(byte[] ram)\n    {\n        result = ComputeSample(ram);\n    }\n\n    SampleResult ComputeSample(byte[] ram)\n    {\n        if (ram == null) throw new System.ArgumentNullException(nameof(ram));\n        if (ram.Length != Width * Height)\n            throw new System.ArgumentException(\"RAM sample must be 4096 bytes.\", nameof(ram));\n        // Work from one input snapshot and publish only a complete verified result.\n        var input = (byte[])ram.Clone();\n        var nextPlanes = new byte[Processors][];\n        var nextRoute = new byte[input.Length];\n        var nextChip = new byte[input.Length];\n        for (int s = 0; s < Processors; s++)\n        {\n            var cpu = Cpu(s, input);\n            var gpu = Gpu(s, input);\n            for (int i = 0; i < input.Length; i++)\n                if (cpu[i] != gpu[i])\n                    throw new System.InvalidOperationException(\"Scalar and batched software lanes diverged.\");\n            nextPlanes[s] = cpu;\n        }\n        for (int i = 0; i < input.Length; i++)\n        {\n            int pick = RouteOf(input[i]);\n            nextRoute[i] = (byte)(pick + 1);\n            nextChip[i] = nextPlanes[pick][i];\n        }\n        return new SampleResult(nextPlanes, nextRoute, nextChip);\n    }\n\n    /// <summary>Index 1–6 is that processor's TIFF. Index 7 is the controller route.</summary>\n    public byte[] Tiff(int index)\n    {\n        return Tiff(index, result);\n    }\n\n    static byte[] Tiff(int index, SampleResult current)\n    {\n        if (index < 1 || index > 7) throw new System.ArgumentOutOfRangeException(nameof(index));\n        if (current.Planes[0] == null) throw new System.InvalidOperationException(\"Call Sample first.\");\n        var samples = new ushort[Width * Height];\n        if (index == 7)\n        {\n            for (int i = 0; i < samples.Length; i++)\n            {\n                int r = current.Route[i];\n                samples[i] = (ushort)((r << 8) | r);\n            }\n        }\n        else\n        {\n            var lane = current.Planes[index - 1];\n            for (int i = 0; i < samples.Length; i++)\n                samples[i] = (ushort)(lane[i] * 257);\n        }\n        return EncodeGray16(Width, Height, samples);\n    }\n\n    /// <summary>Sample the RAM bytes and return the seven TIFF payloads.</summary>\n    public byte[][] Wrap(byte[] ram)\n    {\n        var current = ComputeSample(ram);\n        result = current;\n        var all = new byte[7][];\n        for (int i = 0; i < 7; i++) all[i] = Tiff(i + 1, current);\n        return all;\n    }\n\n    static byte[] EncodeGray16(int width, int height, ushort[] samples)\n    {\n        int[][] tags =\n        {\n            new[] { 256, 4, 1, width },\n            new[] { 257, 4, 1, height },\n            new[] { 258, 3, 1, 16 },\n            new[] { 259, 3, 1, 1 },\n            new[] { 262, 3, 1, 1 },\n            new[] { 273, 4, 1, 0 },\n            new[] { 274, 3, 1, 1 },\n            new[] { 277, 3, 1, 1 },\n            new[] { 278, 4, 1, height },\n            new[] { 279, 4, 1, width * height * 2 },\n            new[] { 282, 5, 1, 0 },\n            new[] { 283, 5, 1, 0 },\n            new[] { 284, 3, 1, 1 },\n            new[] { 296, 3, 1, 1 },\n            new[] { 339, 3, 1, 1 },\n        };\n        int ifd = 8;\n        int nTags = tags.Length;\n        int ifdBytes = 2 + nTags * 12 + 4;\n        int xres = ifd + ifdBytes;\n        int yres = xres + 8;\n        int strip = yres + 8;\n        var outb = new byte[strip + width * height * 2];\n        void U16(int at, int value) { outb[at] = (byte)value; outb[at + 1] = (byte)(value >> 8); }\n        void U32(int at, int value)\n        {\n            outb[at] = (byte)value;\n            outb[at + 1] = (byte)(value >> 8);\n            outb[at + 2] = (byte)(value >> 16);\n            outb[at + 3] = (byte)(value >> 24);\n        }\n        U16(0, 0x4949);\n        U16(2, 42);\n        U32(4, ifd);\n        U16(ifd, nTags);\n        tags[5][3] = strip;\n        tags[10][3] = xres;\n        tags[11][3] = yres;\n        int p = ifd + 2;\n        foreach (var tag in tags)\n        {\n            U16(p, tag[0]);\n            U16(p + 2, tag[1]);\n            U32(p + 4, tag[2]);\n            if (tag[1] == 3) U16(p + 8, tag[3]);\n            else U32(p + 8, tag[3]);\n            p += 12;\n        }\n        U32(p, 0);\n        // LUT bytes and route IDs carry no physical pixel calibration.\n        U32(xres, 1);\n        U32(xres + 4, 1);\n        U32(yres, 1);\n        U32(yres + 4, 1);\n        for (int i = 0; i < samples.Length; i++) U16(strip + i * 2, samples[i]);\n        return outb;\n    }\n}\n";
+--- a/src/version.js
++++ b/src/version.js
+@@ -1,3 +1,3 @@
+-export const VERSION = "2.2.1";
++export const VERSION = "2.2.2";
+ export const PRODUCT = "JA21 Silicon Console";
+ export const PROFILE = "LOCAL_BROWSER";
+--- a/tests/MANUAL_ACCEPTANCE.md
++++ b/tests/MANUAL_ACCEPTANCE.md
+@@ -1,7 +1,6 @@
+-# Native Windows startup acceptance — 2.2.1
++# Native Windows startup acceptance — 2.2.2
+ 
+-Full successful provisioning and browser checks are PENDING unless run on the target Windows machine. The 2.2.1 gate already parses native PowerShell and tests offline absent/corrupt-runtime refusals, hashes and synthetic ZIP extraction; those bounded checks do not complete this checklist. Static Node
+-launcher contracts are not substitutes for them. Preserve backup exports first.
++Fresh target-machine and production browser checks are PENDING. Native x64 provisioning, cache reuse, exact runtime probes and production HTTP host acceptance passed on the audit host. ARM64 bytes and launcher contracts passed; actual ARM64 execution was not run. Native PowerShell also tests absent/corrupt-runtime refusal, hashes and ZIP boundaries. Those checks do not complete the target-machine/browser checklist. Preserve backup exports first.
+ 
+ | Check | Expected |
+ |---|---|
+@@ -25,7 +24,7 @@
+ Original full-application acceptance context is retained in the 2.1.0 audit report.
+ 
+ 
+-## 2.2.1 native Windows / TIFF lab acceptance
++## 2.2.2 native Windows / TIFF lab acceptance
+ 
+ On a Windows x64 or ARM64 device, verify first launch without Node/PATH, second
+ launch from the private cache, interrupted/hash-mismatched runtime rejection,
+@@ -41,10 +40,14 @@
+ power cycle and transactional storage; verify another owner window is refused.
+ Check no transient HPU state is silently retained after explicit apply.
+ 
+-These native checks have not been represented as completed by the offline fixture
+-suite. Normal HTTP Chromium navigation in the build environment was blocked with
+-ERR_BLOCKED_BY_ADMINISTRATOR; the application did not change that policy.
++The x64 native startup and production HTTP response checks passed in 2.2.2. ARM64
++runtime byte/architecture contracts passed, while actual ARM64 execution was not
++run. Browser UI/persistence checks are separate from those host checks and from
++the inherited offline fixture suite. The audit host could not start the tested
++sandbox-enabled browsers or navigate the in-app browser to the local origin.
+ 
+-## 2.2.1 acceptance evidence
++## 2.2.2 acceptance evidence
+ 
+-Optional `node tests/browser-production.mjs` uses a new temporary profile and the production server, CSP, worker, IndexedDB and Web Locks. Set PLAYWRIGHT_MODULE to an installed Playwright module if it is outside the project and CHROMIUM_PATH to a browser executable when needed. It requires a machine where the browser can launch and reach loopback. This audit could not complete it: Edge exited with native sandbox/crashpad access errors; the in-app browser could not reach the sandbox-hosted local origin. These failures are recorded as environment blockers, not passes or application failures.
++Optional `node tests/browser-production.mjs` uses a new temporary profile and the production server, CSP, worker, IndexedDB and Web Locks. Set PLAYWRIGHT_MODULE to an installed Playwright module if it is outside the project and CHROMIUM_PATH to a browser executable when needed. The separate browser-validation kit includes these optional tools: extract beside the release and run `Run-Browser-Validation.cmd`, or pass the extracted release directory as its first argument. It requires a normal Windows session where the browser can launch and reach loopback. This audit completed zero production UI scenarios: Edge and two official Chromium builds failed before page creation; in-app navigation timed out. These failures are recorded as environment blockers, not passes or application failures. Review the generated `audit/BROWSER_PRODUCTION_RESULTS.json` and any screenshots after running the kit.
++
++The C# reference was compiled and executed on Windows x64: 598 assertions and all pixels of 35 native and 35 JavaScript TIFFs passed. See `native/README.md` and `native/Validate.ps1` for optional reproduction with a modern .NET SDK and Python/Pillow. No .NET installation is needed for the browser application.
+--- a/tests/arm64-contract.test.mjs
++++ b/tests/arm64-contract.test.mjs
+@@ -0,0 +1,96 @@
++/** Native PowerShell contract execution on the current Windows host.
++ * Synthetic ARM64 PE bytes are parsed, never executed; this is not ARM64 startup.
++ * Run scripts/windows/native-acceptance.ps1 on actual Windows ARM64 for that gate.
++ */
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import fs from 'node:fs/promises';
++import path from 'node:path';
++import { fileURLToPath } from 'node:url';
++import { spawnSync } from 'node:child_process';
++
++const root=fileURLToPath(new URL('../',import.meta.url));
++const loadFunctions=String.raw`$ErrorActionPreference='Stop'
++$script:LogPath=$null
++$tokens=$null;$errors=$null
++$ast=[Management.Automation.Language.Parser]::ParseFile($env:JA21_TEST_PAYLOAD,[ref]$tokens,[ref]$errors)
++if($errors.Count){throw ($errors | Out-String)}
++foreach($function in $ast.EndBlock.Statements | Where-Object {$_ -is [Management.Automation.Language.FunctionDefinitionAst]}){. ([ScriptBlock]::Create($function.Extent.Text))}
++`;
++function run(source,env={}){
++ const ps=path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe');
++ const result=spawnSync(ps,['-NoLogo','-NoProfile','-NonInteractive','-Command',loadFunctions+source],{encoding:'utf8',windowsHide:true,timeout:20000,env:{...process.env,JA21_TEST_PAYLOAD:path.join(root,'scripts/windows/bootstrap.ps1'),...env}});
++ assert.equal(result.error,undefined);assert.equal(result.status,0,result.stdout+result.stderr);return result.stdout;
++}
++
++test('launcher/native: x64/ARM64 resolver accepts native names and refuses unsupported/null names',{skip:process.platform!=='win32'},()=>{
++ const output=run(String.raw`
++foreach($entry in @(@('X64','x64'),@('AMD64','x64'),@('ARM64','arm64'),@('aRm64','arm64'))){if((Resolve-WindowsRuntimeArchitecture $entry[0]) -cne $entry[1]){throw 'Wrong architecture selection'}}
++foreach($unsupported in @('x86','IA64','ARM','', 'x64 ', $null)){
++ $rejected=$false;try{Resolve-WindowsRuntimeArchitecture $unsupported}catch{$rejected=$true}
++ if(-not $rejected){throw 'Unsupported native architecture accepted'}
++}
++$native=[System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
++$env:PROCESSOR_ARCHITEW6432='ARM';$env:PROCESSOR_ARCHITECTURE='x86'
++if((Get-WindowsRuntimeArchitecture) -cne (Resolve-WindowsRuntimeArchitecture $native)){throw 'Process environment overrode native OS architecture'}
++[Console]::WriteLine('architecture-contract-pass')
++`);
++ assert.match(output,/architecture-contract-pass/);
++});
++
++test('launcher/native: PE machine and PE32+ checks reject swapped, truncated and malformed runtime headers',{skip:process.platform!=='win32'},async t=>{
++ await fs.mkdir(path.join(root,'audit'),{recursive:true});
++ const dir=await fs.mkdtemp(path.join(root,'audit','.machine-fixture-'));
++ t.after(()=>fs.rm(dir,{recursive:true,force:true}));
++ const pe=machine=>{const bytes=Buffer.alloc(512);bytes.writeUInt16LE(0x5a4d,0);bytes.writeUInt32LE(128,0x3c);bytes.writeUInt32LE(0x4550,128);bytes.writeUInt16LE(machine,132);bytes.writeUInt16LE(240,148);bytes.writeUInt16LE(0x20b,152);return bytes;};
++ await fs.writeFile(path.join(dir,'x64.exe'),pe(0x8664));await fs.writeFile(path.join(dir,'arm64.exe'),pe(0xaa64));
++ const corruptions=[['short.exe',Buffer.alloc(63)],['no-mz.exe',Buffer.alloc(512)],['bad-offset.exe',pe(0xaa64)],['bad-signature.exe',pe(0xaa64)],['bad-magic.exe',pe(0xaa64)],['bad-optional-length.exe',pe(0xaa64)]];
++ corruptions[2][1].writeUInt32LE(0xffffffff,0x3c);corruptions[3][1].writeUInt32LE(0,128);corruptions[4][1].writeUInt16LE(0x10b,152);corruptions[5][1].writeUInt16LE(512,148);
++ for(const [name,bytes] of corruptions)await fs.writeFile(path.join(dir,name),bytes);
++ const output=run(String.raw`
++$dir=$env:JA21_TEST_DIRECTORY
++Assert-RuntimeMachine (Join-Path $dir 'x64.exe') 'x64'
++Assert-RuntimeMachine (Join-Path $dir 'arm64.exe') 'arm64'
++foreach($pair in @(@('x64.exe','arm64'),@('arm64.exe','x64'))){
++ $rejected=$false;try{Assert-RuntimeMachine (Join-Path $dir $pair[0]) $pair[1]}catch{if($_.Exception.Message -match 'does not match Windows'){$rejected=$true}else{throw}}
++ if(-not $rejected){throw 'Architecture-swapped executable accepted'}
++}
++foreach($name in @('short.exe','no-mz.exe','bad-offset.exe','bad-signature.exe','bad-magic.exe','bad-optional-length.exe')){
++ $rejected=$false;try{Assert-RuntimeMachine (Join-Path $dir $name) 'arm64'}catch{$rejected=$true}
++ if(-not $rejected){throw ('Malformed executable accepted: '+$name)}
++}
++[Console]::WriteLine('pe-machine-contract-pass')
++`,{JA21_TEST_DIRECTORY:dir});
++ assert.match(output,/pe-machine-contract-pass/);
++});
++
++test('launcher/native: runtime probe executes current native Node and rejects wrong version/architecture',{skip:process.platform!=='win32'},()=>{
++ const output=run(String.raw`
++Confirm-Runtime $env:JA21_TEST_NODE $env:JA21_TEST_VERSION $env:JA21_TEST_ARCH
++$rejected=$false
++try{Confirm-Runtime $env:JA21_TEST_NODE '0.0.0' $env:JA21_TEST_ARCH}catch{if($_.Exception.Message -match 'runtime identity mismatch'){$rejected=$true}else{throw}}
++if(-not $rejected){throw 'Unexpected runtime version accepted'}
++$other=if($env:JA21_TEST_ARCH -eq 'arm64'){'x64'}else{'arm64'}
++$rejected=$false
++try{Confirm-Runtime $env:JA21_TEST_NODE $env:JA21_TEST_VERSION $other}catch{if($_.Exception.Message -match 'does not match Windows'){$rejected=$true}else{throw}}
++if(-not $rejected){throw 'Wrong runtime architecture accepted'}
++[Console]::WriteLine('native-runtime-probe-pass')
++`,{JA21_TEST_NODE:process.execPath,JA21_TEST_VERSION:process.version.slice(1),JA21_TEST_ARCH:process.arch});
++ assert.match(output,/native-runtime-probe-pass/);
++});
++
++test('launcher/native: real-target acceptance refuses another Windows architecture before provisioning',{skip:process.platform!=='win32'},async t=>{
++ const native=run("[Console]::WriteLine(('native-arch='+ (Get-WindowsRuntimeArchitecture)))").match(/native-arch=(x64|arm64)/)?.[1];
++ assert(native);const other=native==='arm64'?'x64':'arm64';
++ await fs.mkdir(path.join(root,'audit'),{recursive:true});const dir=await fs.mkdtemp(path.join(root,'audit','.acceptance-fixture-'));
++ t.after(()=>fs.rm(dir,{recursive:true,force:true}));
++ await fs.mkdir(path.join(dir,'scripts/windows'),{recursive:true});
++ for(const name of ['bootstrap.ps1','native-acceptance.ps1'])await fs.copyFile(path.join(root,'scripts/windows',name),path.join(dir,'scripts/windows',name));
++ await fs.copyFile(path.join(root,'Native-Acceptance.cmd'),path.join(dir,'Native-Acceptance.cmd'));
++ const cmd=path.join(process.env.SystemRoot,'System32/cmd.exe');
++ const result=spawnSync(cmd,['/d','/s','/c',`""${path.join(dir,'Native-Acceptance.cmd')}" ${other}"`],{encoding:'utf8',windowsHide:true,windowsVerbatimArguments:true,timeout:15000});
++ assert.equal(result.error,undefined);assert.equal(result.status,1,result.stdout+result.stderr);assert.match(result.stdout,/Native acceptance requires Windows/);
++ const report=JSON.parse(await fs.readFile(path.join(dir,`audit/NATIVE_ACCEPTANCE_${other}.json`),'utf8'));
++ assert.equal(report.status,'FAIL');assert.equal(report.hostArchitecture,native);assert.equal(report.preflight,null);assert.equal(report.runtime,null);
++ await assert.rejects(fs.access(path.join(dir,'.runtime')),/ENOENT/);
++});
+--- a/tests/browser-production.mjs
++++ b/tests/browser-production.mjs
+@@ -23,7 +23,7 @@
+   server = await createServer({ port: 0 });
+   const url = `http://127.0.0.1:${server.address().port}/`;
+   profile = await fs.mkdtemp(path.join(root, '..', 'browser-profile-'));
+-  context = await chromium.launchPersistentContext(profile, { headless: true, chromiumSandbox: true, viewport: { width: 1440, height: 1000 }, acceptDownloads: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : process.platform === 'win32' ? { channel: 'msedge' } : {}) });
++  context = await chromium.launchPersistentContext(profile, { headless: true, chromiumSandbox: true, timeout: 20000, viewport: { width: 1440, height: 1000 }, acceptDownloads: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : process.platform === 'win32' ? { channel: 'msedge' } : {}) });
+   browser = context.browser();
+   report.browser = browser.version(); report.platform = process.platform; report.node = process.version;
+   await context.route('**/*', route => new URL(route.request().url()).origin === new URL(url).origin ? route.continue() : route.abort());
+@@ -34,21 +34,48 @@
+   const waitText = async (id, text) => page.waitForFunction(([id, text]) => document.getElementById(id).textContent.includes(text), [id, text]);
+   const online = () => page.waitForFunction(() => document.querySelector('#connection').textContent === 'Online' && document.querySelector('#transcript').textContent.includes('›'));
+   let serial = 0;
+-  async function command(line) {
+-    const marker = `qa_done_${++serial}`;
+-    await page.locator('#command').fill(`${line}; echo ${marker}`);
++  async function command(line, { capture = false } = {}) {
++    const id = ++serial, marker = `qa_done_${id}`, begin = `qa_begin_${id}`;
++    await page.locator('#command').fill(`${capture ? `echo ${begin}; ` : ''}${line}; printf '\\n'; echo ${marker}`);
+     await page.locator('#command-form button[type=submit]').click();
+-    await page.waitForFunction(marker => document.querySelector('#transcript').textContent.split('\n').some(line => line.trim() === marker), marker);
++    await page.waitForFunction(marker => {
++      const lines = document.querySelector('#transcript').textContent.split('\n');
++      const end = lines.findIndex(line => line.trim() === marker);
++      return end >= 0 && lines.slice(end + 1).some(line => line.includes('›'));
++    }, marker);
++    if (!capture) return;
++    const lines = (await page.locator('#transcript').textContent()).split('\n');
++    const first = lines.findIndex(line => line.trim() === begin);
++    const last = lines.findIndex(line => line.trim() === marker);
++    assert(first >= 0 && last > first, `checkpoint ${id} output markers missing from current screen`);
++    return lines.slice(first + 1, last).join('\n');
+   }
++  const fileContent = () => command('cat /tmp/persist.txt', { capture: true });
++  const fieldPreview = () => page.evaluate(() => ['phase', 'intensity'].map(id =>
++    [...document.getElementById(id).getContext('2d').getImageData(0, 0, 64, 64).data]));
++  const readStagedSite = async (revision, value) => {
++    await page.locator('[data-view=russl]').click();
++    await page.waitForFunction(revision => {
++      try { const info = JSON.parse(document.querySelector('#russl-summary').textContent); return info.present && info.revision === revision; }
++      catch { return false; }
++    }, revision);
++    await page.locator('#russl-site-form button[type=submit]').click();
++    await page.waitForFunction(value => {
++      try { return JSON.parse(document.querySelector('#russl-site-output').textContent).value === value; }
++      catch { return false; }
++    }, value);
++    assert.equal(JSON.parse(await page.locator('#russl-site-output').textContent()).value, value);
++  };
+   const response = await page.goto(url); await online();
+   assert.equal(await page.locator('#version').textContent(), VERSION);
+   assert(response.headers()['content-security-policy'].includes("connect-src 'none'"));
+   passed('Production boot under served CSP with real module worker');
+-  await command("export A=hello; echo '$A' \"$A\"; printf '😀a😀' | tr '😀a' '🙂b'");
+-  assert((await page.locator('#transcript').textContent()).includes('$A hello'));
+-  assert((await page.locator('#transcript').textContent()).includes('🙂b🙂'));
++  const quotedOutput = await command("export A=hello; echo '$A' \"$A\"; printf '😀a😀' | tr '😀a' '🙂b'", { capture: true });
++  assert(quotedOutput.includes('$A hello'));
++  assert(quotedOutput.includes('🙂b🙂'));
+   passed('Real MessageChannel terminal quoting and Unicode pipeline');
+   await command('hpu bytes'); await waitText('operation', 'byte chip');
++  const committedPreview = await fieldPreview();
+   passed('Software byte lanes publish real worker field previews');
+   await command('write /tmp/persist.txt production_saved');
+   await page.locator('[data-view=storage]').click();
+@@ -68,15 +95,20 @@
+   await second.close();
+   passed('Second browser window refused by the real single-writer Web Lock');
+   await page.reload(); await online();
+-  await command('cat /tmp/persist.txt');
+-  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  assert.equal((await fileContent()).trim(), 'production_saved');
++  await waitText('operation', 'byte chip');
++  assert.deepEqual(await fieldPreview(), committedPreview);
+   passed('Browser reload restores committed files and HPU state');
+   const oldTab = await page.locator('#tabs .current').textContent();
+   await page.locator('#reboot').click();
+-  await page.waitForFunction(old => document.querySelector('#tabs .current')?.textContent !== old, oldTab);
++  await page.waitForFunction(old => {
++    const current = document.querySelector('#tabs .current')?.textContent;
++    return current && current !== old && !current.includes('closed') && document.querySelector('#connection').textContent === 'Online';
++  }, oldTab);
+   await online();
+-  await command('cat /tmp/persist.txt');
+-  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  assert.equal((await fileContent()).trim(), 'production_saved');
++  await waitText('operation', 'byte chip');
++  assert.deepEqual(await fieldPreview(), committedPreview);
+   passed('Production reboot releases and reacquires the writer lock with data intact');
+   await page.locator('[data-view=russl]').click(); await waitText('russl-summary', 'absent');
+   await page.locator('#russl-capture').click(); await waitText('russl-summary', '16384');
+@@ -84,11 +116,26 @@
+   await waitText('russl-site-output', 'effective');
+   assert.equal(JSON.parse(await page.locator('#russl-site-output').textContent()).effective, 0.5);
+   passed('Production TIFF capture and revision-checked staged pixel edit');
++  const stagedRevision = JSON.parse(await page.locator('#russl-summary').textContent()).revision;
++  await page.reload(); await online();
++  await waitText('operation', 'byte chip');
++  assert.deepEqual(await fieldPreview(), committedPreview);
++  await readStagedSite(stagedRevision, 0.5);
++  passed('Browser reload restores the exact staged TIFF revision and edited scalar');
++  await page.locator('#power').click();
++  await page.waitForFunction(() => document.querySelector('#connection').textContent === 'Stopped');
++  await page.locator('#power').click(); await online();
++  await waitText('operation', 'byte chip');
++  assert.deepEqual(await fieldPreview(), committedPreview);
++  await readStagedSite(stagedRevision, 0.5);
++  passed('Power off/on restores HPU previews and the exact staged TIFF revision and scalar');
+   await page.locator('[data-view=console]').click();
+   await command('russl set 0 0 0 0 0 0.75');
+   await page.locator('[data-view=russl]').click();
+-  // Refresh triggered by opening the view must complete before explicit operations.
+-  await page.locator('#russl-refresh').click(); await page.waitForTimeout(200);
++  await page.waitForFunction(revision => {
++    try { const info = JSON.parse(document.querySelector('#russl-summary').textContent); return info.present && info.revision !== revision; }
++    catch { return false; }
++  }, stagedRevision);
+   const fieldDownload = page.waitForEvent('download'); await page.locator('#russl-export').click();
+   await (await fieldDownload).saveAs(path.join(root, 'audit/PRODUCTION_FIELD.tif'));
+   page.once('dialog', dialog => dialog.accept()); await page.locator('#russl-apply').click();
+@@ -99,16 +146,16 @@
+   page.once('dialog', dialog => dialog.accept('RESTORE'));
+   await page.locator('#restore-file').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"v":2,"snap":{}}') });
+   await waitText('notice', 'checksum');
+-  await page.locator('[data-view=console]').click(); await command('cat /tmp/persist.txt');
+-  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  await page.locator('[data-view=console]').click();
++  assert.equal((await fileContent()).trim(), 'production_saved');
+   passed('Malformed backup restore rejected without losing the active volume');
+   await command('write /tmp/persist.txt changed_after_backup');
+   await page.locator('[data-view=storage]').click();
+   page.once('dialog', dialog => dialog.accept('RESTORE'));
+   await page.locator('#restore-file').setInputFiles(backupPath);
+   await waitText('notice', 'restored'); await online();
+-  await page.locator('[data-view=console]').click(); await command('cat /tmp/persist.txt');
+-  assert((await page.locator('#transcript').textContent()).includes('production_saved'));
++  await page.locator('[data-view=console]').click();
++  assert.equal((await fileContent()).trim(), 'production_saved');
+   passed('Validated backup restore restarts the real worker and restores exact file content');
+   await page.locator('[data-view=storage]').click();
+   const previousDownload = page.waitForEvent('download'); await page.locator('#previous-backup').click();
+--- a/tests/launcher-contract.test.mjs
++++ b/tests/launcher-contract.test.mjs
+@@ -54,10 +54,12 @@
+   assert.match(a.archive,new RegExp(`^node-v${pins.nodeVersion.replaceAll('.','\\.')}-win-(x64|arm64)\\.zip$`));
+  }
+ });
+-test('launcher/static: native Windows architecture uses WOW64/native environment before process architecture',()=>{
+- assert(ps.indexOf('$osArch = $env:PROCESSOR_ARCHITEW6432')<ps.indexOf('$osArch = $env:PROCESSOR_ARCHITECTURE'));
+- assert.match(ps,/'AMD64' \{ \$arch = 'x64' \}/);
+- assert.match(ps,/'ARM64' \{ \$arch = 'arm64' \}/);
++test('launcher/static: native Windows architecture uses OSArchitecture before legacy environment fallback',()=>{
++ assert(ps.indexOf('[System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture')<ps.indexOf('$nativeArchitecture = $env:PROCESSOR_ARCHITEW6432'));
++ assert(ps.indexOf('$nativeArchitecture = $env:PROCESSOR_ARCHITEW6432')<ps.indexOf('$nativeArchitecture = $env:PROCESSOR_ARCHITECTURE'));
++ assert.match(ps,/'AMD64' \{ return 'x64' \}/);
++ assert.match(ps,/'ARM64' \{ return 'arm64' \}/);
++ assert.match(ps,/\$arch = Get-WindowsRuntimeArchitecture/);
+  assert.match(ps,/default \{ throw "Unsupported Windows architecture/);
+ });
+ test('launcher/static: HTTPS host/port is restricted and automatic redirects are disabled',()=>{
+@@ -103,10 +105,13 @@
+  assert(!/SetEnvironmentVariable\(['"]PATH/i.test(ps));
+  assert(!/set\s+"?PATH=/i.test(header));
+ });
+-test('launcher/static: exact runtime version probe is bounded before the host runs',()=>{
+- assert.match(ps,/\$info\.Arguments = '--version'/);
++test('launcher/static: exact runtime version/platform/architecture probe is bounded before the host runs',()=>{
++ assert.match(ps,/JSON.stringify\(\{version:process.version,arch:process.arch,platform:process.platform\}\)/);
+  assert.match(ps,/\$process\.WaitForExit\(15000\)/);
+- assert.match(ps,/\$stdout -cne \('v' \+ \$ExpectedVersion\)/);
++ assert.match(ps,/\$probe\.version -cne \('v' \+ \$ExpectedVersion\)/);
++ assert.match(ps,/\$probe\.arch -cne \$ExpectedArchitecture/);
++ assert.match(ps,/\$probe\.platform -cne 'win32'/);
++ assert.match(ps,/Assert-RuntimeMachine \$NodePath \$ExpectedArchitecture/);
+  assert.match(ps,/\$info\.UseShellExecute = \$false/);
+ });
+ test('launcher/static: default origin is unchanged and port override is explicitly validated',()=>{
+@@ -119,7 +124,7 @@
+  assert.match(ps,/\$env:JA21_OFFLINE -eq '1'/);
+  assert.match(ps,/\$mode -eq '--preflight'/);
+  assert.match(ps,/Server\/browser were not started/);
+- assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0', '2\.2\.1'\)/);
++ assert.match(ps,/\$package\.version -notin @\('2\.1\.0', '2\.1\.1', '2\.2\.0', '2\.2\.1', '2\.2\.2'\)/);
+ });
+ test('launcher/static: logs and native error status are retained',()=>{
+  assert.match(ps,/launcher-\{0\}-\{1\}\.log/);
+--- a/tests/native-tiff.py
++++ b/tests/native-tiff.py
+@@ -0,0 +1,30 @@
++"""Optional native QA: independent Pillow decode of every C# and JavaScript TIFF pixel."""
++import json
++from pathlib import Path
++import sys
++import PIL
++from PIL import Image
++
++vectors, results = (Path(p).resolve() for p in sys.argv[1:3])
++names = json.loads((vectors / 'vectors.json').read_text())
++checks = []
++for name in names:
++    for processor in range(1, 8):
++        expected_name = f'{name}-route.bin' if processor == 7 else f'{name}-lane-{processor}.bin'
++        expected = [b * 257 for b in (vectors / expected_name).read_bytes()]
++        decoded = []
++        for file in [results / f'{name}-processor-{processor}.tif', vectors / f'{name}-js-processor-{processor}.tif']:
++            with Image.open(file) as im:
++                assert im.size == (64, 64) and im.n_frames == 1, str(file)
++                assert im.tag_v2[258] in [16, (16,)] and im.tag_v2[259] == 1 and im.tag_v2[262] == 1
++                assert im.tag_v2[296] == 1, f'{file}: stored byte planes must be uncalibrated'
++                pixels = list(im.get_flattened_data())
++                assert pixels == expected, str(file)
++                decoded.append(pixels)
++        assert decoded[0] == decoded[1]
++        checks.append({'file': f'{name}-processor-{processor}.tif', 'status': 'PASS', 'pixels': 4096})
++report = {'status': 'PASS', 'decoder': 'Pillow', 'version': PIL.__version__,
++          'nativeTiffs': len(checks), 'jsTiffs': len(checks), 'pixelsPerImplementation': len(checks) * 4096,
++          'checks': checks}
++(results / 'native-tiff-results.json').write_text(json.dumps(report, indent=2) + '\n')
++print(json.dumps(report, indent=2))
+--- a/tests/native-vectors.mjs
++++ b/tests/native-vectors.mjs
+@@ -0,0 +1,39 @@
++// Optional native QA; no .NET dependency is added to the browser runtime.
++import assert from 'node:assert/strict';
++import fs from 'node:fs/promises';
++import path from 'node:path';
++import {BYTE_STAGES} from '../src/vendor/spiral/byte-tables.js';
++import {Hpu} from '../src/vendor/spiral/hpu.js';
++
++const output=path.resolve(process.argv[2]||'audit/native-vectors');
++await fs.mkdir(output,{recursive:true});
++let seed=0x210221;
++const random=Uint8Array.from({length:4096},()=>{seed^=seed<<13;seed^=seed>>>17;seed^=seed<<5;return seed&255;});
++const vectors={
++ enumerated:Uint8Array.from({length:4096},(_,i)=>i&255),
++ reversed:Uint8Array.from({length:4096},(_,i)=>255-(i&255)),
++ random,
++ zero:new Uint8Array(4096),
++ maximum:new Uint8Array(4096).fill(255),
++};
++for(const [name,input] of Object.entries(vectors)){
++ const lanes=BYTE_STAGES.map(stage=>Uint8Array.from(input,b=>stage.table[b]));
++ const route=Uint8Array.from(input,b=>{
++  const changes=BYTE_STAGES.map(stage=>Math.abs(stage.table[b]-b));
++  return changes.indexOf(Math.max(...changes))+1;
++ });
++ const chip=Uint8Array.from(input,(_,i)=>lanes[route[i]-1][i]);
++ const h=new Hpu();h.re.fill(1);h.im.fill(0);
++ // Feed raw bytes at the sample boundary; exercise the actual JavaScript lanes/export.
++ h.sample=()=>{h.gifRam=input.slice();};h.bytes();
++ lanes.forEach((lane,i)=>assert.deepEqual(h.byteLanes[i],lane));
++ assert.deepEqual(h.byteRoute,route);
++ await fs.writeFile(path.join(output,`${name}-input.bin`),input);
++ await fs.writeFile(path.join(output,`${name}-route.bin`),route);
++ await fs.writeFile(path.join(output,`${name}-chip.bin`),chip);
++ for(let s=0;s<6;s++)await fs.writeFile(path.join(output,`${name}-lane-${s+1}.bin`),lanes[s]);
++ for(let s=1;s<=7;s++)await fs.writeFile(path.join(output,`${name}-js-processor-${s}.tif`),h.tiffPlane(s));
++}
++await fs.writeFile(path.join(output,'vectors.json'),JSON.stringify(Object.keys(vectors),null,2)+'\n');
++await fs.copyFile(new URL('../src/vendor/spiral/ChipHarness.cs',import.meta.url),path.join(output,'ChipHarness.cs'));
++console.log(`Generated ${Object.keys(vectors).length} native C#/JS vectors with all 256 byte inputs.`);
+--- a/web/index.html
++++ b/web/index.html
+@@ -1,7 +1,7 @@
+ <!doctype html>
+-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.1</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
++<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>JA21 Silicon Console 2.2.2</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><script type="module" src="/src/app.js"></script></head>
+ <body>
+-<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.1</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
++<header><div class="identity"><span class="mark">◆</span><div><strong>JA21 <span class="muted">/</span> SILICON</strong><small>COMPUTING CONSOLE · <span id="version">2.2.2</span></small></div></div><div class="header-right"><span id="connection" class="badge">Starting</span><button id="power">Power on</button><button id="reboot">Reboot</button></div></header>
+ <nav aria-label="Workspace"><button class="selected" data-view="console" aria-pressed="true">Console</button><button data-view="russl" aria-pressed="false">TIFF pixel lab</button><button data-view="commands" aria-pressed="false">Command library</button><button data-view="storage" aria-pressed="false">Virtual storage</button><button data-view="system" aria-pressed="false">System &amp; limits</button><span class="nav-note">LOCAL BROWSER · SOFTWARE XPU</span></nav>
+ <div id="notice" role="status" aria-live="polite" hidden></div>
+ <main>
+@@ -16,6 +16,6 @@
+ <article><h2>Format and execution boundary</h2><p>Bounded, finite grayscale TIFF: little/big endian, classic TIFF or small BigTIFF, uncompressed strips. Atlas imports require the exact declared placement profile and matching sample checksum. Unsupported metadata, compression or page stacking is rejected.</p><p>The corpus's language, mechanics and OME-Zarr proposals remain separate. This adapter does not execute metadata or turn TIFF pixels into independent silicon, optical hardware, or a complete RUSSL/MSSL runtime.</p></article></div></section>
+ <section id="commands" class="view"><div class="section-heading"><div class="eyebrow">REFERENCE</div><h1>Every command, one place.</h1><p>Search the live registry. “Insert” fills the command line without executing anything.</p></div><input type="search" id="search-commands" placeholder="Search names, descriptions, or usage" aria-label="Search commands"><div id="command-count" class="fine"></div><div id="command-list" class="command-list"></div></section>
+ <section id="storage" class="view"><div class="section-heading"><div class="eyebrow">ORIGIN-SCOPED STORAGE</div><h1>Your virtual volume.</h1><p>Two MiB of file contents, up to 1,500 nodes. Browser storage is not a backup and may be cleared or evicted.</p></div><div class="storage-actions"><button id="sync">Sync volume</button><button id="backup">Download backup</button><button id="previous-backup">Previous committed backup</button><button id="restore">Restore backup…</button><button id="persist">Request persistent storage</button><input id="restore-file" type="file" accept="application/json,.json" hidden></div><p id="storage-status" class="fine">No volume status yet.</p><form id="path-form"><label for="path">VFS path</label><input id="path" value="/var/hpu" maxlength="4096"><button>Open directory</button><button id="parent" type="button">Parent</button></form><div id="file-list"></div><p class="fine">Paths here belong to the virtual filesystem, not C:\ or D:\. Only selected exports are downloaded to your computer. Restore replaces the virtual volume after validation and preserves its previous committed revision.</p></section>
+-<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>A local static Node server opens this browser application. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software, not silicon acceleration</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. “GPU” loops in the input package are batched CPU loops, not hardware offload.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.1</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. Windows launchers provision a hash-verified private Node.js runtime on first use. No system Node.js installation is required.</p></article></div></section>
+-</main><footer><span>JA21 2.2.1 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
++<section id="system" class="view"><div class="section-heading"><div class="eyebrow">EXECUTION BOUNDARY</div><h1>What this build actually does.</h1></div><div class="system-grid"><article><h2>Console → worker → storage</h2><p>A local static Node server opens this browser application. Each terminal uses a dedicated MessageChannel with bounded, sequenced binary frames. No network WebSocket or native terminal process is opened.</p><p>The SPIRAL shell has quoting, variables, aliases, pipelines, redirects, history, and a bounded virtual filesystem. It is not Bash, PowerShell, or a host operating system.</p></article><article><h2>Software, not silicon acceleration</h2><p>The field simulator computes Fourier propagation, optical gate models, phase retrieval, GIF spooling, and LUT transformations in JavaScript. “GPU” loops in the input package are batched CPU loops, not hardware offload.</p><p>Landauer-related values are transition-cost proxies, not measured heat. Bloch, Wigner, and penteract values are model-derived visualizations, not measurements of quantum hardware or physical five-dimensional storage.</p></article><article><h2>Data protection</h2><p>A single-writer Web Lock and transactional revision checks prevent cooperating windows from overwriting one another. Recovery validates snapshots before replacing live state. Corrupt data never triggers a factory reset.</p><p>Checksums detect accidental changes; they are not signatures or authentication. Keep exported backups. Old releases do not honor the new lock protocol and should not run on the same origin.</p></article><article><h2>Release 2.2.2</h2><p>No third-party runtime package installation. Original research attachments remain unchanged under references/. The removed cloud/auth scaffold and original generated outputs are retained in audit/legacy-scaffold.zip, not served by the app.</p><p>See AUDIT_REPORT.md, CHANGELOG.md, and the reproducible test suite in the release folder. Windows launchers provision a hash-verified private Node.js runtime on first use. No system Node.js installation is required.</p></article></div></section>
++</main><footer><span>JA21 2.2.2 · LOCAL_BROWSER</span><span>8 terminals max · IndexedDB virtual volume · no remote execution</span></footer>
+ </body></html>

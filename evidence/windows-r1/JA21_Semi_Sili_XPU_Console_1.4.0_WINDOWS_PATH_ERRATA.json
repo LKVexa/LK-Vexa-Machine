@@ -1,0 +1,39 @@
+{
+  "schema": "JA21/WINDOWS_EXTRACTION_PATH_ERRATA/1",
+  "affectedArchive": "D:\\Codex\\2026-10-13\\pl\\outputs\\JA21_Semi_Sili_XPU_Console_1.4.0.zip",
+  "affectedArchiveSha256": "d3b2b9eb7f76d899275ca0683f21343c464896a281ea264d1e9198587694ec03",
+  "originalArchiveBytesPreserved": true,
+  "originalDataIntegrity": "PASS: all 8295 members checked; no damaged CRC or unsafe path component found.",
+  "priorPackageCheckCorrection": "The earlier windowsPaths PASS covered path components but failed to enforce the full extracted Windows path length. It did not establish Windows Explorer extraction compatibility.",
+  "longestOriginalMemberUtf16": 287,
+  "originalExtractionPathMeasurements": {
+    "D:\\Codex\\2026-10-13\\pl\\outputs": {
+      "max_length": 318,
+      "paths_over_259": 333,
+      "paths_over_247": 373
+    },
+    "D:\\Codex": {
+      "max_length": 296,
+      "paths_over_259": 306,
+      "paths_over_247": 324
+    },
+    "D:\\JA21": {
+      "max_length": 295,
+      "paths_over_259": 304,
+      "paths_over_247": 323
+    },
+    "D:\\Codex\\JA21": {
+      "max_length": 301,
+      "paths_over_259": 310,
+      "paths_over_247": 327
+    }
+  },
+  "replacementLaunchPackage": "D:\\Codex\\2026-10-13\\pl\\outputs\\JA21-1.4.0-Windows-r1.zip",
+  "replacementSha256": "4be8908778c40b0003b6183378c951238252ed9bca48096453a674770cddbae1",
+  "replacementRoot": "D:/Codex/JA21",
+  "replacementMaxInstalledPathUtf16": 123,
+  "exactRuntimeFilesRetained": 358,
+  "completeOriginalSourceAndEvidencePreservedAs": "JA21/reference/Full-1.4.0.zip",
+  "nestedOriginalArchiveRetainsLongPaths": true,
+  "nativeAdministratorValidationStatus": "PENDING_COMPLETED_LIVE_OPERATOR_RUN"
+}

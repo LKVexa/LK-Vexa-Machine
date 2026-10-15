@@ -1,0 +1,106 @@
+[
+  {
+    "path": "src/vendor/ram-worker.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/ChipHarness.cs",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/chip-harness.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/coreutils.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/fs.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/hpu.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/index.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/ram.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/system.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/commands/util.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/env.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/hpu.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/kernel.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/line-reader.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/pipeline.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/regex-evaluator.js",
+    "change": "added"
+  },
+  {
+    "path": "src/vendor/spiral/regex-worker-node.js",
+    "change": "added"
+  },
+  {
+    "path": "src/vendor/spiral/regex-worker.js",
+    "change": "added"
+  },
+  {
+    "path": "src/vendor/spiral/registry.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/safe-regex.js",
+    "change": "added"
+  },
+  {
+    "path": "src/vendor/spiral/ssd.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/spiral/state-codec.js",
+    "change": "added"
+  },
+  {
+    "path": "src/vendor/spiral/vfs.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/vt/parser.js",
+    "change": "modified"
+  },
+  {
+    "path": "src/vendor/vws/flow.js",
+    "change": "added"
+  },
+  {
+    "path": "src/vendor/vws/frame.js",
+    "change": "modified"
+  }
+]

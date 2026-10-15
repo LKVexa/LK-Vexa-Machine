@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: XPU preview validates CPU results without a volume write or live field publication (storage/lock fixtures)
+ok 1 - XPU preview validates CPU results without a volume write or live field publication (storage/lock fixtures)
+  ---
+  duration_ms: 164.5027
+  type: 'test'
+  ...
+# Subtest: required GPU absent never permits apply or changes the resident field (actual Node capability, storage/lock fixtures)
+ok 2 - required GPU absent never permits apply or changes the resident field (actual Node capability, storage/lock fixtures)
+  ---
+  duration_ms: 130.1737
+  type: 'test'
+  ...
+# Subtest: explicit CPU save and reboot restore exact model state and historical receipt (storage/lock fixtures)
+ok 3 - explicit CPU save and reboot restore exact model state and historical receipt (storage/lock fixtures)
+  ---
+  duration_ms: 364.3018
+  type: 'test'
+  ...
+# Subtest: current CPU receipt becomes historical after receipt edit through the real console transport (storage/lock fixtures)
+ok 4 - current CPU receipt becomes historical after receipt edit through the real console transport (storage/lock fixtures)
+  ---
+  duration_ms: 194.7326
+  type: 'test'
+  ...
+# Subtest: current CPU receipt becomes historical after state edit through the real console transport (storage/lock fixtures)
+ok 5 - current CPU receipt becomes historical after state edit through the real console transport (storage/lock fixtures)
+  ---
+  duration_ms: 279.2905
+  type: 'test'
+  ...
+# Subtest: current CPU receipt becomes historical after hpu edit through the real console transport (storage/lock fixtures)
+ok 6 - current CPU receipt becomes historical after hpu edit through the real console transport (storage/lock fixtures)
+  ---
+  duration_ms: 168.7848
+  type: 'test'
+  ...
+# Subtest: a concurrent volume revision invalidates an otherwise valid XPU preview (storage/lock fixtures)
+ok 7 - a concurrent volume revision invalidates an otherwise valid XPU preview (storage/lock fixtures)
+  ---
+  duration_ms: 141.7532
+  type: 'test'
+  ...
+# Subtest: malformed model and receipt restores reject before any durable or live replacement (storage/lock fixtures)
+ok 8 - malformed model and receipt restores reject before any durable or live replacement (storage/lock fixtures)
+  ---
+  duration_ms: 227.5534
+  type: 'test'
+  ...
+# Subtest: valid JSON receipt with wrong state digest or incoherent GPU status cannot be restored (storage/lock fixtures)
+ok 9 - valid JSON receipt with wrong state digest or incoherent GPU status cannot be restored (storage/lock fixtures)
+  ---
+  duration_ms: 241.8629
+  type: 'test'
+  ...
+# Subtest: restored GPU history rejects fixture, fallback, unknown, and mismatched coverage; coherent history remains historical (synthetic receipt fixture)
+ok 10 - restored GPU history rejects fixture, fallback, unknown, and mismatched coverage; coherent history remains historical (synthetic receipt fixture)
+  ---
+  duration_ms: 633.9591
+  type: 'test'
+  ...
+# Subtest: VFS quota exhaustion prevents apply without changing the prior volume or live field (quota fixture)
+ok 11 - VFS quota exhaustion prevents apply without changing the prior volume or live field (quota fixture)
+  ---
+  duration_ms: 260.1326
+  type: 'test'
+  ...
+# Subtest: IndexedDB write failure preserves the exact prior committed and resident state (failure fixture)
+ok 12 - IndexedDB write failure preserves the exact prior committed and resident state (failure fixture)
+  ---
+  duration_ms: 240.4951
+  type: 'test'
+  ...
+# Subtest: cancel during run digest 0 prevents a late preview or write (digest/storage/lock fixtures)
+ok 13 - cancel during run digest 0 prevents a late preview or write (digest/storage/lock fixtures)
+  ---
+  duration_ms: 125.5535
+  type: 'test'
+  ...
+# Subtest: cancel during run digest 2 prevents a late preview or write (digest/storage/lock fixtures)
+ok 14 - cancel during run digest 2 prevents a late preview or write (digest/storage/lock fixtures)
+  ---
+  duration_ms: 146.9472
+  type: 'test'
+  ...
+# Subtest: cancelling apply before its final digest does not commit or publish (digest/storage/lock fixtures)
+ok 15 - cancelling apply before its final digest does not commit or publish (digest/storage/lock fixtures)
+  ---
+  duration_ms: 237.9026
+  type: 'test'
+  ...
+# Subtest: cancellation honestly reports a durable commit already underway (delayed IDB completion fixture)
+ok 16 - cancellation honestly reports a durable commit already underway (delayed IDB completion fixture)
+  ---
+  duration_ms: 180.9763
+  type: 'test'
+  ...
+# Subtest: cancel during GPU mapping prevents late preview and any state write (marked GPU/storage/lock fixtures)
+ok 17 - cancel during GPU mapping prevents late preview and any state write (marked GPU/storage/lock fixtures)
+  ---
+  duration_ms: 192.6647
+  type: 'test'
+  ...
+# Subtest: malformed cancellation RPC cannot interrupt a legitimate job (marked GPU/storage/lock fixtures)
+ok 18 - malformed cancellation RPC cannot interrupt a legitimate job (marked GPU/storage/lock fixtures)
+  ---
+  duration_ms: 147.1745
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4202.3898

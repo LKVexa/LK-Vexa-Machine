@@ -1,0 +1,20 @@
+JA21 Software CPU Console 1.2.0; software engine 2.2.2; presenter compatibility 9.8.7
+Validated 2026-10-14 on Windows x64.
+
+CPU core: 308 passed, 3 skipped, zero failed of 311.
+Native production executable: compiled x64, zero warnings/errors.
+Native policy / mapped resource / tamper checks: 28 PASS.
+Launcher contracts: 15 PASS; actual native preflights default/blank: PASS.
+Python static integration checks: 4 PASS.
+Full console Python: 213 passed, 3 skipped, zero failed of 216.
+Nested substrate: 29 passed, 1 skipped of 30.
+Final package/source/IR/seal check: exact result in integration evidence.
+
+Live WebView2: BLOCKED_ENVIRONMENT, detected155.0.4283.45 but window creation failed.
+CPU Online never observed; live worker/storage/reload/lock/restore NOT_RUN.
+Run Test Silicon CPU.cmd in a normal Windows session to complete this gate.
+
+This is the JA21 software CPU model, not ARM64 ISA/OS emulation. Integrated startup
+requires no Node or PowerShell script invocation. Original component/reference
+evidence is preserved separately and is not a current embedded browser PASS.
+See docs/INTEGRATION-1.2.0.md and docs/SILICON-WEBVIEW2-ACCEPTANCE.md.

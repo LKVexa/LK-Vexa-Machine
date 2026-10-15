@@ -1,0 +1,97 @@
+{
+  "consoleVersion": "1.2.1",
+  "engineVersion": "2.2.2",
+  "engineModuleChanges": 0,
+  "changes": [
+    {
+      "path": "CHANGELOG.md",
+      "beforeSha256": "9084a0ec271680bb67da0e3c8d9d7e05edc2baca78b9df7743a57ed0dc83c800",
+      "afterSha256": "6db9cc460084f0f74c9b62202cf81d32d43f69774841b8e57da2d3112d6c4c85",
+      "bytes": 22495
+    },
+    {
+      "path": "CONSOLE_BUILD.json",
+      "beforeSha256": "393c3c3e4a5d0b36a59286d6fbff6e4abfcfc447b49defa142b4a7fac16a167d",
+      "afterSha256": "da7b28e43bfb9dc73c12188147f5b1cd9e5290e1b0181b5f10535ceedc660349",
+      "bytes": 2513
+    },
+    {
+      "path": "CONSOLE_VERSION",
+      "beforeSha256": "a64708b010e2bcf628154ddc205ed49688a6347ef93a66a42492430f63f021b1",
+      "afterSha256": "6cf4e084b47f33c9b02ef79279d157833868f8f70514169a768be353ee328fea",
+      "bytes": 6
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "beforeSha256": "60fd7f66b2ebe12d61d754613729979a99fed84ef52697f2658b4be9836ae12c",
+      "afterSha256": "d1d6644f1351f49e26453f017d3c302a126c43fbe77c3d9866a5760ca5611ae4",
+      "bytes": 219648
+    },
+    {
+      "path": "READ ME - Console.txt",
+      "beforeSha256": "cb7c3df8312582a62102f3630cb814993ab43228df84d16f559a3514df599ca3",
+      "afterSha256": "85c11c3ef729ddb8157d59f0b26da0442f926f99683e33e41d4a1563a408c699",
+      "bytes": 1463
+    },
+    {
+      "path": "README.md",
+      "beforeSha256": "07debe64a84dd2eb4fa2ea9782a73b17f7ce76c15176765002cf86d34269651d",
+      "afterSha256": "8a6401e87c841ff9e6d9f16b1ad165ec1066698089c2d95080c592eee2a04e69",
+      "bytes": 6467
+    },
+    {
+      "path": "VALIDATION.txt",
+      "beforeSha256": "f0bee3b9820a9bcd30b3bb301709d595a1551140876c645698266962c1e57dc9",
+      "afterSha256": "4993633959b8d6703ce1dd767c3724d2ca0dec7db20f18d16756290c65c07915",
+      "bytes": 1536
+    },
+    {
+      "path": "applications/silicon/FILES_MANIFEST.json",
+      "beforeSha256": "532c698d6473bdef99f1957c42446d6f84e7c3867e5de2576d2ab42bab5a41e5",
+      "afterSha256": "38f10592ccddcadd5045369f840fbf6f078da575f47323e838260208e8c33f5d",
+      "bytes": 62770
+    },
+    {
+      "path": "applications/silicon/SHA256SUMS.txt",
+      "beforeSha256": "0d0af097083d18f8df79c451ec8a4746b4db7619269b232c0e5b2106e85d32c4",
+      "afterSha256": "c6303fe5cdf98e1c98c1e8811c463455cb6234bf0291ca7a017f6882c16f6c14",
+      "bytes": 36772
+    },
+    {
+      "path": "applications/silicon/dist/index.html",
+      "beforeSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84",
+      "afterSha256": "607b0a5b1c89886030ecbace7e96af77e3b6fd7953306d060bfa6559ca2ba27f",
+      "bytes": 11662
+    },
+    {
+      "path": "applications/silicon/web/index.html",
+      "beforeSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84",
+      "afterSha256": "607b0a5b1c89886030ecbace7e96af77e3b6fd7953306d060bfa6559ca2ba27f",
+      "bytes": 11662
+    },
+    {
+      "path": "docs/INTEGRATION-1.2.1.md",
+      "beforeSha256": null,
+      "afterSha256": "b85e029b4f59e036bbfda3a392f879a04f4880282fad22b76f8f0b872b4319de",
+      "bytes": 3000
+    },
+    {
+      "path": "engine/ja21/runtime.integrity.json",
+      "beforeSha256": "10b82f4a5c41077a020351c49392421f48f4ea011831ce940c08d80b0f4cfae6",
+      "afterSha256": "6baa82ede544cfa7660633dfb37f49d3e5871980ddef4125b3208d796793cc03",
+      "bytes": 19373
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "beforeSha256": "e9bd313b98a1494172b24f408f69ebb838fb13e533fdf5a6aeea8161a133c11a",
+      "afterSha256": "a2a765ee08101a4542d24c86fa58fedc14747e115390d5c4ba48b071f2f81d1f",
+      "bytes": 12751
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe",
+      "beforeSha256": "07da3a9a6cf247e901d161e9ca6c842fc6906050bf7983a09a6ce9c0eca1e655",
+      "afterSha256": "e0746a7bedad85b2903aa3c909e4fb6e8ca538860ab075642bfbbb543fbb137c",
+      "bytes": 239104
+    }
+  ]
+}

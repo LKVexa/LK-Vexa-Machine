@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: Fixed native bridge starts hidden without shell; no elevation/open or host command occurs on authentication
+ok 1 - Fixed native bridge starts hidden without shell; no elevation/open or host command occurs on authentication
+  ---
+  duration_ms: 197.8057
+  type: 'test'
+  ...
+# Subtest: Foreign session, duplicate input id, nonfinite or oversized native envelopes cannot execute
+ok 2 - Foreign session, duplicate input id, nonfinite or oversized native envelopes cannot execute
+  ---
+  duration_ms: 1662.7723
+  type: 'test'
+  ...
+# Subtest: Native stdout parsing supports split UTF-8 but rejects malformed output and bounds partial records
+ok 3 - Native stdout parsing supports split UTF-8 but rejects malformed output and bounds partial records
+  ---
+  duration_ms: 591.1867
+  type: 'test'
+  ...
+# Subtest: Correlated delegation waits for actual completion, supports escaped 64 KiB results, and returns UNKNOWN on timeout
+ok 4 - Correlated delegation waits for actual completion, supports escaped 64 KiB results, and returns UNKNOWN on timeout
+  ---
+  duration_ms: 474.0138
+  type: 'test'
+  ...
+# Subtest: Unsolicited completion, repeated target delegation, and ambiguous success are rejected without fabricating execution
+ok 5 - Unsolicited completion, repeated target delegation, and ambiguous success are rejected without fabricating execution
+  ---
+  duration_ms: 229.4999
+  type: 'test'
+  ...
+# Subtest: Non-Windows admin profile refuses attach and reports unavailable
+ok 6 - Non-Windows admin profile refuses attach and reports unavailable
+  ---
+  duration_ms: 0.3182
+  type: 'test'
+  ...
+# Subtest: Outgoing close obeys UTF-8 byte limit, Unicode boundaries and valid code policy
+ok 7 - Outgoing close obeys UTF-8 byte limit, Unicode boundaries and valid code policy
+  ---
+  duration_ms: 1.7018
+  type: 'test'
+  ...
+# Subtest: Broker refuses non-loopback configuration
+ok 8 - Broker refuses non-loopback configuration
+  ---
+  duration_ms: 0.6232
+  type: 'test'
+  ...
+# Subtest: Ticket requests enforce origin, header, query, role, JSON size and single use
+ok 9 - Ticket requests enforce origin, header, query, role, JSON size and single use
+  ---
+  duration_ms: 147.4009
+  type: 'test'
+  ...
+# Subtest: WebSocket admission and RFC parser reject foreign origin, Host, query, subprotocol and unmasked frames
+ok 10 - WebSocket admission and RFC parser reject foreign origin, Host, query, subprotocol and unmasked frames
+  ---
+  duration_ms: 117.2679
+  type: 'test'
+  ...
+# Subtest: Same browser-owner path routes exact terminal bytes, confirms admission only, applies credit and isolates sessions
+ok 11 - Same browser-owner path routes exact terminal bytes, confirms admission only, applies credit and isolates sessions
+  ---
+  duration_ms: 250.9129
+  type: 'test'
+  ...
+# Subtest: Sequence replay, stale epoch, over-credit, and owner loss do not replay or mutate another session
+ok 12 - Sequence replay, stale epoch, over-credit, and owner loss do not replay or mutate another session
+  ---
+  duration_ms: 264.7615
+  type: 'test'
+  ...
+# Subtest: Queue cap, active session cap, duplicate owner and non-reused channel lifecycle are enforced
+ok 13 - Queue cap, active session cap, duplicate owner and non-reused channel lifecycle are enforced
+  ---
+  duration_ms: 369.2778
+  type: 'test'
+  ...
+# Subtest: Owner execution acknowledgment cannot exceed real accepted input; malformed owner resets all dependent sessions
+ok 14 - Owner execution acknowledgment cannot exceed real accepted input; malformed owner resets all dependent sessions
+  ---
+  duration_ms: 131.0554
+  type: 'test'
+  ...
+# Subtest: Fresh server epoch and expired tickets prevent session resurrection
+ok 15 - Fresh server epoch and expired tickets prevent session resurrection
+  ---
+  duration_ms: 86.2235
+  type: 'test'
+  ...
+# Subtest: Administrator tickets and protocol cannot enter the XPU owner channel and disconnect closes only its native adapter (fixture)
+ok 16 - Administrator tickets and protocol cannot enter the XPU owner channel and disconnect closes only its native adapter (fixture)
+  ---
+  duration_ms: 114.8313
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3239.9256

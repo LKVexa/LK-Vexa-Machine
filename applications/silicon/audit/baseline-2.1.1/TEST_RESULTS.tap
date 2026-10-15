@@ -1,0 +1,930 @@
+TAP version 13
+# Subtest: quoting: echo '$A'
+ok 1 - quoting: echo '$A'
+  ---
+  duration_ms: 2.085226
+  type: 'test'
+  ...
+# Subtest: quoting: echo "$A"
+ok 2 - quoting: echo "$A"
+  ---
+  duration_ms: 0.296508
+  type: 'test'
+  ...
+# Subtest: quoting: echo \\$A
+ok 3 - quoting: echo \\$A
+  ---
+  duration_ms: 0.149531
+  type: 'test'
+  ...
+# Subtest: quoting: echo a" b"c
+ok 4 - quoting: echo a" b"c
+  ---
+  duration_ms: 0.091545
+  type: 'test'
+  ...
+# Subtest: quoting: echo ""
+ok 5 - quoting: echo ""
+  ---
+  duration_ms: 0.129061
+  type: 'test'
+  ...
+# Subtest: quoting: echo a\#b \# ignored
+ok 6 - quoting: echo a\#b \# ignored
+  ---
+  duration_ms: 0.242559
+  type: 'test'
+  ...
+# Subtest: quoting: echo ~ ~/x "~"
+ok 7 - quoting: echo ~ ~/x "~"
+  ---
+  duration_ms: 0.456275
+  type: 'test'
+  ...
+# Subtest: quoting: echo "a\\$A"
+ok 8 - quoting: echo "a\\$A"
+  ---
+  duration_ms: 0.098335
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo \\""
+ok 9 - reject malformed shell "echo \\""
+  ---
+  duration_ms: 0.456716
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x |"
+ok 10 - reject malformed shell "echo x |"
+  ---
+  duration_ms: 0.326493
+  type: 'test'
+  ...
+# Subtest: reject malformed shell ";echo x"
+ok 11 - reject malformed shell ";echo x"
+  ---
+  duration_ms: 0.132876
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x >"
+ok 12 - reject malformed shell "echo x >"
+  ---
+  duration_ms: 0.076844
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x &&"
+ok 13 - reject malformed shell "echo x &&"
+  ---
+  duration_ms: 0.061341
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x > a > b"
+ok 14 - reject malformed shell "echo x > a > b"
+  ---
+  duration_ms: 0.096834
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x\\u0000"
+ok 15 - reject malformed shell "echo x\\u0000"
+  ---
+  duration_ms: 0.045768
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "xxxxxxxxxxxxxxxxxxxxxxxxx"
+ok 16 - reject malformed shell "xxxxxxxxxxxxxxxxxxxxxxxxx"
+  ---
+  duration_ms: 0.080109
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo \\\\"
+ok 17 - reject malformed shell "echo \\\\"
+  ---
+  duration_ms: 0.055452
+  type: 'test'
+  ...
+# Subtest: bounded shell tokenization
+ok 18 - bounded shell tokenization
+  ---
+  duration_ms: 1.341385
+  type: 'test'
+  ...
+# Subtest: flag parser accepts negative values and find options
+ok 19 - flag parser accepts negative values and find options
+  ---
+  duration_ms: 0.395626
+  type: 'test'
+  ...
+# Subtest: environment unset hides parent and prototype names are data
+ok 20 - environment unset hides parent and prototype names are data
+  ---
+  duration_ms: 0.174768
+  type: 'test'
+  ...
+# Subtest: canonical path resolves traversal without leaving root
+ok 21 - canonical path resolves traversal without leaving root
+  ---
+  duration_ms: 0.473561
+  type: 'test'
+  ...
+# Subtest: root cannot become a child or file
+ok 22 - root cannot become a child or file
+  ---
+  duration_ms: 0.872511
+  type: 'test'
+  ...
+# Subtest: recursive mkdir reserves quota before mutation
+ok 23 - recursive mkdir reserves quota before mutation
+  ---
+  duration_ms: 0.268848
+  type: 'test'
+  ...
+# Subtest: move prohibits cycles and nonempty directory replacement
+ok 24 - move prohibits cycles and nonempty directory replacement
+  ---
+  duration_ms: 0.33121
+  type: 'test'
+  ...
+# Subtest: file copies never alias caller or read buffers
+ok 25 - file copies never alias caller or read buffers
+  ---
+  duration_ms: 0.343147
+  type: 'test'
+  ...
+# Subtest: VFS write quota and touch mutation accounting
+ok 26 - VFS write quota and touch mutation accounting
+  ---
+  duration_ms: 0.167267
+  type: 'test'
+  ...
+# Subtest: VFS snapshots are atomic and byte exact
+ok 27 - VFS snapshots are atomic and byte exact
+  ---
+  duration_ms: 1.193877
+  type: 'test'
+  ...
+# Subtest: snapshot rejects malformed base64 before publication
+ok 28 - snapshot rejects malformed base64 before publication
+  ---
+  duration_ms: 0.285542
+  type: 'test'
+  ...
+# Subtest: canonical content digest input ignores mtimes and sorts entries
+ok 29 - canonical content digest input ignores mtimes and sorts entries
+  ---
+  duration_ms: 0.230371
+  type: 'test'
+  ...
+# Subtest: shell: export A=hello; echo $A
+ok 30 - shell: export A=hello; echo $A
+  ---
+  duration_ms: 1.240566
+  type: 'test'
+  ...
+# Subtest: shell: false; echo $?
+ok 31 - shell: false; echo $?
+  ---
+  duration_ms: 0.4395
+  type: 'test'
+  ...
+# Subtest: shell: true && echo yes || echo no
+ok 32 - shell: true && echo yes || echo no
+  ---
+  duration_ms: 0.254767
+  type: 'test'
+  ...
+# Subtest: shell: echo hello | rev
+ok 33 - shell: echo hello | rev
+  ---
+  duration_ms: 0.444718
+  type: 'test'
+  ...
+# Subtest: shell: seq -2 2
+ok 34 - shell: seq -2 2
+  ---
+  duration_ms: 13.173295
+  type: 'test'
+  ...
+# Subtest: shell: echo x | head -n 0
+ok 35 - shell: echo x | head -n 0
+  ---
+  duration_ms: 0.424648
+  type: 'test'
+  ...
+# Subtest: shell: printf x | wc -l
+ok 36 - shell: printf x | wc -l
+  ---
+  duration_ms: 0.441433
+  type: 'test'
+  ...
+# Subtest: alias parsing preserves quotes and recursion fails
+ok 37 - alias parsing preserves quotes and recursion fails
+  ---
+  duration_ms: 0.760926
+  type: 'test'
+  ...
+# Subtest: redirection and pipeline binary file copy
+ok 38 - redirection and pipeline binary file copy
+  ---
+  duration_ms: 0.495143
+  type: 'test'
+  ...
+# Subtest: small geometry man does not throw
+ok 39 - small geometry man does not throw
+  ---
+  duration_ms: 0.401564
+  type: 'test'
+  ...
+# Subtest: seq detects non-progress and zero increment
+ok 40 - seq detects non-progress and zero increment
+  ---
+  duration_ms: 0.38567
+  type: 'test'
+  ...
+# Subtest: sleep validates finite bounds and aborts promptly
+ok 41 - sleep validates finite bounds and aborts promptly
+  ---
+  duration_ms: 20.924314
+  type: 'test'
+  ...
+# Subtest: interactive cat responds to SIGINT
+ok 42 - interactive cat responds to SIGINT
+  ---
+  duration_ms: 21.000486
+  type: 'test'
+  ...
+# Subtest: session cap and close exactly once
+ok 43 - session cap and close exactly once
+  ---
+  duration_ms: 0.278973
+  type: 'test'
+  ...
+# Subtest: safe glob resists overlapping star patterns
+ok 44 - safe glob resists overlapping star patterns
+  ---
+  duration_ms: 1.932059
+  type: 'test'
+  ...
+# Subtest: grep works in disposable regex worker
+ok 45 - grep works in disposable regex worker
+  ---
+  duration_ms: 34.477662
+  type: 'test'
+  ...
+# Subtest: hostile regex is terminated
+ok 46 - hostile regex is terminated
+  ---
+  duration_ms: 752.155774
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 1
+ok 47 - uint48 frame round trip 1
+  ---
+  duration_ms: 0.351751
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 255
+ok 48 - uint48 frame round trip 255
+  ---
+  duration_ms: 0.099427
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 65536
+ok 49 - uint48 frame round trip 65536
+  ---
+  duration_ms: 0.079558
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 2147483655
+ok 50 - uint48 frame round trip 2147483655
+  ---
+  duration_ms: 0.093749
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 4294967297
+ok 51 - uint48 frame round trip 4294967297
+  ---
+  duration_ms: 0.304391
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 281474976710655
+ok 52 - uint48 frame round trip 281474976710655
+  ---
+  duration_ms: 0.111054
+  type: 'test'
+  ...
+# Subtest: framing rejects empty, oversized, invalid kind and sequence
+ok 53 - framing rejects empty, oversized, invalid kind and sequence
+  ---
+  duration_ms: 0.286775
+  type: 'test'
+  ...
+# Subtest: flow windows work past two GiB without signed overflow
+ok 54 - flow windows work past two GiB without signed overflow
+  ---
+  duration_ms: 0.206586
+  type: 'test'
+  ...
+# Subtest: optical gate model and(0,0)
+ok 55 - optical gate model and(0,0)
+  ---
+  duration_ms: 9.516262
+  type: 'test'
+  ...
+# Subtest: optical gate model and(0,1)
+ok 56 - optical gate model and(0,1)
+  ---
+  duration_ms: 1.99395
+  type: 'test'
+  ...
+# Subtest: optical gate model and(1,0)
+ok 57 - optical gate model and(1,0)
+  ---
+  duration_ms: 1.105305
+  type: 'test'
+  ...
+# Subtest: optical gate model and(1,1)
+ok 58 - optical gate model and(1,1)
+  ---
+  duration_ms: 1.181358
+  type: 'test'
+  ...
+# Subtest: optical gate model or(0,0)
+ok 59 - optical gate model or(0,0)
+  ---
+  duration_ms: 0.895214
+  type: 'test'
+  ...
+# Subtest: optical gate model or(0,1)
+ok 60 - optical gate model or(0,1)
+  ---
+  duration_ms: 1.059437
+  type: 'test'
+  ...
+# Subtest: optical gate model or(1,0)
+ok 61 - optical gate model or(1,0)
+  ---
+  duration_ms: 0.853072
+  type: 'test'
+  ...
+# Subtest: optical gate model or(1,1)
+ok 62 - optical gate model or(1,1)
+  ---
+  duration_ms: 0.833914
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(0,0)
+ok 63 - optical gate model nand(0,0)
+  ---
+  duration_ms: 0.886622
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(0,1)
+ok 64 - optical gate model nand(0,1)
+  ---
+  duration_ms: 1.130823
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(1,0)
+ok 65 - optical gate model nand(1,0)
+  ---
+  duration_ms: 0.563263
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(1,1)
+ok 66 - optical gate model nand(1,1)
+  ---
+  duration_ms: 0.465528
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(0,0)
+ok 67 - optical gate model xor(0,0)
+  ---
+  duration_ms: 0.45941
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(0,1)
+ok 68 - optical gate model xor(0,1)
+  ---
+  duration_ms: 0.447663
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(1,0)
+ok 69 - optical gate model xor(1,0)
+  ---
+  duration_ms: 0.458358
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(1,1)
+ok 70 - optical gate model xor(1,1)
+  ---
+  duration_ms: 0.469946
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(0,0)
+ok 71 - optical gate model xnor(0,0)
+  ---
+  duration_ms: 0.564185
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(0,1)
+ok 72 - optical gate model xnor(0,1)
+  ---
+  duration_ms: 0.459109
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(1,0)
+ok 73 - optical gate model xnor(1,0)
+  ---
+  duration_ms: 0.483826
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(1,1)
+ok 74 - optical gate model xnor(1,1)
+  ---
+  duration_ms: 0.451718
+  type: 'test'
+  ...
+# Subtest: field propagation approximately preserves sampled energy
+ok 75 - field propagation approximately preserves sampled energy
+  ---
+  duration_ms: 1.198083
+  type: 'test'
+  ...
+# Subtest: valuation zero is infinity; finite domain validated
+ok 76 - valuation zero is infinity; finite domain validated
+  ---
+  duration_ms: 0.098846
+  type: 'test'
+  ...
+# Subtest: truncated Kerr state is renormalized and exposes loss
+ok 77 - truncated Kerr state is renormalized and exposes loss
+  ---
+  duration_ms: 0.26359
+  type: 'test'
+  ...
+# Subtest: all six byte tables and C\# source agree for all 256 inputs
+ok 78 - all six byte tables and C\# source agree for all 256 inputs
+  ---
+  duration_ms: 0.422224
+  type: 'test'
+  ...
+# Subtest: byte lanes follow LUTs and deterministic maximum-delta selector
+ok 79 - byte lanes follow LUTs and deterministic maximum-delta selector
+  ---
+  duration_ms: 8.789206
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: sample
+ok 80 - complete HPU state roundtrip: sample
+  ---
+  duration_ms: 20.413138
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: cycle
+ok 81 - complete HPU state roundtrip: cycle
+  ---
+  duration_ms: 14.487939
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: diffuse
+ok 82 - complete HPU state roundtrip: diffuse
+  ---
+  duration_ms: 13.47454
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: frame
+ok 83 - complete HPU state roundtrip: frame
+  ---
+  duration_ms: 100.524128
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: kuramoto
+ok 84 - complete HPU state roundtrip: kuramoto
+  ---
+  duration_ms: 97.04569
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: record
+ok 85 - complete HPU state roundtrip: record
+  ---
+  duration_ms: 18.352498
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: oam
+ok 86 - complete HPU state roundtrip: oam
+  ---
+  duration_ms: 9.111523
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: bytes
+ok 87 - complete HPU state roundtrip: bytes
+  ---
+  duration_ms: 27.256325
+  type: 'test'
+  ...
+# Subtest: recorded object supports replay after state reload
+ok 88 - recorded object supports replay after state reload
+  ---
+  duration_ms: 14.581037
+  type: 'test'
+  ...
+# Subtest: HPU corruption and forged geometry never partially load
+ok 89 - HPU corruption and forged geometry never partially load
+  ---
+  duration_ms: 12.576611
+  type: 'test'
+  ...
+# Subtest: legacy HPU1 migration is strict and atomic
+ok 90 - legacy HPU1 migration is strict and atomic
+  ---
+  duration_ms: 14.227865
+  type: 'test'
+  ...
+# Subtest: processor caches invalidate after field changes
+ok 91 - processor caches invalidate after field changes
+  ---
+  duration_ms: 1.322126
+  type: 'test'
+  ...
+# Subtest: spool count bounded and image encoder dimensions validated
+ok 92 - spool count bounded and image encoder dimensions validated
+  ---
+  duration_ms: 2.866852
+  type: 'test'
+  ...
+# Subtest: image encoder artifacts emitted for independent Pillow verification
+ok 93 - image encoder artifacts emitted for independent Pillow verification
+  ---
+  duration_ms: 26.381149
+  type: 'test'
+  ...
+# Subtest: VT parser caps control accumulation and ignores OSC52
+ok 94 - VT parser caps control accumulation and ignores OSC52
+  ---
+  duration_ms: 2.94624
+  type: 'test'
+  ...
+# Subtest: VT rendering model handles fragmented sequences identically
+ok 95 - VT rendering model handles fragmented sequences identically
+  ---
+  duration_ms: 0.569904
+  type: 'test'
+  ...
+# Subtest: line editor removes whole supplementary code points
+ok 96 - line editor removes whole supplementary code points
+  ---
+  duration_ms: 0.498648
+  type: 'test'
+  ...
+# Subtest: recursive mkdir rejects an existing file without mutation
+ok 97 - recursive mkdir rejects an existing file without mutation
+  ---
+  duration_ms: 0.254767
+  type: 'test'
+  ...
+# Subtest: launcher/static: generated .cmd embeds the exact readable reviewed payload
+ok 98 - launcher/static: generated .cmd embeds the exact readable reviewed payload
+  ---
+  duration_ms: 0.936246
+  type: 'test'
+  ...
+# Subtest: launcher/static: the local payload starts after the LAST marker
+ok 99 - launcher/static: the local payload starts after the LAST marker
+  ---
+  duration_ms: 0.266724
+  type: 'test'
+  ...
+# Subtest: launcher/static: system PowerShell is absolute and package paths pass as environment values
+ok 100 - launcher/static: system PowerShell is absolute and package paths pass as environment values
+  ---
+  duration_ms: 0.199946
+  type: 'test'
+  ...
+# Subtest: launcher/static: neither launcher relies on a global Node or npm installation
+ok 101 - launcher/static: neither launcher relies on a global Node or npm installation
+  ---
+  duration_ms: 4.853723
+  type: 'test'
+  ...
+# Subtest: launcher/static: no security-policy or certificate bypass commands
+ok 102 - launcher/static: no security-policy or certificate bypass commands
+  ---
+  duration_ms: 0.42608
+  type: 'test'
+  ...
+# Subtest: launcher/static: pins match the exact official v24.21.0 checksum values
+ok 103 - launcher/static: pins match the exact official v24.21.0 checksum values
+  ---
+  duration_ms: 0.260225
+  type: 'test'
+  ...
+# Subtest: launcher/static: native Windows architecture uses WOW64/native environment before process architecture
+ok 104 - launcher/static: native Windows architecture uses WOW64/native environment before process architecture
+  ---
+  duration_ms: 0.213416
+  type: 'test'
+  ...
+# Subtest: launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+ok 105 - launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+  ---
+  duration_ms: 0.095561
+  type: 'test'
+  ...
+# Subtest: launcher/static: download has size, read, request and total transfer limits
+ok 106 - launcher/static: download has size, read, request and total transfer limits
+  ---
+  duration_ms: 0.251562
+  type: 'test'
+  ...
+# Subtest: launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+ok 107 - launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+  ---
+  duration_ms: 0.318331
+  type: 'test'
+  ...
+# Subtest: launcher/static: extraction is exact allowlisted entries, not archive path expansion
+ok 108 - launcher/static: extraction is exact allowlisted entries, not archive path expansion
+  ---
+  duration_ms: 0.64177
+  type: 'test'
+  ...
+# Subtest: launcher/static: writable runtime locations reject reparse points and concurrent setup
+ok 109 - launcher/static: writable runtime locations reject reparse points and concurrent setup
+  ---
+  duration_ms: 0.125005
+  type: 'test'
+  ...
+# Subtest: launcher/static: partial downloads and staging are scoped, private, and cleaned
+ok 110 - launcher/static: partial downloads and staging are scoped, private, and cleaned
+  ---
+  duration_ms: 0.11509
+  type: 'test'
+  ...
+# Subtest: launcher/static: process-local Node injection settings are removed without editing PATH
+ok 111 - launcher/static: process-local Node injection settings are removed without editing PATH
+  ---
+  duration_ms: 0.411118
+  type: 'test'
+  ...
+# Subtest: launcher/static: exact runtime version probe is bounded before the host runs
+ok 112 - launcher/static: exact runtime version probe is bounded before the host runs
+  ---
+  duration_ms: 0.110914
+  type: 'test'
+  ...
+# Subtest: launcher/static: default origin is unchanged and port override is explicitly validated
+ok 113 - launcher/static: default origin is unchanged and port override is explicitly validated
+  ---
+  duration_ms: 0.079107
+  type: 'test'
+  ...
+# Subtest: launcher/static: offline cache and preflight modes are explicit
+ok 114 - launcher/static: offline cache and preflight modes are explicit
+  ---
+  duration_ms: 0.072808
+  type: 'test'
+  ...
+# Subtest: launcher/static: logs and native error status are retained
+ok 115 - launcher/static: logs and native error status are retained
+  ---
+  duration_ms: 0.076723
+  type: 'test'
+  ...
+# Subtest: local static host boundary
+    # Subtest: bind address is loopback
+    ok 1 - bind address is loopback
+      ---
+      duration_ms: 0.497726
+      type: 'test'
+      ...
+    # Subtest: HTML and CSP are served
+    ok 2 - HTML and CSP are served
+      ---
+      duration_ms: 8.380622
+      type: 'test'
+      ...
+    # Subtest: HEAD has no body
+    ok 3 - HEAD has no body
+      ---
+      duration_ms: 1.831911
+      type: 'test'
+      ...
+    # Subtest: Host rebinding
+    ok 4 - Host rebinding
+      ---
+      duration_ms: 1.924077
+      type: 'test'
+      ...
+    # Subtest: foreign Origin
+    ok 5 - foreign Origin
+      ---
+      duration_ms: 1.013459
+      type: 'test'
+      ...
+    # Subtest: cross-site fetch
+    ok 6 - cross-site fetch
+      ---
+      duration_ms: 1.458909
+      type: 'test'
+      ...
+    # Subtest: POST
+    ok 7 - POST
+      ---
+      duration_ms: 1.863928
+      type: 'test'
+      ...
+    # Subtest: traversal
+    ok 8 - traversal
+      ---
+      duration_ms: 0.88522
+      type: 'test'
+      ...
+    # Subtest: encoded traversal
+    ok 9 - encoded traversal
+      ---
+      duration_ms: 1.03408
+      type: 'test'
+      ...
+    # Subtest: double encoding
+    ok 10 - double encoding
+      ---
+      duration_ms: 1.184623
+      type: 'test'
+      ...
+    # Subtest: NUL
+    ok 11 - NUL
+      ---
+      duration_ms: 1.08788
+      type: 'test'
+      ...
+    # Subtest: backslash
+    ok 12 - backslash
+      ---
+      duration_ms: 0.692154
+      type: 'test'
+      ...
+    # Subtest: hidden dotfile
+    ok 13 - hidden dotfile
+      ---
+      duration_ms: 0.651635
+      type: 'test'
+      ...
+    # Subtest: root manifest
+    ok 14 - root manifest
+      ---
+      duration_ms: 0.943346
+      type: 'test'
+      ...
+    # Subtest: references not served
+    ok 15 - references not served
+      ---
+      duration_ms: 0.79081
+      type: 'test'
+      ...
+    # Subtest: legacy scaffold not served
+    ok 16 - legacy scaffold not served
+      ---
+      duration_ms: 2.860292
+      type: 'test'
+      ...
+    # Subtest: JavaScript MIME
+    ok 17 - JavaScript MIME
+      ---
+      duration_ms: 1.205134
+      type: 'test'
+      ...
+    1..17
+ok 116 - local static host boundary
+  ---
+  duration_ms: 38.28883
+  type: 'test'
+  ...
+# Subtest: static host rejects symlink traversal
+ok 117 - static host rejects symlink traversal
+  ---
+  duration_ms: 5.604674
+  type: 'test'
+  ...
+# Subtest: real Node worker integration with explicit storage/lock test doubles
+    # Subtest: boot publishes consistent version and protocol
+    ok 1 - boot publishes consistent version and protocol
+      ---
+      duration_ms: 0.556002
+      type: 'test'
+      ...
+    # Subtest: binary command input traverses parser and VFS
+    ok 2 - binary command input traverses parser and VFS
+      ---
+      duration_ms: 40.586571
+      type: 'test'
+      ...
+    # Subtest: command registry exposes descriptors
+    ok 3 - command registry exposes descriptors
+      ---
+      duration_ms: 5.794255
+      type: 'test'
+      ...
+    # Subtest: all twenty modeled gates execute over transport
+    ok 4 - all twenty modeled gates execute over transport
+      ---
+      duration_ms: 610.512629
+      type: 'test'
+      ...
+    # Subtest: byte command persists seven TIFFs and HPU state
+    ok 5 - byte command persists seven TIFFs and HPU state
+      ---
+      duration_ms: 44.986963
+      type: 'test'
+      ...
+    # Subtest: second window is blocked without modifying the volume
+    ok 6 - second window is blocked without modifying the volume
+      ---
+      duration_ms: 50.637163
+      type: 'test'
+      ...
+    # Subtest: invalid acknowledgement closes only its session
+    ok 7 - invalid acknowledgement closes only its session
+      ---
+      duration_ms: 40.516787
+      type: 'test'
+      ...
+    # Subtest: legacy control version is rejected without a worker crash
+    ok 8 - legacy control version is rejected without a worker crash
+      ---
+      duration_ms: 15.780163
+      type: 'test'
+      ...
+    # Subtest: wrong sequence closes offending session
+    ok 9 - wrong sequence closes offending session
+      ---
+      duration_ms: 11.458846
+      type: 'test'
+      ...
+    # Subtest: null control record cannot crash worker
+    ok 10 - null control record cannot crash worker
+      ---
+      duration_ms: 14.791398
+      type: 'test'
+      ...
+    # Subtest: invalid restore is rejected without changing storage
+    ok 11 - invalid restore is rejected without changing storage
+      ---
+      duration_ms: 15.323085
+      type: 'test'
+      ...
+    # Subtest: poweroff stays halted and stops sessions
+    ok 12 - poweroff stays halted and stops sessions
+      ---
+      duration_ms: 14.135648
+      type: 'test'
+      ...
+    # Subtest: next boot restores the exact virtual file and XPU lanes
+    ok 13 - next boot restores the exact virtual file and XPU lanes
+      ---
+      duration_ms: 99.251293
+      type: 'test'
+      ...
+    # Subtest: validated restore keeps a previous committed volume
+    ok 14 - validated restore keeps a previous committed volume
+      ---
+      duration_ms: 169.300394
+      type: 'test'
+      ...
+    # Subtest: reboot emits reboot flag instead of silently powercycling
+    ok 15 - reboot emits reboot flag instead of silently powercycling
+      ---
+      duration_ms: 5.875605
+      type: 'test'
+      ...
+    1..15
+ok 118 - real Node worker integration with explicit storage/lock test doubles
+  ---
+  duration_ms: 1214.258874
+  type: 'test'
+  ...
+# Subtest: corrupt volume boot fails closed and raw backup remains available
+ok 119 - corrupt volume boot fails closed and raw backup remains available
+  ---
+  duration_ms: 104.778794
+  type: 'test'
+  ...
+# Subtest: read failure does not initialize over existing storage
+ok 120 - read failure does not initialize over existing storage
+  ---
+  duration_ms: 48.270201
+  type: 'test'
+  ...
+# Subtest: write failure prevents a falsely successful boot
+ok 121 - write failure prevents a falsely successful boot
+  ---
+  duration_ms: 48.098236
+  type: 'test'
+  ...
+1..121
+# tests 153
+# suites 0
+# pass 153
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2939.466427

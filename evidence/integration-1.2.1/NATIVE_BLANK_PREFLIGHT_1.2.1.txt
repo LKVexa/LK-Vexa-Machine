@@ -1,0 +1,3 @@
+JA21 · native-entry · software CPU/XPU 2.2.2; compiled native startup x64; WebView2 executes JavaScript; no Node/local server
+JA21 · preflight-pass · sealed application and SDK verified; mapped directory D:\Codex\2026-10-13\pl\work\ideapad-cpu-audit\project\JA21-Silicon-Console\applications\silicon\dist
+JA21 software console preflight PASS. Sealed application and pinned SDK verified; no browser window or network started.

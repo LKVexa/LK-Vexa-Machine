@@ -1,0 +1,13 @@
+{
+  "version": "2.2.1",
+  "preflight": "PASS",
+  "architecture": "x64",
+  "evidence": "audit/NATIVE_PREFLIGHT_2.2.1.log",
+  "scope": "Fresh download, pins, minimal runtime extraction and bounded executable version probe; no browser startup",
+  "browserStatus": "BLOCKED_ENVIRONMENT",
+  "inAppBrowser": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "error": "ERR_CONNECTION_TIMED_OUT at http://127.0.0.1:8798/"
+  },
+  "arm64": "NOT_RUN"
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "JA21/HOST_PROBE/1",
+  "timestampUtc": "2026-10-14T18:31:21.9500092Z",
+  "manufacturer": "LENOVO",
+  "model": "83KS",
+  "family": "IdeaPad 5 2-in-1 16IAL10",
+  "registryProcessor": "Intel(R) Core(TM) Ultra 7 255U",
+  "cpuid": {
+    "available": true,
+    "vendor": "GenuineIntel",
+    "brand": "Intel(R) Core(TM) Ultra 7 255U",
+    "family": 6,
+    "model": 181,
+    "stepping": 0,
+    "hypervisorPresent": true,
+    "leaf1": [
+      722512,
+      411043840,
+      -330869,
+      -1077150721
+    ]
+  },
+  "processArchitecture": "X64",
+  "osArchitecture": "X64",
+  "osVersion": "Microsoft Windows NT 10.0.26200.0",
+  "logicalProcessorsAvailableToProcess": 14,
+  "probeRuntime": ".NET 10.0.11",
+  "avx2Support": true,
+  "limitation": "Registry and process CPUID identify the execution host, not manufacturing authenticity. Hypervisor presence may reflect Windows virtualization security; no JA21 hardware acceleration is established."
+}

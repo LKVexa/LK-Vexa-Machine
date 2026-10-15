@@ -1,0 +1,31 @@
+{
+  "schema": "JA21/NATIVE_PROFILE_PATH_CONTROL/1",
+  "status": "CONTROLLED_COMPARISON",
+  "runtimeManifestSha256": "135dd37c67305e9e6971448219489415e70dc3fd2d18da252da713ce8d91519d",
+  "sameRuntimeBytes": true,
+  "long": {
+    "profile": "D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\package\\DRAFT_NATIVE_RUNTIME-20261014T225641\\workspace\\native-document-diagnosis\\20261014T230148-062a5163\\state\\webview2",
+    "profileCharacters": 176,
+    "indexedDbDirectoryCharacters": 251,
+    "connection": "Blocked",
+    "notice": "Internal error opening backing store for indexedDB.open.",
+    "workerErrors": [
+      {
+        "at": 1792018917395,
+        "value": "{\"type\":\"error\",\"message\":\"Internal error opening backing store for indexedDB.open.\"}"
+      }
+    ]
+  },
+  "short": {
+    "profile": "D:\\Codex\\hermit-native-validation\\draft-140-a\\workspace\\native-document-diagnosis\\20261014T230423-bdf7ad7e\\state\\webview2",
+    "profileCharacters": 121,
+    "indexedDbDirectoryCharacters": 196,
+    "connection": "Online",
+    "notice": "",
+    "workerErrors": []
+  },
+  "limitsChanged": false,
+  "securityFlagsChanged": false,
+  "originalUserVolumeTouched": false,
+  "scope": "Distinct new isolated browser profiles; no data migration. The exact same runtime byte closure booted Online at the short root after failing IndexedDB backing-store creation at the long root. This establishes a path-dependent startup failure on this host; it does not prove a browser internal path implementation beyond the observed result."
+}

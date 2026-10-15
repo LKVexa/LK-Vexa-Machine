@@ -1,0 +1,429 @@
+{
+  "consoleVersion": "1.2.1",
+  "engineVersion": "2.2.2",
+  "engineModulesChanged": 0,
+  "baselineSha256": "03c5f4420707a8c4b5005a8543f73c175fd89ff439b1a5312fe65a2d4d1ba24f",
+  "scope": "Final merged source/doc/binary/evidence changes before generated integrity manifests. Initial patch snapshots retained with INITIAL suffix.",
+  "changes": [
+    {
+      "path": "CHANGELOG.md",
+      "status": "modified",
+      "beforeSha256": "9084a0ec271680bb67da0e3c8d9d7e05edc2baca78b9df7743a57ed0dc83c800",
+      "afterSha256": "6db9cc460084f0f74c9b62202cf81d32d43f69774841b8e57da2d3112d6c4c85"
+    },
+    {
+      "path": "CONSOLE_BUILD.json",
+      "status": "modified",
+      "beforeSha256": "393c3c3e4a5d0b36a59286d6fbff6e4abfcfc447b49defa142b4a7fac16a167d",
+      "afterSha256": "d630d1a8e615179f982412367af8ac3c5f48d67a52be843578469a0ad64e382e"
+    },
+    {
+      "path": "CONSOLE_VERSION",
+      "status": "modified",
+      "beforeSha256": "a64708b010e2bcf628154ddc205ed49688a6347ef93a66a42492430f63f021b1",
+      "afterSha256": "6cf4e084b47f33c9b02ef79279d157833868f8f70514169a768be353ee328fea"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "status": "modified",
+      "beforeSha256": "60fd7f66b2ebe12d61d754613729979a99fed84ef52697f2658b4be9836ae12c",
+      "afterSha256": "d1d6644f1351f49e26453f017d3c302a126c43fbe77c3d9866a5760ca5611ae4"
+    },
+    {
+      "path": "READ ME - Console.txt",
+      "status": "modified",
+      "beforeSha256": "cb7c3df8312582a62102f3630cb814993ab43228df84d16f559a3514df599ca3",
+      "afterSha256": "85c11c3ef729ddb8157d59f0b26da0442f926f99683e33e41d4a1563a408c699"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "beforeSha256": "07debe64a84dd2eb4fa2ea9782a73b17f7ce76c15176765002cf86d34269651d",
+      "afterSha256": "8a6401e87c841ff9e6d9f16b1ad165ec1066698089c2d95080c592eee2a04e69"
+    },
+    {
+      "path": "VALIDATION.txt",
+      "status": "modified",
+      "beforeSha256": "f0bee3b9820a9bcd30b3bb301709d595a1551140876c645698266962c1e57dc9",
+      "afterSha256": "4993633959b8d6703ce1dd767c3724d2ca0dec7db20f18d16756290c65c07915"
+    },
+    {
+      "path": "applications/silicon/dist/index.html",
+      "status": "modified",
+      "beforeSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84",
+      "afterSha256": "607b0a5b1c89886030ecbace7e96af77e3b6fd7953306d060bfa6559ca2ba27f"
+    },
+    {
+      "path": "applications/silicon/web/index.html",
+      "status": "modified",
+      "beforeSha256": "4737067198edf71c1e6087dd1ae4002e7215c3427b16fad9925ff1365b103a84",
+      "afterSha256": "607b0a5b1c89886030ecbace7e96af77e3b6fd7953306d060bfa6559ca2ba27f"
+    },
+    {
+      "path": "docs/IDEAPAD-5I-AUDIT.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d9f5dc15a02198a84aed9d19880e2324887005c8c52efedf37d45e3b8f71cf1c"
+    },
+    {
+      "path": "docs/INTEGRATION-1.2.1.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "be5b47eb846544b5c7db3e6c29dc61bb670baf910f0ea637dde947ce952c03d2"
+    },
+    {
+      "path": "evidence/ideapad-audit/AUDIT.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9af88eea9264d88958f83c3392d2a2d7662ce714944dce4ce0ad3eecfad6d9d4"
+    },
+    {
+      "path": "evidence/ideapad-audit/BASELINE_PACKAGE_CHECK.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e6ea9e56e04d84c38f026b760b2f679c8a8e64dba5f546d2a9994261e94441a8"
+    },
+    {
+      "path": "evidence/ideapad-audit/CPU_IDENTITY_AUDIT.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9ee01bc59ac8a565461c96dea2abbbf711c417d460576b842db2f56cbce9174e"
+    },
+    {
+      "path": "evidence/ideapad-audit/CPU_IDENTITY_NOTES.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "988281b3cb398706e840b80061587a8f6b80e886ad681dd29fccf072a83c1d65"
+    },
+    {
+      "path": "evidence/ideapad-audit/RUNTIME_METADATA_SEAL_FINDING.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "27fbe689b69e8fbb0ba2204c8b591b185f7e00a3ef9d4c968e6ad329c89459d6"
+    },
+    {
+      "path": "evidence/ideapad-audit/audit/BASELINE_INNER_MANIFEST_FINDING.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "909827382f8c0887bcc678a55aaabf456d7560ee44973a66856e25d9c59e3445"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/BACKTEST_NOTES.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "934962d3f6dd0533025b3d201c117fa6b269ac1813d7ec97c6ab51f94a5a089f"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/BACKTEST_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "117dd19aab6d5b49527277646d32e19e5d5063eeeb3cc07ae649876867e6c826"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/INDEPENDENT_TIFF_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "73c17636c4553668514e75a1358f1a92a0e45ac706611c7c3592a713c3e34e0a"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/NATIVE_ORACLE_ATTEMPT.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "764a504ccc50be0f7cdd72e07e733dfbfa70976b5ec4275f8c5098bb276ddb6a"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/backtest.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d8a7e7cb05c1f5cd146beb2d14272fb4a3d4197879fd88bf9865c640c78622c1"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/derive-oracle.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "94a4da73a29ec2a55b724fcfaa7abb6333d5e0506343329bfbcff1e4d49b81e2"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/independent-tiff-reader.py",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "5128c301881ca68b4522534d904db887c83efa9dde1a0744c3cdbde3805ed929"
+    },
+    {
+      "path": "evidence/ideapad-audit/backtest/oracle.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "33dcedc88389a8a29c070b305cb398a78b2840ed5f0fb841dcb629e595b7fff9"
+    },
+    {
+      "path": "evidence/ideapad-audit/benchmark/BENCHMARK_REPEAT_COMPARISON.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8d81c97a4e5c01bbc52a8453e342bea8d254023d0248666269df7715bdb22b95"
+    },
+    {
+      "path": "evidence/ideapad-audit/benchmark/BENCHMARK_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b791ddc3012791bee59914cf8187616396ec81c3b683f8324962835f67bbe5b7"
+    },
+    {
+      "path": "evidence/ideapad-audit/benchmark/BENCHMARK_RESULTS_SECOND_PROCESS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "34009903a8b224239c602a2814452c55e4dcf044f39054959978603e9041c8a3"
+    },
+    {
+      "path": "evidence/ideapad-audit/benchmark/README.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "ed730003c2509a82788ee36c7066c1ce0aea3bfd3abacdee63e03ca6f91f4ac8"
+    },
+    {
+      "path": "evidence/ideapad-audit/benchmark/run-benchmark.mjs",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "b4fbb1c550a3305ff6a77516325a7cfbda3695601c7e6f10830e8e8c6bce0a82"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_FINAL_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "07ba901e1ec2409c7e796824a4393f5f7c83df758b2d72a085b20ff0eae9d586"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_HOST_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "81071628e57137247ed61d87e8b75e6f714ccc37f9518b99a179cb8585b222f2"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_NETWORK_RERUN.exit",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_NETWORK_RERUN.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "712f916f426cd8292e0cbcc8cf08b665640149ff7e5a8543762f4a5d121c6530"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_STARTUP_RERUN.exit",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_STARTUP_RERUN.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "2fe223c847a838755021613916c4c5662e2812466f9c5c5052957a0f1b40aa8d"
+    },
+    {
+      "path": "evidence/ideapad-audit/core/CORE_TEST_RESULTS.tap",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a31133b5ba042a609c6225dadb02c2c2548165d0055b4185c859a24ea661e4c0"
+    },
+    {
+      "path": "evidence/ideapad-audit/host/HOST_PROBE.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "c4eca509b73291f2c046b7334821548cd5eaeae1437891f6d21fbb184cb670cf"
+    },
+    {
+      "path": "evidence/ideapad-audit/native/NATIVE_ASSERTIONS_COMPLETE.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8ab8d61ef36012e290ebd199c645f5674dd0fd99b0250cf65261e35e7a185ee8"
+    },
+    {
+      "path": "evidence/ideapad-audit/native/NATIVE_HOST_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6e63ae52c8d6af971bb796fbacacc90fd4b87919ac6ac0b6d88bbc76185f369d"
+    },
+    {
+      "path": "evidence/ideapad-audit/native/NATIVE_ROSLYN_BUILD.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/ideapad-audit/native/TIFF_PILLOW.log",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6c2c49da3f7bb2bd4634f581d0421f864cfa16104d5b0aea8f9c261589f8923f"
+    },
+    {
+      "path": "evidence/ideapad-audit/native/results/native-results.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "8b780c8795b92db9d9746495d651e40f69de4cdda96a9eee650fdcba72b67b4f"
+    },
+    {
+      "path": "evidence/ideapad-audit/native/results/native-tiff-results.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6c2c49da3f7bb2bd4634f581d0421f864cfa16104d5b0aea8f9c261589f8923f"
+    },
+    {
+      "path": "evidence/ideapad-audit/write-host-probe.ps1",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9eca2494a42d51b394666342ddc17275a897bb22a89e21f7cc83a54e57e12375"
+    },
+    {
+      "path": "evidence/integration-1.2.1/CPU_IDENTITY_AUDIT.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "9ee01bc59ac8a565461c96dea2abbbf711c417d460576b842db2f56cbce9174e"
+    },
+    {
+      "path": "evidence/integration-1.2.1/CPU_IDENTITY_NOTES.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "988281b3cb398706e840b80061587a8f6b80e886ad681dd29fccf072a83c1d65"
+    },
+    {
+      "path": "evidence/integration-1.2.1/ENGINE_MODULE_PARITY.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "3dee00bef6516aa68ec10624a80b9642f0cb825a00e5a49bc17e4338d555d651"
+    },
+    {
+      "path": "evidence/integration-1.2.1/NATIVE_BLANK_PREFLIGHT_1.2.1.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "df90d574cb71d297e9edadcb3952c095bed72262aa9a31b0b3549a5bd0b34f15"
+    },
+    {
+      "path": "evidence/integration-1.2.1/NATIVE_BUILD_1.2.1.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/integration-1.2.1/NATIVE_POLICY_BUILD_1.2.1.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/integration-1.2.1/NATIVE_PREFLIGHT_1.2.1.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "df90d574cb71d297e9edadcb3952c095bed72262aa9a31b0b3549a5bd0b34f15"
+    },
+    {
+      "path": "evidence/integration-1.2.1/NATIVE_QA_BUILD_1.2.1.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/integration-1.2.1/PATCH_VALIDATION.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "164ea5e12e04051e81bf89984a8522b8d1929933a9e1e54eb15d982b666673e5"
+    },
+    {
+      "path": "evidence/integration-1.2.1/SILICON_NATIVE_POLICY_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "499ab20753336a738d3080095face08e00033b7becf67194398901d2abe59b4b"
+    },
+    {
+      "path": "evidence/integration-1.2.1/SOURCE_CHANGES_INITIAL.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "30501d39652bca2107151aa2e04d7de3bda4a6f05d2229b91a282c349a3cc545"
+    },
+    {
+      "path": "evidence/integration-1.2.1/SOURCE_PATCH_INITIAL.diff",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "e966083e1e0b7fd2d0a177d29617cb0a8263d64457d849e2f100dc845dadb7c1"
+    },
+    {
+      "path": "evidence/integration-1.2.1/WEBVIEW2_LIVE_1.2.1.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "4fe5dc133008f3a9c72788b051d42a658711b47f617ec4bfdff0cba5e9467d21"
+    },
+    {
+      "path": "evidence/integration-1.2.1/WEBVIEW2_LIVE_RESULTS.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "6f91f978e940eddcdc8ce0f604e2395bf324ad8dc8a2284f4430a953220df5a9"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/CONSOLE_BUILD.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "393c3c3e4a5d0b36a59286d6fbff6e4abfcfc447b49defa142b4a7fac16a167d"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/CONSOLE_VERSION",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "a64708b010e2bcf628154ddc205ed49688a6347ef93a66a42492430f63f021b1"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/FILES_MANIFEST.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "d11b4d908282d23fb372f554b72db4aa6bbf05fe1083cc1ffa4e55b549031c1a"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/READ ME - Console.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "cb7c3df8312582a62102f3630cb814993ab43228df84d16f559a3514df599ca3"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/README.md",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "07debe64a84dd2eb4fa2ea9782a73b17f7ce76c15176765002cf86d34269651d"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/SHA256SUMS.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "1be7cc3cd5c56b66cb46603a13a0a18ed4f7ab8a87d33fb50c4f952f7c3d41a9"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/VALIDATION.txt",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "f0bee3b9820a9bcd30b3bb301709d595a1551140876c645698266962c1e57dc9"
+    },
+    {
+      "path": "evidence/integration-1.2.1/baseline-1.2.0/package.integrity.json",
+      "status": "added",
+      "beforeSha256": null,
+      "afterSha256": "25797b5eb29445ea19610c01095037aeafd680ab86be391b7e3d0cea096161bb"
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "status": "modified",
+      "beforeSha256": "e9bd313b98a1494172b24f408f69ebb838fb13e533fdf5a6aeea8161a133c11a",
+      "afterSha256": "a2a765ee08101a4542d24c86fa58fedc14747e115390d5c4ba48b071f2f81d1f"
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe",
+      "status": "modified",
+      "beforeSha256": "07da3a9a6cf247e901d161e9ca6c842fc6906050bf7983a09a6ce9c0eca1e655",
+      "afterSha256": "e0746a7bedad85b2903aa3c909e4fb6e8ca538860ab075642bfbbb543fbb137c"
+    },
+    {
+      "path": "tools/reseal.py",
+      "status": "modified",
+      "beforeSha256": "e5dbf6cecb261e9a74c8808150c8053f445ceeca472a99286cb29730fe75e6b6",
+      "afterSha256": "60e926b5d3245908aec18ee3c3871d055f63ca3e562d8c5cba294e257b8b90f0"
+    }
+  ]
+}

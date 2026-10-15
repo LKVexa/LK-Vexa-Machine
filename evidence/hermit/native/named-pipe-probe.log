@@ -1,0 +1,1 @@
+{"status":"FAIL","results":[{"mode":"same-process thread","status":"FAIL","reason":"Named-pipe connection was not admitted within 10 seconds.The operation has timed out."},{"mode":"non-ConPTY child process","status":"FAIL","reason":"Named-pipe connection was not admitted within 10 seconds.The operation has timed out.\r\n"}],"uacStarted":false,"administratorRole":false}

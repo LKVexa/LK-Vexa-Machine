@@ -1,0 +1,40 @@
+{
+  "schema": "JA21-HOST-BENCHMARK-REPEAT/1",
+  "status": "PASS",
+  "sameFixture": true,
+  "sameProductionSource": true,
+  "runOne": "BENCHMARK_RESULTS.json",
+  "runTwo": "BENCHMARK_RESULTS_SECOND_PROCESS.json",
+  "freshProcesses": 2,
+  "totalMeasuredOperations": 1700,
+  "comparison": [
+    {
+      "name": "byte pipeline",
+      "sameOutputs": true,
+      "firstP50ms": 0.7117187499999993,
+      "secondP50ms": 0.6673312500000002,
+      "checksum": "01daf3b21d22f91f4f1ca7fa47bfe620872b4c0157a0155d5eef77bc596de02f"
+    },
+    {
+      "name": "complex field lens and propagation",
+      "sameOutputs": true,
+      "firstP50ms": 0.9938666666666714,
+      "secondP50ms": 0.9785500000000033,
+      "checksum": "aaee4f7a34c50d4c0ed848fcdd19bec614439dc7ce6434872f6c7ae30f041291"
+    },
+    {
+      "name": "seven byte-plane TIFF exports",
+      "sameOutputs": true,
+      "firstP50ms": 0.3057666666666705,
+      "secondP50ms": 0.30725000000001046,
+      "checksum": "f0c1fa5350cf69329fdafabcce0c582f7b026cc137132de628077bdcd0ba2ac5"
+    },
+    {
+      "name": "HPU state encode and restore",
+      "sameOutputs": true,
+      "firstP50ms": 13.07546666666667,
+      "secondP50ms": 12.711450000000013,
+      "checksum": "ac6d50bae8d503c7e93d1080e3d1ea2d52748e7ed0683bb7b8468b2ed01c3f99"
+    }
+  ]
+}

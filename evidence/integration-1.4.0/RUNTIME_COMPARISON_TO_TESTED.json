@@ -1,0 +1,11 @@
+{
+  "schema": "JA21/RUNTIME_LIVE_TEST_COMPARISON/1",
+  "status": "PASS_EXACT",
+  "testedManifestSha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6",
+  "runtimeEntriesCompared": 358,
+  "allowedMetadataChanges": [
+    "CONSOLE_BUILD.json"
+  ],
+  "differences": [],
+  "scope": "Every final production runtime entry matches the exact native live-tested closure except the explicitly listed final build/validation metadata. Native configuration/preflight and the final-archive process relaunch are separately verified."
+}

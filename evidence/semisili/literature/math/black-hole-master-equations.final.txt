@@ -1,0 +1,266 @@
+--- PAGE 1 ---
+Geometrized units G = c = 1 unless an equation is marked SI. 1
+BLACK HOLE MASTER EQUATIONS
+The four laws, Hawking thermodynamics, the Kerr Newman solution,
+and the Teukolsky master equation.
+1 FOUR LAWS OF BLACK HOLE MECHANICS
+Bardeen, Carter, and Hawking (1973). These are classical identities for a stationary black hole
+in general relativity. They match the laws of thermodynamics if surface gravity is read
+as temperature and horizon area A as entropy. Classically the hole does not radiate, so the
+match is not yet thermodynamics.
+Zeroth law. On the horizon of a stationary black hole, surface gravity is constant:
+= constant. (1)
+First law. Two nearby stationary black holes, of mass M, angular momentum J, and charge Q,
+differ by
+M = 8
+A + H J + H Q. (2)
+H is the angular velocity of the horizon and H is the electric potential there.
+Restoring G puts a factor 1/G on the area term only: A/(8 G).
+Second law, Hawking s area theorem. If the weak energy condition holds, the area of each event
+horizon never decreases. When two holes merge, the final area is at least the sum of the two
+initial areas:
+A 0. (3)
+Third law. No finite sequence of physical operations can reduce the surface gravity to zero.
+Extremal holes ( = 0) are a limit, not a state one can reach.
+2 SMARR RELATION
+The first law integrates, on a stationary hole, to an Euler relation among the same quantities:
+M = 2 HJ +
+A
+4 + HQ. (4)
+For Schwarzschild, J = Q = 0, = 1/(4M), and A = 16 M2
+, so (4) collapses to the
+identity M = A/(4 ).
+3 TEMPERATURE, ENTROPY, AND THE FIRST LAW
+Hawking radiation makes a real temperature and A a real entropy. With and
+kB restored, and still G = c = 1:
+TH = 2 kB
+, SBH =
+kB A
+4
+. (5)
+
+--- PAGE 2 ---
+Geometrized units G = c = 1 unless an equation is marked SI. 2
+BLACK HOLE MASTER EQUATIONS
+In units = kB = 1 this is T = /(2 ) and S = A/4, and (2) is ordinary
+thermodynamics:
+dM = T dS + H dJ + H dQ. (6)
+The classical area law is then replaced by the generalized second law: matter entropy and
+horizon entropy together do not decrease,
+(Smatter + SBH) 0. (7)
+4 SCHWARZSCHILD
+No spin, no charge. One parameter, the mass M.
+rs = 2M, A = 16 M2
+, =
+1
+4M
+. (8)
+The same relations in SI units:
+rs =
+2GM
+c
+2
+, =
+c
+4
+4GM
+. (9)
+TH =
+c
+3
+8 GMkB
+. (10)
+SBH =
+kBc
+3A
+4G =
+4 kBGM2
+c
+,
+A =
+16 G2M2
+c
+4
+.
+(11)
+Temperature falls as 1/M and entropy grows as M2
+. A solar-mass hole sits near
+TH 60 nK. Equation (5) uses the geometric , an inverse length. The SI
+temperature is (10): do not substitute the acceleration (9) into (5) without an extra factor of 1/c.
+5 EVAPORATION
+Treat the hole as a blackbody of its horizon area and of temperature (10), with no gray-body
+correction. The power and the time to radiate the whole mass away are
+P =
+c
+6
+15360 G2M2
+, (12)
+tevap =
+5120 G2M3
+c
+4
+. (13)
+These follow from c
+2 dM/dt = P. Real emission is filtered by frequency-dependent
+gray-body factors, so the true lifetime is longer by a factor of a few and depends on which species are
+light compared with TH.
+6 IRREDUCIBLE MASS
+Christodoulou s irreducible mass is the part of M that cannot be removed by classical
+extraction (the Penrose process, or superradiant scattering):
+
+--- PAGE 3 ---
+Geometrized units G = c = 1 unless an equation is marked SI. 3
+BLACK HOLE MASTER EQUATIONS
+M2 = M2
+irr +
+J
+2
+4M2
+irr
+, A = 16 M2
+irr
+. (14)
+The area theorem is the statement that Mirr never decreases. An extremal Kerr hole
+has Mirr = M/ 2, so at most 1 1/ 2 29% of its mass is
+rotational and classically extractable.
+7 KERR NEWMAN SOLUTION
+No-hair: a stationary, asymptotically flat black hole of Einstein Maxwell theory is fixed by M
+, J, and Q alone. In Boyer Lindquist coordinates, with spin parameter a = J/M,
+= r
+2 2Mr + a
+2 + Q2
+, = r
+2 + a
+2cos
+2
+. (15)
+The line element is
+ds
+2 = (dt asin
+2 d )
+2 + dr
+2
++ d
+2 +
+sin
+2
+[(r
+2 + a
+2
+)d a dt]
+2
+.
+(16)
+Horizons lie at = 0:
+r± = M ± M2 a
+2 Q2
+.
+(17)
+A horizon exists only for M2 a
+2 + Q2
+. Equality is the extremal hole, = 0.
+Below that bound the singularity is naked; cosmic censorship says collapse does not produce it.
+For Kerr (Q = 0) the horizon area, angular velocity, and surface gravity are
+A = 4 (r
+2
++ + a
+2
+) = 8 Mr+, (18)
+H =
+a
+2Mr+
+, =
+M2 a
+2
+2Mr+
+.
+(19)
+On a Kerr Newman horizon the electric potential in the first law is
+H =
+Qr+
+r
+2
++ + a
+2
+. (20)
+8 TEUKOLSKY MASTER EQUATION
+Teukolsky (1973). A single linear equation governs a massless field of spin weight s on
+the Kerr background. It decouples and separates. The same equation covers a scalar, a neutrino,
+the electromagnetic field, and linearized gravity.
+
+--- PAGE 4 ---
+Geometrized units G = c = 1 unless an equation is marked SI. 4
+BLACK HOLE MASTER EQUATIONS
+[
+(r
+2 + a
+2
+)
+2
+a
+2sin
+2
+]
+2
+t +
+4Mar
+t
++[
+a
+2 1
+sin
+2 ]
+2 s
+r(
+s + 1
+r )
+1
+sin
+(sin ) 2 s[
+a(r M) +
+icos
+sin
+2 ]
+2 s[
+M(r
+2 a
+2
+)
+r iacos ] t + (s
+2cot
+2 s) = 4 T.
+(21)
+Here = r
+2 2Mr + a
+2
+is the vacuum Kerr quantity (no Q), = r
+2 + a
+2cos
+2
+,
+and T is the source built from the stress-energy of the perturbation.
+The spin weight selects the field:
+s = 0 scalar. s = ±1/2 massless neutrino. s = ±1 electromagnetic.
+s = ±2 linearized gravity. The field with s = 2 is the Weyl scalar 4, which carries the
+outgoing gravitational-wave strain. The field with s = +2 is 0.
+Modes separate in Boyer Lindquist coordinates:
+= e
+i t + im R(r) S( ). (22)
+S( ) is a spin-weighted spheroidal harmonic. R(r) obeys the radial Teukolsky equation;
+its complex frequencies are the quasi-normal modes of the ringdown. For a = 0 and s = ±2,
+(21) reduces to the Regge Wheeler equation (odd parity) and the Zerilli equation (even parity).
+A bosonic mode extracts rotational energy it is superradiant when
+0 < < m H. (23)
+NOTATION
+M, J, Q mass, spin, charge a = J/M Kerr parameter
+A, area, surface gravity H, H horizon angular velocity, potential
+rs, r± Schwarzschild and horizon radii TH, SBH temperature and entropy
+Mirr
+irreducible mass , s master field, spin weight
+, m frequency, azimuthal number
+SOURCES
+Bardeen, Carter, and Hawking, Commun. Math. Phys. 31, 161 (1973) the four laws.
+Christodoulou, Phys. Rev. Lett. 25, 1596 (1970); Smarr, Phys. Rev. Lett. 30, 71 (1973).
+Bekenstein, Phys. Rev. D 7, 2333 (1973) entropy proportional to area.
+Hawking, Nature 248, 30 (1974); Commun. Math. Phys. 43, 199 (1975) temperature and radiation.
+Teukolsky, Astrophys. J. 185, 635 (1973) the master equation for Kerr perturbations.

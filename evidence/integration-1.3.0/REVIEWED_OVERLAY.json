@@ -1,0 +1,1334 @@
+{
+  "schema": "JA21/SEMISILI_OVERLAY_REVIEW/1",
+  "consoleVersion": "1.3.0",
+  "siliconVersion": "2.3.0",
+  "createdUTC": "2026-10-14T20:52:42.467550+00:00",
+  "baselineSha256": "f89ca0911d8974faad6cc7f36ddd9437f10ad8b864775b0b48c6ab59c1df8b7f",
+  "files": [
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\CONSOLE_BUILD.json",
+      "target": "CONSOLE_BUILD.json",
+      "bytes": 2736,
+      "sha256": "018d4be2bde9d36090544275660e915bc0eb891de19cc76d44500e870827655f",
+      "beforeSha256": "d630d1a8e615179f982412367af8ac3c5f48d67a52be843578469a0ad64e382e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\CONSOLE_VERSION",
+      "target": "CONSOLE_VERSION",
+      "bytes": 6,
+      "sha256": "64d23f858ef51b0f996e4966d4e27c0371b437e2d2787890b1f7ad22d4ec5663",
+      "beforeSha256": "6cf4e084b47f33c9b02ef79279d157833868f8f70514169a768be353ee328fea"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\JA21-Silicon-Console.exe",
+      "target": "JA21-Silicon-Console.exe",
+      "bytes": 220160,
+      "sha256": "7653ecc183e3ca62311e146000c9365e88ebd8903677dc5566306a10c95e3f85",
+      "beforeSha256": "d1d6644f1351f49e26453f017d3c302a126c43fbe77c3d9866a5760ca5611ae4"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\CHANGELOG.md",
+      "target": "applications/silicon/CHANGELOG.md",
+      "bytes": 8533,
+      "sha256": "59e826a4478a2d50d08552414e13d36390fad82f55ff8fd91dc140a8372d6ab8",
+      "beforeSha256": "05f24380c59872e4bb8c5d9a8b9ae5ebdf2519a4e5f40edcdeb10f3ae5d5cbe0"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\README.md",
+      "target": "applications/silicon/README.md",
+      "bytes": 13383,
+      "sha256": "11e5f2652fde91967bb3e756a6b94b978bff5a314622a821f3d44d8103aec5da",
+      "beforeSha256": "407d748d6921086355614c82e3ffeeba2fe25ee8fd651ce0b97e1e03815f9772"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\Start-Console.cmd",
+      "target": "applications/silicon/Start-Console.cmd",
+      "bytes": 22691,
+      "sha256": "fb53e388ff40f8f7b7f2170fbb96c8367ce4e714caa9d45ead968515d80691b8",
+      "beforeSha256": "64003877e0bbcedb0c27f62f59173658ad8d3d30db6b4c2abeb4eeb47bd8fa86"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\VERSION",
+      "target": "applications/silicon/VERSION",
+      "bytes": 6,
+      "sha256": "a42caf4a54bbbe27aa45b6efbc6356c5e299b19763e728b6cdb7201b02ebbe36",
+      "beforeSha256": "91930425f31d5132e78e0ad7195620e435121a2fdf87cf655f8323aa45ae0468"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\index.html",
+      "target": "applications/silicon/dist/index.html",
+      "bytes": 15175,
+      "sha256": "ca0886bccc6ca6eeb900df89306a0e40c35a03ad262fba10a2aa2ae671f669ba",
+      "beforeSha256": "607b0a5b1c89886030ecbace7e96af77e3b6fd7953306d060bfa6559ca2ba27f"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\release.json",
+      "target": "applications/silicon/dist/release.json",
+      "bytes": 83,
+      "sha256": "479e3cc21e41e062cb38ac68734f74eff44e135d24771cac7274a2a570cdb55d",
+      "beforeSha256": "0d9c3436d80252cf74a01ce3a0435c15b4cc704fb827504e6e830410aafb9195"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\app.js",
+      "target": "applications/silicon/dist/src/app.js",
+      "bytes": 20736,
+      "sha256": "d49ea8f085807caa566c622c52d7ab84cb7d5d6a40a71a1822565cff2314c27a",
+      "beforeSha256": "8e190b3ab159363cc1441fa8d44935c2394a17e12f4e7ba3f5d3630d95f892b9"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\browser-validation.js",
+      "target": "applications/silicon/dist/src/browser-validation.js",
+      "bytes": 7017,
+      "sha256": "173978aeb35bb3cdf71ed7971f669064156b717cbf6d5b052948fb7b71c23466",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\lib\\ram-link.js",
+      "target": "applications/silicon/dist/src/lib/ram-link.js",
+      "bytes": 8091,
+      "sha256": "92452398be9098a342fe53f19fd4366db22b58800d4a06a404ba37b4b194e2c8",
+      "beforeSha256": "249072bf678f875aa596582e0baff7b70f6ec8fe9a33b2f3f3abcc0481c4913c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\lib\\semisili-codec.js",
+      "target": "applications/silicon/dist/src/lib/semisili-codec.js",
+      "bytes": 13619,
+      "sha256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\lib\\semisili-core.js",
+      "target": "applications/silicon/dist/src/lib/semisili-core.js",
+      "bytes": 16862,
+      "sha256": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\lib\\semisili-gpu.js",
+      "target": "applications/silicon/dist/src/lib/semisili-gpu.js",
+      "bytes": 17472,
+      "sha256": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\lib\\semisili-model.js",
+      "target": "applications/silicon/dist/src/lib/semisili-model.js",
+      "bytes": 10001,
+      "sha256": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\vendor\\ram-worker.js",
+      "target": "applications/silicon/dist/src/vendor/ram-worker.js",
+      "bytes": 26154,
+      "sha256": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+      "beforeSha256": "3357174672880e55969e09e5562f9875081957fbab4192b844a511f25f96f885"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\vendor\\spiral\\commands\\system.js",
+      "target": "applications/silicon/dist/src/vendor/spiral/commands/system.js",
+      "bytes": 8010,
+      "sha256": "f72f760e0c801a2903507e7a7ca63fcace487d70355a9d1d21a2525a4a23e794",
+      "beforeSha256": "510e6ced2ab16149c6e8e1935a5a33265f7e2e99c6eaa8f39f71d94f0f4c4f24"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\vendor\\spiral\\ssd.js",
+      "target": "applications/silicon/dist/src/vendor/spiral/ssd.js",
+      "bytes": 3313,
+      "sha256": "b1cf04efefbdf899f3e06423fb505e407ef5daf4b18c716cd16a45cedc1c18f5",
+      "beforeSha256": "afc7727dcb6b02befa5044e56adef96518545a883e7b4dcff69b0f5010a832b2"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\src\\version.js",
+      "target": "applications/silicon/dist/src/version.js",
+      "bytes": 119,
+      "sha256": "42eb1fea0b3dbb4f9de6485cd31e8f6b2f09d7a6b6c6a5c43d028765c79b714e",
+      "beforeSha256": "e99868ecd0f464dacdbcbfc50d05b201ccf0c70f54ac37f3d15f00417275770b"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\dist\\validate.html",
+      "target": "applications/silicon/dist/validate.html",
+      "bytes": 1716,
+      "sha256": "087d026628a59d45da6e70364c47549df5e1f1f133591b29dd7152156455138d",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\package-lock.json",
+      "target": "applications/silicon/package-lock.json",
+      "bytes": 290,
+      "sha256": "85655d3d3b197251f8b5707e82f04ab392a0b058dd9d08b564ad224c3350233f",
+      "beforeSha256": "a7f3cda5329697d63eb9cc21f36f75c6aeff68024d8d215565ae24289466f55a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\package.json",
+      "target": "applications/silicon/package.json",
+      "bytes": 516,
+      "sha256": "6af5709b5475d58a9f3342beb6400e9e0debdbee860029f3953a61174b4b5854",
+      "beforeSha256": "85518fe82132ca606b8c374960674b46c7cd6b4e0d734bda516d4b9f83487a76"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\scripts\\windows\\bootstrap.ps1",
+      "target": "applications/silicon/scripts/windows/bootstrap.ps1",
+      "bytes": 20959,
+      "sha256": "c78a511275697be369d4496ba88fab51eaf772498117bf2d9dbc5683ee0f58a6",
+      "beforeSha256": "15c41f1e9a057d75cef17a976ba399406c42f2c80b2605c87acabf642bf51d31"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\scripts\\windows\\runtime-lock.json",
+      "target": "applications/silicon/scripts/windows/runtime-lock.json",
+      "bytes": 1276,
+      "sha256": "0990c82fee4984c1c4a106a53e390fadf6703e5a65794cd64932fbcf1fba123c",
+      "beforeSha256": "12eef9e1b2e436bdf9c614b7a78dd41befda8189da19f5fd2cc8a00abc0a0ce5"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\app.js",
+      "target": "applications/silicon/src/app.js",
+      "bytes": 20736,
+      "sha256": "d49ea8f085807caa566c622c52d7ab84cb7d5d6a40a71a1822565cff2314c27a",
+      "beforeSha256": "8e190b3ab159363cc1441fa8d44935c2394a17e12f4e7ba3f5d3630d95f892b9"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\browser-validation.js",
+      "target": "applications/silicon/src/browser-validation.js",
+      "bytes": 7017,
+      "sha256": "173978aeb35bb3cdf71ed7971f669064156b717cbf6d5b052948fb7b71c23466",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\lib\\ram-link.js",
+      "target": "applications/silicon/src/lib/ram-link.js",
+      "bytes": 8091,
+      "sha256": "92452398be9098a342fe53f19fd4366db22b58800d4a06a404ba37b4b194e2c8",
+      "beforeSha256": "249072bf678f875aa596582e0baff7b70f6ec8fe9a33b2f3f3abcc0481c4913c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\lib\\semisili-codec.js",
+      "target": "applications/silicon/src/lib/semisili-codec.js",
+      "bytes": 13619,
+      "sha256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\lib\\semisili-core.js",
+      "target": "applications/silicon/src/lib/semisili-core.js",
+      "bytes": 16862,
+      "sha256": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\lib\\semisili-gpu.js",
+      "target": "applications/silicon/src/lib/semisili-gpu.js",
+      "bytes": 17472,
+      "sha256": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\lib\\semisili-model.js",
+      "target": "applications/silicon/src/lib/semisili-model.js",
+      "bytes": 10001,
+      "sha256": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\ram-worker.js",
+      "target": "applications/silicon/src/vendor/ram-worker.js",
+      "bytes": 26154,
+      "sha256": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+      "beforeSha256": "3357174672880e55969e09e5562f9875081957fbab4192b844a511f25f96f885"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\spiral\\commands\\system.js",
+      "target": "applications/silicon/src/vendor/spiral/commands/system.js",
+      "bytes": 8010,
+      "sha256": "f72f760e0c801a2903507e7a7ca63fcace487d70355a9d1d21a2525a4a23e794",
+      "beforeSha256": "510e6ced2ab16149c6e8e1935a5a33265f7e2e99c6eaa8f39f71d94f0f4c4f24"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\vendor\\spiral\\ssd.js",
+      "target": "applications/silicon/src/vendor/spiral/ssd.js",
+      "bytes": 3313,
+      "sha256": "b1cf04efefbdf899f3e06423fb505e407ef5daf4b18c716cd16a45cedc1c18f5",
+      "beforeSha256": "afc7727dcb6b02befa5044e56adef96518545a883e7b4dcff69b0f5010a832b2"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\src\\version.js",
+      "target": "applications/silicon/src/version.js",
+      "bytes": 119,
+      "sha256": "42eb1fea0b3dbb4f9de6485cd31e8f6b2f09d7a6b6c6a5c43d028765c79b714e",
+      "beforeSha256": "e99868ecd0f464dacdbcbfc50d05b201ccf0c70f54ac37f3d15f00417275770b"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\canonical-bytes.bin",
+      "target": "applications/silicon/tests/codec-artifacts/canonical-bytes.bin",
+      "bytes": 81920,
+      "sha256": "28c6bc52b546f287ed6fd24eb1f12e148d7dea7b1049f37d8f6faa4b20581f0c",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\generic-II-big.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/generic-II-big.tiff",
+      "bytes": 82600,
+      "sha256": "f000f3ac1316164076dd68dad5e8c8d9fe82b09b992f918bb1d0e9385f0f53d8",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\generic-II-classic.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/generic-II-classic.tiff",
+      "bytes": 82466,
+      "sha256": "5d2acc07b385416bfbbe1ab445a9eb7b1d308d410648503470f5fc2b0a031e15",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\generic-MM-big.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/generic-MM-big.tiff",
+      "bytes": 82600,
+      "sha256": "84fedfa01aaf39aff2ec16f6aa0050b9fc621acf306bd56601745a6d0eccfa60",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\generic-MM-classic.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/generic-MM-classic.tiff",
+      "bytes": 82466,
+      "sha256": "21e22246ba1461e23dc109095889c29b3853e6d5cb5f939ee5e1f48c3db9ea9d",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\neuron-II-big.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/neuron-II-big.tiff",
+      "bytes": 82680,
+      "sha256": "fe30bcf14afc570920500ec1736fb4ea9647f6e2939f589b702a768522cb764e",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\neuron-II-classic.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/neuron-II-classic.tiff",
+      "bytes": 82546,
+      "sha256": "2610af13c6b954367913de9ac08dd4808a4a995986c7f5920b4feac947a84a37",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\neuron-MM-big.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/neuron-MM-big.tiff",
+      "bytes": 82680,
+      "sha256": "b99c608a329dc1d7785e3ad7bbe6203b53d85c01cb93f90cbea25a5512169c96",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\codec-artifacts\\neuron-MM-classic.tiff",
+      "target": "applications/silicon/tests/codec-artifacts/neuron-MM-classic.tiff",
+      "bytes": 82546,
+      "sha256": "315050938537258e05eb40ade21db0981debd3e1c568dd4f801ea5c58b6ebf9e",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\gpu-fixture.mjs",
+      "target": "applications/silicon/tests/gpu-fixture.mjs",
+      "bytes": 7175,
+      "sha256": "bf422b8e7bcd58274af5b5be49d1ffedfcaf31dcbcf481d50b3cb949d2f4ee49",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\launcher-contract.test.mjs",
+      "target": "applications/silicon/tests/launcher-contract.test.mjs",
+      "bytes": 8605,
+      "sha256": "7e109ba66fe9653e170754ac243bca4a58d0807222141520bebeef05e20716f3",
+      "beforeSha256": "22130cf8df4cd49baf4107d1ab5d6f1c240a33c32a9ed73b977a9180362a4e0a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-codec.test.mjs",
+      "target": "applications/silicon/tests/semisili-codec.test.mjs",
+      "bytes": 14370,
+      "sha256": "01ca56fb8c48f1cd3b363efc9cd056cbbfc0b624984285ece2da21c7c58d9313",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-core.test.mjs",
+      "target": "applications/silicon/tests/semisili-core.test.mjs",
+      "bytes": 5963,
+      "sha256": "a7a5102741e0a8bf7e499a9423f5ed5e69897d55c9291223e2d6ecf2907de86f",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-gpu-fixture-wrapper.mjs",
+      "target": "applications/silicon/tests/semisili-gpu-fixture-wrapper.mjs",
+      "bytes": 417,
+      "sha256": "386e61fb68aa4d7782e0901bacf6efbf7039913fdc1eb1fef83af0b98c17a6fd",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-gpu-fixture.mjs",
+      "target": "applications/silicon/tests/semisili-gpu-fixture.mjs",
+      "bytes": 7175,
+      "sha256": "bf422b8e7bcd58274af5b5be49d1ffedfcaf31dcbcf481d50b3cb949d2f4ee49",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-gpu.test.mjs",
+      "target": "applications/silicon/tests/semisili-gpu.test.mjs",
+      "bytes": 13361,
+      "sha256": "8de2401971a700c077775ff6bba55a83462c291b89aba901e7b2c244fd4c5576",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-model.test.mjs",
+      "target": "applications/silicon/tests/semisili-model.test.mjs",
+      "bytes": 6433,
+      "sha256": "744f43f8bbd7b1ae159c5fd151f40e2118ed3de143162a5684f45a8d40285ce8",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-worker-adapter.mjs",
+      "target": "applications/silicon/tests/semisili-worker-adapter.mjs",
+      "bytes": 4022,
+      "sha256": "48b04224a0e478e8e3dd47426567afebe5ab0c6d668bb430e9a31b99f4e559b2",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\tests\\semisili-worker.test.mjs",
+      "target": "applications/silicon/tests/semisili-worker.test.mjs",
+      "bytes": 17981,
+      "sha256": "ffd666ccaaa46b3c287dabaebaafd45af41a6263c20368044463a9ab5c5759ae",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\web\\index.html",
+      "target": "applications/silicon/web/index.html",
+      "bytes": 15175,
+      "sha256": "ca0886bccc6ca6eeb900df89306a0e40c35a03ad262fba10a2aa2ae671f669ba",
+      "beforeSha256": "607b0a5b1c89886030ecbace7e96af77e3b6fd7953306d060bfa6559ca2ba27f"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\web\\validate.html",
+      "target": "applications/silicon/web/validate.html",
+      "bytes": 1716,
+      "sha256": "087d026628a59d45da6e70364c47549df5e1f1f133591b29dd7152156455138d",
+      "beforeSha256": null
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\host\\SiliconApp.cs",
+      "target": "host/SiliconApp.cs",
+      "bytes": 7646,
+      "sha256": "cd34233eb11a2957e340005bb3a8bf153c34b337d26e8ce4f96315b43ae87ab0",
+      "beforeSha256": "86877788b6082e99792f5d41d0f8b45ad7e3530a7a2d2627271c85997e4de38c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\host\\SiliconConsoleEntry.cs",
+      "target": "host/SiliconConsoleEntry.cs",
+      "bytes": 12756,
+      "sha256": "1f10c691aba7c14734ec014c7ca4ed6e31994aaa3ba240b53d0cde11a6579744",
+      "beforeSha256": "a2a765ee08101a4542d24c86fa58fedc14747e115390d5c4ba48b071f2f81d1f"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\host\\Start-Console.ps1",
+      "target": "host/Start-Console.ps1",
+      "bytes": 5710,
+      "sha256": "b1304c292f8820c17e0480eb78a8cab3bc85691733b0f630edbdd4496cd3ed74",
+      "beforeSha256": "3759800a54e05efdcb7b79c9747ab90ab08357a0f46dc4068c6fe3d6b9adce4d"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\tools\\SiliconPolicyAcceptance.cs",
+      "target": "tools/SiliconPolicyAcceptance.cs",
+      "bytes": 9476,
+      "sha256": "97105d644fb2c4c0d3337e110757ec1d2b9db1cdae6d2a039c49b28c24965ed0",
+      "beforeSha256": "d5fe8752f7c0bc086e73db16394b6bbdbcaf7b15767fd96a624ef34e36058209"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\tools\\SiliconWebView2Acceptance.cs",
+      "target": "tools/SiliconWebView2Acceptance.cs",
+      "bytes": 21483,
+      "sha256": "4d49a7c9e9e35f9e9d32cb479ee3c07ad023fce4df17255c5c508f0198b93509",
+      "beforeSha256": "c30de6e16e8ea12b9c32ac04154a6589bb77ab8b994a9f30e5fb8b9910fd85bc"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\tools\\Test-Silicon-WebView2.exe",
+      "target": "tools/Test-Silicon-WebView2.exe",
+      "bytes": 239616,
+      "sha256": "423ac6e5ec809c8f2d4548e2172bf2ebd88f6449dfa2f21c9470a23179338956",
+      "beforeSha256": "e0746a7bedad85b2903aa3c909e4fb6e8ca538860ab075642bfbbb543fbb137c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\tools\\Test-SoftwareConsoleLauncher.ps1",
+      "target": "tools/Test-SoftwareConsoleLauncher.ps1",
+      "bytes": 9350,
+      "sha256": "ff68274814007ca578c92d4f5bdd87358941139d34fa3ac9f819a8fe58072394",
+      "beforeSha256": "8809e7336554fb4e673e96ef08a190fdb9a3bf6dfd59895d0a8a18b9aff414fe"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\tools\\silicon_package.py",
+      "target": "tools/silicon_package.py",
+      "bytes": 6072,
+      "sha256": "b4e5f002e40d0bf5c9aefed9226b3d4bf6b0d71346820b7fe62d8347f02a2633",
+      "beforeSha256": "69e4b770bb6046620f1012ff72afe85f7f26c9fe97ebd50aa119c10365cd73f1"
+    }
+  ],
+  "references": [
+    {
+      "source": "C:\\Users\\russe\\Downloads\\P-adic Hologram Processing Architecture.pdf",
+      "target": "applications/silicon/references/semisili/P-adic Hologram Processing Architecture.pdf",
+      "bytes": 224841,
+      "sha256": "76bd62a134cdbc3673ae06fede642595951fbc84fea5befda9e3640ea3f7617e",
+      "group": "math",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-adic Architecture in Image Formats.pdf",
+      "target": "applications/silicon/references/semisili/p-adic Architecture in Image Formats.pdf",
+      "bytes": 232297,
+      "sha256": "ba276066b0ddaee5b41812cb7e286ce8de1ca0616146b8753f53cc92d5c0e42f",
+      "group": "math",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Geometric Diffusion Computing.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Geometric Diffusion Computing.pdf",
+      "bytes": 342586,
+      "sha256": "519167f186c583cf9b714ac4ede46752ba039f7c92a7ab2d5074d9954ca453e9",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Quantum States Digital Holography.pdf",
+      "target": "applications/silicon/references/semisili/Quantum States Digital Holography.pdf",
+      "bytes": 369504,
+      "sha256": "11df83705fa3baafa04f756a6a861bce4456ab0f24223a1509738d46252280ec",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Quantum Computation and Circuit Evolution.pdf",
+      "target": "applications/silicon/references/semisili/Quantum Computation and Circuit Evolution.pdf",
+      "bytes": 459061,
+      "sha256": "d95b65cb7a4e773908937674efd2903f4763094b9780217ee8a4dab802f536c9",
+      "group": "math",
+      "pages": 19,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Quantum Computation Equations Overview.pdf",
+      "target": "applications/silicon/references/semisili/Quantum Computation Equations Overview.pdf",
+      "bytes": 549504,
+      "sha256": "091c1c4b6d3532e11a3fe74b690f78a9b6747cc3b512ae97107e1521326f19e0",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-adic Bit and Anti-bit.pdf",
+      "target": "applications/silicon/references/semisili/p-adic Bit and Anti-bit.pdf",
+      "bytes": 548843,
+      "sha256": "a385a4b883c3fa4ab387e7094596ca4ba90821fcbaad487b2394c43b016fdc9b",
+      "group": "math",
+      "pages": 19,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Black_Hole_Master_Equations.pdf",
+      "target": "applications/silicon/references/semisili/Black_Hole_Master_Equations.pdf",
+      "bytes": 111534,
+      "sha256": "579b2f4e3833b0207e06359caa85447cdcc705a65b61aadeee7022b52394a6f4",
+      "group": "math",
+      "pages": 4,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-Adic 1-Bit LAMB Architecture.pdf",
+      "target": "applications/silicon/references/semisili/p-Adic 1-Bit LAMB Architecture.pdf",
+      "bytes": 382705,
+      "sha256": "ba8ef879a5b7d988794a175cfa68b5891294e5ea95300ad96ebbc2602e5b37d2",
+      "group": "math",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\p-Adic Architecture Unification.pdf",
+      "target": "applications/silicon/references/semisili/p-Adic Architecture Unification.pdf",
+      "bytes": 229813,
+      "sha256": "2ef3ff52c904d4f8b908dd23991ce50e668b327c0b330fab2f9c1f3011c8dcc2",
+      "group": "math",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\IdeaPad 5i RAM Sampling.pdf",
+      "target": "applications/silicon/references/semisili/IdeaPad 5i RAM Sampling.pdf",
+      "bytes": 310503,
+      "sha256": "818b873dda901a5f2d44cd6ec201b3898276d57428a5914e1fb0215ea7652808",
+      "group": "interfaces",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\RAM Neural Operation Interfaces.pdf",
+      "target": "applications/silicon/references/semisili/RAM Neural Operation Interfaces.pdf",
+      "bytes": 395963,
+      "sha256": "c7e727e4d012948618fe64a94383868a4c171a0e7cfc670a1248f33a61dbd783",
+      "group": "interfaces",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\C# Hologram Computation Harness.pdf",
+      "target": "applications/silicon/references/semisili/C# Hologram Computation Harness.pdf",
+      "bytes": 386429,
+      "sha256": "fb8be063efc9207ffd61e65f9ff01261aed5a3c11d8d756df82cd86d2c1238e1",
+      "group": "interfaces",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\1-Bit LAMB Unikernel Integration.pdf",
+      "target": "applications/silicon/references/semisili/1-Bit LAMB Unikernel Integration.pdf",
+      "bytes": 400735,
+      "sha256": "7d3e58e732429e90f09eb46e3a81469397af87d7136141d034b736cbbe89b31e",
+      "group": "interfaces",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Columned Unikernel Research Analysis.pdf",
+      "target": "applications/silicon/references/semisili/Columned Unikernel Research Analysis.pdf",
+      "bytes": 264881,
+      "sha256": "e3cd3f3fef93489c70325fbe064bbf69b9eddbef3783a9ac95627e9aa09fb9d8",
+      "group": "interfaces",
+      "pages": 10,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic LLM Weight Image Processing.pdf",
+      "target": "applications/silicon/references/semisili/Holographic LLM Weight Image Processing.pdf",
+      "bytes": 233531,
+      "sha256": "4d84604142df35209b83333e5f4eb87b73481cb6e12d98b9821a32459f7a1fa9",
+      "group": "interfaces",
+      "pages": 12,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\IdeaPad Silicon Computing Setup.txt",
+      "target": "applications/silicon/references/semisili/IdeaPad Silicon Computing Setup.txt",
+      "bytes": 34586,
+      "sha256": "f1c710b1ab52e9add575b50dc642a22bba910730f4a18b761cf0173b617de20c",
+      "group": "interfaces",
+      "pages": null,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Computation via Image Formats.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Computation via Image Formats.pdf",
+      "bytes": 415322,
+      "sha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82",
+      "group": "formats",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Image-Based Computation.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Image-Based Computation.pdf",
+      "bytes": 357973,
+      "sha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331",
+      "group": "formats",
+      "pages": 14,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Holographic Logical Reasoning Research.pdf",
+      "target": "applications/silicon/references/semisili/Holographic Logical Reasoning Research.pdf",
+      "bytes": 423510,
+      "sha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5",
+      "group": "formats",
+      "pages": 17,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Microscopic Quantum Paradigm GIF Research.pdf",
+      "target": "applications/silicon/references/semisili/Microscopic Quantum Paradigm GIF Research.pdf",
+      "bytes": 370300,
+      "sha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65",
+      "group": "formats",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\OAM Spatial Shifting Arithmetic.pdf",
+      "target": "applications/silicon/references/semisili/OAM Spatial Shifting Arithmetic.pdf",
+      "bytes": 393867,
+      "sha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96",
+      "group": "formats",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\P-adic Holographic Simulations Research.pdf",
+      "target": "applications/silicon/references/semisili/P-adic Holographic Simulations Research.pdf",
+      "bytes": 258028,
+      "sha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247",
+      "group": "formats",
+      "pages": 13,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\P-adic Penteract Simulation Research.pdf",
+      "target": "applications/silicon/references/semisili/P-adic Penteract Simulation Research.pdf",
+      "bytes": 217140,
+      "sha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a",
+      "group": "formats",
+      "pages": 11,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\Penteract TIFF-GIF Storage Techniques.pdf",
+      "target": "applications/silicon/references/semisili/Penteract TIFF-GIF Storage Techniques.pdf",
+      "bytes": 308573,
+      "sha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0",
+      "group": "formats",
+      "pages": 13,
+      "documentInstructionsExecuted": false
+    },
+    {
+      "source": "C:\\Users\\russe\\Downloads\\TIFF GIF Spatial-Temporal Encoding.pdf",
+      "target": "applications/silicon/references/semisili/TIFF GIF Spatial-Temporal Encoding.pdf",
+      "bytes": 315941,
+      "sha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc",
+      "group": "formats",
+      "pages": 15,
+      "documentInstructionsExecuted": false
+    }
+  ],
+  "evidence": [
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\package\\package-semisili-release.py",
+      "target": "evidence/integration-1.3.0/packaging/package-semisili-release.py",
+      "bytes": 21621,
+      "sha256": "13d7a96f320d239da004fe38a393819419d17ea17f43d0de49a8db5ce63d022e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\package\\verify-packaged-runtime.py",
+      "target": "evidence/integration-1.3.0/packaging/verify-packaged-runtime.py",
+      "bytes": 3515,
+      "sha256": "fb59df97ab6bee5cabdf736ba385334961a103e89e0b13d4aedbe6e3f32a5c45"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\bit-anti-05.png",
+      "target": "evidence/semisili/literature/math/bit-anti-05.png",
+      "bytes": 362580,
+      "sha256": "ef491c74560a2e66c90d437ff0d2644fb2bf03d64fb01c247eb253a701e77886"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\bit-anti-06.png",
+      "target": "evidence/semisili/literature/math/bit-anti-06.png",
+      "bytes": 235646,
+      "sha256": "6ee9e61a6be071a2655fc186c877fb549969fc1b82891e5478a3204e517626ec"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\black-hole-master-equations.final.txt",
+      "target": "evidence/semisili/literature/math/black-hole-master-equations.final.txt",
+      "bytes": 6911,
+      "sha256": "45ce33a561e1d11a97c3f50630d372fb883ed93591ea7a22afa66716bdfb8528"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\CORE_INDEPENDENT_RESULTS.json",
+      "target": "evidence/semisili/literature/math/CORE_INDEPENDENT_RESULTS.json",
+      "bytes": 629,
+      "sha256": "f62df0bf1eab90cde1946675732295464b3938333cd598af995d428d96aa0696"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\FINITE_XPU_SPEC.md",
+      "target": "evidence/semisili/literature/math/FINITE_XPU_SPEC.md",
+      "bytes": 11641,
+      "sha256": "57fbc47f929c62d20c840b2c150de4a24b9c8f7ae4fc4fe9a7be1457cde46318"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\geometric-asm-04.png",
+      "target": "evidence/semisili/literature/math/geometric-asm-04.png",
+      "bytes": 204335,
+      "sha256": "43a1d2566ae883e377c1cbce065b506e141776954ca55d31f366b874ddd69069"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\holographic-geometric-diffusion-computing.final.txt",
+      "target": "evidence/semisili/literature/math/holographic-geometric-diffusion-computing.final.txt",
+      "bytes": 36434,
+      "sha256": "6edf693442e22a71e840181ca4eb9d4638bf82d940081345b333a97b6a9820d8"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\MODEL_INDEPENDENT_RESULTS.json",
+      "target": "evidence/semisili/literature/math/MODEL_INDEPENDENT_RESULTS.json",
+      "bytes": 626,
+      "sha256": "f9da8124e8006980c668e4d8913f0b3daaa398ae540ed25b6920ba2e1b747a8a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-1-bit-lamb-architecture.final.txt",
+      "target": "evidence/semisili/literature/math/p-adic-1-bit-lamb-architecture.final.txt",
+      "bytes": 28701,
+      "sha256": "e003f3590efa52b835864a742281cf1dfad097d0ba8c614a42415d70b369f633"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-architecture-in-image-formats.final.txt",
+      "target": "evidence/semisili/literature/math/p-adic-architecture-in-image-formats.final.txt",
+      "bytes": 38616,
+      "sha256": "beb45f140a5c2856a0c298b57fe6ec80f38fbdaaa3d343e50974310bc99e82e3"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-architecture-in-image-formats.pages.json",
+      "target": "evidence/semisili/literature/math/p-adic-architecture-in-image-formats.pages.json",
+      "bytes": 93315,
+      "sha256": "9960d897581076193a39346484e13e04bb2978a3bcef972a1d04e5125256cb17"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-architecture-unification.final.txt",
+      "target": "evidence/semisili/literature/math/p-adic-architecture-unification.final.txt",
+      "bytes": 38099,
+      "sha256": "51fdb809102d9854e4967e0bf7cc5f105abfc64f6b204dfcc24f62088466a621"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-bit-and-anti-bit.final.txt",
+      "target": "evidence/semisili/literature/math/p-adic-bit-and-anti-bit.final.txt",
+      "bytes": 42598,
+      "sha256": "57a0616a63c6450580e9baeef4e6d29153911c8aef2b9588abd2954e657f5245"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-hologram-processing-architecture.final.txt",
+      "target": "evidence/semisili/literature/math/p-adic-hologram-processing-architecture.final.txt",
+      "bytes": 38814,
+      "sha256": "0bcbb2b2819b708e99be74d4c3d663e99f8f847bdb219621e71f3d1b95067321"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\p-adic-hologram-processing-architecture.pages.json",
+      "target": "evidence/semisili/literature/math/p-adic-hologram-processing-architecture.pages.json",
+      "bytes": 93482,
+      "sha256": "adab27dd3400f1d7089d7c9b46ddfbf9eda40bf01fa9f5c879b3502663de167e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\PDF_EXTRACTION_MANIFEST.json",
+      "target": "evidence/semisili/literature/math/PDF_EXTRACTION_MANIFEST.json",
+      "bytes": 4201,
+      "sha256": "5fccfa4a985c43089dcdabe0a0384eabee2c053901b0b7ce4d9cdcbce3d893e6"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\quantum-computation-and-circuit-evolution.final.txt",
+      "target": "evidence/semisili/literature/math/quantum-computation-and-circuit-evolution.final.txt",
+      "bytes": 49184,
+      "sha256": "ea5e2a04824b6843af1904f5b45d0516f794ee5cce4ab88e42848aaf0f1063e8"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\quantum-computation-equations-overview.final.txt",
+      "target": "evidence/semisili/literature/math/quantum-computation-equations-overview.final.txt",
+      "bytes": 30731,
+      "sha256": "72c03011bf21909a3703853317daa3fc18f85e70f61cead63d7d9944caffa970"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\math\\quantum-states-digital-holography.final.txt",
+      "target": "evidence/semisili/literature/math/quantum-states-digital-holography.final.txt",
+      "bytes": 35724,
+      "sha256": "ed52c3a8354f5639e93578891562a342b45a50f1b0b8100343baf2700b679b97"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\1-Bit LAMB Unikernel Integration.pages.json",
+      "target": "evidence/semisili/literature/interfaces/1-Bit LAMB Unikernel Integration.pages.json",
+      "bytes": 44848,
+      "sha256": "4d729b56e410bc7de32bb01d960c05cb5a18d4ae8c66b892f50d05591542351c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\1-Bit LAMB Unikernel Integration.txt",
+      "target": "evidence/semisili/literature/interfaces/1-Bit LAMB Unikernel Integration.txt",
+      "bytes": 43313,
+      "sha256": "901b5f4c7f4367e058c8a3a6cc615e5379b36663f26882fb7c151ba53d0a25ff"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\C# Hologram Computation Harness.pages.json",
+      "target": "evidence/semisili/literature/interfaces/C# Hologram Computation Harness.pages.json",
+      "bytes": 51274,
+      "sha256": "1de10f76088ae7e48b2475d9c337ee4a74bd7f114da421b30a5f5a670c4a6a3a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\C# Hologram Computation Harness.txt",
+      "target": "evidence/semisili/literature/interfaces/C# Hologram Computation Harness.txt",
+      "bytes": 49894,
+      "sha256": "3c7185ca49bddbabfa61dbb1f5798e6bbff40b885317217db161c0df2e72dff0"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\Columned Unikernel Research Analysis.pages.json",
+      "target": "evidence/semisili/literature/interfaces/Columned Unikernel Research Analysis.pages.json",
+      "bytes": 28656,
+      "sha256": "7430830fb2b1d918bb5410283a3fddb4a2812e900a95688df7d65154e1c489a3"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\Columned Unikernel Research Analysis.txt",
+      "target": "evidence/semisili/literature/interfaces/Columned Unikernel Research Analysis.txt",
+      "bytes": 27657,
+      "sha256": "55ac88cb47c5a2cec1515d90fcdb0030eef8ee8aae41a85f1cbf57690446e7ed"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\harness-page-9.png",
+      "target": "evidence/semisili/literature/interfaces/harness-page-9.png",
+      "bytes": 368121,
+      "sha256": "604df447a4dfdcb2c90bb10d7c788ac7c7f3a5b55802e908402541bcbd79aea6"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\Holographic LLM Weight Image Processing.pages.json",
+      "target": "evidence/semisili/literature/interfaces/Holographic LLM Weight Image Processing.pages.json",
+      "bytes": 53514,
+      "sha256": "4b8794501caf2003dde48dc64e0ac1e3976a3c799eb8a2ec65c762878e3a7aa2"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\Holographic LLM Weight Image Processing.txt",
+      "target": "evidence/semisili/literature/interfaces/Holographic LLM Weight Image Processing.txt",
+      "bytes": 52305,
+      "sha256": "b754aa7e725a53774278e341645c0dbe9d50a45037e77e95816ca235243d140d"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\IdeaPad 5i RAM Sampling.pages.json",
+      "target": "evidence/semisili/literature/interfaces/IdeaPad 5i RAM Sampling.pages.json",
+      "bytes": 43056,
+      "sha256": "f318b8ba57e77dd1b0688811e0cfb52c1dc69ca879adf7009adc5d57d4ad1c9c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\IdeaPad 5i RAM Sampling.txt",
+      "target": "evidence/semisili/literature/interfaces/IdeaPad 5i RAM Sampling.txt",
+      "bytes": 41680,
+      "sha256": "0d97e4f2b14b119dd87c8a2cb0c0f3c8e92865238f1c6aef8062fdda0cfbad77"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\IdeaPad Silicon Computing Setup.txt",
+      "target": "evidence/semisili/literature/interfaces/IdeaPad Silicon Computing Setup.txt",
+      "bytes": 34586,
+      "sha256": "f1c710b1ab52e9add575b50dc642a22bba910730f4a18b761cf0173b617de20c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\INTERFACE_REQUIREMENTS_DRAFT.md",
+      "target": "evidence/semisili/literature/interfaces/INTERFACE_REQUIREMENTS_DRAFT.md",
+      "bytes": 15458,
+      "sha256": "dce1592d0afba1f17e97554cd1acbfcffbd27475a2e4b7e15b367b17958e55b7"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\RAM Neural Operation Interfaces.pages.json",
+      "target": "evidence/semisili/literature/interfaces/RAM Neural Operation Interfaces.pages.json",
+      "bytes": 59529,
+      "sha256": "971d88f4774bd86f424e2ec236667ca8053e9a1f97d062c31105d19e4f0220cb"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\RAM Neural Operation Interfaces.txt",
+      "target": "evidence/semisili/literature/interfaces/RAM Neural Operation Interfaces.txt",
+      "bytes": 57991,
+      "sha256": "b0d3a8ab189361d156267e04fc74f90340b0f65e4331c6638c7f908141b85a33"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\interfaces\\REFERENCE_MANIFEST.json",
+      "target": "evidence/semisili/literature/interfaces/REFERENCE_MANIFEST.json",
+      "bytes": 1385,
+      "sha256": "fcd6176ecb1e03ac96dd8c43a503bf99fe6152bddd0a03331eb24cad37f4cc8a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\asm-02.png",
+      "target": "evidence/semisili/literature/formats/asm-02.png",
+      "bytes": 215864,
+      "sha256": "2b797a07c3f632d73fdef2360c7e40f58d45d1c4f7740f2e5cce48f865618942"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\asm-03.png",
+      "target": "evidence/semisili/literature/formats/asm-03.png",
+      "bytes": 208250,
+      "sha256": "790b2005e4b550bd53f31597350daaeb5c8cd346d9e499fcd9ec982cf1b81660"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\EXTRACTION_MANIFEST.json",
+      "target": "evidence/semisili/literature/formats/EXTRACTION_MANIFEST.json",
+      "bytes": 3716,
+      "sha256": "9c34eedc2f3dc9eae91bd2cd25d38d4958204b0a507ccca27569e9bf0ba85400"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\FORMAT_PROVENANCE.json",
+      "target": "evidence/semisili/literature/formats/FORMAT_PROVENANCE.json",
+      "bytes": 9772,
+      "sha256": "3223b6aef573d9176babcec74cd880b1159457b841c374f2afc4d8bc1282fc45"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\FORMAT_REQUIREMENTS.md",
+      "target": "evidence/semisili/literature/formats/FORMAT_REQUIREMENTS.md",
+      "bytes": 14681,
+      "sha256": "a184114c21f2e8606bfb91d88a46d0d0dc1460d627734ee443bcb703559db9f8"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\gaussian-frame-04.png",
+      "target": "evidence/semisili/literature/formats/gaussian-frame-04.png",
+      "bytes": 177292,
+      "sha256": "6c6ef040ca63eb7123c019caae18f0651d71fd63f54b7cb0c32e71922c248674"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\gaussian-frame-05.png",
+      "target": "evidence/semisili/literature/formats/gaussian-frame-05.png",
+      "bytes": 220363,
+      "sha256": "cd5f24385d547e376b34d1168b5d778155398497e2fa02cfcc09691bacecd300"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-computation-via-image-formats.pages.json",
+      "target": "evidence/semisili/literature/formats/holographic-computation-via-image-formats.pages.json",
+      "bytes": 48988,
+      "sha256": "f943ddcf3819f4b38d4eb1325f5c424fa1f05a3901a35a17ab42cc86a33ba361"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-computation-via-image-formats.txt",
+      "target": "evidence/semisili/literature/formats/holographic-computation-via-image-formats.txt",
+      "bytes": 47254,
+      "sha256": "8a43d45b4f88768ab8a9d80d2b139b8eb4cb0355fae3a665c00da96f36b740d6"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-image-based-computation.pages.json",
+      "target": "evidence/semisili/literature/formats/holographic-image-based-computation.pages.json",
+      "bytes": 39501,
+      "sha256": "e96757d6c3a1c59d40646622b825edcbbb652b578fd7e01946d3068303183ee9"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-image-based-computation.txt",
+      "target": "evidence/semisili/literature/formats/holographic-image-based-computation.txt",
+      "bytes": 38009,
+      "sha256": "8f336d622bbc77dde0eedcb04b59b8d1d41e72c13ee174f12ed21a67114ccaa5"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-logical-reasoning-research.pages.json",
+      "target": "evidence/semisili/literature/formats/holographic-logical-reasoning-research.pages.json",
+      "bytes": 50777,
+      "sha256": "f90731af832ed6a06d27ab5fbb3283e5449b30b91636e0961810b91667ed83ca"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\holographic-logical-reasoning-research.txt",
+      "target": "evidence/semisili/literature/formats/holographic-logical-reasoning-research.txt",
+      "bytes": 48993,
+      "sha256": "6b25538c6d437fcd61b5fd8b853065d835bdc4a05060fb29f3fa0275624dde81"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\microscopic-quantum-paradigm-gif-research.pages.json",
+      "target": "evidence/semisili/literature/formats/microscopic-quantum-paradigm-gif-research.pages.json",
+      "bytes": 40118,
+      "sha256": "5b816ae931c2e17cd7731e30603c69b095d6c54fb11daf56c01e72d03e8f0d62"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\microscopic-quantum-paradigm-gif-research.txt",
+      "target": "evidence/semisili/literature/formats/microscopic-quantum-paradigm-gif-research.txt",
+      "bytes": 38486,
+      "sha256": "3a04c34679ad9352c847b5a5b2fd89947a69524cb16e9d20fa93ff5fc2a0bb5c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\oam-page-06.png",
+      "target": "evidence/semisili/literature/formats/oam-page-06.png",
+      "bytes": 225405,
+      "sha256": "80444879b1d1bb8d225a87fb122805e8099b01a518e3fb91693a8255d9139387"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\oam-spatial-shifting-arithmetic.pages.json",
+      "target": "evidence/semisili/literature/formats/oam-spatial-shifting-arithmetic.pages.json",
+      "bytes": 40567,
+      "sha256": "de62187e471cc24bf76c295b27ead7a0c395588dda128f03bd124140ff079508"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\oam-spatial-shifting-arithmetic.txt",
+      "target": "evidence/semisili/literature/formats/oam-spatial-shifting-arithmetic.txt",
+      "bytes": 39001,
+      "sha256": "53ccc5156333902e7c676ae89017c70b2de425d6a98c82dc9c355c277d78e039"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\p-adic-holographic-simulations-research.pages.json",
+      "target": "evidence/semisili/literature/formats/p-adic-holographic-simulations-research.pages.json",
+      "bytes": 44104,
+      "sha256": "0ac1d46e0c8f61c077be006243dc4a6037bb91724d9ebd311a3a6cdeca0cdf99"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\p-adic-penteract-simulation-research.pages.json",
+      "target": "evidence/semisili/literature/formats/p-adic-penteract-simulation-research.pages.json",
+      "bytes": 39794,
+      "sha256": "01fa162e739dd418831b795ad9b136c9e0fbc7b7c9414b7e590d9538c34c6201"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\penteract-page-03.png",
+      "target": "evidence/semisili/literature/formats/penteract-page-03.png",
+      "bytes": 265395,
+      "sha256": "3866c85abb09e4c6540999fb1373ddc6470072967060563b8d794d3205bdd0ba"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\penteract-tiff-gif-storage-techniques.pages.json",
+      "target": "evidence/semisili/literature/formats/penteract-tiff-gif-storage-techniques.pages.json",
+      "bytes": 40861,
+      "sha256": "a23a05ce1e626331cecef27d9ca11c13730f3ea5dff17c1c6f22087f55a43486"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\penteract-tiff-gif-storage-techniques.txt",
+      "target": "evidence/semisili/literature/formats/penteract-tiff-gif-storage-techniques.txt",
+      "bytes": 39427,
+      "sha256": "b706905459d339c2289719366f831a9e1194a294905f506bb04630186b5e091e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\tiff-gif-spatial-temporal-encoding.pages.json",
+      "target": "evidence/semisili/literature/formats/tiff-gif-spatial-temporal-encoding.pages.json",
+      "bytes": 48193,
+      "sha256": "5bfa8371088f855629f7dc2167de823bd2772d3b9a523a83756438f19af2a6e3"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\literature\\formats\\tiff-gif-spatial-temporal-encoding.txt",
+      "target": "evidence/semisili/literature/formats/tiff-gif-spatial-temporal-encoding.txt",
+      "bytes": 46619,
+      "sha256": "a070c26d6f124a9665a444d31a972f482eb751529c44df0697ab0ee838183678"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\canonical-bytes.bin",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/canonical-bytes.bin",
+      "bytes": 81920,
+      "sha256": "28c6bc52b546f287ed6fd24eb1f12e148d7dea7b1049f37d8f6faa4b20581f0c"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\generic-II-big.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/generic-II-big.tiff",
+      "bytes": 82600,
+      "sha256": "f000f3ac1316164076dd68dad5e8c8d9fe82b09b992f918bb1d0e9385f0f53d8"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\generic-II-classic.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/generic-II-classic.tiff",
+      "bytes": 82466,
+      "sha256": "5d2acc07b385416bfbbe1ab445a9eb7b1d308d410648503470f5fc2b0a031e15"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\generic-MM-big.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/generic-MM-big.tiff",
+      "bytes": 82600,
+      "sha256": "84fedfa01aaf39aff2ec16f6aa0050b9fc621acf306bd56601745a6d0eccfa60"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\generic-MM-classic.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/generic-MM-classic.tiff",
+      "bytes": 82466,
+      "sha256": "21e22246ba1461e23dc109095889c29b3853e6d5cb5f939ee5e1f48c3db9ea9d"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\neuron-II-big.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/neuron-II-big.tiff",
+      "bytes": 82680,
+      "sha256": "fe30bcf14afc570920500ec1736fb4ea9647f6e2939f589b702a768522cb764e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\neuron-II-classic.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/neuron-II-classic.tiff",
+      "bytes": 82546,
+      "sha256": "2610af13c6b954367913de9ac08dd4808a4a995986c7f5920b4feac947a84a37"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\neuron-MM-big.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/neuron-MM-big.tiff",
+      "bytes": 82680,
+      "sha256": "b99c608a329dc1d7785e3ad7bbe6203b53d85c01cb93f90cbea25a5512169c96"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\codec-artifacts\\neuron-MM-classic.tiff",
+      "target": "evidence/semisili/implementation/tests/codec-artifacts/neuron-MM-classic.tiff",
+      "bytes": 82546,
+      "sha256": "315050938537258e05eb40ade21db0981debd3e1c568dd4f801ea5c58b6ebf9e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\CODEC_INDEPENDENT_RESULTS.json",
+      "target": "evidence/semisili/implementation/tests/CODEC_INDEPENDENT_RESULTS.json",
+      "bytes": 1192,
+      "sha256": "e43e50822be21fba94fefca31fd086435159d36a128befc7f45602815ae808af"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\PILLOW_TIFF_RESULTS.json",
+      "target": "evidence/semisili/implementation/tests/PILLOW_TIFF_RESULTS.json",
+      "bytes": 3832,
+      "sha256": "56412e03f3a1fbfa0e448fe485f4409b1900fa7a88d92617405485b6e2bcd0e6"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\semisili-codec.test.mjs",
+      "target": "evidence/semisili/implementation/tests/semisili-codec.test.mjs",
+      "bytes": 14366,
+      "sha256": "fdeed029ad4ca7997bf6740220e50648e30ea8b75596a1c57c737fca093fcd46"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\semisili-core.test.mjs",
+      "target": "evidence/semisili/implementation/tests/semisili-core.test.mjs",
+      "bytes": 5979,
+      "sha256": "8154119bfdb8fb6d374a4cd5d8ab8b8942f11382e29d47deb7d0ef87a6d8b377"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\semisili-model.test.mjs",
+      "target": "evidence/semisili/implementation/tests/semisili-model.test.mjs",
+      "bytes": 6449,
+      "sha256": "0e54285a815566ba640c104894dac4b686592824d06d48df8ce73c52ed8f6fa8"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\tests\\verify-pixel160-pillow.py",
+      "target": "evidence/semisili/implementation/tests/verify-pixel160-pillow.py",
+      "bytes": 3466,
+      "sha256": "bab3e1b90cdba5666fcdfa416f4c7c1d72b404ef5476e90da06a15a324caaf28"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\gpu-fixture.mjs",
+      "target": "evidence/semisili/implementation/gpu-tests/gpu-fixture.mjs",
+      "bytes": 7175,
+      "sha256": "bf422b8e7bcd58274af5b5be49d1ffedfcaf31dcbcf481d50b3cb949d2f4ee49"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\GPU_TEST_RESULTS.json",
+      "target": "evidence/semisili/implementation/gpu-tests/GPU_TEST_RESULTS.json",
+      "bytes": 605,
+      "sha256": "00ab8d13ad40856775811d4a37ea6d4b94abc38a13ee9c9fe043977282c5cc04"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\GPU_TEST_RESULTS.tap",
+      "target": "evidence/semisili/implementation/gpu-tests/GPU_TEST_RESULTS.tap",
+      "bytes": 7455,
+      "sha256": "489d72c6f0463ad580151495d75809ddb57d19f257fd94d04214441bfd0ae578"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\run-tests.mjs",
+      "target": "evidence/semisili/implementation/gpu-tests/run-tests.mjs",
+      "bytes": 1645,
+      "sha256": "643d5d4405b69a76c01ae285e0902934869a388359066876eb9c21a7e2cd404b"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\run-worker-tests.mjs",
+      "target": "evidence/semisili/implementation/gpu-tests/run-worker-tests.mjs",
+      "bytes": 2328,
+      "sha256": "9c2bfe05b9f11d6fd39c90df395232d91174feb1a24013cbcbfbe435121bb44b"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\semisili-gpu.test.mjs",
+      "target": "evidence/semisili/implementation/gpu-tests/semisili-gpu.test.mjs",
+      "bytes": 13361,
+      "sha256": "8de2401971a700c077775ff6bba55a83462c291b89aba901e7b2c244fd4c5576"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\WORKER_TEST_RESULTS.json",
+      "target": "evidence/semisili/implementation/gpu-tests/WORKER_TEST_RESULTS.json",
+      "bytes": 1768,
+      "sha256": "38f5e385d2f2d76b6c5963b9b6e08836d518b9ff2fe38c8fb3cf7dc68457537a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\implementation\\gpu-tests\\WORKER_TEST_RESULTS.tap",
+      "target": "evidence/semisili/implementation/gpu-tests/WORKER_TEST_RESULTS.tap",
+      "bytes": 5184,
+      "sha256": "17b850666d67c38110f9f275e8161ed104c9808c5ffe53f1bf150e7c48fa1d1e"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\native\\NATIVE_COMPILE_RESULTS.json",
+      "target": "evidence/semisili/native/NATIVE_COMPILE_RESULTS.json",
+      "bytes": 2744,
+      "sha256": "ffa61f76585557d3429d0430817ca15e866169ca1dd45acdc046af1370ae9c86"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\native\\NATIVE_MAIN_BUILD.log",
+      "target": "evidence/semisili/native/NATIVE_MAIN_BUILD.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\native\\NATIVE_POLICY_BUILD.log",
+      "target": "evidence/semisili/native/NATIVE_POLICY_BUILD.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\native\\NATIVE_POLICY_RUN.log",
+      "target": "evidence/semisili/native/NATIVE_POLICY_RUN.log",
+      "bytes": 280,
+      "sha256": "bb461bd958df45a4daf30797a72ca2a520d1d97ebccbbedccfd1819752eeb06a"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\native\\NATIVE_QA_BUILD.log",
+      "target": "evidence/semisili/native/NATIVE_QA_BUILD.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\native\\policy-qa\\SILICON_NATIVE_POLICY_RESULTS.json",
+      "target": "evidence/semisili/native/policy-qa/SILICON_NATIVE_POLICY_RESULTS.json",
+      "bytes": 279,
+      "sha256": "864b622a572a5eaaba4849272464d53149fd2d2b8fc612a2bf4db6ff1bff6a59"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\browser\\BROWSER_RESULTS.json",
+      "target": "evidence/semisili/browser/BROWSER_RESULTS.json",
+      "bytes": 24954,
+      "sha256": "d075ef0e4bbacf82f875ad8e4d07c9265bedd1aab335ae119b2b9c2a6b5d80ff"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\browser\\BROWSER_RESULTS_BEFORE_RECEIPT_HARDENING.json",
+      "target": "evidence/semisili/browser/BROWSER_RESULTS_BEFORE_RECEIPT_HARDENING.json",
+      "bytes": 24939,
+      "sha256": "7152ce05ecd42645916665306907fb7092719c91e4b2827d8dc8c3257b3bd715"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\browser\\ODD_PRIME_GPU_COMMITTED_RECEIPT.json",
+      "target": "evidence/semisili/browser/ODD_PRIME_GPU_COMMITTED_RECEIPT.json",
+      "bytes": 3588,
+      "sha256": "85431d0b8a6930cbee71f7d50f3df510f210b020295064dbf571aa21a8466c53"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\browser\\ODD_PRIME_GPU_RELOADED_RECEIPT.json",
+      "target": "evidence/semisili/browser/ODD_PRIME_GPU_RELOADED_RECEIPT.json",
+      "bytes": 3588,
+      "sha256": "3246860c979cd1c36c90b339615a912b1247c4e3e9842543f8ccd9cf19946471"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\RELEASE_REPORT.md",
+      "target": "docs/SEMISILI-RELEASE-1.3.0.md",
+      "bytes": 3292,
+      "sha256": "b69578303f232861545aeb73dc195d76dd525bcb0875fb18e5b444fc5cb26858"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\RELEASE_VALIDATION.json",
+      "target": "evidence/semisili/RELEASE_VALIDATION.json",
+      "bytes": 11945,
+      "sha256": "ebdb413dba1a64d012e144941e8b124f64c9dde369279b9a4afff3b529b66ff6"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\semisili-xpu\\CORE_FIRST_ATTEMPT.tap",
+      "target": "evidence/semisili/attempts/CORE_FIRST_ATTEMPT.tap",
+      "bytes": 105789,
+      "sha256": "2f161f819bca712dd7cef66697f315fa5dbf4cb28dea47fbadd5261586958a4f"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\docs\\SEMISILI-XPU.md",
+      "target": "docs/SEMISILI-XPU.md",
+      "bytes": 5544,
+      "sha256": "387e6bb23bd9e8e6ae8ead964361f5920a96294e4351eab31eafbe053356de97"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\docs\\SEMISILI-XPU.md",
+      "target": "applications/silicon/docs/SEMISILI-XPU.md",
+      "bytes": 5544,
+      "sha256": "387e6bb23bd9e8e6ae8ead964361f5920a96294e4351eab31eafbe053356de97"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\audit\\TEST_RESULTS.tap",
+      "target": "evidence/semisili/engine-audit/TEST_RESULTS.tap",
+      "bytes": 70990,
+      "sha256": "368ea8675e4df85cd0b0bc2b6e9ec5c915ac32a91409c6f8140b16316cc32315"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\audit\\RELEASE_CHECKS.json",
+      "target": "evidence/semisili/engine-audit/RELEASE_CHECKS.json",
+      "bytes": 16378,
+      "sha256": "542754d51f023738b9d7aaa21da94d4ee16de0176eb93795cbec787307b6f130"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\audit\\SEMISILI_CODEC_RESULTS.json",
+      "target": "evidence/semisili/engine-audit/SEMISILI_CODEC_RESULTS.json",
+      "bytes": 1192,
+      "sha256": "4c1a65dcbb15b26a7f4bd2974fd9289cb92fd67c05984aef0e59eacdaa64830d"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\audit\\SEMISILI_CORE_RESULTS.json",
+      "target": "evidence/semisili/engine-audit/SEMISILI_CORE_RESULTS.json",
+      "bytes": 629,
+      "sha256": "359c315a64b92799b46b41296be1085f8ac6581b1289a818b2a18e789dbc4574"
+    },
+    {
+      "source": "D:\\Codex\\2026-10-13\\pl\\work\\blank-console-arm64\\project\\JA21-Silicon-Console\\applications\\silicon\\audit\\SEMISILI_MODEL_RESULTS.json",
+      "target": "evidence/semisili/engine-audit/SEMISILI_MODEL_RESULTS.json",
+      "bytes": 626,
+      "sha256": "20135a62bd52eaae4a6b2f432ee3d2f0c53e30cc53c4442c60706f1396d42532"
+    }
+  ],
+  "removals": [],
+  "policy": "Only these exact bytes may be merged; missing or changed files abort packaging."
+}

@@ -1,0 +1,166 @@
+Result snapshots protect verified outputs: True
+{
+  "status": "PASS",
+  "assertions": 598,
+  "sdk": "8.0.426",
+  "runtime": "8.0.32",
+  "framework": ".NET 8.0.32",
+  "os": "Microsoft Windows 10.0.26200",
+  "processArchitecture": "X64",
+  "osArchitecture": "X64",
+  "vectors": [
+    "enumerated",
+    "reversed",
+    "random",
+    "zero",
+    "maximum"
+  ],
+  "laneInputComparisons": 368640,
+  "selectorSamples": 20480,
+  "tiffFiles": 35,
+  "tiffPixels": 143360,
+  "concurrentWraps": 128,
+  "sourceSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4",
+  "outputs": [
+    {
+      "file": "enumerated-processor-1.tif",
+      "sha256": "dbc3bd41a41aee3f7fe7841b4bec1b20d377dd60c8062df1a4e925e1a5b102ad"
+    },
+    {
+      "file": "enumerated-processor-2.tif",
+      "sha256": "86069754014513f39cccc53340eedbd5358a274e09bead7abf54e8525fe36703"
+    },
+    {
+      "file": "enumerated-processor-3.tif",
+      "sha256": "dbc3bd41a41aee3f7fe7841b4bec1b20d377dd60c8062df1a4e925e1a5b102ad"
+    },
+    {
+      "file": "enumerated-processor-4.tif",
+      "sha256": "fa5129292250995f29e5e013b768eddc7087d9c59e0d1eba84285a56270d380b"
+    },
+    {
+      "file": "enumerated-processor-5.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "enumerated-processor-6.tif",
+      "sha256": "dbc3bd41a41aee3f7fe7841b4bec1b20d377dd60c8062df1a4e925e1a5b102ad"
+    },
+    {
+      "file": "enumerated-processor-7.tif",
+      "sha256": "a26d5e828d8a11167ff0fa2836c9e239046bfe796fff0dda7402fb45bd07961c"
+    },
+    {
+      "file": "reversed-processor-1.tif",
+      "sha256": "d9d18dc5261d758df8f84be6af2092478f898cd0f094d59e224b14b71f203759"
+    },
+    {
+      "file": "reversed-processor-2.tif",
+      "sha256": "33b69e7cc374f2a011c68d0e9393117b05db4f585a4440bec97acf9931ac806c"
+    },
+    {
+      "file": "reversed-processor-3.tif",
+      "sha256": "d9d18dc5261d758df8f84be6af2092478f898cd0f094d59e224b14b71f203759"
+    },
+    {
+      "file": "reversed-processor-4.tif",
+      "sha256": "fa5129292250995f29e5e013b768eddc7087d9c59e0d1eba84285a56270d380b"
+    },
+    {
+      "file": "reversed-processor-5.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "reversed-processor-6.tif",
+      "sha256": "d9d18dc5261d758df8f84be6af2092478f898cd0f094d59e224b14b71f203759"
+    },
+    {
+      "file": "reversed-processor-7.tif",
+      "sha256": "dfbaf9768b5f339eb2290a8fc424f2ab8458bd663a7f5a32beba1656f04fb7f2"
+    },
+    {
+      "file": "random-processor-1.tif",
+      "sha256": "f67c356d3b0a5816d06e5ab3af509c4688f2e242ab2cc26cb739897bd9128734"
+    },
+    {
+      "file": "random-processor-2.tif",
+      "sha256": "e410478a60cbf5dc3a4e95da0913c36392303633ed49ee4ab570a3363d16e803"
+    },
+    {
+      "file": "random-processor-3.tif",
+      "sha256": "f67c356d3b0a5816d06e5ab3af509c4688f2e242ab2cc26cb739897bd9128734"
+    },
+    {
+      "file": "random-processor-4.tif",
+      "sha256": "fa5129292250995f29e5e013b768eddc7087d9c59e0d1eba84285a56270d380b"
+    },
+    {
+      "file": "random-processor-5.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "random-processor-6.tif",
+      "sha256": "f67c356d3b0a5816d06e5ab3af509c4688f2e242ab2cc26cb739897bd9128734"
+    },
+    {
+      "file": "random-processor-7.tif",
+      "sha256": "d28058c945e7ab8e1a941f05904534716166127b1a3a2e5e2df905ee465a5298"
+    },
+    {
+      "file": "zero-processor-1.tif",
+      "sha256": "9d8cdfc2386923b0efcfc6f09393a8424061fa692fcfc53e16552014564ec271"
+    },
+    {
+      "file": "zero-processor-2.tif",
+      "sha256": "fa5129292250995f29e5e013b768eddc7087d9c59e0d1eba84285a56270d380b"
+    },
+    {
+      "file": "zero-processor-3.tif",
+      "sha256": "9d8cdfc2386923b0efcfc6f09393a8424061fa692fcfc53e16552014564ec271"
+    },
+    {
+      "file": "zero-processor-4.tif",
+      "sha256": "fa5129292250995f29e5e013b768eddc7087d9c59e0d1eba84285a56270d380b"
+    },
+    {
+      "file": "zero-processor-5.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "zero-processor-6.tif",
+      "sha256": "9d8cdfc2386923b0efcfc6f09393a8424061fa692fcfc53e16552014564ec271"
+    },
+    {
+      "file": "zero-processor-7.tif",
+      "sha256": "2762724c14cfe7b11759cd1c27311051d7fb2ca18f8968ff54f41711c53b7973"
+    },
+    {
+      "file": "maximum-processor-1.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "maximum-processor-2.tif",
+      "sha256": "c905e12b669aded5ac2a07b7955a870995324aef1c20922bb7713bc7ee484600"
+    },
+    {
+      "file": "maximum-processor-3.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "maximum-processor-4.tif",
+      "sha256": "fa5129292250995f29e5e013b768eddc7087d9c59e0d1eba84285a56270d380b"
+    },
+    {
+      "file": "maximum-processor-5.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "maximum-processor-6.tif",
+      "sha256": "cb16d497c72c4523a713b4bb8d34f85d72d350c83f38ec2120f742f6a8ee41b7"
+    },
+    {
+      "file": "maximum-processor-7.tif",
+      "sha256": "c905e12b669aded5ac2a07b7955a870995324aef1c20922bb7713bc7ee484600"
+    }
+  ]
+}

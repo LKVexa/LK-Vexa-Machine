@@ -1,0 +1,641 @@
+=== PAGE 1 ===
+Fixed-Base Digital Arithmetic via Orbital
+Angular Momentum Spatial Shifting
+Introduction to Optical Digital Computing
+Architecture
+The historical trajectory of computing architectures has been predominantly defined by the
+evolution of electronic semiconductor devices, governed for decades by the empirical
+predictions of Moore’s Law and Dennard scaling. However, as transistor gate lengths approach
+fundamental thermodynamic and quantum mechanical limits—most notably governed by
+Landauer's principle regarding the minimum energy required to erase a bit of information—the
+constraints of the von Neumann bottleneck have become critically pronounced. The energy
+dissipation and inherent latency associated with shuttling electrons between physically
+separated memory and processing units necessitate the exploration of alternative,
+non-electronic computational substrates. Optical computing has emerged as a premier
+candidate to transcend these limitations, leveraging the ultra-high bandwidth, extreme
+parallelism, inherent multiplexing capabilities, and near-zero energy consumption of passive
+photon propagation1.
+While analog optical computing has seen significant advances in specialized tasks such as
+Fourier transforms, spatial filtering, and matrix-vector multiplications, the realization of
+general-purpose optical computers remains strictly contingent upon the development of
+robust, scalable all-optical digital logic and arithmetic architectures. The primary challenge lies
+in executing precise mathematical operations without relying on power-hungry
+optical-to-electrical-to-optical (O-E-O) conversions or highly sensitive optical non-linearities,
+which require immense power densities to trigger1.
+Recent advancements in nanophotonics and structured light have identified the orbital angular
+momentum (OAM) of light as a pivotal degree of freedom for encoding multidimensional
+information. Unlike intrinsic spin angular momentum (SAM), which is physically constrained to
+two orthogonal states corresponding to left- and right-circular polarization, OAM possesses a
+theoretically infinite state space2. By structuring the phase front of a laser beam into a helical
+shape, photons can be imbued with a quantized topological charge. Concurrently, the advent
+of Optical Diffractive Neural Networks (ODNNs) has provided a highly flexible framework for
+manipulating complex optical fields. Composed of cascaded layers of passive phase and
+amplitude modulators, ODNNs can be trained in silico using deep learning algorithms and
+deployed as physical optical hardware to perform specific tasks at the speed of light4.
+A groundbreaking synthesis of these domains is the utilization of ODNNs to perform fixed-base
+digital arithmetic through the spatial shifting of OAM modes. Rather than relying on continuous
+phase alterations to directly scale the topological charge of a single beam, this paradigm
+exploits the spatial positioning of independent OAM beams to represent the magnitude of a
+digit in a positional numeral system. This maps arithmetic multiplication and division directly
+onto the physical left and right spatial shifting of these optical modes across a transverse
+
+=== PAGE 2 ===
+diffractive plane4. The subsequent analysis provides an exhaustive examination of this
+architecture, detailing the theoretical quantum physics of OAM, the diffraction mechanics of
+ODNNs, the mathematical mapping of fixed-base arithmetic onto spatial coordinates,
+alternative geometric coordinate transformations, and the operational robustness of these
+systems under physical and atmospheric perturbations.
+Theoretical Foundations of Angular Momentum in
+Optical Systems
+Spin and Orbital Angular Momentum Kinematics
+At the fundamental level, atoms and photons engage in complex interactions governed by
+stringent conservation laws involving energy, linear momentum, and total angular momentum.
+Particles possess two forms of angular momentum: intrinsic spin angular momentum and
+extrinsic orbital angular momentum related to spatial distribution2. The mathematical
+formulation of angular momentum relies heavily on the theory of rotation matrices and group
+generators. Just as linear momentum acts as the generator for spatial translations, angular
+momentum operators serve as the generators of rotations in a given space7.
+The commutation relations among the components of the orbital angular momentum vector
+
+                            form the bedrock of this framework. Operating in a quantum
+mechanical or structured wave context, the differential operators representing these
+generators in spherical coordinates are mathematically defined to exhibit specific
+non-commutative algebra:
+
+
+
+
+
+
+where         is the Levi-Civita symbol. For spatial wavefronts, such as the cross-section of a
+structured light beam, the azimuthal derivative dictates the angular momentum along the
+propagation axis6. The operator             is formulated as                     . The eigenstates of this
+operator, corresponding to the azimuthal phase dependence, are characterized by eigenvalues
+
+     (or topological charge       in optics). Consequently, the angular behavior of a particle or a
+photon in a given state        is intrinsically tied to these spatial wave functions7.
+Spin-Orbit Interaction and Spatial Deformations
+Understanding the coupling between spin and orbital angular momentum is critical for
+
+maintaining the integrity of computational optical beams. The total angular momentum                        is
+
+the vector sum of orbital (       ) and spin (    ) angular momenta. In isotropic free space,
+measuring one does not disturb the other, a mathematical fact embodied by the vanishing
+
+=== PAGE 3 ===
+commutator                         , indicating that orbital and spin degrees of freedom are
+independent and non-interfering6.
+However, in highly focused beams, sub-wavelength optical elements, or inhomogeneous
+media, spin-orbit coupling manifests. The interaction energy is proportional to the dot product
+        , which implies that        and      are no longer perfectly independent6. The squaring of the
+
+total angular momentum operator yields                                               . This coupling exerts a
+minute torque on the orbit, leading to the physical spatial shifting of spin-polarized light
+beams8. For precision optical arithmetic systems, these inherent spin-orbit shifts must be
+anticipated, as unintended spatial deviations can map to erroneous digital bit shifts, corrupting
+the computational output.
+Wave Mechanics of Laguerre-Gaussian Beams
+The practical generation of OAM relies on solutions to the paraxial Helmholtz equation. The
+Laguerre-Gaussian (LG) mode is the most frequently utilized spatial profile. The complex
+
+amplitude of an LG beam contains the azimuthal phase term                              , where the
+topological charge        defines the number of intertwined helices in the phase front3.
+
+The amplitude distribution of an LG beam at its beam waist (                     ) in cylindrical coordinates
+
+              is characterized rigorously by:
+
+
+
+
+
+
+
+
+
+
+where        is the beam waist radius,            represents the generalized Laguerre polynomial, and
+
+   is the radial index defining the number of concentric intensity rings. Because the phase is
+
+singular at           , destructive interference creates a central optical vortex, appearing as a
+dark hollow core3. The orthogonality of these modes over the azimuthal integral allows an
+infinite set of OAM states to function as a high-dimensional spatial basis for information
+encoding3.
+Optical Diffractive Neural Networks as Computational
+Substrates
+Diffraction Mechanics and the Rayleigh-Sommerfeld Formulation
+
+=== PAGE 4 ===
+Optical diffractive neural networks represent a paradigm shift from traditional artificial neural
+networks (ANNs). Instead of relying on electronic multiply-accumulate (MAC) units, an ODNN
+implements matrix multiplications and non-linear feature extractions physically as continuous
+light waves propagate through space and modulate across diffractive optical elements
+(DOEs)4. An ODNN architecture is composed of a series of spatially separated layers, each
+comprising thousands of sub-wavelength or micrometer-scale discrete pixels that
+independently modulate the amplitude and/or phase of the incident electromagnetic field4.
+The forward propagation of light between consecutive layers in an ODNN is modeled
+
+mathematically by the Rayleigh-Sommerfeld diffraction integral. If a complex field
+
+is transmitted through the         -th diffractive layer, the incident field                                 at the
+
+subsequent layer located at an axial distance               is computed using the spatial impulse response
+(or free-space point spread function):
+
+
+
+
+
+
+
+
+where                                    ,    is the operational wavelength, and                           is the
+
+wave number. The field arriving at layer                   is the two-dimensional convolution of the
+
+modulated field at layer         with this impulse response:
+
+
+
+
+
+
+
+
+
+Here,                                                                dictates the complex transmission
+
+function of the      -th layer. To maximize optical throughput, energy efficiency, and operational
+simplicity, phase-only ODNNs are typically preferred. In these architectures, the amplitude
+
+transmission coefficient is uniformly set to                     , and the network is optimized exclusively
+by modulating the phase shifts                             across the spatial grid3.
+In Silico Training and Phase Quantization
+The optimization of the ODNN phase matrices relies on simulating the physical diffraction
+process in silico and utilizing standard deep learning backpropagation algorithms. The training
+
+=== PAGE 5 ===
+loop consists of information forward propagation, loss calculation against an ideal target
+output, error backpropagation through the diffractive layers, and subsequent weight (phase)
+updates5. Algorithms such as Adaptive Moment Estimation (Adam) are employed to minimize
+loss functions (e.g., Mean Squared Error or categorical cross-entropy) within computational
+environments equipped with high-performance graphics processing units5.
+Upon the convergence of the loss function, the theoretical continuous phase profiles must be
+discretized for physical fabrication or dynamic display on spatial light modulators (SLMs). Phase
+quantization introduces an element of physical error into the ideal mathematical model.
+Analyses confirm that while binary phase modulation introduces significant modal degradation,
+phase quantization at or above 4-bit levels (16 discrete phase steps) provides sufficient
+degrees of freedom to accurately execute OAM spatial shifting operations without
+catastrophic fidelity loss4. This relatively low-bit requirement is highly advantageous for
+physical implementations.
+Energy Efficiency and Computational Complexity (FLOPs)
+A primary motivation for replacing electronic arithmetic units with optical diffractive networks
+is the theoretical limit of computational energy efficiency. To properly quantify this, the total
+number of floating-point operations (FLOPs) required to simulate the ODNN electronically
+must be compared against the passive optical execution.
+For electronic phase shift neural networks, the total FLOPs for the convolution layers depend
+heavily on the summation of multiplication and addition operations scaled by the input image
+
+height (     ), width (     ), and kernel dimensions. In stark contrast, the physical ODNN executes
+the equivalent of a two-dimensional fast Fourier transform (2D FFT) instantaneously during
+propagation9. The mathematical complexity of calculating the magnitude, computing the phase
+
+angle, and normalizing the complex operations for a 2D FFT scales as                                     where
+
+                     9. In the optical domain, the "FLOPs" executed by the diffractive mixing of
+wavefronts require zero active energy consumption; the only energy expended is the initial
+laser generation and the static power maintaining the state of the SLMs or the structural
+integrity of the metasurface. This physically parallel and selective structure-preserving
+implementation dwarfs electronic back-ends in energy efficiency, adaptability, and scalability4.
+Mathematical Mapping of Fixed-Base Arithmetic to
+Spatial Shifting
+Positional Numeral Systems and Base Multiplication
+The core innovation of utilizing ODNNs for digital arithmetic lies in equating the fundamental
+mathematical operations of integer multiplication and division with the physical spatial shifting
+of discrete data points across a transverse plane4. To construct this framework, numerical data
+must be represented in a fixed-base positional numeral system.
+
+In a binary numeral system (base                   ), any decimal integer            can be uniquely
+
+=== PAGE 6 ===
+represented by an ordered sequence of bits                               , where each discrete position
+corresponds to a specific exponential weight. The weights increase sequentially from right to
+left as powers of 2. The decimal equivalent is defined by the polynomial:
+
+
+
+
+
+
+
+In this standard notation,          represents the least significant bit (LSB) and                   represents the
+
+most significant bit (MSB). By shifting the entire binary sequence uniformly to the left by
+bits—and appending zeros to the newly vacated lower-order positions—a new binary
+
+sequence is generated. This new sequence corresponds to a modified decimal value                                 :
+
+
+
+
+
+
+By factoring out the term           , the mathematical relationship simplifies to
+4. Therefore, in a fixed-base positional system, the arithmetic operation of multiplication by the
+base (or a power of the base) is strictly homomorphic to a physical leftward spatial shift of the
+
+numerical array. Conversely, a uniform rightward shift of the sequence by                       bits corresponds
+
+perfectly to integer division (seeking the quotient) by                , wherein the lower-order bits are
+either truncated or funneled into an adjacent remainder register4.
+Encoding Arithmetic in Orbital Angular Momentum Arrays
+To implement this mathematical isomorphism optically, the discrete data bits must be reliably
+encoded into physical optical signals. OAM modes serve as the optimal information carriers
+due to their mutual orthogonality and highly distinct spatial intensity profiles. In the
+ODNN-based arithmetic unit, a logical "1" at a specific bit position is physically represented by
+the presence of an OAM beam generated at a precisely defined spatial coordinate on the
+transverse input plane. A logical "0" is represented by the absence of optical power at that
+coordinate.
+If an optical input array consisting of spatially distributed OAM modes—often referred to as an
+OAM Shift Keying (OAM-SK) signal—is injected into the ODNN, the network's optimized phase
+screens are tasked with routing each incoming OAM beam to its adjacent spatial coordinate to
+the left4. By flawlessly executing this spatial shift without altering the topological charge, the
+ODNN optically computes a left-shift logic operation, outputting an OAM array that represents
+the multiplicand effectively multiplied by the operational base.
+The profound advantage of this method lies in its massive physical parallelism. Regardless of
+
+=== PAGE 7 ===
+the bit-width or the complexity of the input integer, the spatial shift occurs simultaneously for
+all encoded bits as the light wavefront propagates through the physical diffractive layers4.
+Unlike sequential electronic Arithmetic Logic Units (ALUs) that suffer from carry propagation
+delays, the latency of the optical arithmetic unit is bounded entirely by the time of flight of
+photons traversing the physical distance of the ODNN—typically taking only fractions of a
+nanosecond.
+Rotational Reconfiguration and Multi-ary Logic Expansion
+A remarkable feature of the phase screens optimized for this architecture is their capacity for
+multi-functional reconfiguration through simple geometric manipulation. The operation type
+can be switched dynamically from multiplication to division without requiring a completely
+separate ODNN hardware module. By mechanically or electro-optically rotating the
+
+intermediate phase matrix by               clockwise, the diffractive properties of the screens are
+altered such that the resulting optical transfer function mirrors a rightward spatial shift4.
+Consequently, the input OAM array shifts to the right, enabling a computational architecture
+that seamlessly supports both fundamental functions using identical hardware4.
+Furthermore, the architecture is not restricted to binary logic systems. By expanding the
+semantic mapping of the spatial modes and utilizing multiple amplitude or phase levels,
+
+higher-radix computing can be achieved. In a 2-bit ternary configuration (base                              ), the
+
+positional weights represent powers of 3 (                        ). When the ODNN executes a
+single-position spatial shift to the left on a ternary array, it effectively multiplies the input
+decimal value by 34. The successful manipulation of ternary and quaternary data further
+highlights the unparalleled scalability of optical spatial shifting arithmetic compared to
+binary-locked electronic architectures.
+Alternative Mechanisms: Geometric Coordinate
+Transformations
+While fixed-base positional arithmetic via lateral spatial shifting offers immense advantages,
+alternative optical computing architectures manipulate the OAM mode itself to achieve
+arithmetic operations. These mechanisms rely on continuous phase gradient mappings to scale
+the topological charge directly, rather than shifting the physical position of the beam.
+Coordinate transformations are heavily utilized for direct topological multiplication and division
+of OAM modes. The fundamental principle relies on azimuth-scaling and Fermat's spiral
+transformations to arbitrarily multiply or divide the topological charge integer3. The geometric
+
+coordinate mapping linking the input plane (                   ) to the output plane (             ) is
+mathematically expressed as:
+
+=== PAGE 8 ===
+where      denotes the radial scale parameter and              denotes the multiplicative-divisor
+parameter. To enforce this spiral transformation and achieve the multiplication or division of the
+OAM state, an unwrapping phase mask must be synthesized. The required phase function
+
+               is derived as:
+
+
+
+
+
+
+
+
+When             , the system acts as a topological multiplier, doubling the intrinsic angular
+momentum of the photon. When                          , the system functions as a topological divider3.
+These operations are physically realized using vortex Dammann gratings, which apply weight
+factors to different diffraction orders based on a Fourier transform of a bladed optical grating.
+While Fermat's spiral transformations successfully modify the OAM topological charge, the
+fixed-base ODNN spatial shifting approach provides superior scalability for standard digital
+computing. Topological charge scaling requires increasingly complex phase unwrapping
+systems for large numbers, whereas the positional shifting architecture of the ODNN can
+process infinitely large numbers simply by increasing the transverse width of the phase matrix
+to accommodate more positional bits.
+Physical System Architecture and Operating
+Parameters
+Experimental Design and Optics
+A comprehensive physical architecture for OAM fixed-base multiplication and division relies on
+precisely defined optical parameters. Contemporary frameworks, such as those formulated by
+Xinyue Tan and Debao Chen, utilize a Laguerre-Gaussian laser source operating at a
+near-infrared telecommunications wavelength of                              nm4. The selection of the 1550
+nm C-band is highly strategic; it ensures seamless compatibility with standard erbium-doped
+fiber amplifiers (EDFAs) and silicon-on-insulator (SOI) photonic waveguide architectures,
+thereby facilitating direct integration into existing global optical communication networks4.
+
+The input OAM beams are typically collimated with a tight waist radius of                                 mm4.
+The ODNN itself is structured as a highly compact, multi-layer physical device, most commonly
+
+=== PAGE 9 ===
+modeled and fabricated as a three-layer or five-layer phase-only diffractive configuration4.
+
+  ODNN Architectural Parameter                              Specification / Value
+
+                                                            1550 nm4
+  Operational Wavelength (          )
+
+                                                            0.35 mm4
+  Input Beam Waist Radius (           )
+
+
+  ODNN Phase Matrix Resolution                                                    pixels4
+
+
+  Metasurface/SLM Pixel Dimensions
+
+                                                            [cite: 4]
+
+  Total Transverse Propagation Distance                     300 mm4
+
+
+  Diffractive Layers                                        3 to 5 layers4
+
+
+The                       matrix size paired with an                    pixel pitch yields a physical spatial
+
+layer extent of approximately                                    . This macroscopic area provides an
+ample spatial bandwidth product (SBWP) to support the independent modulation of multiple
+spatially distinct OAM modes4. The transverse free-space propagation distance between the
+input plane and the final output detection plane is generally established around 300 mm, with
+equidistant free-space gaps interleaving the phase layers to permit the diffractive mixing of
+complex wavefronts required for spatial routing4.
+OAM Comb Generation and Manipulation
+In advanced high-throughput iterations of this technology, singular OAM modes are replaced
+by broadband OAM combs. An OAM comb is a multi-mode superposition state where the
+constituent topological charges are uniformly spaced, analogous to an optical frequency comb
+in the spectral domain11. The generation of high-uniformity OAM combs is achieved via
+sophisticated cross-phase modulation techniques, yielding an ideal comb containing
+topological charges ranging from                        to               11.
+The ODNN architecture demonstrates exceptional proficiency in manipulating these complex
+comb states. Empirical models show that ODNNs can execute direct arithmetic operations on
+the entire OAM comb structure simultaneously. When tasked with arithmetic addition,
+subtraction, multiplication, and division of OAM combs, the diffractive architecture achieves
+extraordinary accuracy rates11.
+
+
+=== PAGE 10 ===
+  OAM Comb Operation                                       Empirical Accuracy
+
+  Addition                                                 99.7%11
+
+
+  Subtraction                                              99.6%11
+
+  Multiplication                                           99.4%11
+
+
+  Division                                                 99.7%11
+
+These accuracy metrics—which maintain an average of 99.65% and never drop below a 99%
+threshold—underscore the immense capability of diffractive phase tailoring in managing
+dense, high-dimensional coherent optical states11.
+Perturbation Dynamics, Quantum Turbulence, and
+Error Tolerance
+The transition of optical computing designs from idealized numerical simulations to physical
+hardware is often bottlenecked by extreme sensitivity to manufacturing tolerances, mechanical
+misalignment, and environmental phase noise. Evaluating the ODNN-based arithmetic unit
+involves rigorously scrutinizing its mode purity, diffraction efficiency, and robustness to
+physical and atmospheric perturbations.
+Mode Purity and Diffraction Efficiency
+Mode purity is the preeminent metric of success for an OAM-based computational system; if
+the spatial shifting operation severely distorts the helical phase front of the OAM beam, the
+
+topological charge        will degenerate, resulting in catastrophic data loss. The mode purity                is
+defined mathematically through the normalized inner product of the complex amplitude of the
+
+actual output field            and the ideal target Laguerre-Gaussian mode                      :
+
+
+
+
+
+
+
+
+Simulations of the 3-layer ODNN arithmetic unit demonstrate spectacular preservation of the
+optical field, with average mode purities achieving between 95% and 99.65%, and the lowest
+isolated accuracy remaining above 91% even in worst-case cascaded logical scenarios5. The
+overall diffraction efficiency—which measures the proportion of input optical power
+successfully routed to the target spatial coordinates rather than scattered into background
+noise—similarly exceeds 95% under ideal operational conditions5.
+
+=== PAGE 11 ===
+Robustness to Mechanical and Physical Misalignments
+A physical optical neural network is susceptible to various spatial perturbations during
+assembly and operation. Three principal sources of hardware error must be analytically
+addressed: lateral displacement, rotation deviations, and phase quantization.
+Lateral displacement arises from imperfect optomechanical alignment between the incident
+laser source, the input modulation plane, and the cascaded ODNN layers. The ODNN arithmetic
+unit exhibits a high degree of shift-invariance within tight spatial bounds. Minor lateral
+displacements on the sub-millimeter scale degrade mode purity slightly but generally maintain
+a sufficient signal-to-noise ratio for the OAM topological charge to be reliably decoded at the
+output plane4.
+Rotation deviations pose a more critical threat. Because the toggling of the arithmetic unit
+
+between multiplication and division relies on an exact                   clockwise rotation of the phase
+matrix4, angular deviations during mechanical or electro-optic rotation can severely corrupt the
+spatial routing path. The performance degradation curves indicate that while small angular
+
+misalignments of less than            are well-tolerated, larger deviations lead to a rapid breakdown
+of the spatial shifting matrix, dispersing the OAM beam across the output plane as
+unstructured speckle noise4.
+Environmental Phase Noise and Kolmogorov Turbulence
+If the optical arithmetic unit is interfaced with Free-Space Optical (FSO) communication links to
+transmit encrypted computational data, the propagation environment becomes a severe
+factor. Atmospheric turbulence, driven by localized fluctuations in the refractive index of the
+medium, acts as an uncontrolled, stochastic diffractive layer that scrambles the delicately
+trained wavefronts12.
+
+In standard Kolmogorov turbulence theory, the parameter                      denotes the turbulence strength,
+defined mathematically as a function of the beam size relative to the Fried parameter                         12. The
+Fried parameter represents the average correlation length of phase distortion. The probability
+
+         that a photon initially generated with an OAM topological charge of zero retains its zero
+state after propagating through a turbulent channel is derived as:
+
+
+
+
+
+where            is the modified Bessel function of the first kind, and                                     12.
+
+When the turbulence strength                     , the beam size exceeds the correlation length of the
+phase distortion. In this strong turbulence regime, the field undergoes significant spatial
+shifting and local deformations12. The spatial varying Bloch vectors                                            ,
+
+=== PAGE 12 ===
+which describe the localized state of the photon across its transverse profile, become
+
+scrambled. The Skyrmion number                , which quantifies the topological wrapping of the Bloch
+sphere, degrades rapidly, indicating modal crosstalk and catastrophic phase front distortions12.
+For an ODNN arithmetic architecture that relies precisely on spatial position to dictate the
+numeric value of a bit, an environmentally induced spatial shift is devastating. It can effectively
+scramble the positional data array, autonomously transforming a multiplication operation into a
+random numeric shift or division. To mitigate this vulnerability, OAM computational units must
+either be heavily confined within environmentally stabilized enclosures, coupled into
+specialized ring-core optical fibers that support stable OAM propagation, or employ rigorous
+topological phase recovery mechanisms prior to the detection plane12.
+Integration into All-Optical Logic and Networking
+Ecosystems
+The utility of a fixed-base spatial shifting arithmetic unit is maximized when it is contextualized
+within a comprehensive, integrated all-optical processing ecosystem. Arithmetic manipulation
+is only one fraction of a generalized Arithmetic Logic Unit (ALU); logical gating and signal
+multiplexing are equally vital.
+All-Optical Logical Gates and Adders
+To complement physical multiplication and division, ODNNs have been successfully trained to
+execute fundamental logical boolean operations directly on OAM modes. Empirical research
+demonstrates that basic logic gates—including AND, OR, NOT, NAND, and NOR—can be
+mapped directly into single-model ODNN architectures10.
+In the implementation of an OAM logic AND gate, the presence of specific topological charges
+serves as the binary inputs. The diffractive network evaluates the physical presence of these
+incoming fields and outputs an OAM beam with a specific target topological charge if, and only
+if, both input modes are active10. The performance of these gates is exceptionally high; for
+instance, the ODNN accurately completes the logic OR operation with an output mode purity
+reaching 99.13%10.
+However, non-linear logic functions such as XOR and XNOR present a profoundly more
+complex computational challenge. The data distribution features in the training data for XOR
+are fundamentally "fuzzier" and lack simple linear separability. Consequently, a single passive
+linear ODNN layer cannot easily resolve XOR operations while maintaining high mode purity. To
+bypass this limitation, researchers physically cascade basic AND, OR, and NOT gates to
+construct XOR and XNOR networks, successfully achieving the requisite operational truth
+tables10.
+By unifying these cascaded logic gates, ODNN-based OAM Half-Adders have been
+successfully constructed. When the four fundamental input states ("00", "01", "10", "11") are
+sequentially fed into the diffractive half-adder, the system yields output mode purities greater
+than 91% for the SUM and CARRY operations10.
+
+
+=== PAGE 13 ===
+  Optical Logic Gate                    Architectural                         Achieved Mode Purity
+                                        Implementation
+
+  OR Gate                               Single ODNN Model                     99.13%10
+
+
+  AND Gate                              Single ODNN Model                     > 95%10
+
+  XOR / XNOR Gates                      Cascaded Basic Logic Units            Variable (High)10
+
+
+  Half-Adder                            Cascaded Basic Logic Units            > 91%10
+
+Optical Add-Drop Multiplexers (OADM) and Advanced Encryption
+Moving vast quantities of computational data into and out of the arithmetic unit requires
+sophisticated, low-latency routing. ODNNs serve dual purposes as high-efficiency Optical
+Add-Drop Multiplexers (OADMs), capable of selectively coupling and separating distinct OAM
+modes for signal transport5.
+In a simulated four-channel communication link operating at 1550 nm, these OADMs
+demonstrate the ability to process multi-channel OAM signals carrying dense 16-Quadrature
+Amplitude Modulation (16-QAM) data payloads. The diffractive networks achieve a remarkably
+low Optical Signal-to-Noise Ratio (OSNR) penalty of approximately 1 dB at a stringent Bit Error
+Rate (BER) of                    5. The integration of OADMs with spatial-shifting arithmetic units
+implies that a central optical processor can not only compute complex mathematical
+operations but also dynamically route the output integers into specific network channels based
+exclusively on their assigned topological charge. This facilitates seamless all-optical
+interconnections across data centers without the prohibitive latency of intermediate O-E-O
+conversions5.
+Furthermore, the infinite dimensionality of the OAM state space enables advanced
+hardware-level optical encryption. By leveraging the specific diffractive routing patterns of the
+arithmetic unit alongside spatial phase mapping, OAM mode logic can encrypt transmitted
+imagery and data. An encrypted image cannot be obtained or resolved correctly if incorrect
+OAM modes or mismatched multiplication/division transformations are applied during the
+physical decoding phase at the receiver plane, thereby guaranteeing the physical-layer security
+of information transmission during FSO communications3.
+Broader Implications and Non-Linear Expansions
+While the fixed-base spatial shifting mechanics rely heavily on linear diffractive optics,
+theoretical expansions suggest integrating these paradigms with non-linear quantum
+substrates. Advanced optical traps formed by intersecting LG beams can confine Bose-Einstein
+Condensates (BECs) in highly structured optical potentials14.
+In these environments, the potential depth and harmonic confinement are dictated by the
+
+=== PAGE 14 ===
+optical power and waist of the intersecting OAM beams. The dynamics of the condensate are
+rigorously governed by the non-linear Gross-Pitaevskii Equation (GPE), which models the
+kinetic, potential, and non-linear interactions of the trapped matter-waves14. By integrating
+ODNN spatial shifting concepts with BEC optical trapping, researchers could theoretically
+execute spatial bit-shifts that rely not just on passive diffraction, but on the deterministic
+non-linear collision of quantum states, paving the way for ultra-low energy, quantum-coherent
+arithmetic logic units.
+Conclusion
+The application of Optical Diffractive Neural Networks for fixed-base digital arithmetic
+represents a watershed evolution in the architecture of all-optical computing. By
+mathematically redefining the fundamental operations of digital multiplication and division as
+uniform left and right geometric shifts of a positional bit sequence, and subsequently mapping
+these bitwise operations to the precise physical spatial shifting of discrete Orbital Angular
+Momentum arrays, researchers have successfully bypassed the fundamental latency and
+energy bottlenecks of electronic circuitry.
+The primary findings of this paradigm underscore its immense viability. The computational
+elegance of executing left-shift multiplication and right-shift division operations using the
+
+identical three-layer ODNN hardware—toggled purely through a                           clockwise physical
+rotation of the phase matrix—highlights a remarkable efficiency in component utilization.
+Operating at the industry-standard telecom wavelength of 1550 nm, the spatial shifting
+mechanism proves inherently dimension-agnostic, supporting not just binary arithmetic but
+extending naturally to ternary, quaternary, and broader high-radix computations without
+requiring substantial hardware overhauls.
+Driven by the rigorous mathematical orthogonality of OAM topological charges, the diffractive
+process preserves mode purities up to an extraordinary 99.65%, maintaining the stringent error
+tolerances critical for reliable data processing. The demonstrated empirical robustness against
+lateral displacements, minor angular deviations, and extensive phase quantization further
+confirms its readiness for physical, solid-state implementation. In synergy with all-optical
+logical gates, OAM half-adders, and dynamic Optical Add-Drop Multiplexers, the fixed-base
+spatial shifting arithmetic unit provides the definitive quantitative core required to construct
+fully integrated, Turing-complete optical processors. As deep-learning methodologies for
+optimizing these diffractive matrices continue to advance, this architecture is uniquely
+positioned to redefine the speed, efficiency, and fundamental physical constraints of
+next-generation high-dimensional computing networks.
+
+Works cited
+
+   1.  (PDF) Optical computing - ResearchGate,
+       https://www.researchgate.net/publication/317178854_Optical_computing
+   2.  Optical angular momentum and atoms - PMC - NIH,
+       https://pmc.ncbi.nlm.nih.gov/articles/PMC5247479/
+   3.  Optical encryption via four operations of orbital angular momentum,
+
+=== PAGE 15 ===
+    https://pubs.aip.org/aip/app/article/10/7/076113/3353357/Optical-encryption-via-fo
+    ur-operations-of-orbital
+4.  Optical diffractive neural network-based orbital angular momentum,
+    https://opg.optica.org/oe/abstract.cfm?uri=oe-34-3-5277
+5.  Optical diffractive deep neural network-based orbital angular,
+    https://opg.optica.org/abstract.cfm?uri=oe-29-22-36936
+6.  Orbital and Spin Angular Momentum | Bohrium,
+    https://www.bohrium.com/en/sciencepedia/feynman/keyword/total_angular_mom
+    entum
+7.  Rotations and Angular momentum,
+    https://www.bartol.udel.edu/~seckel/courses/phys_811/lecture%20notes/rotations
+    .pdf
+8.  Schematic of spin separation and Pancharatnam-Berry (PB),
+    https://www.researchgate.net/figure/Schematic-of-spin-separation-and-Panchar
+    atnam-Berry-PB-arising-from-polarization_fig5_295173830
+9.  Orbital angular momentum beams demultiplexing using a hybrid,
+    https://opg.optica.org/prj/abstract.cfm?uri=prj-13-12-B120
+10. Orbital angular momentum mode logical operation using optical,
+    https://opg.optica.org/abstract.cfm?uri=prj-9-10-2116
+11. Versatile manipulation of orbital angular momentum combs enabled,
+    https://opg.optica.org/oe/fulltext.cfm?uri=oe-33-4-6771
+12. Topological robustness of orbital angular momentum entanglement,
+    https://arxiv.org/html/2603.10618v1
+13. Concept and principle of an orbital angular momentum (OAM)-based,
+    https://www.researchgate.net/figure/Concept-and-principle-of-an-orbital-angula
+    r-momentum-OAM-based-underwater-wireless_fig1_320847387
+14. Symmetry-Driven Multi-Soliton Dynamics in Bose–Einstein ... - MDPI,
+    https://www.mdpi.com/2073-8994/17/4/582

@@ -1,0 +1,1570 @@
+{
+  "archive_sha256": "230427a64dfeccc1b83b90cd263ec360fc2cf30cb494f718aebe96bf70b6f2e4",
+  "files": [
+    {
+      "path": ".grok/app-env.json",
+      "bytes": 76,
+      "sha256": "62dea7bb1344fbbdca7057eea06791c27b1488f25203d25bcfd8035c44280151"
+    },
+    {
+      "path": ".grok/favicon-16.png",
+      "bytes": 484,
+      "sha256": "36bb73be4fdd88df880c726a2e68f43b5bd5b3cf882f3fec31be42a9f1939455"
+    },
+    {
+      "path": ".grok/favicon-64.png",
+      "bytes": 1069,
+      "sha256": "ea50f6a2e69cf5c517a1830195a67429c71ad6741fc1ff10c48e458ae3330b98"
+    },
+    {
+      "path": ".grok/preview.log",
+      "bytes": 7514,
+      "sha256": "b03320aabc24d833bd56f7ac072706f6e84af1a5398270719665b13267dfa3fe"
+    },
+    {
+      "path": ".grok/references/browser-qa.md",
+      "bytes": 9097,
+      "sha256": "5299e34aa070cd6877d2217df6fe4fa3f7a7db94df03c41ac1402b540b289150"
+    },
+    {
+      "path": ".grok/references/data-and-auth.md",
+      "bytes": 5614,
+      "sha256": "1e8373c5e00108ff8b84014040f5c66d80aa2668f8660139356869c55706ba7a"
+    },
+    {
+      "path": ".grok/references/deploy-target.md",
+      "bytes": 2435,
+      "sha256": "ff612fd0ac29e2d2e8c7ac2864ee92549086baf34fb741fcabfd7de841eebdc8"
+    },
+    {
+      "path": ".grok/references/generated-art.md",
+      "bytes": 3854,
+      "sha256": "7485ecf0311612b97c0e3c24fbfac6bd118b1c82429a3ed2f272214fe6a6d994"
+    },
+    {
+      "path": ".grok/references/hibernate-revive.md",
+      "bytes": 1796,
+      "sha256": "12125da78e1932bfbfc29edec96d2c0790f535e6a093d1207fc1da559dd04cc3"
+    },
+    {
+      "path": ".grok/references/scaffold.md",
+      "bytes": 2392,
+      "sha256": "d27932d3939f9a2fc3f2477d9be032d5361c63a407d873676b15ba9e66e1a7df"
+    },
+    {
+      "path": ".grok/skills/auth/SKILL.md",
+      "bytes": 6345,
+      "sha256": "887ef562db59f644f4353e69aa8cb22a1c212488840a8c274f73c36e97cbbfad"
+    },
+    {
+      "path": ".grok/skills/auth/references/grok-identity.md",
+      "bytes": 3746,
+      "sha256": "f6e944c2b028690382d7fb1d66d34ede55bd5f92257d17f33d48f70e56d92188"
+    },
+    {
+      "path": ".grok/skills/auth/references/per-user-data.md",
+      "bytes": 2402,
+      "sha256": "8538db1b761d2dce033e751eb7513e5d1012998b9d7599f8d1725e3b90830298"
+    },
+    {
+      "path": ".grok/skills/auth/references/prewired-and-env.md",
+      "bytes": 3392,
+      "sha256": "de580b328cc403f6b6d5638764c8f42fa6f17d461969f95eaed913c0a6ddabe5"
+    },
+    {
+      "path": ".grok/skills/auth/references/session-ui.md",
+      "bytes": 6437,
+      "sha256": "326773404dd10a2ff0ba9bfa02045852175007f9e8e52c68d47f45532bc532fe"
+    },
+    {
+      "path": ".grok/skills/auth/references/sign-in-methods.md",
+      "bytes": 2892,
+      "sha256": "f768048704e997511b46d9f8162bad5bf3faf749977f5fb014c9325e738c0277"
+    },
+    {
+      "path": ".grok/skills/auth/references/wiring.md",
+      "bytes": 2627,
+      "sha256": "75d840d1eedb9ce17fbb3ffd10a09ac9ac90a469f9f185338b14b8079fbb407c"
+    },
+    {
+      "path": ".grok/skills/building-games/SKILL.md",
+      "bytes": 12235,
+      "sha256": "527814d9d39d29b7a291cb696eceb6a121b9923e833876bf888916a6a29771d1"
+    },
+    {
+      "path": ".grok/skills/building-games/references/3d-libs.md",
+      "bytes": 3092,
+      "sha256": "db472820a65a16e4928a68a50fd31885b945ec2f9fa45a17a8152a0d48cf12bf"
+    },
+    {
+      "path": ".grok/skills/building-games/references/ai-pathfinding.md",
+      "bytes": 9974,
+      "sha256": "e815831ca67d68e4bc7a649f63ae129abdd3d996040b2c446c2c574e72c8424b"
+    },
+    {
+      "path": ".grok/skills/building-games/references/audio.md",
+      "bytes": 9423,
+      "sha256": "1de8c85a9fd6cb9594e11b6b1da7e54cdca8de512c0778eb35959f8f0fbe210c"
+    },
+    {
+      "path": ".grok/skills/building-games/references/babylon.md",
+      "bytes": 16504,
+      "sha256": "065934f53c6c8a1d5fd27a98f1311df2b4f2f194eb694355a98cc3c802a3ebd6"
+    },
+    {
+      "path": ".grok/skills/building-games/references/collision-physics.md",
+      "bytes": 10990,
+      "sha256": "af213fa9079d38742fc4d95a9c6a34907b85fb039e6c8cdb058dcbf5c7bd8672"
+    },
+    {
+      "path": ".grok/skills/building-games/references/ecs-architecture.md",
+      "bytes": 9185,
+      "sha256": "6b0de85d73be9725c3989136c968b85ceec70c333cc0ef9993e58aff0f1b0d5f"
+    },
+    {
+      "path": ".grok/skills/building-games/references/game-feel-juice.md",
+      "bytes": 10693,
+      "sha256": "24742ba2d5455f10c85c06ae279c636921f983a696b844a7f2505b988a5bef83"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/board-card-chess.md",
+      "bytes": 8859,
+      "sha256": "c2103f928e917c02729f00696165426ba106d9f235948347147d73ac53a50d65"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/endless-runner.md",
+      "bytes": 6912,
+      "sha256": "2c0026ab6e57f6b025fbe3673aab24f7dff0fb70fb89f1b047486f1346049a54"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/fps.md",
+      "bytes": 10039,
+      "sha256": "a3df7b29b964c3850e01d10fd4df131d3488f9064acac49ddc34386ec13d1ca2"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/platformer-2d.md",
+      "bytes": 8785,
+      "sha256": "2262c7c914409746971a9b1eef445b026011260ddb5a39af2f3904fc44ef8104"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/puzzle-match3-tetris.md",
+      "bytes": 10324,
+      "sha256": "1011844cbe7d65184ecbc541ad0f3060b04ee22197d6b6bc22fa671b2329ed47"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/racing-kart.md",
+      "bytes": 9169,
+      "sha256": "2afc99aadd556321973c8ae3ef2f8270dd5bb7bb8ad896abcac27c9a7221e0ff"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/topdown-twin-stick.md",
+      "bytes": 7517,
+      "sha256": "f1dfeca4990b1fc37a49ca82f1246f5564a4fae24dfc3ac8b1d01f95aab43da6"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/tower-defense.md",
+      "bytes": 7411,
+      "sha256": "a52c28421da0d3710c21fa19421a172b0bc75add64b5dee35abd3b8299add76a"
+    },
+    {
+      "path": ".grok/skills/building-games/references/genres/voxel-minecraft.md",
+      "bytes": 8658,
+      "sha256": "cdd5746e5496945694fd8e8d0fed9cf0314d4fae6dc107cfdf44a0824fdebdc6"
+    },
+    {
+      "path": ".grok/skills/building-games/references/input.md",
+      "bytes": 10311,
+      "sha256": "00e030e3a28118bfc9d2f6a633b9d56cc31f60d015181b668dcd09914d15f8ce"
+    },
+    {
+      "path": ".grok/skills/building-games/references/phaser.md",
+      "bytes": 19739,
+      "sha256": "08abc9cb20cfe356e3376f216aef6a62df72e654f542c7770ab69f2cdfc17b2a"
+    },
+    {
+      "path": ".grok/skills/building-games/references/procedural-generation.md",
+      "bytes": 10441,
+      "sha256": "f03bd0390726bc7f823ad15f9309aef5317aa7f27fb7611e6648ec3fa0ca7ace"
+    },
+    {
+      "path": ".grok/skills/building-games/references/save-persistence.md",
+      "bytes": 9041,
+      "sha256": "6751d65f6b0dc76e19be0827286a1753efc8161a3f66a080c8e23999ef5063a4"
+    },
+    {
+      "path": ".grok/skills/building-games/references/threejs-foundational.md",
+      "bytes": 14380,
+      "sha256": "90f75bc167ae9b4e4e980689ad5fdd81ccfc5efef457cdec01234dccd0b8dd8e"
+    },
+    {
+      "path": ".grok/skills/controls/SKILL.md",
+      "bytes": 11509,
+      "sha256": "85b80f2812d0d141e97dbb294c3678c3192fd051651e9460ed6ca6317d717141"
+    },
+    {
+      "path": ".grok/skills/design-ui/SKILL.md",
+      "bytes": 5995,
+      "sha256": "5ac56024db2287e485d03e208423fad29909d3b323647c5568243bfa96f42acf"
+    },
+    {
+      "path": ".grok/skills/design-ui/references/animations.md",
+      "bytes": 11106,
+      "sha256": "33e01727f60c34872f3f0a52c92513f9af1681449ebaa35b51123127c31bf51f"
+    },
+    {
+      "path": ".grok/skills/design-ui/references/performance.md",
+      "bytes": 2884,
+      "sha256": "f4537590cca884143b8e628123810286b4bfef29b9283f900265190bd3d8bd5e"
+    },
+    {
+      "path": ".grok/skills/design-ui/references/refined-ui.md",
+      "bytes": 20469,
+      "sha256": "9abf1b1e34632f0788fec8f49a8ade216a72aab06f6cf18528b6c502c7f5a56d"
+    },
+    {
+      "path": ".grok/skills/design-ui/references/surfaces.md",
+      "bytes": 6586,
+      "sha256": "c2eac605c207ba67b2e3bf6a3918f293a6fe02ce8c72c630a51faceb321b445d"
+    },
+    {
+      "path": ".grok/skills/design-ui/references/typography.md",
+      "bytes": 3180,
+      "sha256": "b91125ab0edf02a7f582bae434ae957af2f6729e7be038304bb2d0c983697eb8"
+    },
+    {
+      "path": ".grok/skills/game-animation-frames/SKILL.md",
+      "bytes": 4386,
+      "sha256": "3840f8166d8784d672531fee4c25b618867820e97ff4faf17135f26399e0e097"
+    },
+    {
+      "path": ".grok/skills/game-asset-core/SKILL.md",
+      "bytes": 3858,
+      "sha256": "690bb8a77495bc12c2e95b60d907a1529de87b5f65856281bb67bc67839c4cfc"
+    },
+    {
+      "path": ".grok/skills/game-character-consistency/SKILL.md",
+      "bytes": 2795,
+      "sha256": "5fc49d9364193607cf3bca8f1884a43ccd4d3cbe63df69ef67b9b53346881afd"
+    },
+    {
+      "path": ".grok/skills/game-tilesets/SKILL.md",
+      "bytes": 3028,
+      "sha256": "38eb784765e1b5adaee3cca138978be12f968521a80e14f3c83e096b6308e10b"
+    },
+    {
+      "path": ".grok/skills/game-ui-icons/SKILL.md",
+      "bytes": 2274,
+      "sha256": "18fd7d9a86bbba018c2eb05ffbad99bda9a8d876d7f61a80de6e6f7771771028"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/LICENSE",
+      "bytes": 1065,
+      "sha256": "d63ddc781bf0d15753fe0ba22c7cd5828dabb7776465ea4d4939558d4909b0fa"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/SKILL.md",
+      "bytes": 7738,
+      "sha256": "992eeaa76ce3c06220e58867c9ff7554117c4af703539d7796f048e22b868f17"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/SOURCE.md",
+      "bytes": 303,
+      "sha256": "a3667d46be6cda6ec841c482ca371b9bae081445bc9fb15e08e5ef5e22386d31"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/deliverables.md",
+      "bytes": 7345,
+      "sha256": "0513bc2e2b406142f1cab3139e861c1a69de6865b686bde7e7499ba53afc7630"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/layered-map-contract.md",
+      "bytes": 8102,
+      "sha256": "0af8127a5188d9d09fcf9913cf2804c5e40eb6b2be422c48d356d22c649b10a2"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/map-strategies.md",
+      "bytes": 26755,
+      "sha256": "91659c967efd0edde10ca3bd1cc136b17b7820c0da7279078d5020827935095d"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/object-production-gate.md",
+      "bytes": 3192,
+      "sha256": "f26eddd69b5561b6cae7945222e9212f5bf6e534fda427f48a58746238ac8bb8"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/pipeline.md",
+      "bytes": 16554,
+      "sha256": "e227cdc348607228f3474fe4ea1d533d65e377dd17e36a8ca61e4708fabc37c0"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/prop-pack-contract.md",
+      "bytes": 9458,
+      "sha256": "93be2245aa4f3ff9e591127a7318f34843b6458a85d7c614ca024500d30107f9"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/references/side-scroll-stages.md",
+      "bytes": 5627,
+      "sha256": "0926d20385024052bab2044645f49657552d0bb2f259aa1958a809e3332275b0"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/scripts/compose_layered_preview.py",
+      "bytes": 5256,
+      "sha256": "29d256385961475de142d2701231a9e67c369e5270c193a66df3c51b6c888855"
+    },
+    {
+      "path": ".grok/skills/generate2dmap/scripts/extract_prop_pack.py",
+      "bytes": 13050,
+      "sha256": "c02a2726497e6771e0a5a1e5105591ce98b9f161b8f6a36e04863bf7592f8e36"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/LICENSE",
+      "bytes": 1065,
+      "sha256": "d63ddc781bf0d15753fe0ba22c7cd5828dabb7776465ea4d4939558d4909b0fa"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/SKILL.md",
+      "bytes": 21260,
+      "sha256": "d620ac32acdb5946a41e41269aefab0b295e8038df57c2e89ce3749415e896e6"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/SOURCE.md",
+      "bytes": 303,
+      "sha256": "a3667d46be6cda6ec841c482ca371b9bae081445bc9fb15e08e5ef5e22386d31"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/references/modes.md",
+      "bytes": 5799,
+      "sha256": "88b75203732cf1e04af8d98427c2ddef617b7bbc1a844841d75efdf4c1359a39"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/references/prompt-rules.md",
+      "bytes": 11603,
+      "sha256": "6a82348083283a29d86c934a280b0bb80c40f926a1e08582050f6dd9068041f3"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/scripts/generate2dsprite.py",
+      "bytes": 42687,
+      "sha256": "681d0885d1813e9d7e1a82dfd340c1c71c8158e57a4c0710516c3f6c2c944a95"
+    },
+    {
+      "path": ".grok/skills/generate2dsprite/scripts/make_layout_guide.py",
+      "bytes": 3590,
+      "sha256": "a1a91b069e998d304b8c37f14ec33c139f50252b5fb04574f4c997d268ec6b58"
+    },
+    {
+      "path": ".grok/skills/imagine-grok-build/SKILL.md",
+      "bytes": 12394,
+      "sha256": "cae327513b9cfbf1c6c1136533dbf80dddc7493a0e34b57572b84fdc6ff9ef44"
+    },
+    {
+      "path": ".grok/skills/multiplayer-p2p/SKILL.md",
+      "bytes": 5067,
+      "sha256": "234ee1648566f808315295b5e5b6bc6b6e2933a183ac1a584dcd243d792a4bf5"
+    },
+    {
+      "path": ".grok/skills/multiplayer-p2p/references/react-binding.md",
+      "bytes": 4831,
+      "sha256": "77391d4a47f519889386895af34f2c101a089616caddbc47ba0134f068a734c9"
+    },
+    {
+      "path": ".grok/skills/multiplayer-p2p/references/signaling-relay.md",
+      "bytes": 9150,
+      "sha256": "4277bb2f17e208a3d5afe72ef965788876a2935379175a9b0eb20dc2c898766f"
+    },
+    {
+      "path": ".grok/skills/neon/SKILL.md",
+      "bytes": 7445,
+      "sha256": "87e0fe9b647986787e281930788e1dc110ccb19df4e29854f20f4604c1ae6897"
+    },
+    {
+      "path": ".grok/skills/og/SKILL.md",
+      "bytes": 6555,
+      "sha256": "5c6ff71e42840f38db61fb5173836485de4a53418c99d1f34d77ecefaed46d28"
+    },
+    {
+      "path": ".grok/skills/og/references/brand-pass.md",
+      "bytes": 2568,
+      "sha256": "68019a3afe8ae75b94599de354245c9a0d068cae5ff054841ac75cc055058afe"
+    },
+    {
+      "path": ".grok/skills/og/references/custom-card.md",
+      "bytes": 5988,
+      "sha256": "97c0efccce4daf47486f8caa65723db2fd0435ccaa68be90004a6c1ad15cb954"
+    },
+    {
+      "path": ".grok/skills/og/references/favicon-and-icons.md",
+      "bytes": 1959,
+      "sha256": "bc95ed577825a411571f4680f992799a26811dd72af6714375dc49800e216db6"
+    },
+    {
+      "path": ".grok/skills/og/references/og-type-contract.md",
+      "bytes": 1749,
+      "sha256": "2743a8a9a6c1eafb8aec5ae8c83f2202533df6a55649582684d2bce18a52ea2f"
+    },
+    {
+      "path": ".grok/skills/og/references/placeholder-card.md",
+      "bytes": 887,
+      "sha256": "c21551f098562c8ff49004885596f71848c09af13b19237f1babe820e4f7e957"
+    },
+    {
+      "path": ".grok/skills/og/references/x-banner.md",
+      "bytes": 2339,
+      "sha256": "0f6f5b8c381c40e26514439575a004ef0560b379fd069b76fc940c9f803e0733"
+    },
+    {
+      "path": ".grok/skills/threejs/SKILL.md",
+      "bytes": 3021,
+      "sha256": "0fadfe66cf788bce9bcef87a3bc8d6c65e5b6275976b7bee1a914a0d05d6ecc6"
+    },
+    {
+      "path": ".grok/skills/threejs/references/llms-full.txt",
+      "bytes": 132250,
+      "sha256": "e93ae843c05b2f936efaaa5946d506ca70a7cc15fa2f7adf79f9d4c70659b2cc"
+    },
+    {
+      "path": ".grok/skills/video2dsprite/LICENSE",
+      "bytes": 1065,
+      "sha256": "d63ddc781bf0d15753fe0ba22c7cd5828dabb7776465ea4d4939558d4909b0fa"
+    },
+    {
+      "path": ".grok/skills/video2dsprite/SKILL.md",
+      "bytes": 10058,
+      "sha256": "09062be6facd6d35373777eb464c32be7e1272030e0b5f1f66b5100e7b3e6f14"
+    },
+    {
+      "path": ".grok/skills/video2dsprite/SOURCE.md",
+      "bytes": 303,
+      "sha256": "a3667d46be6cda6ec841c482ca371b9bae081445bc9fb15e08e5ef5e22386d31"
+    },
+    {
+      "path": ".grok/skills/video2dsprite/references/pipeline.md",
+      "bytes": 2544,
+      "sha256": "d8dcafb959b92c88c754bb784d8da047e4537bde1679875da2ce73463bbe43d0"
+    },
+    {
+      "path": ".grok/skills/video2dsprite/references/prompt-rules.md",
+      "bytes": 2482,
+      "sha256": "b1bee1a50932dc4bb26f499027d4534f556c8ef99c6744877cddc9321d8e2783"
+    },
+    {
+      "path": ".grok/skills/video2dsprite/scripts/video2dsprite.py",
+      "bytes": 16164,
+      "sha256": "5a580ace4b07ef66d3069ad7fca80f744655e9ba17bdea82dfe2717bd4dfedea"
+    },
+    {
+      "path": ".grok/skills/xai-api/SKILL.md",
+      "bytes": 6618,
+      "sha256": "a8f9bb7468305e3ec6377f74a9e5ecc4b0b4a1334596350087b8c32cc9cb45a5"
+    },
+    {
+      "path": ".grok/status",
+      "bytes": 90,
+      "sha256": "f5e07cdceda8aff8d0c250caa22cfb5304f17f7c715b3026d407af8d92094374"
+    },
+    {
+      "path": ".grok/vb-logo-master.png",
+      "bytes": 601926,
+      "sha256": "f3dd02d6f11f1714c9311a43d7b26ee20b518dadc16cdf2bf57e90dd1cce32b1"
+    },
+    {
+      "path": ".grok/vb-logo.png",
+      "bytes": 602520,
+      "sha256": "0e0a6afaafc1b902f34068664edf1abe6c114efa6c2d283d31c5563eada71213"
+    },
+    {
+      "path": ".node_modules.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".prettierrc",
+      "bytes": 90,
+      "sha256": "d5f90f76c5b68ce7be5ba077813f97e1983511b8c314764537345a538c1261f4"
+    },
+    {
+      "path": ".project_id",
+      "bytes": 36,
+      "sha256": "31752cf526b0f3d5bb854b61dcf4ed5fe5dab89d40ba351ace7cf0ee94e41015"
+    },
+    {
+      "path": ".vercel/output/config.json",
+      "bytes": 366,
+      "sha256": "ec7bdc89d3083a035cc6dbe3a8b1bc293075db1c9c9a456ef1db6926e3d2bfe0"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/.vc-config.json",
+      "bytes": 149,
+      "sha256": "14de6d385da313f4426d4a5a9c3100e8b346ad8ea5f7e7c6b15bcfe363369b64"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_chunks/ssr-renderer.mjs",
+      "bytes": 965,
+      "sha256": "503514aa9d1edc46fbc34a8954079622d54d5f972c783b2c0076e427209719c1"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs",
+      "bytes": 814540,
+      "sha256": "671b890aaa4e374c27c09484b91c3ded0044b0f32aa0c2a58eee0380d792888d"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/@tanstack/router-core+[...].mjs",
+      "bytes": 29606,
+      "sha256": "1881d429045c5c68d464fcb0b8e336fdd8dfa915a39dd973756c7cf659f8a140"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/h3+rou3+srvx.mjs",
+      "bytes": 22573,
+      "sha256": "5d9cb7ea25a5aa0eaa4a9563c2589d53d46b707b406f236a394de3a405cc48af"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/h3-v2+rou3.mjs",
+      "bytes": 9830,
+      "sha256": "ea4f8f6be308948e62c833f52ab80f7b419ba0de168b80a278be66cecc1b5b17"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/lucide-react.mjs",
+      "bytes": 6025,
+      "sha256": "12707eed8d190fdc9db77ba8544c0af04f0396714800e23b58c8b3587824d5ae"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/tanstack__history.mjs",
+      "bytes": 12505,
+      "sha256": "406614a370fd8a427bb0a3a77b78b171311e43b75b714d3d6624253a5d50a3f3"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_libs/zod.mjs",
+      "bytes": 167566,
+      "sha256": "008a8d90f000a61aaf0ec551f66b0738f2f61840519e58cbfe6c4d2a07ea33f2"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_runtime.mjs",
+      "bytes": 1580,
+      "sha256": "aefa2acac0467f8b79c39ad8f80ac480456390bc0a607251f5e9b860675085d9"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/empty-plugin-adapters-D9UWiqvJ.mjs",
+      "bytes": 230,
+      "sha256": "ee1957ac485b923838aecb47c3427e91eb7275698cefcda4a6c9018e6cdb1c9e"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/router-DtsPeCIW.mjs",
+      "bytes": 14928,
+      "sha256": "8b5554cdabd5c42a75ad5a6989fbddbfffb5c351f394ab43b15422d6e4c72191"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/routes-CcjgZtaB.mjs",
+      "bytes": 82825,
+      "sha256": "bfa40cdcc4e08e45ae2a288643c9b70698c83779a9e9ee1b33dc2f52d2b3658b"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/ssr.mjs",
+      "bytes": 67721,
+      "sha256": "fa51bcdf482b3252bff9c2d750112feac4ae20d7bdbfac2af626b2623cb4cc39"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_ssr/start-5Z2QO8AU.mjs",
+      "bytes": 140,
+      "sha256": "2c644f9fa515073658d009ff4f694a224001732f104818e6c80212ff0afc37e8"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/_tanstack-start-manifest_v-CGH5VLR1.mjs",
+      "bytes": 531,
+      "sha256": "3982945619699aafee22bbf4e85e75e7ca7b7053007e182e268f53461fa56842"
+    },
+    {
+      "path": ".vercel/output/functions/__server.func/index.mjs",
+      "bytes": 32293,
+      "sha256": "8e127edb733f8e77def232323d8765dc1b54cb7bd4d95b8fd93731aea714a1dc"
+    },
+    {
+      "path": ".vercel/output/nitro.json",
+      "bytes": 596,
+      "sha256": "6b746d157f4f22e2f67f6fbae8270d1c098cd127ef5b27ba608ed06d9806b495"
+    },
+    {
+      "path": ".vercel/output/static/__grok/icon-180.png",
+      "bytes": 2100,
+      "sha256": "3cf5d17d294b51c6cca6c86070309b88554b7ad702b0412e8e2709a01990bc8a"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/assets/homescreen/glass-puzzle.svg",
+      "bytes": 1811,
+      "sha256": "a677c9356c23d1e699559ddbffac97cd135c2782cd893fb34f3738f6d11bee17"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/assets/homescreen/glass-share.svg",
+      "bytes": 2388,
+      "sha256": "efad1b4b507a68c1f1af4aad2c93e8c24076224aa593da86677697f543d026d6"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/assets/homescreen/logo-grok.svg",
+      "bytes": 1059,
+      "sha256": "0654e3e59cce69856f38525cbfe4ab3a9ef52d4b64c8532dd0bc1a3f34fcb5b1"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/assets/homescreen/ob-ipad.png",
+      "bytes": 101843,
+      "sha256": "4c9b09a4660c662b394597d551a04124293b0e37a7a7c72271dd2948c4499a14"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/assets/homescreen/ob-phone.png",
+      "bytes": 103612,
+      "sha256": "80e0a5ede614d9b920c67d7cb79c80a79134687b1fc9f560384e896a88e302db"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/assets/homescreen/plus.svg",
+      "bytes": 2401,
+      "sha256": "c2c94be46aa2c3c2fda95d7c6f2fc6d0b656d1f5847828d5d95b5a81a6f4f20d"
+    },
+    {
+      "path": ".vercel/output/static/__grok/install/styles.css",
+      "bytes": 6717,
+      "sha256": "7e8e881302f58e54a9c07e7be395692d3de20fdaa27ce358531cc8dcca472cb6"
+    },
+    {
+      "path": ".vercel/output/static/assets/index-DoYQe0V_.js",
+      "bytes": 431953,
+      "sha256": "807b433063cfeca61ef634219d0aa8d965f4e78b99805b6a744dd6e794213157"
+    },
+    {
+      "path": ".vercel/output/static/assets/ram-worker-Brxi6haJ.js",
+      "bytes": 143192,
+      "sha256": "2625ff9361e979f17ea0b6e0ded83f193dc5d8679d8d2074754d92098c72bfef"
+    },
+    {
+      "path": ".vercel/output/static/assets/routes-CSig35Hj.js",
+      "bytes": 47511,
+      "sha256": "80b7690a9a612a68c916f4339fc848b66ff7ff5a0219863ec451c5a3428d872d"
+    },
+    {
+      "path": ".vercel/output/static/assets/styles-DKPDJPyM.css",
+      "bytes": 28494,
+      "sha256": "6cd6109e4bcdfbf49bb78d2e0ca145b6e7b86ff5605ea6a8b25081f876c3c566"
+    },
+    {
+      "path": ".vercel/output/static/favicon.svg",
+      "bytes": 572,
+      "sha256": "377c3acec6017ec29c2615963a0da292e14a5900c0b6408ab12df84b9818db6e"
+    },
+    {
+      "path": ".vercel/output/static/og.jpg",
+      "bytes": 25711,
+      "sha256": "61cdf94a052581056127309402f57296aa6a43290033c5144d77c508e10b81e0"
+    },
+    {
+      "path": ".vercel/output/static/x-banner.jpg",
+      "bytes": 14811,
+      "sha256": "f39b2f6b9383b2c3fd54b663e2dd2f05265e7c2e4b3f85d129af8a926ca38bf1"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 19005,
+      "sha256": "5697d2fefb9bf4dbe5551ac39203e4826547659198a6e80e1041d42b8fc53c8a"
+    },
+    {
+      "path": "artifacts/imagine_images/3e5e1532-d676-416c-ae76-504c188b6577.jpg",
+      "bytes": 321084,
+      "sha256": "74271436828a2ebd554d6439584de28e80d38a205900b5f2edd4b8332f0c439c"
+    },
+    {
+      "path": "artifacts/imagine_images/5967b8f1-96d5-41a8-80a6-fa64d952bf32.jpg",
+      "bytes": 335429,
+      "sha256": "1f260d10f82ebc35a24380513d5ed40f8b8c7a3b935ef06f378a6a6d6709427d"
+    },
+    {
+      "path": "attachments/1-Bit LAMB Unikernel Integration.pdf",
+      "bytes": 400735,
+      "sha256": "7d3e58e732429e90f09eb46e3a81469397af87d7136141d034b736cbbe89b31e"
+    },
+    {
+      "path": "attachments/C# Hologram Computation Harness.pdf",
+      "bytes": 386429,
+      "sha256": "fb8be063efc9207ffd61e65f9ff01261aed5a3c11d8d756df82cd86d2c1238e1"
+    },
+    {
+      "path": "attachments/C# Hologram Computation Harness.txt",
+      "bytes": 38449,
+      "sha256": "2e0b1c8ce2572a5ccdde3dc1f129c5bc9c6cafda386cc36fb8ac1bdfd02f7e5c"
+    },
+    {
+      "path": "attachments/CartwheelBytePipeline-3.0.0 (2).zip",
+      "bytes": 2208557,
+      "sha256": "eefeb3ae9ec339fd8366507400847ff16936646571fcc47b9e4af2195b7a0413"
+    },
+    {
+      "path": "attachments/Columned Unikernel Research Analysis.pdf",
+      "bytes": 264881,
+      "sha256": "e3cd3f3fef93489c70325fbe064bbf69b9eddbef3783a9ac95627e9aa09fb9d8"
+    },
+    {
+      "path": "attachments/Future Data Center Memory Tech.txt",
+      "bytes": 40963,
+      "sha256": "b9b282015c06982d70729afeb26c9abb9bdbb02179b02819147ca0a72c853b85"
+    },
+    {
+      "path": "attachments/Future of Virtual Technologies.txt",
+      "bytes": 54856,
+      "sha256": "8d05c576c0fa6611f3713625f776222916ddad56fe3df202bd729924fe1b59fe"
+    },
+    {
+      "path": "attachments/Holographic Computation via Image Formats.pdf",
+      "bytes": 415322,
+      "sha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82"
+    },
+    {
+      "path": "attachments/Holographic Computation via Image Formats.txt",
+      "bytes": 42297,
+      "sha256": "804c21318edf3d217808a64191e4612addfdf5ccd6bf27342ed4aaeddbaa13d5"
+    },
+    {
+      "path": "attachments/Holographic Geometric Diffusion Computing.pdf",
+      "bytes": 342586,
+      "sha256": "519167f186c583cf9b714ac4ede46752ba039f7c92a7ab2d5074d9954ca453e9"
+    },
+    {
+      "path": "attachments/Holographic Image-Based Computation.pdf",
+      "bytes": 357973,
+      "sha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331"
+    },
+    {
+      "path": "attachments/Holographic Image-Based Computation.txt",
+      "bytes": 34769,
+      "sha256": "7b0302e5a83087d85d9864cceaf3eb1be86522330fa8b1b206e7394e073564a3"
+    },
+    {
+      "path": "attachments/Holographic Logical Reasoning Research.pdf",
+      "bytes": 423510,
+      "sha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5"
+    },
+    {
+      "path": "attachments/Holographic Logical Reasoning Research.txt",
+      "bytes": 45361,
+      "sha256": "bd9bc1059e03978adf1e98c7dc78effe7dc3b7a12534e95f425d316f1cb59887"
+    },
+    {
+      "path": "attachments/IdeaPad 5i RAM Sampling.pdf",
+      "bytes": 310503,
+      "sha256": "818b873dda901a5f2d44cd6ec201b3898276d57428a5914e1fb0215ea7652808"
+    },
+    {
+      "path": "attachments/JA21-Blank-Console-main.zip",
+      "bytes": 19644486,
+      "sha256": "7172231d18190d3cf4526cb399454d7f5b655ee96252d9484c433df94534720c"
+    },
+    {
+      "path": "attachments/Microscopic Quantum Paradigm GIF Research.pdf",
+      "bytes": 370300,
+      "sha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65"
+    },
+    {
+      "path": "attachments/OAM Spatial Shifting Arithmetic.pdf",
+      "bytes": 393867,
+      "sha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96"
+    },
+    {
+      "path": "attachments/P-adic Hologram Processing Architecture.pdf",
+      "bytes": 224841,
+      "sha256": "76bd62a134cdbc3673ae06fede642595951fbc84fea5befda9e3640ea3f7617e"
+    },
+    {
+      "path": "attachments/P-adic Holographic Simulations Research.pdf",
+      "bytes": 258028,
+      "sha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247"
+    },
+    {
+      "path": "attachments/P-adic Penteract Simulation Research.pdf",
+      "bytes": 217140,
+      "sha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a"
+    },
+    {
+      "path": "attachments/Penteract TIFF-GIF Storage Techniques.pdf",
+      "bytes": 308573,
+      "sha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0"
+    },
+    {
+      "path": "attachments/Penteract TIFF-GIF Storage Techniques.txt",
+      "bytes": 33152,
+      "sha256": "fe025be5024ee2cca9f92dc06cfeac83228bc98f4bf7a6d3c0629ad4ba5f62e5"
+    },
+    {
+      "path": "attachments/Quantum Computation Equations Overview.pdf",
+      "bytes": 549504,
+      "sha256": "091c1c4b6d3532e11a3fe74b690f78a9b6747cc3b512ae97107e1521326f19e0"
+    },
+    {
+      "path": "attachments/Quantum Computation and Circuit Evolution.pdf",
+      "bytes": 459061,
+      "sha256": "d95b65cb7a4e773908937674efd2903f4763094b9780217ee8a4dab802f536c9"
+    },
+    {
+      "path": "attachments/Quantum States Digital Holography.pdf",
+      "bytes": 369504,
+      "sha256": "11df83705fa3baafa04f756a6a861bce4456ab0f24223a1509738d46252280ec"
+    },
+    {
+      "path": "attachments/RAM Neural Operation Interfaces.pdf",
+      "bytes": 395963,
+      "sha256": "c7e727e4d012948618fe64a94383868a4c171a0e7cfc670a1248f33a61dbd783"
+    },
+    {
+      "path": "attachments/TIFF GIF Spatial-Temporal Encoding.pdf",
+      "bytes": 315941,
+      "sha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc"
+    },
+    {
+      "path": "attachments/hermit-ramws_2.0.0-ramws.1(3).zip",
+      "bytes": 2172565,
+      "sha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e"
+    },
+    {
+      "path": "attachments/p-Adic 1-Bit LAMB Architecture.pdf",
+      "bytes": 382705,
+      "sha256": "ba8ef879a5b7d988794a175cfa68b5891294e5ea95300ad96ebbc2602e5b37d2"
+    },
+    {
+      "path": "attachments/p-Adic Architecture Unification.pdf",
+      "bytes": 229813,
+      "sha256": "2ef3ff52c904d4f8b908dd23991ce50e668b327c0b330fab2f9c1f3011c8dcc2"
+    },
+    {
+      "path": "attachments/p-adic Architecture in Image Formats.pdf",
+      "bytes": 232297,
+      "sha256": "ba276066b0ddaee5b41812cb7e286ce8de1ca0616146b8753f53cc92d5c0e42f"
+    },
+    {
+      "path": "attachments/p-adic Bit and Anti-bit.pdf",
+      "bytes": 548843,
+      "sha256": "a385a4b883c3fa4ab387e7094596ca4ba90821fcbaad487b2394c43b016fdc9b"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 1277,
+      "sha256": "9c79df07c33ff6aa13876bdd1e7e6652aa1ecb377c7b7f029f7915d215ee4488"
+    },
+    {
+      "path": "migrations/auth/0001_auth.sql",
+      "bytes": 2739,
+      "sha256": "f953cacc448c0c81ae4fe63e66b0e59569e840782ad279fdee201dff529363e9"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 261937,
+      "sha256": "ca792d89a2cc29915ebeb76001b3b6a04bfcb001bee3fdebb3b99adf4884eca6"
+    },
+    {
+      "path": "package.json",
+      "bytes": 3542,
+      "sha256": "c138a44993e23d255bdc0d2054f692f0ef61df5718deb44701d756fa3b99cb50"
+    },
+    {
+      "path": "public/__grok/icon-180.png",
+      "bytes": 2100,
+      "sha256": "3cf5d17d294b51c6cca6c86070309b88554b7ad702b0412e8e2709a01990bc8a"
+    },
+    {
+      "path": "public/__grok/install/assets/homescreen/glass-puzzle.svg",
+      "bytes": 1811,
+      "sha256": "a677c9356c23d1e699559ddbffac97cd135c2782cd893fb34f3738f6d11bee17"
+    },
+    {
+      "path": "public/__grok/install/assets/homescreen/glass-share.svg",
+      "bytes": 2388,
+      "sha256": "efad1b4b507a68c1f1af4aad2c93e8c24076224aa593da86677697f543d026d6"
+    },
+    {
+      "path": "public/__grok/install/assets/homescreen/logo-grok.svg",
+      "bytes": 1059,
+      "sha256": "0654e3e59cce69856f38525cbfe4ab3a9ef52d4b64c8532dd0bc1a3f34fcb5b1"
+    },
+    {
+      "path": "public/__grok/install/assets/homescreen/ob-ipad.png",
+      "bytes": 101843,
+      "sha256": "4c9b09a4660c662b394597d551a04124293b0e37a7a7c72271dd2948c4499a14"
+    },
+    {
+      "path": "public/__grok/install/assets/homescreen/ob-phone.png",
+      "bytes": 103612,
+      "sha256": "80e0a5ede614d9b920c67d7cb79c80a79134687b1fc9f560384e896a88e302db"
+    },
+    {
+      "path": "public/__grok/install/assets/homescreen/plus.svg",
+      "bytes": 2401,
+      "sha256": "c2c94be46aa2c3c2fda95d7c6f2fc6d0b656d1f5847828d5d95b5a81a6f4f20d"
+    },
+    {
+      "path": "public/__grok/install/styles.css",
+      "bytes": 6717,
+      "sha256": "7e8e881302f58e54a9c07e7be395692d3de20fdaa27ce358531cc8dcca472cb6"
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 572,
+      "sha256": "377c3acec6017ec29c2615963a0da292e14a5900c0b6408ab12df84b9818db6e"
+    },
+    {
+      "path": "public/og.jpg",
+      "bytes": 25711,
+      "sha256": "61cdf94a052581056127309402f57296aa6a43290033c5144d77c508e10b81e0"
+    },
+    {
+      "path": "public/x-banner.jpg",
+      "bytes": 14811,
+      "sha256": "f39b2f6b9383b2c3fd54b663e2dd2f05265e7c2e4b3f85d129af8a926ca38bf1"
+    },
+    {
+      "path": "screenshots/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "screenshots/app-builder-built-mobile.png",
+      "bytes": 29065,
+      "sha256": "f8736898abd471fbb7925cb6d6478f34fb3d981831cd4986b955cf7e86908540"
+    },
+    {
+      "path": "screenshots/app-builder-built.json",
+      "bytes": 1313,
+      "sha256": "2be525c92e722b528011058c930da2c46bfddd1daedab6e18c349d363b0ce4e2"
+    },
+    {
+      "path": "screenshots/app-builder-built.png",
+      "bytes": 50801,
+      "sha256": "13038c109495ae64ce3a2a15e4b4e28063ca0248ab487e9f4938b014c89c82be"
+    },
+    {
+      "path": "screenshots/app-builder-preview-mobile.png",
+      "bytes": 29065,
+      "sha256": "f8736898abd471fbb7925cb6d6478f34fb3d981831cd4986b955cf7e86908540"
+    },
+    {
+      "path": "screenshots/app-builder-preview.json",
+      "bytes": 1192,
+      "sha256": "5dd108bb5ee536861410f9b3dd82ae508af7d9a02ee6dcee032db4fd60497482"
+    },
+    {
+      "path": "screenshots/app-builder-preview.png",
+      "bytes": 71061,
+      "sha256": "a045aea867fa8e9f866f298ca446e4cf0147ef364be4efc0c6ec9497771e3b46"
+    },
+    {
+      "path": "screenshots/canvas-only.png",
+      "bytes": 20988,
+      "sha256": "125cffeb4e9e8dd6b2d7322fb22f0715c9ad97f40caebc0da7623e130823572b"
+    },
+    {
+      "path": "screenshots/desktop-fix.png",
+      "bytes": 73952,
+      "sha256": "37d6a5e9401d2738f199b8f09b92769ef386e45058a4a28cd99740f56591c677"
+    },
+    {
+      "path": "screenshots/holo-bytes.png",
+      "bytes": 137744,
+      "sha256": "dd347da6415974517ec8af9f317b28de1c8b9756ce7b70541a002c75f2386192"
+    },
+    {
+      "path": "screenshots/holo-cycle.png",
+      "bytes": 145925,
+      "sha256": "d5aa14834fdcbd6e5ca89d7ce5f12a9c1bdbacd79c040bda3c2dc9545bb400c1"
+    },
+    {
+      "path": "screenshots/holo-frame.png",
+      "bytes": 131303,
+      "sha256": "301c5eb4995d231f6f9de19a5133b2c6447e221509de3cd5aa9d68c32d074ead"
+    },
+    {
+      "path": "screenshots/holo-oam.png",
+      "bytes": 100151,
+      "sha256": "74d315952c1594a0ac9aac0b95ce3b31d28fd6e7a6d752c2f7b87333d3d496ab"
+    },
+    {
+      "path": "screenshots/holo-persist.png",
+      "bytes": 122820,
+      "sha256": "accf5d0323fc84c53535309937e057a72e36fc8f8d0d294f6a03d3176b4a3c0c"
+    },
+    {
+      "path": "screenshots/holo-record.png",
+      "bytes": 108263,
+      "sha256": "8941695ef0d7ab2e63a588d858d3851e7c16a8e374dbbaa667010cf8ba49a6f2"
+    },
+    {
+      "path": "screenshots/holo-replay.png",
+      "bytes": 146343,
+      "sha256": "81c3a3eb381a6fcaf3af62f39267f75927ba7a7ec6cf620649d3648326e02bcf"
+    },
+    {
+      "path": "screenshots/holo-shift.png",
+      "bytes": 107911,
+      "sha256": "cd9ba9ec31d927793a57ad3c80b6836256753b80448f88c5f45f1ce882d5a761"
+    },
+    {
+      "path": "screenshots/holo-xor.png",
+      "bytes": 123992,
+      "sha256": "8f412769f0d347c78c8f460618cfb72af67364913c8283bba567c32242196515"
+    },
+    {
+      "path": "screenshots/mobile-fix.png",
+      "bytes": 45094,
+      "sha256": "9843187fa50d041475f9e7bfe933f20f8a7d82b2ae6763750862150062bc4ac3"
+    },
+    {
+      "path": "screenshots/prod-preview-mobile.png",
+      "bytes": 30326,
+      "sha256": "d3762012207b0667a6537581edf84547605f8ef6e44c3ab93e6567e185df9f97"
+    },
+    {
+      "path": "screenshots/prod-preview.json",
+      "bytes": 1365,
+      "sha256": "f74326f855953142b5c971e0382820f7f1e98793e52c767bea8c51acad24c491"
+    },
+    {
+      "path": "screenshots/prod-preview.png",
+      "bytes": 68535,
+      "sha256": "dd830bb5faa86d0981c74e874cc202f0d7292aa24e6563cb90abe3002b92118f"
+    },
+    {
+      "path": "screenshots/ssd-persist.png",
+      "bytes": 34166,
+      "sha256": "6575913965f40f2522a9d1a46ff855a1b566b6e56afb4ac781917f0f02cb8157"
+    },
+    {
+      "path": "screenshots/term-crop.png",
+      "bytes": 23763,
+      "sha256": "0d78047e9c766c5d91af4f9eda3fb2d95b8683fd6e0a7377eb5541458e168e2a"
+    },
+    {
+      "path": "screenshots/term-zoom.png",
+      "bytes": 122460,
+      "sha256": "1fcae26f34c7540fe0f93a8ccc49b39b7f45325ac0637e120318fe495cd04ebe"
+    },
+    {
+      "path": "scripts/app-env-plugin.mjs",
+      "bytes": 1278,
+      "sha256": "92962d2361a98413c0cef80b31266d49b063cf4ecf6421bb99f57f6eef4ed7b6"
+    },
+    {
+      "path": "scripts/brand-check.mjs",
+      "bytes": 9609,
+      "sha256": "318f33ce7b29b55c386cc8847084068777880f795a5082043229bb06686be035"
+    },
+    {
+      "path": "scripts/brand-check.test.mjs",
+      "bytes": 15084,
+      "sha256": "3dada9e907cf63d4127588268f38987e72108639e65a2694aebf4ee35aa9f309"
+    },
+    {
+      "path": "scripts/browser-guard.mjs",
+      "bytes": 1724,
+      "sha256": "c6fb865defe5a37bd94e3805b00311d4e8267daf92812e39f62b1213d947265e"
+    },
+    {
+      "path": "scripts/browser-smoke-verdict.mjs",
+      "bytes": 4663,
+      "sha256": "5699614f7fa62515e25ba9cca6397db2770cf6feb9b973f3c19f2915874c53de"
+    },
+    {
+      "path": "scripts/browser-smoke-verdict.test.mjs",
+      "bytes": 15643,
+      "sha256": "48b3924b41d606f94a9b8faae47ff350b84978fdd5ab3f6ca01640ed4c7087d7"
+    },
+    {
+      "path": "scripts/browser-smoke.mjs",
+      "bytes": 6042,
+      "sha256": "2e1cc3136f33bd74b73b4b3dba812e74ac299c24893b9a7c406e9bbeaf46571f"
+    },
+    {
+      "path": "scripts/check-auth-invariant.mjs",
+      "bytes": 4203,
+      "sha256": "d712203c4bc92c197c342e5c91660fc5a141a31171f22f35c505a0bff45f98ee"
+    },
+    {
+      "path": "scripts/check-auth-invariant.test.mjs",
+      "bytes": 4218,
+      "sha256": "75a58f44dffb2fc77eb47473638646f607dba26a68a6900156031c7b6227cf3c"
+    },
+    {
+      "path": "scripts/grok-pwa-plugin.mjs",
+      "bytes": 6615,
+      "sha256": "36331d0bc0664debb5068bd6869d3089dc41555b7770c9ccb577d8845958835c"
+    },
+    {
+      "path": "scripts/grok-pwa-plugin.test.mjs",
+      "bytes": 21850,
+      "sha256": "816c6b867c7230d739f69598202c0903e4332632293d548bde74c8d875ed8e5c"
+    },
+    {
+      "path": "scripts/grok-pwa-shared.d.mts",
+      "bytes": 3206,
+      "sha256": "f4db33fcf35ef3f25fca05d1b42494b6f607c44a4d728ed3e989e65a3a1ea9d0"
+    },
+    {
+      "path": "scripts/grok-pwa-shared.mjs",
+      "bytes": 18225,
+      "sha256": "99bf3caab5e4c2a30fe748a196cfa4074a9e039efec16f57c83efe325bcadd9e"
+    },
+    {
+      "path": "scripts/install-page.html",
+      "bytes": 5658,
+      "sha256": "5f8fe91f837db8d74d68db5e057948918bd9299e097700e0bd18f1cf5f94e586"
+    },
+    {
+      "path": "scripts/migrate.mjs",
+      "bytes": 3181,
+      "sha256": "e1a31c8046a099df37b4bcbcafa4f4f7d7d18b1f1f0dc6d79676d41c4be976be"
+    },
+    {
+      "path": "scripts/migration-plan.mjs",
+      "bytes": 1525,
+      "sha256": "9305d8cfe8cdad73671065d675c89d0f20075d18c756f9aba5043b72e7c19a0d"
+    },
+    {
+      "path": "scripts/migration-plan.test.mjs",
+      "bytes": 3558,
+      "sha256": "9787b5f5f1a7057db94f0a5a8c89abf6ec569fd22d26f99be1c248a2a9f0c082"
+    },
+    {
+      "path": "scripts/preview-thumbnail.mjs",
+      "bytes": 1762,
+      "sha256": "fd7263a1dd76f788c2b51e9381e1f1de1a58993fd94e01040285556cd38c0c40"
+    },
+    {
+      "path": "scripts/preview.mjs",
+      "bytes": 11074,
+      "sha256": "b366b1c28844cda81d21e36a88af5f548bdec6a5a4b3000aac12be3ec99cf605"
+    },
+    {
+      "path": "scripts/preview.test.mjs",
+      "bytes": 9207,
+      "sha256": "0105fe41d056ecc22c586a191a9cbd7d0e838b7c878d6993c8c9573c7ea708b1"
+    },
+    {
+      "path": "scripts/sign-out-plan.mjs",
+      "bytes": 5971,
+      "sha256": "32ae072de23b5138bf849c344caf72ab2dab6cb4617ab9915db4e4f5b9c7e2f0"
+    },
+    {
+      "path": "scripts/sign-out-plan.test.mjs",
+      "bytes": 8659,
+      "sha256": "1942e32f4b6a9d8b62733338b0f0e1a7d84ed278b4e6c4f24fa7616a3abc694e"
+    },
+    {
+      "path": "scripts/with-app-env.mjs",
+      "bytes": 4601,
+      "sha256": "a846b68bd3645299c23eef965d9ef226df3a500d345d7576c23f7a2b2ff643c7"
+    },
+    {
+      "path": "scripts/with-app-env.test.mjs",
+      "bytes": 4466,
+      "sha256": "384ea7d0d20f980f733ee38d8f48b0bedd8a4ad39c80ca4792b9aeebcb275851"
+    },
+    {
+      "path": "scripts/write-atomic.mjs",
+      "bytes": 3607,
+      "sha256": "650b62e8aa38697e1b931049025afe3aac829e6761a8aadf428712faef8b1544"
+    },
+    {
+      "path": "scripts/write-atomic.test.mjs",
+      "bytes": 7505,
+      "sha256": "e266ac99149651c368715317820934f0e8942db0fc763725ca4a096bf169ad3b"
+    },
+    {
+      "path": "server/middleware/grok-pwa.ts",
+      "bytes": 3606,
+      "sha256": "340f1fed44355a61fefdaf29a752c524ac029afb00bea3f40cc996cdb289d2f8"
+    },
+    {
+      "path": "server/virtual-grok-og-identity.d.ts",
+      "bytes": 262,
+      "sha256": "74847f2b2bade154ac07dabb239c4718a745c095df530e78b8f1ef9f053edfa2"
+    },
+    {
+      "path": "src/components/console/Ja21Console.tsx",
+      "bytes": 39187,
+      "sha256": "7d0ae73a010dc40c817d582604d81b65177b4120afbb3cb9ea9bb2bb8a673c23"
+    },
+    {
+      "path": "src/components/preview-host-bridge.tsx",
+      "bytes": 668,
+      "sha256": "e4277e80ce127e7305057fb280d03d0703c5c7115b17d2e2aecf000e4867555e"
+    },
+    {
+      "path": "src/lib/app-data/app-data.test.ts",
+      "bytes": 15944,
+      "sha256": "ec0c40fdaafb4e3d551086de9f9b4a745da7c252f7fbbc5c51a8b1b0a541391e"
+    },
+    {
+      "path": "src/lib/app-data/client.server.ts",
+      "bytes": 11867,
+      "sha256": "ab544af8b5b96e16248fdcf7ce634c132ccd3659c33cf0daa22f6e74ef5a5da0"
+    },
+    {
+      "path": "src/lib/app-data/errors.ts",
+      "bytes": 1994,
+      "sha256": "8e0dd8d761b2a5a1cafcb7523e2063151f0b6677837b19c3f6d494af148f3889"
+    },
+    {
+      "path": "src/lib/app-data/index.ts",
+      "bytes": 598,
+      "sha256": "72cf57dc1a863f9693d34c11772ba4bae790cc17d9efb1e8619b8a2e6247a7fa"
+    },
+    {
+      "path": "src/lib/app-data/login.ts",
+      "bytes": 856,
+      "sha256": "fbc723841bb67148dd9de12ed614ba6c095d799a533309857cc4d202d6be5ad9"
+    },
+    {
+      "path": "src/lib/app-data/readiness-schedule.test.ts",
+      "bytes": 1146,
+      "sha256": "97c87401c474b9f87f2e21152fb377744f353736848f0044466ba2e260b06745"
+    },
+    {
+      "path": "src/lib/app-data/readiness-schedule.ts",
+      "bytes": 506,
+      "sha256": "3ea7f192220446b08747f3ef76c7d2fe150356470621f2220738b23e7976f683"
+    },
+    {
+      "path": "src/lib/app-data/readiness.ts",
+      "bytes": 366,
+      "sha256": "377786c1cf739eb9dc7c8b2bdcd09991686a700375a67a0c6e73b4334d394da1"
+    },
+    {
+      "path": "src/lib/app-data/server-only.ts",
+      "bytes": 476,
+      "sha256": "82821474088face6b9fcadad49793629e5f07a16386402b816262a1c070a3210"
+    },
+    {
+      "path": "src/lib/app-data/types.ts",
+      "bytes": 1361,
+      "sha256": "65f3c7566db12661ee9d3633eaae66a85505e00f57a61c258fa72bd22881489f"
+    },
+    {
+      "path": "src/lib/app-data/use-connector-readiness.ts",
+      "bytes": 3892,
+      "sha256": "57e6d2b3709be83ac2eed9c42eaa822a067fb5aa44a6098c982892c43f3a4f2f"
+    },
+    {
+      "path": "src/lib/auth/client.ts",
+      "bytes": 9714,
+      "sha256": "4bca649afb627b11231a7b31acfcffe9323efddebc05944b2d769d2b8589294f"
+    },
+    {
+      "path": "src/lib/auth/email-password.ts",
+      "bytes": 442,
+      "sha256": "9b1da7c786e48adfa9a6f7c485bcf5817cf2075a601d8726a965f11171910354"
+    },
+    {
+      "path": "src/lib/auth/gate-identity.server.ts",
+      "bytes": 5706,
+      "sha256": "96546b8b6910a01163c36c34a0d417d803bec222b93304be764d810838764159"
+    },
+    {
+      "path": "src/lib/auth/gate-identity.test.ts",
+      "bytes": 14346,
+      "sha256": "21202fb2b56ffd10cb9b5bb7d9f305be88cce3902b858f73cea914df05ce2652"
+    },
+    {
+      "path": "src/lib/auth/gate-session-marker.ts",
+      "bytes": 879,
+      "sha256": "3dbf8cb789b0288f9d5c53b1515a3e87d265fcb22e11fe28dc3289c4bd7c06eb"
+    },
+    {
+      "path": "src/lib/auth/gate-session.server.ts",
+      "bytes": 11980,
+      "sha256": "68aa500523ca2f0ad5c7ba34372c10aa1851a9774f8567c6b7781af5dd6cf204"
+    },
+    {
+      "path": "src/lib/auth/gates.tsx",
+      "bytes": 4924,
+      "sha256": "39950c211bd4ad4f7129082bf5a43a42ff23975e681b99fd7cfbce372f83a5be"
+    },
+    {
+      "path": "src/lib/auth/isolation.server.ts",
+      "bytes": 2386,
+      "sha256": "a4adf6a5d548e70a0be52d7efdc7433126028908072b47bf9f92135d9ee558a0"
+    },
+    {
+      "path": "src/lib/auth/middleware.ts",
+      "bytes": 2462,
+      "sha256": "8dc37c4e9bd583f175402330d0952ef4d584c7410723cc2649c4046d5084bd80"
+    },
+    {
+      "path": "src/lib/auth/pglite-dialect.ts",
+      "bytes": 4088,
+      "sha256": "bd66925574245cd47cdd98b5c068dd7b4ee4a51c9439e8421dc54c62fe7c4f50"
+    },
+    {
+      "path": "src/lib/auth/popup.server.ts",
+      "bytes": 6133,
+      "sha256": "81f8833d9ab639f76b86f4bb23fed42a04cec4b0c6d90b7a67425a9232c9bb4a"
+    },
+    {
+      "path": "src/lib/auth/preview.ts",
+      "bytes": 1679,
+      "sha256": "d52a3654a5cef7e841cbca789fd106dc464ea55db574f02aa5d295b7350f8664"
+    },
+    {
+      "path": "src/lib/auth/provider.tsx",
+      "bytes": 593,
+      "sha256": "4cbbc7f8cc1765788ad65455a33f64dcdafc6fe4ed1d13f90ccfa0ba4c13d1f3"
+    },
+    {
+      "path": "src/lib/auth/providers.ts",
+      "bytes": 1486,
+      "sha256": "4acefac17931529bdeab053588a917b06e44abdb67a275a2ca1c7841080c6a78"
+    },
+    {
+      "path": "src/lib/auth/server.ts",
+      "bytes": 12548,
+      "sha256": "e0544cadbfa1a09c3cb4cf2a0ec187dbbb2831aebf7de887a3c858abdd72ca43"
+    },
+    {
+      "path": "src/lib/auth/sign-in-gate.test.ts",
+      "bytes": 854,
+      "sha256": "2c352588cb6a8f58faf3aecc1d1f418ae827ddbb6a5eca8e56668ec72cd328d2"
+    },
+    {
+      "path": "src/lib/auth/sign-in-gate.ts",
+      "bytes": 332,
+      "sha256": "d2c65c20ab50ae41657ceecd61ded005fac29315deace9fc4d966cf56300754c"
+    },
+    {
+      "path": "src/lib/auth/use-current-user.ts",
+      "bytes": 3626,
+      "sha256": "6444e7a0e6b908ad47c73981d63552ec0d33225f24a6c63370b9cec8088442d6"
+    },
+    {
+      "path": "src/lib/auth/verify.server.ts",
+      "bytes": 3874,
+      "sha256": "42a7d5c1b17027ba004d6524a7f7bb4827b908d75ee3c3aefc940fa9c891c2ee"
+    },
+    {
+      "path": "src/lib/db.ts",
+      "bytes": 9525,
+      "sha256": "8decf7689ff4833ad2f6f263eff9041dd2a68ce923824fa1d55ad620dea72e49"
+    },
+    {
+      "path": "src/lib/env.server.ts",
+      "bytes": 477,
+      "sha256": "9b834e0978ae76332a65a05f5bc75f80684db8c6aa638916869385c12e3343d5"
+    },
+    {
+      "path": "src/lib/error-component.tsx",
+      "bytes": 1029,
+      "sha256": "d219e4297409810a21bd382e60169faf69243d49dafd17cb0ea3a1888082b2f4"
+    },
+    {
+      "path": "src/lib/multiplayer/index.ts",
+      "bytes": 169,
+      "sha256": "bcb96816a2135e315078e2e7d0eda5522579b0caf9e768dc6c34294e4fa49137"
+    },
+    {
+      "path": "src/lib/multiplayer/p2p.ts",
+      "bytes": 20579,
+      "sha256": "4d0d2492ac249a2cf267c8d2db7688b5a2c488ab640da7727c0f1b73c2e92f60"
+    },
+    {
+      "path": "src/lib/og/site.json",
+      "bytes": 70,
+      "sha256": "6d31a2130cfc6c6643c355a045fa1310166a270ebcb7177965f286cd836545cc"
+    },
+    {
+      "path": "src/lib/preview-embedder-origin.ts",
+      "bytes": 1855,
+      "sha256": "c2d5e1acc5653ff2abc08a5eeb5feb3331f4e3d7c751ec83d60dee83cf33a6ee"
+    },
+    {
+      "path": "src/lib/preview-host-bridge.ts",
+      "bytes": 9595,
+      "sha256": "63a91311378037680b6be414937295069ec2950520d1dc959741cf430ba6b38b"
+    },
+    {
+      "path": "src/lib/preview-path-prefix.test.ts",
+      "bytes": 1794,
+      "sha256": "08da80da191446ed449da9a1180ccaaeebb8eaf295bf3ef9f0a5fcca51860ce1"
+    },
+    {
+      "path": "src/lib/preview-path-prefix.ts",
+      "bytes": 1458,
+      "sha256": "d46d4c21d47c2765198352b649037def35371c3995525cc42f5aff6a0f1519b7"
+    },
+    {
+      "path": "src/lib/ram-link.ts",
+      "bytes": 11623,
+      "sha256": "0baf0697d1d97f70e7c3449a1fc4c9c0b7f370713ae1b6d8d7778dd26a607442"
+    },
+    {
+      "path": "src/routeTree.gen.ts",
+      "bytes": 1741,
+      "sha256": "f4a843c61899ede2abbc4a7153e6a00557765f737b724b152463c533c4e0ddb0"
+    },
+    {
+      "path": "src/router.tsx",
+      "bytes": 382,
+      "sha256": "0b72f2ad19d5a6e60d1e699d2fe0e4c0a2fa00d88881314e51a0e79fb1541611"
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "bytes": 1584,
+      "sha256": "f703d20171001409ceb7389581e5d70ae0a26c63c586087da4ee1edd923e9a65"
+    },
+    {
+      "path": "src/routes/index.tsx",
+      "bytes": 237,
+      "sha256": "fd6ab069b59b7d16dc317f9e3616baea098cb98f5ab1c4a73f1a95c6aeab3b35"
+    },
+    {
+      "path": "src/styles.css",
+      "bytes": 6857,
+      "sha256": "019b068fc79848f3b90e9a6e0df1a3ca3b241ceb2fa101c20f31f0087bfab8ad"
+    },
+    {
+      "path": "src/vendor/events.js",
+      "bytes": 420,
+      "sha256": "742029f9ba8d32f00865793de27ad46a247d157b58c85579ca6eba65b85d5219"
+    },
+    {
+      "path": "src/vendor/ram-worker.js",
+      "bytes": 16598,
+      "sha256": "c72f147ad9a0a4b4de620c8e32946984ef8de70685f713473b7c9a6d805efe4a"
+    },
+    {
+      "path": "src/vendor/spiral/ChipHarness.cs",
+      "bytes": 10943,
+      "sha256": "c4d5016f62d5cb0d598d8f8f3c723c38d6279eba3cbc2d638cf664243a5181dd"
+    },
+    {
+      "path": "src/vendor/spiral/buffer.js",
+      "bytes": 1521,
+      "sha256": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"
+    },
+    {
+      "path": "src/vendor/spiral/byte-tables.js",
+      "bytes": 5069,
+      "sha256": "4d71209c30a4d511eb44176d47028a26749b80aefe32df760abf6dad63713fc4"
+    },
+    {
+      "path": "src/vendor/spiral/chip-harness.js",
+      "bytes": 11178,
+      "sha256": "ed051c82af03844455bcec9cac39310e7c90634c710b2eedcbbe09d209f82c43"
+    },
+    {
+      "path": "src/vendor/spiral/commands/browser.js",
+      "bytes": 2521,
+      "sha256": "93b9f0f94955aeef9986c7bb8fbb58c081a47f60a07fee500d012fad89ce93f8"
+    },
+    {
+      "path": "src/vendor/spiral/commands/coreutils.js",
+      "bytes": 9589,
+      "sha256": "2ebae473851412df4a7a1fc19de02399e2500fb66e5189b8f447b718e8904b53"
+    },
+    {
+      "path": "src/vendor/spiral/commands/fs.js",
+      "bytes": 8710,
+      "sha256": "b6a9165bd68bb7d89a2f4f3e033c33a87097d109649a40cfa5578d3673530ec7"
+    },
+    {
+      "path": "src/vendor/spiral/commands/hpu.js",
+      "bytes": 15996,
+      "sha256": "0b14b7bcedf1ef3201fe98a9a019d06f37b6db52b9bb6187dfb306e3792f56ed"
+    },
+    {
+      "path": "src/vendor/spiral/commands/index.js",
+      "bytes": 293,
+      "sha256": "b6fb93b408a4bec8bedc69d24ab8614e0cefb9db85c80860c7ae374857b89e72"
+    },
+    {
+      "path": "src/vendor/spiral/commands/ram.js",
+      "bytes": 8969,
+      "sha256": "4e66c02b477f50b32879d33dbbbb8c220ccf4d9580a376ef2c230e512a42c694"
+    },
+    {
+      "path": "src/vendor/spiral/commands/system.js",
+      "bytes": 7811,
+      "sha256": "355ec88e64cc182c9030c75c9606dce09ef7d5fe3c9f0a43ae83a90615270dac"
+    },
+    {
+      "path": "src/vendor/spiral/commands/util.js",
+      "bytes": 1720,
+      "sha256": "bc2fe4a96fc978a58506267b5e0b391fa8e2c31ee32c4872fcf9970649beb7b8"
+    },
+    {
+      "path": "src/vendor/spiral/env.js",
+      "bytes": 1387,
+      "sha256": "44dcffec4931d73772098923d7052423677002244e2f4fdc9c73146a506c72fc"
+    },
+    {
+      "path": "src/vendor/spiral/hpu.js",
+      "bytes": 48510,
+      "sha256": "e4936d2a1dffcd17aae1cdb5e5ba02400dd60dbcb6bdde59a2f515198b4420e3"
+    },
+    {
+      "path": "src/vendor/spiral/kernel.js",
+      "bytes": 22360,
+      "sha256": "1de1b713b6388adcdb5163927d91914761fabf06bbf017ccbfaba60f830bf725"
+    },
+    {
+      "path": "src/vendor/spiral/line-reader.js",
+      "bytes": 8644,
+      "sha256": "7bffa06cf001dc84de03cf5b99adf6b89454d9809dde1811e85669deec1be833"
+    },
+    {
+      "path": "src/vendor/spiral/pipeline.js",
+      "bytes": 4975,
+      "sha256": "21f1d3e81c2885585eb1c17d7d3ed05c87fcaa6e9581b7d8da0136373b2fc739"
+    },
+    {
+      "path": "src/vendor/spiral/registry.js",
+      "bytes": 4110,
+      "sha256": "4d8d6bd39205f7e7a5e6592b4a81304c1bb3f09ec0a05c2763996e3b9bce06fe"
+    },
+    {
+      "path": "src/vendor/spiral/ssd.js",
+      "bytes": 1528,
+      "sha256": "3463e0c87041dd6756406ee30488a83759c9cd99552f24e7b87b2c8904692438"
+    },
+    {
+      "path": "src/vendor/spiral/vfs.js",
+      "bytes": 12158,
+      "sha256": "71003632508524256bd7bf4ec5a8df526406811115c9af9feed372164f943642"
+    },
+    {
+      "path": "src/vendor/vt/parser.js",
+      "bytes": 9334,
+      "sha256": "ee41e1a7f42536e097999b6fa55e92264ee0c5a1ce593637559a439f55f82810"
+    },
+    {
+      "path": "src/vendor/vt/renderer-canvas.js",
+      "bytes": 7734,
+      "sha256": "6fa51c61711470c57f469423156abde64fe3e99588bf9db07a3206b771bc4334"
+    },
+    {
+      "path": "src/vendor/vt/screen.js",
+      "bytes": 13108,
+      "sha256": "a7ce3d95ec5b50e93db1385954df628944243ad9fb22de544928263bb903d741"
+    },
+    {
+      "path": "src/vendor/vws/frame.js",
+      "bytes": 794,
+      "sha256": "f8d85854dfb48cf1bfeb4c47ad7a7269a49de184c14cad2acd5480c1e6e69e17"
+    },
+    {
+      "path": "startup.sh",
+      "bytes": 302,
+      "sha256": "0b3bf82c4af2721beba5d447755a6b55ad37a6fd5f6882cebb6925802eac1312"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 722,
+      "sha256": "8abad87a6c62322f1f4fdff02d5f3f764ea10a98c49cfafccdc288a0dced492f"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 70,
+      "sha256": "b621d84931055b57a73e6d4547ab4b161b6bfbf091806354d3f6f67d0f57700f"
+    },
+    {
+      "path": "vite.config.ts",
+      "bytes": 6750,
+      "sha256": "5451c22b17e7d8408674909b3d231f0ae4a4d017b740491ce7df008d961a7eee"
+    }
+  ]
+}

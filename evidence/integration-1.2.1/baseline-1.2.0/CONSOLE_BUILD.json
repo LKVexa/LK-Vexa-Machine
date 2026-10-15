@@ -1,0 +1,56 @@
+{
+  "product": "JA21 Software CPU Console",
+  "console_version": "1.2.0",
+  "base_browser_version": "9.8.7",
+  "starts_blank": false,
+  "visible_tabs": false,
+  "search_bar": false,
+  "buttons": false,
+  "default_size": [
+    760,
+    640
+  ],
+  "minimum_size": [
+    420,
+    360
+  ],
+  "original_backup_preserved": true,
+  "simulation_integration": "Embedded JA21 software CPU/XPU 2.2.2 at a secure local WebView2 origin",
+  "source_integrity": "Active runtime verified; 191 pre-existing absent legacy references recorded in provenance/source-audit.json",
+  "release_date": "2026-10-14",
+  "license": "GPL-3.0-only",
+  "copyright": "Copyright (C) 2026 RUSSELL PHILIP SMITHSON",
+  "validation": {
+    "date": "2026-10-14",
+    "status": "STATIC_AND_NATIVE_GATES_WITH_LIVE_BROWSER_PENDING",
+    "component_core_passed": 308,
+    "component_core_skipped": 3,
+    "component_core_failed": 0,
+    "component_core_total": 311,
+    "native_compilation": "PASS; warnings treated as errors",
+    "native_policy_checks": 28,
+    "launcher_checks": 15,
+    "native_startup_preflight": "PASS (default and blank)",
+    "webview2_live": "BLOCKED_ENVIRONMENT",
+    "cpu_online_observed": false,
+    "browser_persistence": "NOT_RUN; WebView2 window creation refused",
+    "console_python_total": 216,
+    "console_python_passed": 213,
+    "console_python_skipped": 3,
+    "console_python_failed": 0,
+    "nested_substrate_total": 30,
+    "nested_substrate_skipped": 1
+  },
+  "publication_policy": "Complete source and original component evidence; mutable workspace, caches and transient QA files excluded",
+  "software_cpu": {
+    "version": "2.2.2",
+    "folder": "applications/silicon",
+    "origin": "https://ja21-silicon.invalid/",
+    "engine": "JavaScript module worker",
+    "runtime": "WebView2 inside native console",
+    "node_required_for_launch": false,
+    "arm64_os_boot_required": false
+  },
+  "software_cpu_console": true,
+  "silicon_version": "2.2.2"
+}

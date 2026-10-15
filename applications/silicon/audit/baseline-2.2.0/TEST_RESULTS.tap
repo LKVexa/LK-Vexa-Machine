@@ -1,0 +1,1477 @@
+TAP version 13
+# Subtest: quoting: echo '$A'
+ok 1 - quoting: echo '$A'
+  ---
+  duration_ms: 3.5048
+  type: 'test'
+  ...
+# Subtest: quoting: echo "$A"
+ok 2 - quoting: echo "$A"
+  ---
+  duration_ms: 0.589592
+  type: 'test'
+  ...
+# Subtest: quoting: echo \\$A
+ok 3 - quoting: echo \\$A
+  ---
+  duration_ms: 0.300603
+  type: 'test'
+  ...
+# Subtest: quoting: echo a" b"c
+ok 4 - quoting: echo a" b"c
+  ---
+  duration_ms: 0.126924
+  type: 'test'
+  ...
+# Subtest: quoting: echo ""
+ok 5 - quoting: echo ""
+  ---
+  duration_ms: 0.176286
+  type: 'test'
+  ...
+# Subtest: quoting: echo a\#b \# ignored
+ok 6 - quoting: echo a\#b \# ignored
+  ---
+  duration_ms: 0.144322
+  type: 'test'
+  ...
+# Subtest: quoting: echo ~ ~/x "~"
+ok 7 - quoting: echo ~ ~/x "~"
+  ---
+  duration_ms: 0.102731
+  type: 'test'
+  ...
+# Subtest: quoting: echo "a\\$A"
+ok 8 - quoting: echo "a\\$A"
+  ---
+  duration_ms: 0.542098
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo \\""
+ok 9 - reject malformed shell "echo \\""
+  ---
+  duration_ms: 0.456336
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x |"
+ok 10 - reject malformed shell "echo x |"
+  ---
+  duration_ms: 0.585966
+  type: 'test'
+  ...
+# Subtest: reject malformed shell ";echo x"
+ok 11 - reject malformed shell ";echo x"
+  ---
+  duration_ms: 0.16693
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x >"
+ok 12 - reject malformed shell "echo x >"
+  ---
+  duration_ms: 0.089428
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x &&"
+ok 13 - reject malformed shell "echo x &&"
+  ---
+  duration_ms: 0.069384
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x > a > b"
+ok 14 - reject malformed shell "echo x > a > b"
+  ---
+  duration_ms: 0.159048
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo x\\u0000"
+ok 15 - reject malformed shell "echo x\\u0000"
+  ---
+  duration_ms: 0.07712
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "xxxxxxxxxxxxxxxxxxxxxxxxx"
+ok 16 - reject malformed shell "xxxxxxxxxxxxxxxxxxxxxxxxx"
+  ---
+  duration_ms: 0.052695
+  type: 'test'
+  ...
+# Subtest: reject malformed shell "echo \\\\"
+ok 17 - reject malformed shell "echo \\\\"
+  ---
+  duration_ms: 0.059106
+  type: 'test'
+  ...
+# Subtest: bounded shell tokenization
+ok 18 - bounded shell tokenization
+  ---
+  duration_ms: 2.501169
+  type: 'test'
+  ...
+# Subtest: flag parser accepts negative values and find options
+ok 19 - flag parser accepts negative values and find options
+  ---
+  duration_ms: 0.804393
+  type: 'test'
+  ...
+# Subtest: environment unset hides parent and prototype names are data
+ok 20 - environment unset hides parent and prototype names are data
+  ---
+  duration_ms: 0.318626
+  type: 'test'
+  ...
+# Subtest: canonical path resolves traversal without leaving root
+ok 21 - canonical path resolves traversal without leaving root
+  ---
+  duration_ms: 0.695079
+  type: 'test'
+  ...
+# Subtest: root cannot become a child or file
+ok 22 - root cannot become a child or file
+  ---
+  duration_ms: 1.522965
+  type: 'test'
+  ...
+# Subtest: recursive mkdir reserves quota before mutation
+ok 23 - recursive mkdir reserves quota before mutation
+  ---
+  duration_ms: 0.318004
+  type: 'test'
+  ...
+# Subtest: move prohibits cycles and nonempty directory replacement
+ok 24 - move prohibits cycles and nonempty directory replacement
+  ---
+  duration_ms: 0.403729
+  type: 'test'
+  ...
+# Subtest: file copies never alias caller or read buffers
+ok 25 - file copies never alias caller or read buffers
+  ---
+  duration_ms: 0.619175
+  type: 'test'
+  ...
+# Subtest: VFS write quota and touch mutation accounting
+ok 26 - VFS write quota and touch mutation accounting
+  ---
+  duration_ms: 0.264493
+  type: 'test'
+  ...
+# Subtest: VFS snapshots are atomic and byte exact
+ok 27 - VFS snapshots are atomic and byte exact
+  ---
+  duration_ms: 1.243169
+  type: 'test'
+  ...
+# Subtest: snapshot rejects malformed base64 before publication
+ok 28 - snapshot rejects malformed base64 before publication
+  ---
+  duration_ms: 0.175117
+  type: 'test'
+  ...
+# Subtest: canonical content digest input ignores mtimes and sorts entries
+ok 29 - canonical content digest input ignores mtimes and sorts entries
+  ---
+  duration_ms: 0.241926
+  type: 'test'
+  ...
+# Subtest: shell: export A=hello; echo $A
+ok 30 - shell: export A=hello; echo $A
+  ---
+  duration_ms: 1.470471
+  type: 'test'
+  ...
+# Subtest: shell: false; echo $?
+ok 31 - shell: false; echo $?
+  ---
+  duration_ms: 1.341684
+  type: 'test'
+  ...
+# Subtest: shell: true && echo yes || echo no
+ok 32 - shell: true && echo yes || echo no
+  ---
+  duration_ms: 0.537384
+  type: 'test'
+  ...
+# Subtest: shell: echo hello | rev
+ok 33 - shell: echo hello | rev
+  ---
+  duration_ms: 0.561084
+  type: 'test'
+  ...
+# Subtest: shell: seq -2 2
+ok 34 - shell: seq -2 2
+  ---
+  duration_ms: 20.303819
+  type: 'test'
+  ...
+# Subtest: shell: echo x | head -n 0
+ok 35 - shell: echo x | head -n 0
+  ---
+  duration_ms: 0.686242
+  type: 'test'
+  ...
+# Subtest: shell: printf x | wc -l
+ok 36 - shell: printf x | wc -l
+  ---
+  duration_ms: 1.559904
+  type: 'test'
+  ...
+# Subtest: alias parsing preserves quotes and recursion fails
+ok 37 - alias parsing preserves quotes and recursion fails
+  ---
+  duration_ms: 1.55451
+  type: 'test'
+  ...
+# Subtest: redirection and pipeline binary file copy
+ok 38 - redirection and pipeline binary file copy
+  ---
+  duration_ms: 1.607409
+  type: 'test'
+  ...
+# Subtest: small geometry man does not throw
+ok 39 - small geometry man does not throw
+  ---
+  duration_ms: 0.897404
+  type: 'test'
+  ...
+# Subtest: seq detects non-progress and zero increment
+ok 40 - seq detects non-progress and zero increment
+  ---
+  duration_ms: 0.467929
+  type: 'test'
+  ...
+# Subtest: sleep validates finite bounds and aborts promptly
+ok 41 - sleep validates finite bounds and aborts promptly
+  ---
+  duration_ms: 21.160037
+  type: 'test'
+  ...
+# Subtest: interactive cat responds to SIGINT
+ok 42 - interactive cat responds to SIGINT
+  ---
+  duration_ms: 20.942186
+  type: 'test'
+  ...
+# Subtest: session cap and close exactly once
+ok 43 - session cap and close exactly once
+  ---
+  duration_ms: 0.345317
+  type: 'test'
+  ...
+# Subtest: safe glob resists overlapping star patterns
+ok 44 - safe glob resists overlapping star patterns
+  ---
+  duration_ms: 4.741118
+  type: 'test'
+  ...
+# Subtest: grep works in disposable regex worker
+ok 45 - grep works in disposable regex worker
+  ---
+  duration_ms: 45.068614
+  type: 'test'
+  ...
+# Subtest: hostile regex is terminated
+ok 46 - hostile regex is terminated
+  ---
+  duration_ms: 754.223271
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 1
+ok 47 - uint48 frame round trip 1
+  ---
+  duration_ms: 2.249496
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 255
+ok 48 - uint48 frame round trip 255
+  ---
+  duration_ms: 0.365265
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 65536
+ok 49 - uint48 frame round trip 65536
+  ---
+  duration_ms: 0.108457
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 2147483655
+ok 50 - uint48 frame round trip 2147483655
+  ---
+  duration_ms: 0.111091
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 4294967297
+ok 51 - uint48 frame round trip 4294967297
+  ---
+  duration_ms: 0.552846
+  type: 'test'
+  ...
+# Subtest: uint48 frame round trip 281474976710655
+ok 52 - uint48 frame round trip 281474976710655
+  ---
+  duration_ms: 0.059212
+  type: 'test'
+  ...
+# Subtest: framing rejects empty, oversized, invalid kind and sequence
+ok 53 - framing rejects empty, oversized, invalid kind and sequence
+  ---
+  duration_ms: 0.496091
+  type: 'test'
+  ...
+# Subtest: flow windows work past two GiB without signed overflow
+ok 54 - flow windows work past two GiB without signed overflow
+  ---
+  duration_ms: 0.213221
+  type: 'test'
+  ...
+# Subtest: optical gate model and(0,0)
+ok 55 - optical gate model and(0,0)
+  ---
+  duration_ms: 17.352197
+  type: 'test'
+  ...
+# Subtest: optical gate model and(0,1)
+ok 56 - optical gate model and(0,1)
+  ---
+  duration_ms: 3.868219
+  type: 'test'
+  ...
+# Subtest: optical gate model and(1,0)
+ok 57 - optical gate model and(1,0)
+  ---
+  duration_ms: 3.527336
+  type: 'test'
+  ...
+# Subtest: optical gate model and(1,1)
+ok 58 - optical gate model and(1,1)
+  ---
+  duration_ms: 2.733431
+  type: 'test'
+  ...
+# Subtest: optical gate model or(0,0)
+ok 59 - optical gate model or(0,0)
+  ---
+  duration_ms: 2.791941
+  type: 'test'
+  ...
+# Subtest: optical gate model or(0,1)
+ok 60 - optical gate model or(0,1)
+  ---
+  duration_ms: 2.072377
+  type: 'test'
+  ...
+# Subtest: optical gate model or(1,0)
+ok 61 - optical gate model or(1,0)
+  ---
+  duration_ms: 1.983589
+  type: 'test'
+  ...
+# Subtest: optical gate model or(1,1)
+ok 62 - optical gate model or(1,1)
+  ---
+  duration_ms: 2.016478
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(0,0)
+ok 63 - optical gate model nand(0,0)
+  ---
+  duration_ms: 2.228062
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(0,1)
+ok 64 - optical gate model nand(0,1)
+  ---
+  duration_ms: 2.224551
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(1,0)
+ok 65 - optical gate model nand(1,0)
+  ---
+  duration_ms: 0.674273
+  type: 'test'
+  ...
+# Subtest: optical gate model nand(1,1)
+ok 66 - optical gate model nand(1,1)
+  ---
+  duration_ms: 0.726931
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(0,0)
+ok 67 - optical gate model xor(0,0)
+  ---
+  duration_ms: 0.629145
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(0,1)
+ok 68 - optical gate model xor(0,1)
+  ---
+  duration_ms: 0.604282
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(1,0)
+ok 69 - optical gate model xor(1,0)
+  ---
+  duration_ms: 0.617333
+  type: 'test'
+  ...
+# Subtest: optical gate model xor(1,1)
+ok 70 - optical gate model xor(1,1)
+  ---
+  duration_ms: 0.82237
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(0,0)
+ok 71 - optical gate model xnor(0,0)
+  ---
+  duration_ms: 0.620904
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(0,1)
+ok 72 - optical gate model xnor(0,1)
+  ---
+  duration_ms: 0.647749
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(1,0)
+ok 73 - optical gate model xnor(1,0)
+  ---
+  duration_ms: 0.625275
+  type: 'test'
+  ...
+# Subtest: optical gate model xnor(1,1)
+ok 74 - optical gate model xnor(1,1)
+  ---
+  duration_ms: 0.927867
+  type: 'test'
+  ...
+# Subtest: field propagation approximately preserves sampled energy
+ok 75 - field propagation approximately preserves sampled energy
+  ---
+  duration_ms: 3.290451
+  type: 'test'
+  ...
+# Subtest: valuation zero is infinity; finite domain validated
+ok 76 - valuation zero is infinity; finite domain validated
+  ---
+  duration_ms: 0.117777
+  type: 'test'
+  ...
+# Subtest: truncated Kerr state is renormalized and exposes loss
+ok 77 - truncated Kerr state is renormalized and exposes loss
+  ---
+  duration_ms: 0.537828
+  type: 'test'
+  ...
+# Subtest: all six byte tables and C\# source agree for all 256 inputs
+ok 78 - all six byte tables and C\# source agree for all 256 inputs
+  ---
+  duration_ms: 1.269788
+  type: 'test'
+  ...
+# Subtest: byte lanes follow LUTs and deterministic maximum-delta selector
+ok 79 - byte lanes follow LUTs and deterministic maximum-delta selector
+  ---
+  duration_ms: 16.839703
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: sample
+ok 80 - complete HPU state roundtrip: sample
+  ---
+  duration_ms: 34.246218
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: cycle
+ok 81 - complete HPU state roundtrip: cycle
+  ---
+  duration_ms: 28.46392
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: diffuse
+ok 82 - complete HPU state roundtrip: diffuse
+  ---
+  duration_ms: 25.793699
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: frame
+ok 83 - complete HPU state roundtrip: frame
+  ---
+  duration_ms: 142.363616
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: kuramoto
+ok 84 - complete HPU state roundtrip: kuramoto
+  ---
+  duration_ms: 133.760035
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: record
+ok 85 - complete HPU state roundtrip: record
+  ---
+  duration_ms: 28.921018
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: oam
+ok 86 - complete HPU state roundtrip: oam
+  ---
+  duration_ms: 13.05065
+  type: 'test'
+  ...
+# Subtest: complete HPU state roundtrip: bytes
+ok 87 - complete HPU state roundtrip: bytes
+  ---
+  duration_ms: 47.180787
+  type: 'test'
+  ...
+# Subtest: recorded object supports replay after state reload
+ok 88 - recorded object supports replay after state reload
+  ---
+  duration_ms: 21.393063
+  type: 'test'
+  ...
+# Subtest: HPU corruption and forged geometry never partially load
+ok 89 - HPU corruption and forged geometry never partially load
+  ---
+  duration_ms: 16.693751
+  type: 'test'
+  ...
+# Subtest: legacy HPU1 migration is strict and atomic
+ok 90 - legacy HPU1 migration is strict and atomic
+  ---
+  duration_ms: 20.617652
+  type: 'test'
+  ...
+# Subtest: processor caches invalidate after field changes
+ok 91 - processor caches invalidate after field changes
+  ---
+  duration_ms: 1.713811
+  type: 'test'
+  ...
+# Subtest: spool count bounded and image encoder dimensions validated
+ok 92 - spool count bounded and image encoder dimensions validated
+  ---
+  duration_ms: 6.974025
+  type: 'test'
+  ...
+# Subtest: image encoder artifacts emitted for independent Pillow verification
+ok 93 - image encoder artifacts emitted for independent Pillow verification
+  ---
+  duration_ms: 42.100432
+  type: 'test'
+  ...
+# Subtest: VT parser caps control accumulation and ignores OSC52
+ok 94 - VT parser caps control accumulation and ignores OSC52
+  ---
+  duration_ms: 6.120466
+  type: 'test'
+  ...
+# Subtest: VT rendering model handles fragmented sequences identically
+ok 95 - VT rendering model handles fragmented sequences identically
+  ---
+  duration_ms: 1.128537
+  type: 'test'
+  ...
+# Subtest: line editor removes whole supplementary code points
+ok 96 - line editor removes whole supplementary code points
+  ---
+  duration_ms: 0.934362
+  type: 'test'
+  ...
+# Subtest: recursive mkdir rejects an existing file without mutation
+ok 97 - recursive mkdir rejects an existing file without mutation
+  ---
+  duration_ms: 0.569918
+  type: 'test'
+  ...
+# Subtest: launcher/static: generated .cmd embeds the exact readable reviewed payload
+ok 98 - launcher/static: generated .cmd embeds the exact readable reviewed payload
+  ---
+  duration_ms: 1.806601
+  type: 'test'
+  ...
+# Subtest: launcher/static: the local payload starts after the LAST marker
+ok 99 - launcher/static: the local payload starts after the LAST marker
+  ---
+  duration_ms: 0.39664
+  type: 'test'
+  ...
+# Subtest: launcher/static: system PowerShell is absolute and package paths pass as environment values
+ok 100 - launcher/static: system PowerShell is absolute and package paths pass as environment values
+  ---
+  duration_ms: 0.256501
+  type: 'test'
+  ...
+# Subtest: launcher/static: neither launcher relies on a global Node or npm installation
+ok 101 - launcher/static: neither launcher relies on a global Node or npm installation
+  ---
+  duration_ms: 7.115964
+  type: 'test'
+  ...
+# Subtest: launcher/static: no security-policy or certificate bypass commands
+ok 102 - launcher/static: no security-policy or certificate bypass commands
+  ---
+  duration_ms: 0.596711
+  type: 'test'
+  ...
+# Subtest: launcher/static: pins match the exact official v24.21.0 checksum values
+ok 103 - launcher/static: pins match the exact official v24.21.0 checksum values
+  ---
+  duration_ms: 0.243847
+  type: 'test'
+  ...
+# Subtest: launcher/static: native Windows architecture uses WOW64/native environment before process architecture
+ok 104 - launcher/static: native Windows architecture uses WOW64/native environment before process architecture
+  ---
+  duration_ms: 0.199762
+  type: 'test'
+  ...
+# Subtest: launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+ok 105 - launcher/static: HTTPS host/port is restricted and automatic redirects are disabled
+  ---
+  duration_ms: 0.09953
+  type: 'test'
+  ...
+# Subtest: launcher/static: download has size, read, request and total transfer limits
+ok 106 - launcher/static: download has size, read, request and total transfer limits
+  ---
+  duration_ms: 0.330703
+  type: 'test'
+  ...
+# Subtest: launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+ok 107 - launcher/static: downloaded bytes are hashed before promotion; extraction follows archive verification
+  ---
+  duration_ms: 0.443817
+  type: 'test'
+  ...
+# Subtest: launcher/static: extraction is exact allowlisted entries, not archive path expansion
+ok 108 - launcher/static: extraction is exact allowlisted entries, not archive path expansion
+  ---
+  duration_ms: 0.820573
+  type: 'test'
+  ...
+# Subtest: launcher/static: writable runtime locations reject reparse points and concurrent setup
+ok 109 - launcher/static: writable runtime locations reject reparse points and concurrent setup
+  ---
+  duration_ms: 0.139301
+  type: 'test'
+  ...
+# Subtest: launcher/static: partial downloads and staging are scoped, private, and cleaned
+ok 110 - launcher/static: partial downloads and staging are scoped, private, and cleaned
+  ---
+  duration_ms: 0.189506
+  type: 'test'
+  ...
+# Subtest: launcher/static: process-local Node injection settings are removed without editing PATH
+ok 111 - launcher/static: process-local Node injection settings are removed without editing PATH
+  ---
+  duration_ms: 0.507623
+  type: 'test'
+  ...
+# Subtest: launcher/static: exact runtime version probe is bounded before the host runs
+ok 112 - launcher/static: exact runtime version probe is bounded before the host runs
+  ---
+  duration_ms: 0.10113
+  type: 'test'
+  ...
+# Subtest: launcher/static: default origin is unchanged and port override is explicitly validated
+ok 113 - launcher/static: default origin is unchanged and port override is explicitly validated
+  ---
+  duration_ms: 0.10841
+  type: 'test'
+  ...
+# Subtest: launcher/static: offline cache and preflight modes are explicit
+ok 114 - launcher/static: offline cache and preflight modes are explicit
+  ---
+  duration_ms: 0.113297
+  type: 'test'
+  ...
+# Subtest: launcher/static: logs and native error status are retained
+ok 115 - launcher/static: logs and native error status are retained
+  ---
+  duration_ms: 0.235607
+  type: 'test'
+  ...
+# Subtest: RUSSL: all 16,384 authoritative corpus vectors agree with port, inverse and bit packing
+ok 116 - RUSSL: all 16,384 authoritative corpus vectors agree with port, inverse and bit packing
+  ---
+  duration_ms: 48.650209
+  type: 'test'
+  ...
+# Subtest: RUSSL: index domains reject booleans, fractions, strings, NaNs, oversize and negatives
+ok 117 - RUSSL: index domains reject booleans, fractions, strings, NaNs, oversize and negatives
+  ---
+  duration_ms: 0.758869
+  type: 'test'
+  ...
+# Subtest: RUSSL: exact rational normalized coordinates include anchors and endpoints
+ok 118 - RUSSL: exact rational normalized coordinates include anchors and endpoints
+  ---
+  duration_ms: 0.443665
+  type: 'test'
+  ...
+# Subtest: RUSSL: optional address ultrametric has distinct documented semantics
+ok 119 - RUSSL: optional address ultrametric has distinct documented semantics
+  ---
+  duration_ms: 2.259824
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array classic II exact sample bits
+ok 120 - TIFF: Uint8Array classic II exact sample bits
+  ---
+  duration_ms: 2.354464
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array classic MM exact sample bits
+ok 121 - TIFF: Uint8Array classic MM exact sample bits
+  ---
+  duration_ms: 0.67107
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array BigTIFF II exact sample bits
+ok 122 - TIFF: Uint8Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.366289
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint8Array BigTIFF MM exact sample bits
+ok 123 - TIFF: Uint8Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.185216
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array classic II exact sample bits
+ok 124 - TIFF: Uint16Array classic II exact sample bits
+  ---
+  duration_ms: 0.415427
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array classic MM exact sample bits
+ok 125 - TIFF: Uint16Array classic MM exact sample bits
+  ---
+  duration_ms: 0.478493
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array BigTIFF II exact sample bits
+ok 126 - TIFF: Uint16Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.447252
+  type: 'test'
+  ...
+# Subtest: TIFF: Uint16Array BigTIFF MM exact sample bits
+ok 127 - TIFF: Uint16Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.163392
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array classic II exact sample bits
+ok 128 - TIFF: Float32Array classic II exact sample bits
+  ---
+  duration_ms: 0.282699
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array classic MM exact sample bits
+ok 129 - TIFF: Float32Array classic MM exact sample bits
+  ---
+  duration_ms: 0.175334
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array BigTIFF II exact sample bits
+ok 130 - TIFF: Float32Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.125028
+  type: 'test'
+  ...
+# Subtest: TIFF: Float32Array BigTIFF MM exact sample bits
+ok 131 - TIFF: Float32Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.164962
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array classic II exact sample bits
+ok 132 - TIFF: Float64Array classic II exact sample bits
+  ---
+  duration_ms: 0.148246
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array classic MM exact sample bits
+ok 133 - TIFF: Float64Array classic MM exact sample bits
+  ---
+  duration_ms: 0.105734
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array BigTIFF II exact sample bits
+ok 134 - TIFF: Float64Array BigTIFF II exact sample bits
+  ---
+  duration_ms: 0.13862
+  type: 'test'
+  ...
+# Subtest: TIFF: Float64Array BigTIFF MM exact sample bits
+ok 135 - TIFF: Float64Array BigTIFF MM exact sample bits
+  ---
+  duration_ms: 0.112175
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-classic-le.tif
+ok 136 - TIFF: independently written u1-classic-le.tif
+  ---
+  duration_ms: 7.196386
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-classic-be.tif
+ok 137 - TIFF: independently written u1-classic-be.tif
+  ---
+  duration_ms: 3.692024
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-big-le.tif
+ok 138 - TIFF: independently written u1-big-le.tif
+  ---
+  duration_ms: 1.149499
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u1-big-be.tif
+ok 139 - TIFF: independently written u1-big-be.tif
+  ---
+  duration_ms: 2.498101
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-classic-le.tif
+ok 140 - TIFF: independently written u2-classic-le.tif
+  ---
+  duration_ms: 4.458409
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-classic-be.tif
+ok 141 - TIFF: independently written u2-classic-be.tif
+  ---
+  duration_ms: 1.031077
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-big-le.tif
+ok 142 - TIFF: independently written u2-big-le.tif
+  ---
+  duration_ms: 1.605234
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written u2-big-be.tif
+ok 143 - TIFF: independently written u2-big-be.tif
+  ---
+  duration_ms: 1.223473
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-classic-le.tif
+ok 144 - TIFF: independently written f4-classic-le.tif
+  ---
+  duration_ms: 1.266777
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-classic-be.tif
+ok 145 - TIFF: independently written f4-classic-be.tif
+  ---
+  duration_ms: 1.373167
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-big-le.tif
+ok 146 - TIFF: independently written f4-big-le.tif
+  ---
+  duration_ms: 1.35739
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f4-big-be.tif
+ok 147 - TIFF: independently written f4-big-be.tif
+  ---
+  duration_ms: 2.684483
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-classic-le.tif
+ok 148 - TIFF: independently written f8-classic-le.tif
+  ---
+  duration_ms: 1.595052
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-classic-be.tif
+ok 149 - TIFF: independently written f8-classic-be.tif
+  ---
+  duration_ms: 1.256592
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-big-le.tif
+ok 150 - TIFF: independently written f8-big-le.tif
+  ---
+  duration_ms: 1.187169
+  type: 'test'
+  ...
+# Subtest: TIFF: independently written f8-big-be.tif
+ok 151 - TIFF: independently written f8-big-be.tif
+  ---
+  duration_ms: 1.223169
+  type: 'test'
+  ...
+# Subtest: TIFF: raw orientation is retained rather than silently normalized
+ok 152 - TIFF: raw orientation is retained rather than silently normalized
+  ---
+  duration_ms: 1.41149
+  type: 'test'
+  ...
+# Subtest: TIFF: strict BigTIFF alignment rejects external misaligned extra-value blocks
+ok 153 - TIFF: strict BigTIFF alignment rejects external misaligned extra-value blocks
+  ---
+  duration_ms: 1.475629
+  type: 'test'
+  ...
+# Subtest: TIFF rejects bad byte order
+ok 154 - TIFF rejects bad byte order
+  ---
+  duration_ms: 0.241029
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unknown TIFF version
+ok 155 - TIFF rejects unknown TIFF version
+  ---
+  duration_ms: 0.32562
+  type: 'test'
+  ...
+# Subtest: TIFF rejects IFD outside input
+ok 156 - TIFF rejects IFD outside input
+  ---
+  duration_ms: 0.121812
+  type: 'test'
+  ...
+# Subtest: TIFF rejects oversized tag count
+ok 157 - TIFF rejects oversized tag count
+  ---
+  duration_ms: 0.09138
+  type: 'test'
+  ...
+# Subtest: TIFF rejects duplicate tag
+ok 158 - TIFF rejects duplicate tag
+  ---
+  duration_ms: 0.082633
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unknown tag type
+ok 159 - TIFF rejects unknown tag type
+  ---
+  duration_ms: 0.175144
+  type: 'test'
+  ...
+# Subtest: TIFF rejects multipage/cyclic chain
+ok 160 - TIFF rejects multipage/cyclic chain
+  ---
+  duration_ms: 0.091067
+  type: 'test'
+  ...
+# Subtest: TIFF rejects compression
+ok 161 - TIFF rejects compression
+  ---
+  duration_ms: 0.173361
+  type: 'test'
+  ...
+# Subtest: TIFF rejects palette interpretation
+ok 162 - TIFF rejects palette interpretation
+  ---
+  duration_ms: 0.126036
+  type: 'test'
+  ...
+# Subtest: TIFF rejects RGB sample count
+ok 163 - TIFF rejects RGB sample count
+  ---
+  duration_ms: 0.196361
+  type: 'test'
+  ...
+# Subtest: TIFF rejects signed sample format
+ok 164 - TIFF rejects signed sample format
+  ---
+  duration_ms: 0.185939
+  type: 'test'
+  ...
+# Subtest: TIFF rejects zero rows per strip
+ok 165 - TIFF rejects zero rows per strip
+  ---
+  duration_ms: 0.138984
+  type: 'test'
+  ...
+# Subtest: TIFF rejects planar channels
+ok 166 - TIFF rejects planar channels
+  ---
+  duration_ms: 0.11082
+  type: 'test'
+  ...
+# Subtest: TIFF rejects orientation outside domain
+ok 167 - TIFF rejects orientation outside domain
+  ---
+  duration_ms: 0.595507
+  type: 'test'
+  ...
+# Subtest: TIFF rejects dimension resource exhaustion
+ok 168 - TIFF rejects dimension resource exhaustion
+  ---
+  duration_ms: 0.150681
+  type: 'test'
+  ...
+# Subtest: TIFF rejects strip aliases IFD
+ok 169 - TIFF rejects strip aliases IFD
+  ---
+  duration_ms: 0.112121
+  type: 'test'
+  ...
+# Subtest: TIFF rejects strip past EOF
+ok 170 - TIFF rejects strip past EOF
+  ---
+  duration_ms: 0.10442
+  type: 'test'
+  ...
+# Subtest: TIFF rejects strip length mismatch
+ok 171 - TIFF rejects strip length mismatch
+  ---
+  duration_ms: 0.162902
+  type: 'test'
+  ...
+# Subtest: TIFF rejects embedded NUL description
+ok 172 - TIFF rejects embedded NUL description
+  ---
+  duration_ms: 0.12456
+  type: 'test'
+  ...
+# Subtest: TIFF rejects missing description terminator
+ok 173 - TIFF rejects missing description terminator
+  ---
+  duration_ms: 0.162244
+  type: 'test'
+  ...
+# Subtest: TIFF rejects metadata claims huge count
+ok 174 - TIFF rejects metadata claims huge count
+  ---
+  duration_ms: 0.091022
+  type: 'test'
+  ...
+# Subtest: TIFF rejects unsupported ICC profile
+ok 175 - TIFF rejects unsupported ICC profile
+  ---
+  duration_ms: 0.144437
+  type: 'test'
+  ...
+# Subtest: TIFF rejects resolution denominator zero
+ok 176 - TIFF rejects resolution denominator zero
+  ---
+  duration_ms: 0.113057
+  type: 'test'
+  ...
+# Subtest: TIFF: forged BigTIFF offset size, reserved word and uint64 precision fail closed
+ok 177 - TIFF: forged BigTIFF offset size, reserved word and uint64 precision fail closed
+  ---
+  duration_ms: 0.305572
+  type: 'test'
+  ...
+# Subtest: TIFF: truncated buffers, excessive files and incompatible sample shapes are rejected
+ok 178 - TIFF: truncated buffers, excessive files and incompatible sample shapes are rejected
+  ---
+  duration_ms: 0.249848
+  type: 'test'
+  ...
+# Subtest: TIFF: decoder rejects nonfinite float payload before exposing samples
+ok 179 - TIFF: decoder rejects nonfinite float payload before exposing samples
+  ---
+  duration_ms: 0.154125
+  type: 'test'
+  ...
+# Subtest: TIFF: decoded samples and retained original bytes cannot alias caller storage
+ok 180 - TIFF: decoded samples and retained original bytes cannot alias caller storage
+  ---
+  duration_ms: 0.133715
+  type: 'test'
+  ...
+# Subtest: TIFF: executable-looking metadata is opaque text, never run
+ok 181 - TIFF: executable-looking metadata is opaque text, never run
+  ---
+  duration_ms: 0.137565
+  type: 'test'
+  ...
+# Subtest: RUSSL: all 4,096 complex pixels map exactly, not nearest-neighbour upsampling
+ok 182 - RUSSL: all 4,096 complex pixels map exactly, not nearest-neighbour upsampling
+  ---
+  duration_ms: 26.695907
+  type: 'test'
+  ...
+# Subtest: RUSSL: capture/serialize/decode is read-only with exact f64 sample bits
+ok 183 - RUSSL: capture/serialize/decode is read-only with exact f64 sample bits
+  ---
+  duration_ms: 59.702473
+  type: 'test'
+  ...
+# Subtest: RUSSL: file, scalar and logical identities are separated across container variants
+ok 184 - RUSSL: file, scalar and logical identities are separated across container variants
+  ---
+  duration_ms: 58.512754
+  type: 'test'
+  ...
+# Subtest: RUSSL: checksum mutation is rejected even if the modified sample is finite
+ok 185 - RUSSL: checksum mutation is rejected even if the modified sample is finite
+  ---
+  duration_ms: 9.738434
+  type: 'test'
+  ...
+# Subtest: RUSSL: mismatched shape, unsupported version and invented metadata cannot silently import
+ok 186 - RUSSL: mismatched shape, unsupported version and invented metadata cannot silently import
+  ---
+  duration_ms: 48.940021
+  type: 'test'
+  ...
+# Subtest: RUSSL: non-atlas TIFF cannot be treated as an executable or live field
+ok 187 - RUSSL: non-atlas TIFF cannot be treated as an executable or live field
+  ---
+  duration_ms: 2.140004
+  type: 'test'
+  ...
+# Subtest: RUSSL: edits are detached, report f32 rounding and recompute both derived slots
+ok 188 - RUSSL: edits are detached, report f32 rounding and recompute both derived slots
+  ---
+  duration_ms: 7.83511
+  type: 'test'
+  ...
+# Subtest: RUSSL: direct edits to derived slots and excessive values are rejected
+ok 189 - RUSSL: direct edits to derived slots and excessive values are rejected
+  ---
+  duration_ms: 3.070074
+  type: 'test'
+  ...
+# Subtest: RUSSL: tampered derived data is rejected even when re-encoding recalculates checksums
+ok 190 - RUSSL: tampered derived data is rejected even when re-encoding recalculates checksums
+  ---
+  duration_ms: 4.22545
+  type: 'test'
+  ...
+# Subtest: RUSSL: negative zero round trips exactly through field TIFF and HPU conversion
+ok 191 - RUSSL: negative zero round trips exactly through field TIFF and HPU conversion
+  ---
+  duration_ms: 11.625655
+  type: 'test'
+  ...
+# Subtest: RUSSL: bounded canonical metadata rejects deep nesting
+ok 192 - RUSSL: bounded canonical metadata rejects deep nesting
+  ---
+  duration_ms: 0.228697
+  type: 'test'
+  ...
+# Subtest: RUSSL service: failed import and stale edits preserve original TIFF and HPU
+ok 193 - RUSSL service: failed import and stale edits preserve original TIFF and HPU
+  ---
+  duration_ms: 53.648147
+  type: 'test'
+  ...
+# Subtest: RUSSL service: edit stays staged; explicit apply resets derived state and persists valid HPU2
+ok 194 - RUSSL service: edit stays staged; explicit apply resets derived state and persists valid HPU2
+  ---
+  duration_ms: 111.088107
+  type: 'test'
+  ...
+# Subtest: RUSSL service: quota failures cannot partially replace a TIFF or live field
+ok 195 - RUSSL service: quota failures cannot partially replace a TIFF or live field
+  ---
+  duration_ms: 31.683289
+  type: 'test'
+  ...
+# Subtest: RUSSL service: publication failure rolls back HPU and persisted field
+ok 196 - RUSSL service: publication failure rolls back HPU and persisted field
+  ---
+  duration_ms: 77.398196
+  type: 'test'
+  ...
+# Subtest: RUSSL migration: real baseline 2.1.1 HPU2 load stays valid and byte-for-byte unchanged by export
+ok 197 - RUSSL migration: real baseline 2.1.1 HPU2 load stays valid and byte-for-byte unchanged by export
+  ---
+  duration_ms: 46.42669
+  type: 'test'
+  ...
+# Subtest: RUSSL: shell exposes layout, captures, edits and applies without host paths
+ok 198 - RUSSL: shell exposes layout, captures, edits and applies without host paths
+  ---
+  duration_ms: 74.571885
+  type: 'test'
+  ...
+# Subtest: rational coordinates keep exact arithmetic at safe-integer domain boundary
+ok 199 - rational coordinates keep exact arithmetic at safe-integer domain boundary
+  ---
+  duration_ms: 0.141836
+  type: 'test'
+  ...
+# Subtest: local static host boundary
+    # Subtest: bind address is loopback
+    ok 1 - bind address is loopback
+      ---
+      duration_ms: 0.707702
+      type: 'test'
+      ...
+    # Subtest: HTML and CSP are served
+    ok 2 - HTML and CSP are served
+      ---
+      duration_ms: 18.541293
+      type: 'test'
+      ...
+    # Subtest: HEAD has no body
+    ok 3 - HEAD has no body
+      ---
+      duration_ms: 5.7514
+      type: 'test'
+      ...
+    # Subtest: Host rebinding
+    ok 4 - Host rebinding
+      ---
+      duration_ms: 3.638677
+      type: 'test'
+      ...
+    # Subtest: foreign Origin
+    ok 5 - foreign Origin
+      ---
+      duration_ms: 2.412775
+      type: 'test'
+      ...
+    # Subtest: cross-site fetch
+    ok 6 - cross-site fetch
+      ---
+      duration_ms: 4.651733
+      type: 'test'
+      ...
+    # Subtest: POST
+    ok 7 - POST
+      ---
+      duration_ms: 1.588509
+      type: 'test'
+      ...
+    # Subtest: traversal
+    ok 8 - traversal
+      ---
+      duration_ms: 1.46472
+      type: 'test'
+      ...
+    # Subtest: encoded traversal
+    ok 9 - encoded traversal
+      ---
+      duration_ms: 1.456681
+      type: 'test'
+      ...
+    # Subtest: double encoding
+    ok 10 - double encoding
+      ---
+      duration_ms: 1.710794
+      type: 'test'
+      ...
+    # Subtest: NUL
+    ok 11 - NUL
+      ---
+      duration_ms: 1.818143
+      type: 'test'
+      ...
+    # Subtest: backslash
+    ok 12 - backslash
+      ---
+      duration_ms: 1.02941
+      type: 'test'
+      ...
+    # Subtest: hidden dotfile
+    ok 13 - hidden dotfile
+      ---
+      duration_ms: 1.125144
+      type: 'test'
+      ...
+    # Subtest: root manifest
+    ok 14 - root manifest
+      ---
+      duration_ms: 1.642916
+      type: 'test'
+      ...
+    # Subtest: references not served
+    ok 15 - references not served
+      ---
+      duration_ms: 1.409919
+      type: 'test'
+      ...
+    # Subtest: legacy scaffold not served
+    ok 16 - legacy scaffold not served
+      ---
+      duration_ms: 1.275254
+      type: 'test'
+      ...
+    # Subtest: JavaScript MIME
+    ok 17 - JavaScript MIME
+      ---
+      duration_ms: 4.4452
+      type: 'test'
+      ...
+    1..17
+ok 200 - local static host boundary
+  ---
+  duration_ms: 71.67014
+  type: 'test'
+  ...
+# Subtest: static host rejects symlink traversal
+ok 201 - static host rejects symlink traversal
+  ---
+  duration_ms: 6.769265
+  type: 'test'
+  ...
+# Subtest: real Node worker integration with explicit storage/lock test doubles
+    # Subtest: boot publishes consistent version and protocol
+    ok 1 - boot publishes consistent version and protocol
+      ---
+      duration_ms: 1.053035
+      type: 'test'
+      ...
+    # Subtest: binary command input traverses parser and VFS
+    ok 2 - binary command input traverses parser and VFS
+      ---
+      duration_ms: 47.960529
+      type: 'test'
+      ...
+    # Subtest: command registry exposes descriptors
+    ok 3 - command registry exposes descriptors
+      ---
+      duration_ms: 5.988636
+      type: 'test'
+      ...
+    # Subtest: all twenty modeled gates execute over transport
+    ok 4 - all twenty modeled gates execute over transport
+      ---
+      duration_ms: 619.499578
+      type: 'test'
+      ...
+    # Subtest: byte command persists seven TIFFs and HPU state
+    ok 5 - byte command persists seven TIFFs and HPU state
+      ---
+      duration_ms: 65.101719
+      type: 'test'
+      ...
+    # Subtest: second window is blocked without modifying the volume
+    ok 6 - second window is blocked without modifying the volume
+      ---
+      duration_ms: 85.938912
+      type: 'test'
+      ...
+    # Subtest: invalid acknowledgement closes only its session
+    ok 7 - invalid acknowledgement closes only its session
+      ---
+      duration_ms: 41.26432
+      type: 'test'
+      ...
+    # Subtest: legacy control version is rejected without a worker crash
+    ok 8 - legacy control version is rejected without a worker crash
+      ---
+      duration_ms: 16.663486
+      type: 'test'
+      ...
+    # Subtest: wrong sequence closes offending session
+    ok 9 - wrong sequence closes offending session
+      ---
+      duration_ms: 10.767507
+      type: 'test'
+      ...
+    # Subtest: null control record cannot crash worker
+    ok 10 - null control record cannot crash worker
+      ---
+      duration_ms: 16.162923
+      type: 'test'
+      ...
+    # Subtest: invalid restore is rejected without changing storage
+    ok 11 - invalid restore is rejected without changing storage
+      ---
+      duration_ms: 17.592485
+      type: 'test'
+      ...
+    # Subtest: poweroff stays halted and stops sessions
+    ok 12 - poweroff stays halted and stops sessions
+      ---
+      duration_ms: 14.178792
+      type: 'test'
+      ...
+    # Subtest: next boot restores the exact virtual file and XPU lanes
+    ok 13 - next boot restores the exact virtual file and XPU lanes
+      ---
+      duration_ms: 154.032037
+      type: 'test'
+      ...
+    # Subtest: validated restore keeps a previous committed volume
+    ok 14 - validated restore keeps a previous committed volume
+      ---
+      duration_ms: 245.973872
+      type: 'test'
+      ...
+    # Subtest: reboot emits reboot flag instead of silently powercycling
+    ok 15 - reboot emits reboot flag instead of silently powercycling
+      ---
+      duration_ms: 5.473975
+      type: 'test'
+      ...
+    1..15
+ok 202 - real Node worker integration with explicit storage/lock test doubles
+  ---
+  duration_ms: 1458.645198
+  type: 'test'
+  ...
+# Subtest: corrupt volume boot fails closed and raw backup remains available
+ok 203 - corrupt volume boot fails closed and raw backup remains available
+  ---
+  duration_ms: 144.434478
+  type: 'test'
+  ...
+# Subtest: read failure does not initialize over existing storage
+ok 204 - read failure does not initialize over existing storage
+  ---
+  duration_ms: 62.597087
+  type: 'test'
+  ...
+# Subtest: write failure prevents a falsely successful boot
+ok 205 - write failure prevents a falsely successful boot
+  ---
+  duration_ms: 69.645062
+  type: 'test'
+  ...
+# Subtest: RUSSL management RPC in real Node worker with explicit storage/lock doubles
+    # Subtest: capture requires revision token and writes a full f64 TIFF
+    ok 1 - capture requires revision token and writes a full f64 TIFF
+      ---
+      duration_ms: 64.083945
+      type: 'test'
+      ...
+    # Subtest: invalid imports and stale writes leave the staged TIFF unchanged
+    ok 2 - invalid imports and stale writes leave the staged TIFF unchanged
+      ---
+      duration_ms: 27.064829
+      type: 'test'
+      ...
+    # Subtest: edit is staged and explicit apply updates the HPU
+    ok 3 - edit is staged and explicit apply updates the HPU
+      ---
+      duration_ms: 115.994274
+      type: 'test'
+      ...
+    # Subtest: SHA-256 receipt and valid import traverse worker RPC
+    ok 4 - SHA-256 receipt and valid import traverse worker RPC
+      ---
+      duration_ms: 36.004407
+      type: 'test'
+      ...
+    # Subtest: staged TIFF and applied HPU survive a transactional reboot
+    ok 5 - staged TIFF and applied HPU survive a transactional reboot
+      ---
+      duration_ms: 139.390547
+      type: 'test'
+      ...
+    # Subtest: TIFF apply is blocked while a terminal command is running
+    ok 6 - TIFF apply is blocked while a terminal command is running
+      ---
+      duration_ms: 90.008156
+      type: 'test'
+      ...
+    1..6
+ok 206 - RUSSL management RPC in real Node worker with explicit storage/lock doubles
+  ---
+  duration_ms: 553.109321
+  type: 'test'
+  ...
+1..206
+# tests 244
+# suites 0
+# pass 244
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5097.327244

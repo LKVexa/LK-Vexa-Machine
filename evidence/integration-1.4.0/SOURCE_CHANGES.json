@@ -1,0 +1,1690 @@
+{
+  "consoleVersion": "1.4.0",
+  "engineVersion": "2.4.0",
+  "baselineSha256": "d5b1561175609cd1b7adfae15bce384c1cb0887aa8b96d1295e79cbe09b1febc",
+  "engineModulesChanged": 15,
+  "scope": "Final merged bytes before generated integrity seals; all previous audit evidence preserved.",
+  "changes": [
+    {
+      "path": "CONSOLE_BUILD.json",
+      "status": "modified",
+      "bytes": 4459,
+      "beforeSha256": "018d4be2bde9d36090544275660e915bc0eb891de19cc76d44500e870827655f",
+      "afterSha256": "61a6010c84f1f4cb6f7e8108fbe2b3e9096df25c2d66271d1904446acf768efc"
+    },
+    {
+      "path": "CONSOLE_VERSION",
+      "status": "modified",
+      "bytes": 6,
+      "beforeSha256": "64d23f858ef51b0f996e4966d4e27c0371b437e2d2787890b1f7ad22d4ec5663",
+      "afterSha256": "78b591400c56b7b67b8cb3b2b8a8e65e9093897f02ce0878e6b5405c68620fa7"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "status": "modified",
+      "bytes": 275456,
+      "beforeSha256": "7653ecc183e3ca62311e146000c9365e88ebd8903677dc5566306a10c95e3f85",
+      "afterSha256": "31697d8319d2ede0d103634cc7503493af6c99426d390c4c0f9a3330392a64b5"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "bytes": 7278,
+      "beforeSha256": "8a6401e87c841ff9e6d9f16b1ad165ec1066698089c2d95080c592eee2a04e69",
+      "afterSha256": "63880225e0b90493deee9ea74aafdf1eef3967ed1e18a2bc5c71e9fe360c3fe4"
+    },
+    {
+      "path": "Start WebSocket Console.cmd",
+      "status": "added",
+      "bytes": 280,
+      "beforeSha256": null,
+      "afterSha256": "37be7b18cb8c1ed40cdc3007e7a3fcb2dfeb3337faf3ca11eb8775692051a48f"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "status": "added",
+      "bytes": 938,
+      "beforeSha256": null,
+      "afterSha256": "32558e8ded4086c4b12580a3f3ff1393700882db8c6d6900dada94d1f2ec750e"
+    },
+    {
+      "path": "applications/silicon/CHANGELOG.md",
+      "status": "modified",
+      "bytes": 9263,
+      "beforeSha256": "59e826a4478a2d50d08552414e13d36390fad82f55ff8fd91dc140a8372d6ab8",
+      "afterSha256": "e4065570ded9504b6d1b88367b840b0f5f7b370f6659539cb48b253efa480bdc"
+    },
+    {
+      "path": "applications/silicon/README.md",
+      "status": "modified",
+      "bytes": 13779,
+      "beforeSha256": "11e5f2652fde91967bb3e756a6b94b978bff5a314622a821f3d44d8103aec5da",
+      "afterSha256": "d1e2a93d6433babb77dc346fce3a37bf2e029c9ae4bcd61085f4febe9e3effd7"
+    },
+    {
+      "path": "applications/silicon/SECURITY.md",
+      "status": "modified",
+      "bytes": 10396,
+      "beforeSha256": "cfdb96a7a8e7f76c3d96dfde21856d4c43cf4784de5fec370c67075944408aa5",
+      "afterSha256": "7ae88284ded4499f53a9da58a80ab1e13bc5ecb137412be0a5fce9d763d2aa28"
+    },
+    {
+      "path": "applications/silicon/Start-Console.cmd",
+      "status": "modified",
+      "bytes": 23124,
+      "beforeSha256": "fb53e388ff40f8f7b7f2170fbb96c8367ce4e714caa9d45ead968515d80691b8",
+      "afterSha256": "83d6b20e153bb15309f9ace34f54d11e4c97256c5a1316a5cc2126deeed693a6"
+    },
+    {
+      "path": "applications/silicon/VERSION",
+      "status": "modified",
+      "bytes": 6,
+      "beforeSha256": "a42caf4a54bbbe27aa45b6efbc6356c5e299b19763e728b6cdb7201b02ebbe36",
+      "afterSha256": "2ad7b0c3f0ede58c3165b7a8a5479e890a758d39bfe8683eaef50ce6afad7232"
+    },
+    {
+      "path": "applications/silicon/dist/index.html",
+      "status": "modified",
+      "bytes": 18931,
+      "beforeSha256": "ca0886bccc6ca6eeb900df89306a0e40c35a03ad262fba10a2aa2ae671f669ba",
+      "afterSha256": "e8a4a097e3ed894c69b3a286c5d2e7063f2d021c4241a29a02f417f1bf68b760"
+    },
+    {
+      "path": "applications/silicon/dist/release.json",
+      "status": "modified",
+      "bytes": 83,
+      "beforeSha256": "479e3cc21e41e062cb38ac68734f74eff44e135d24771cac7274a2a570cdb55d",
+      "afterSha256": "642aeaf38f1480710cdd0be3f02c9c0adfb996c8eef25cce9ff86518ee41855f"
+    },
+    {
+      "path": "applications/silicon/dist/src/app.js",
+      "status": "modified",
+      "bytes": 28318,
+      "beforeSha256": "d49ea8f085807caa566c622c52d7ab84cb7d5d6a40a71a1822565cff2314c27a",
+      "afterSha256": "15d0aba7a93c7d33dfe90b319ad34f08ab9e1cd9b02c701f2bcfdc2d499cc86a"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/admin-link.js",
+      "status": "added",
+      "bytes": 10065,
+      "beforeSha256": null,
+      "afterSha256": "1a540f5152e132c84af8e0cdc0f1e00c62e1479151a38705105fddacb1737af9"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/ram-link.js",
+      "status": "modified",
+      "bytes": 9978,
+      "beforeSha256": "92452398be9098a342fe53f19fd4366db22b58800d4a06a404ba37b4b194e2c8",
+      "afterSha256": "91437a5d76469ccc838feebaaf81b495c888b5ddb08397c4ef1b47db2986d7a5"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/ramws/hermit-codec.js",
+      "status": "added",
+      "bytes": 35302,
+      "beforeSha256": null,
+      "afterSha256": "522ea6c82fb038528de4790beed759109ce9855ff70623206a2fb8bf996be9aa"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/ramws/ramws-client.js",
+      "status": "added",
+      "bytes": 9170,
+      "beforeSha256": null,
+      "afterSha256": "9254ddf169a57121b4fa1747ac49116597af54c9f6d65de0ef85963baf210d9d"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/ramws/ramws-owner.js",
+      "status": "added",
+      "bytes": 8725,
+      "beforeSha256": null,
+      "afterSha256": "e42b32b25f9fb7a5448e24b8e88a5813c036ea3509115ed2ad6beb08f26537ab"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/ramws/ramws-wire.js",
+      "status": "added",
+      "bytes": 5172,
+      "beforeSha256": null,
+      "afterSha256": "433a686259876c4366dfb1bfaa1cface11ca091d5cb13fc558b91f122d978ecc"
+    },
+    {
+      "path": "applications/silicon/dist/src/lib/xpu-delegation.js",
+      "status": "added",
+      "bytes": 3179,
+      "beforeSha256": null,
+      "afterSha256": "80d81af93112f0613a8f06a5d6b41ae6d866f5cd4be723915940a900770dd2f2"
+    },
+    {
+      "path": "applications/silicon/dist/src/ramws-terminal.js",
+      "status": "added",
+      "bytes": 8444,
+      "beforeSha256": null,
+      "afterSha256": "1464d4f38285794f6bcec7eeb1bf3c226269652a5c3db092b835363e2eebd573"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/ram-worker.js",
+      "status": "modified",
+      "bytes": 28358,
+      "beforeSha256": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+      "afterSha256": "d25e9f1fc56237a9aa6782fd39d05bd5fc7b051a0a54e5eb0bdb1bb4d3b169e1"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/index.js",
+      "status": "modified",
+      "bytes": 1568,
+      "beforeSha256": "4e57c19ffa410bda22107b9511e2b09eeeaff65f8dc58b65a2298c8ce083ff0c",
+      "afterSha256": "97d230bdbde7480d35d9061235c3bdc721a356449a6108acadc174ec74d30bc8"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/commands/semisili.js",
+      "status": "added",
+      "bytes": 4477,
+      "beforeSha256": null,
+      "afterSha256": "f388a29ae9fd1fbe4f349a2fb1b8e33dca0090dc4959a3f96e4c11af8d2a4df0"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/spiral/kernel.js",
+      "status": "modified",
+      "bytes": 26130,
+      "beforeSha256": "f86c8f65e9a3e6db6d9d4544b8b452e8b34dd562a34b5cc296f6ee44921ec1e2",
+      "afterSha256": "a475d49f26c9734a9ac701cb2d42098b8ff731b58cb0c81a6853741f05a80c22"
+    },
+    {
+      "path": "applications/silicon/dist/src/vendor/vt/accessibility.js",
+      "status": "added",
+      "bytes": 1641,
+      "beforeSha256": null,
+      "afterSha256": "efa813b2af5b570fe347eff224efeb32318a2eca5038a400de7e432c362eac0a"
+    },
+    {
+      "path": "applications/silicon/dist/src/version.js",
+      "status": "modified",
+      "bytes": 119,
+      "beforeSha256": "42eb1fea0b3dbb4f9de6485cd31e8f6b2f09d7a6b6c6a5c43d028765c79b714e",
+      "afterSha256": "99eeebcb7dbb843c4e76222d2a75a2faaba14858d886db095e326d9aacb286e5"
+    },
+    {
+      "path": "applications/silicon/dist/style.css",
+      "status": "modified",
+      "bytes": 11093,
+      "beforeSha256": "a5ea5addb0d99f47bacc10037d636aac213085dbd4797e8716b9ccda087a5f2e",
+      "afterSha256": "fd34208699036a410eae55990b58eec24dcbe53dd5be27d1dedf5b51eed75252"
+    },
+    {
+      "path": "applications/silicon/dist/terminal.html",
+      "status": "added",
+      "bytes": 3367,
+      "beforeSha256": null,
+      "afterSha256": "e014b8f8961ea3baf80867514bb154445207d978b4b63ab6527231ba45caa091"
+    },
+    {
+      "path": "applications/silicon/docs/TERMINALS.md",
+      "status": "added",
+      "bytes": 4781,
+      "beforeSha256": null,
+      "afterSha256": "be77be0e78257a4a3bab5138a9169bb84a1c6c2d4e11783abb51120e390bd124"
+    },
+    {
+      "path": "applications/silicon/package-lock.json",
+      "status": "modified",
+      "bytes": 290,
+      "beforeSha256": "85655d3d3b197251f8b5707e82f04ab392a0b058dd9d08b564ad224c3350233f",
+      "afterSha256": "1dc8439ea094ec1e35503a87740f4d2a57a10d256ddb17cd94bfcf61b95d659c"
+    },
+    {
+      "path": "applications/silicon/package.json",
+      "status": "modified",
+      "bytes": 516,
+      "beforeSha256": "6af5709b5475d58a9f3342beb6400e9e0debdbee860029f3953a61174b4b5854",
+      "afterSha256": "f5c3cacc7daf248abda16c59b3b81228b2f9aac80e48210a82e6a13a9def5858"
+    },
+    {
+      "path": "applications/silicon/references/hermit/REFERENCE_MANIFEST.json",
+      "status": "added",
+      "bytes": 692,
+      "beforeSha256": null,
+      "afterSha256": "951ec11641392eb5897852db66c1dccba66eab25864fb37bc8eb5f624c003418"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/HERMIT_LICENSE.txt",
+      "status": "added",
+      "bytes": 306,
+      "beforeSha256": null,
+      "afterSha256": "63748d1e0d8ac97258b42b6631100fed0ddcae97ebfb0274697e4623ffabaa09"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/admin-gateway.mjs",
+      "status": "added",
+      "bytes": 12943,
+      "beforeSha256": null,
+      "afterSha256": "64f5b732c7cde7642376c24ab399bf489d1145f8c58add0a5964072620c11643"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/gateway/ws.cjs",
+      "status": "added",
+      "bytes": 21484,
+      "beforeSha256": null,
+      "afterSha256": "21967b4e82ab5d1f562115f2fe19bb8728c395e21ad73fa0874c00ec2200369f"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/protocol/codec.cjs",
+      "status": "added",
+      "bytes": 16891,
+      "beforeSha256": null,
+      "afterSha256": "265aedca8ddda85ba81dba51b11ad57cd1e95bad233ecc10fbef1b18d5d762b8"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/protocol/envelope.schema.json",
+      "status": "added",
+      "bytes": 15343,
+      "beforeSha256": null,
+      "afterSha256": "340a0f34cc69c546ce8091a029b5509e53d32d3b1977db15fac132cadf8aa4d4"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/protocol/protocol-meta.json",
+      "status": "added",
+      "bytes": 2531,
+      "beforeSha256": null,
+      "afterSha256": "0a33802714673bb7b717259468f60e6faa9b18246448da70abf272a2fa356983"
+    },
+    {
+      "path": "applications/silicon/scripts/ramws/ramws-gateway.mjs",
+      "status": "added",
+      "bytes": 22094,
+      "beforeSha256": null,
+      "afterSha256": "eff973eb8ff8ba591401d2b5fd9edf4de30243cbe13bf6f324dfece96f63a8a7"
+    },
+    {
+      "path": "applications/silicon/scripts/serve.mjs",
+      "status": "modified",
+      "bytes": 8605,
+      "beforeSha256": "597ce12b9eabe74664d74abc7247c22a0dfa6d08c8587b2821cb751331339dc3",
+      "afterSha256": "cf0e44ad1be2d120144cfff3075f6b69b726fd6357d8d74709374a760333c1f6"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/bootstrap.ps1",
+      "status": "modified",
+      "bytes": 21390,
+      "beforeSha256": "c78a511275697be369d4496ba88fab51eaf772498117bf2d9dbc5683ee0f58a6",
+      "afterSha256": "0df1548733ee332cd2f408b5e6a2e96e36762be6456c28a0ed7f9d99ae620cc0"
+    },
+    {
+      "path": "applications/silicon/scripts/windows/runtime-lock.json",
+      "status": "modified",
+      "bytes": 1276,
+      "beforeSha256": "0990c82fee4984c1c4a106a53e390fadf6703e5a65794cd64932fbcf1fba123c",
+      "afterSha256": "c49798e4652ddcaece5da00a33132daa920d92f0a0539a98b03aa019d778da17"
+    },
+    {
+      "path": "applications/silicon/src/app.js",
+      "status": "modified",
+      "bytes": 28318,
+      "beforeSha256": "d49ea8f085807caa566c622c52d7ab84cb7d5d6a40a71a1822565cff2314c27a",
+      "afterSha256": "15d0aba7a93c7d33dfe90b319ad34f08ab9e1cd9b02c701f2bcfdc2d499cc86a"
+    },
+    {
+      "path": "applications/silicon/src/lib/admin-link.js",
+      "status": "added",
+      "bytes": 10065,
+      "beforeSha256": null,
+      "afterSha256": "1a540f5152e132c84af8e0cdc0f1e00c62e1479151a38705105fddacb1737af9"
+    },
+    {
+      "path": "applications/silicon/src/lib/ram-link.js",
+      "status": "modified",
+      "bytes": 9978,
+      "beforeSha256": "92452398be9098a342fe53f19fd4366db22b58800d4a06a404ba37b4b194e2c8",
+      "afterSha256": "91437a5d76469ccc838feebaaf81b495c888b5ddb08397c4ef1b47db2986d7a5"
+    },
+    {
+      "path": "applications/silicon/src/lib/ramws/hermit-codec.js",
+      "status": "added",
+      "bytes": 35302,
+      "beforeSha256": null,
+      "afterSha256": "522ea6c82fb038528de4790beed759109ce9855ff70623206a2fb8bf996be9aa"
+    },
+    {
+      "path": "applications/silicon/src/lib/ramws/ramws-client.js",
+      "status": "added",
+      "bytes": 9170,
+      "beforeSha256": null,
+      "afterSha256": "9254ddf169a57121b4fa1747ac49116597af54c9f6d65de0ef85963baf210d9d"
+    },
+    {
+      "path": "applications/silicon/src/lib/ramws/ramws-owner.js",
+      "status": "added",
+      "bytes": 8725,
+      "beforeSha256": null,
+      "afterSha256": "e42b32b25f9fb7a5448e24b8e88a5813c036ea3509115ed2ad6beb08f26537ab"
+    },
+    {
+      "path": "applications/silicon/src/lib/ramws/ramws-wire.js",
+      "status": "added",
+      "bytes": 5172,
+      "beforeSha256": null,
+      "afterSha256": "433a686259876c4366dfb1bfaa1cface11ca091d5cb13fc558b91f122d978ecc"
+    },
+    {
+      "path": "applications/silicon/src/lib/xpu-delegation.js",
+      "status": "added",
+      "bytes": 3179,
+      "beforeSha256": null,
+      "afterSha256": "80d81af93112f0613a8f06a5d6b41ae6d866f5cd4be723915940a900770dd2f2"
+    },
+    {
+      "path": "applications/silicon/src/ramws-terminal.js",
+      "status": "added",
+      "bytes": 8444,
+      "beforeSha256": null,
+      "afterSha256": "1464d4f38285794f6bcec7eeb1bf3c226269652a5c3db092b835363e2eebd573"
+    },
+    {
+      "path": "applications/silicon/src/vendor/ram-worker.js",
+      "status": "modified",
+      "bytes": 28358,
+      "beforeSha256": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+      "afterSha256": "d25e9f1fc56237a9aa6782fd39d05bd5fc7b051a0a54e5eb0bdb1bb4d3b169e1"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/index.js",
+      "status": "modified",
+      "bytes": 1568,
+      "beforeSha256": "4e57c19ffa410bda22107b9511e2b09eeeaff65f8dc58b65a2298c8ce083ff0c",
+      "afterSha256": "97d230bdbde7480d35d9061235c3bdc721a356449a6108acadc174ec74d30bc8"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/commands/semisili.js",
+      "status": "added",
+      "bytes": 4477,
+      "beforeSha256": null,
+      "afterSha256": "f388a29ae9fd1fbe4f349a2fb1b8e33dca0090dc4959a3f96e4c11af8d2a4df0"
+    },
+    {
+      "path": "applications/silicon/src/vendor/spiral/kernel.js",
+      "status": "modified",
+      "bytes": 26130,
+      "beforeSha256": "f86c8f65e9a3e6db6d9d4544b8b452e8b34dd562a34b5cc296f6ee44921ec1e2",
+      "afterSha256": "a475d49f26c9734a9ac701cb2d42098b8ff731b58cb0c81a6853741f05a80c22"
+    },
+    {
+      "path": "applications/silicon/src/vendor/vt/accessibility.js",
+      "status": "added",
+      "bytes": 1641,
+      "beforeSha256": null,
+      "afterSha256": "efa813b2af5b570fe347eff224efeb32318a2eca5038a400de7e432c362eac0a"
+    },
+    {
+      "path": "applications/silicon/src/version.js",
+      "status": "modified",
+      "bytes": 119,
+      "beforeSha256": "42eb1fea0b3dbb4f9de6485cd31e8f6b2f09d7a6b6c6a5c43d028765c79b714e",
+      "afterSha256": "99eeebcb7dbb843c4e76222d2a75a2faaba14858d886db095e326d9aacb286e5"
+    },
+    {
+      "path": "applications/silicon/tests/admin-delegation-worker.test.mjs",
+      "status": "added",
+      "bytes": 10436,
+      "beforeSha256": null,
+      "afterSha256": "1d63fde20ac44d579e87e5cfa7810e2c95bbfdf8bbc7f434c04ee4fdec7380ae"
+    },
+    {
+      "path": "applications/silicon/tests/admin-gateway.test.mjs",
+      "status": "added",
+      "bytes": 10524,
+      "beforeSha256": null,
+      "afterSha256": "c7ab595698b6096472208f94818323808e3e8990a57a75a5d5e8a1e1b000fc68"
+    },
+    {
+      "path": "applications/silicon/tests/admin-link.test.mjs",
+      "status": "added",
+      "bytes": 6467,
+      "beforeSha256": null,
+      "afterSha256": "64760550c07dbdcf64df29c3738f6112b100c9df61531898982fe4a99fddc8ed"
+    },
+    {
+      "path": "applications/silicon/tests/hermit-accessibility.test.mjs",
+      "status": "added",
+      "bytes": 2677,
+      "beforeSha256": null,
+      "afterSha256": "fbcdad9424431a889550719d0915e7db17e0980d471a01094985d2f9c86c9fcb"
+    },
+    {
+      "path": "applications/silicon/tests/launcher-contract.test.mjs",
+      "status": "modified",
+      "bytes": 8616,
+      "beforeSha256": "7e109ba66fe9653e170754ac243bca4a58d0807222141520bebeef05e20716f3",
+      "afterSha256": "a80b279277578e8f18d9651323eedb22607607e2f0f5fbcb9d01b6419bfc3a45"
+    },
+    {
+      "path": "applications/silicon/tests/ram-link-lifecycle.test.mjs",
+      "status": "added",
+      "bytes": 4280,
+      "beforeSha256": null,
+      "afterSha256": "d0830d9cef9acc72b8ac2e1b2de349a6ffb76fa15b72b2bf1f273182c0f0c274"
+    },
+    {
+      "path": "applications/silicon/tests/ramws-gateway.test.mjs",
+      "status": "added",
+      "bytes": 14599,
+      "beforeSha256": null,
+      "afterSha256": "e7329da5f566a315bb9a7a6b78ca59fd4bfa8b442a6bccb0bd8c118627253424"
+    },
+    {
+      "path": "applications/silicon/tests/ramws-serve.test.mjs",
+      "status": "added",
+      "bytes": 5985,
+      "beforeSha256": null,
+      "afterSha256": "6d33004565a08c31087f11b5d50ec63d69cfd4915224b15addf03b832e36ebbb"
+    },
+    {
+      "path": "applications/silicon/tests/xpu-delegation.test.mjs",
+      "status": "added",
+      "bytes": 4514,
+      "beforeSha256": null,
+      "afterSha256": "58c575a9c7145fff99009dd140b7a3f40b2dfc27ed7a2de40742df83a051a27c"
+    },
+    {
+      "path": "applications/silicon/tests/xpu-terminal.test.mjs",
+      "status": "added",
+      "bytes": 15493,
+      "beforeSha256": null,
+      "afterSha256": "1ff364df8e24b48702d37d7d9276a0dd464ecff7125d1b16e43e50b823732368"
+    },
+    {
+      "path": "applications/silicon/web/index.html",
+      "status": "modified",
+      "bytes": 18931,
+      "beforeSha256": "ca0886bccc6ca6eeb900df89306a0e40c35a03ad262fba10a2aa2ae671f669ba",
+      "afterSha256": "e8a4a097e3ed894c69b3a286c5d2e7063f2d021c4241a29a02f417f1bf68b760"
+    },
+    {
+      "path": "applications/silicon/web/style.css",
+      "status": "modified",
+      "bytes": 11093,
+      "beforeSha256": "a5ea5addb0d99f47bacc10037d636aac213085dbd4797e8716b9ccda087a5f2e",
+      "afterSha256": "fd34208699036a410eae55990b58eec24dcbe53dd5be27d1dedf5b51eed75252"
+    },
+    {
+      "path": "applications/silicon/web/terminal.html",
+      "status": "added",
+      "bytes": 3367,
+      "beforeSha256": null,
+      "afterSha256": "e014b8f8961ea3baf80867514bb154445207d978b4b63ab6527231ba45caa091"
+    },
+    {
+      "path": "docs/ADMINISTRATOR-ACCEPTANCE.md",
+      "status": "added",
+      "bytes": 5582,
+      "beforeSha256": null,
+      "afterSha256": "cfdc9ddda93d3442463019912e8b7fc07983193f2bf5fc4a4904672fde107fbb"
+    },
+    {
+      "path": "docs/SILICON-WEBVIEW2-ACCEPTANCE.md",
+      "status": "modified",
+      "bytes": 3846,
+      "beforeSha256": "80231e26a0c8da88c0d29c8c837b33d51e91d24086098823c63099d5986574d1",
+      "afterSha256": "2a4426cbceb6fc6cb0dfa2e04a854347ef8f2b0cbb776c4210a28b7dc002c688"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_BROKER_TESTS.tap",
+      "status": "added",
+      "bytes": 4354,
+      "beforeSha256": null,
+      "afterSha256": "504089d9e38f108cc4ea9f64fe4d4c3eb45899e28b34e391e4bd4a02a4de763f"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_GATEWAY_VERIFIED.tap",
+      "status": "added",
+      "bytes": 1761,
+      "beforeSha256": null,
+      "afterSha256": "8857822da74d3f55f259d2a0ceff48409b632d48e7363dbf13d7feceb7e54b3e"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_SERVE_TESTS.tap",
+      "status": "added",
+      "bytes": 5571,
+      "beforeSha256": null,
+      "afterSha256": "84109c6ee805f0fc971d66a1278b452c5ef7ba5f385904a593ff092473d43a98"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_WORKER_TESTS.tap",
+      "status": "added",
+      "bytes": 6892,
+      "beforeSha256": null,
+      "afterSha256": "fbe0f2a0b9d9a7b848b9bbf03884e051edc1f4010c5d763807a4adaa431e9d5e"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_WORKER_TESTS_FINAL.tap",
+      "status": "added",
+      "bytes": 2753,
+      "beforeSha256": null,
+      "afterSha256": "2e0277aa3a65c4f288db1fb195ca047573d412b1cb9d4112eb3684b2acdcdb59"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_WORKER_TESTS_RERUN.tap",
+      "status": "added",
+      "bytes": 9644,
+      "beforeSha256": null,
+      "afterSha256": "d8edfc8db74fc79e3e562958fe478288fabc78ce02b6b7581974ab3a5dfd20dd"
+    },
+    {
+      "path": "evidence/hermit/ADMIN_WORKER_VERIFIED.tap",
+      "status": "added",
+      "bytes": 2079,
+      "beforeSha256": null,
+      "afterSha256": "962fe0355a38b4f63e0685389e86d2bcda3627de1414ee7d934625660a8215f5"
+    },
+    {
+      "path": "evidence/hermit/GATEWAY_AUDIT.json",
+      "status": "added",
+      "bytes": 1586,
+      "beforeSha256": null,
+      "afterSha256": "a597e4b104f07bbd24db54836e12121ebbe80141d677c5f3ec06ee7d09560b6b"
+    },
+    {
+      "path": "evidence/hermit/GATEWAY_AUDIT.md",
+      "status": "added",
+      "bytes": 7649,
+      "beforeSha256": null,
+      "afterSha256": "108756edeba3a6f27546801fb0b2fcb435b9239f75873a049e9d57b5dfe7152b"
+    },
+    {
+      "path": "evidence/hermit/GATEWAY_AUDIT_SOURCES.json",
+      "status": "added",
+      "bytes": 43574,
+      "beforeSha256": null,
+      "afterSha256": "b539233cd5c6f9a67be1cab1186cfb90dcea2c2ae595ddf023d2813b8049d3b4"
+    },
+    {
+      "path": "evidence/hermit/GATEWAY_AUDIT_TESTS.json",
+      "status": "added",
+      "bytes": 1828,
+      "beforeSha256": null,
+      "afterSha256": "34edc2e9ebba84ba5e8b967824b8d9a1fe5bc58354e5721c1dca421f87ba5599"
+    },
+    {
+      "path": "evidence/hermit/GATEWAY_BROKER_TESTS.tap",
+      "status": "added",
+      "bytes": 4116,
+      "beforeSha256": null,
+      "afterSha256": "9f02a3179e7e9f9a623314be74ac633f4c9d74e08f5677ccfd4901df9125c7ae"
+    },
+    {
+      "path": "evidence/hermit/INDEPENDENT_VERIFIER_CORRECTION.json",
+      "status": "added",
+      "bytes": 980,
+      "beforeSha256": null,
+      "afterSha256": "54c616c7610a878a0c62025ae820557c9b3ebfede01a0b8e085f3277fee7c9ad"
+    },
+    {
+      "path": "evidence/hermit/INPUT_ARCHIVE_CHECK.json",
+      "status": "added",
+      "bytes": 48329,
+      "beforeSha256": null,
+      "afterSha256": "022c323c198f052f0267ed703cb7ad42342477d27cd1dde451105030ac97e795"
+    },
+    {
+      "path": "evidence/hermit/INPUT_ARCHIVE_CHECK_FAST.json",
+      "status": "added",
+      "bytes": 48268,
+      "beforeSha256": null,
+      "afterSha256": "d08ae221ef39d8918f467f53a8ef6789a41be240f1b4e911fe3ee78353f4e14f"
+    },
+    {
+      "path": "evidence/hermit/LAUNCHER_RERUN.tap",
+      "status": "added",
+      "bytes": 4370,
+      "beforeSha256": null,
+      "afterSha256": "844f927b0851e9ddd3daf0fea7405daa357929763f48fe4a7cc76d6f9d582906"
+    },
+    {
+      "path": "evidence/hermit/RELEASE_VALIDATION.json",
+      "status": "added",
+      "bytes": 26126,
+      "beforeSha256": null,
+      "afterSha256": "763e3ed60d9084599e96babf1f097debbcf296c793061d06bafd5d669ae29fe3"
+    },
+    {
+      "path": "evidence/hermit/SERVE_INTEGRATION_TESTS.tap",
+      "status": "added",
+      "bytes": 50658,
+      "beforeSha256": null,
+      "afterSha256": "2ec72953c56c11f7dd1d1005ada81620e8c66ff46ef9c2e0065ec419f9e7b453"
+    },
+    {
+      "path": "evidence/hermit/TRANSPORT_AUDIT.json",
+      "status": "added",
+      "bytes": 2710,
+      "beforeSha256": null,
+      "afterSha256": "9c4b7efc82ca477f3066eae802c56f0a4f40acf980cbbb39ff6bbb8c74ea9c92"
+    },
+    {
+      "path": "evidence/hermit/TRANSPORT_AUDIT.md",
+      "status": "added",
+      "bytes": 10152,
+      "beforeSha256": null,
+      "afterSha256": "98d412030f07b015bd218b66ad91e162e02929faa10859728d066968f21116ee"
+    },
+    {
+      "path": "evidence/hermit/TRANSPORT_SOURCE_PROBE_RESULTS.json",
+      "status": "added",
+      "bytes": 1172,
+      "beforeSha256": null,
+      "afterSha256": "11788389e8e919699756c424ef83bb45c86925e254bb36c271bf246b1896643f"
+    },
+    {
+      "path": "evidence/hermit/VT_INTEGRATION_REVIEW.json",
+      "status": "added",
+      "bytes": 12674,
+      "beforeSha256": null,
+      "afterSha256": "0128a0105a1b0fcf83115e9e67398d996b7ebd03411034e627fd816f4f0406ed"
+    },
+    {
+      "path": "evidence/hermit/VT_TEST_RESULTS.txt",
+      "status": "added",
+      "bytes": 1988,
+      "beforeSha256": null,
+      "afterSha256": "84739bde721598ce96fe766cacc71b0666caae471a9c34578ca3acef15b5b880"
+    },
+    {
+      "path": "evidence/hermit/XPU_COMMAND_RESULTS.json",
+      "status": "added",
+      "bytes": 3618,
+      "beforeSha256": null,
+      "afterSha256": "9d6958765d3592f305048c464584eb6a7f422419cae8b5f08e416b534c00dd5b"
+    },
+    {
+      "path": "evidence/hermit/browser/LIVE_BROWSER_VALIDATION_2.4.0.json",
+      "status": "added",
+      "bytes": 24920,
+      "beforeSha256": null,
+      "afterSha256": "6ae55dbd8c4404d918330fe3b0bcaf96209afaf22805be4064fbf801862e3b66"
+    },
+    {
+      "path": "evidence/hermit/browser/LIVE_BROWSER_VALIDATION_FINAL_2.4.0.json",
+      "status": "added",
+      "bytes": 24956,
+      "beforeSha256": null,
+      "afterSha256": "044ee3cbd1fc960eccf553c52580373a836972fa92fed415570d766d00694a23"
+    },
+    {
+      "path": "evidence/hermit/browser/LIVE_BROWSER_VALIDATION_THREE_PANES_2.4.0.json",
+      "status": "added",
+      "bytes": 24935,
+      "beforeSha256": null,
+      "afterSha256": "e82a1f521f7e52facc38d8b80e6351d3c80ba4e85d6b7ac1aa8731d1c36d81bb"
+    },
+    {
+      "path": "evidence/hermit/browser/LIVE_WS_GPU_COMMITTED.json",
+      "status": "added",
+      "bytes": 3592,
+      "beforeSha256": null,
+      "afterSha256": "0f76c4c06584e94ef18d300a401ae07c0d7f7af6f4661e7610d99336f99bf040"
+    },
+    {
+      "path": "evidence/hermit/browser/THREE_PANE_UI_ACCEPTANCE.json",
+      "status": "added",
+      "bytes": 2172,
+      "beforeSha256": null,
+      "afterSha256": "fbd3c303662271e86397659bd2707153faf5363f7252c11da0acb97a1ac2015a"
+    },
+    {
+      "path": "evidence/hermit/copy-broker-base.py",
+      "status": "added",
+      "bytes": 1145,
+      "beforeSha256": null,
+      "afterSha256": "0df0a09a429b913d84e28bd98e7339c9bdb254640b3a600075003539acd6afb2"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/ADMIN_BROKER_TESTS.tap",
+      "status": "added",
+      "bytes": 4354,
+      "beforeSha256": null,
+      "afterSha256": "504089d9e38f108cc4ea9f64fe4d4c3eb45899e28b34e391e4bd4a02a4de763f"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/ADMIN_GATEWAY_VERIFIED.tap",
+      "status": "added",
+      "bytes": 1761,
+      "beforeSha256": null,
+      "afterSha256": "8857822da74d3f55f259d2a0ceff48409b632d48e7363dbf13d7feceb7e54b3e"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/ADMIN_SERVE_TESTS.tap",
+      "status": "added",
+      "bytes": 5571,
+      "beforeSha256": null,
+      "afterSha256": "84109c6ee805f0fc971d66a1278b452c5ef7ba5f385904a593ff092473d43a98"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/ADMIN_WORKER_VERIFIED.tap",
+      "status": "added",
+      "bytes": 2079,
+      "beforeSha256": null,
+      "afterSha256": "962fe0355a38b4f63e0685389e86d2bcda3627de1414ee7d934625660a8215f5"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/ENGINE_BOUNDARY_REVIEW.json",
+      "status": "added",
+      "bytes": 5417,
+      "beforeSha256": null,
+      "afterSha256": "17e6a1e946db6e081fa9a0e15793001c2cd98308de9f6d0e7dcdd741402b0076"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/ENGINE_BOUNDARY_REVIEW.md",
+      "status": "added",
+      "bytes": 2736,
+      "beforeSha256": null,
+      "afterSha256": "1cff59df7a6d515c05a97b6c7712314f6cf0ce05a9d4273bc67f44162ba6ba2c"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/FINAL_TEST_RUN.log",
+      "status": "added",
+      "bytes": 93384,
+      "beforeSha256": null,
+      "afterSha256": "30fe24b05b63873e418decb318718422f38367e21b1fdd229d17d4de1bd5b0b1"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/FINAL_THREE_PANE_TEST_RUN.log",
+      "status": "added",
+      "bytes": 93381,
+      "beforeSha256": null,
+      "afterSha256": "5e248576cdd52825508c53cda1e69560ce1adc9a2ad0c9fe6475baa456409eb0"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/LAUNCHER_RERUN.tap",
+      "status": "added",
+      "bytes": 4370,
+      "beforeSha256": null,
+      "afterSha256": "844f927b0851e9ddd3daf0fea7405daa357929763f48fe4a7cc76d6f9d582906"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/RELEASE_CHECKS-before-three-pane.json",
+      "status": "added",
+      "bytes": 20770,
+      "beforeSha256": null,
+      "afterSha256": "d4b2f7ecad27726a26214982ca11c7b3f7f72e34fd56705034f0ec7b4d12fb20"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/RELEASE_CHECKS.json",
+      "status": "added",
+      "bytes": 20770,
+      "beforeSha256": null,
+      "afterSha256": "d4b2f7ecad27726a26214982ca11c7b3f7f72e34fd56705034f0ec7b4d12fb20"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/TEST_LOG_CAPTURE_FAILED_ATTEMPT.tap",
+      "status": "added",
+      "bytes": 769,
+      "beforeSha256": null,
+      "afterSha256": "458017c173acae0c0156c8e65aa8ae21e59ab8dc2fc17bf63ce871f5e94e0ad7"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/TEST_RESULTS-before-three-pane.tap",
+      "status": "added",
+      "bytes": 90599,
+      "beforeSha256": null,
+      "afterSha256": "a729995b7fc0376a6c41dcd8ae130887cf4ebf5e15e2aff5027f94290d0608f6"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/TEST_RESULTS.tap",
+      "status": "added",
+      "bytes": 90596,
+      "beforeSha256": null,
+      "afterSha256": "e632b0ea6bf6868a1e42302370e79eecba09655f77436835838e1bceec52f8b4"
+    },
+    {
+      "path": "evidence/hermit/engine-audit/THREE_PANE_TEST_RUN.log",
+      "status": "added",
+      "bytes": 93382,
+      "beforeSha256": null,
+      "afterSha256": "f017119237e54a07ef8036fbe346bbc43247101b1c97257bf15c32a0204a69e4"
+    },
+    {
+      "path": "evidence/hermit/extract-fast.py",
+      "status": "added",
+      "bytes": 1445,
+      "beforeSha256": null,
+      "afterSha256": "bf9b4f6c440bca5f7ae101cba3e226141dcbd3c47c35aa2fd62a56c52d79d331"
+    },
+    {
+      "path": "evidence/hermit/finalize-validation.py",
+      "status": "added",
+      "bytes": 8846,
+      "beforeSha256": null,
+      "afterSha256": "2b91f609d853be157a4928486ccac2ed40da6d631557801d5dfb803442dbac6d"
+    },
+    {
+      "path": "evidence/hermit/fixture-principals.json",
+      "status": "added",
+      "bytes": 308,
+      "beforeSha256": null,
+      "afterSha256": "9c6d09fd975a4216094b2f911d8de25a3896b7cb793a437baf9e2b4fe3b83a50"
+    },
+    {
+      "path": "evidence/hermit/gateway-audit.cjs",
+      "status": "added",
+      "bytes": 7402,
+      "beforeSha256": null,
+      "afterSha256": "9796b9f5511daac7ec955f1e4dcdbde26afb0210e3a01d08f33fc60663b8389b"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/BROWSER_TRANSPORT_TESTS.tap",
+      "status": "added",
+      "bytes": 3998,
+      "beforeSha256": null,
+      "afterSha256": "8c64a9d607f8e323072e4243bfe3fbc56b479185f52d14ca2ca84b331f71a758"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/HERMIT_LICENSE.txt",
+      "status": "added",
+      "bytes": 306,
+      "beforeSha256": null,
+      "afterSha256": "63748d1e0d8ac97258b42b6631100fed0ddcae97ebfb0274697e4623ffabaa09"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/RAMWS_CONTRACT.json",
+      "status": "added",
+      "bytes": 3379,
+      "beforeSha256": null,
+      "afterSha256": "547b69e7e7f850bc9652093557b3d68bea088553f43b9649b5dcf5bd93dc66b9"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/SOURCE_ATTRIBUTION.json",
+      "status": "added",
+      "bytes": 702,
+      "beforeSha256": null,
+      "afterSha256": "b8e2c2af2d49ef2f38d00810c2dd9de6a034f2fb68d9842e28d6d45ad52b47e8"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/hermit-codec.js",
+      "status": "added",
+      "bytes": 35302,
+      "beforeSha256": null,
+      "afterSha256": "522ea6c82fb038528de4790beed759109ce9855ff70623206a2fb8bf996be9aa"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/package.json",
+      "status": "added",
+      "bytes": 32,
+      "beforeSha256": null,
+      "afterSha256": "d218e29ec01186542b0d85bdc6691d12514e4cdd0ba3b9cd81f253250c8d1e34"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/ramws-client.js",
+      "status": "added",
+      "bytes": 9170,
+      "beforeSha256": null,
+      "afterSha256": "9254ddf169a57121b4fa1747ac49116597af54c9f6d65de0ef85963baf210d9d"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/ramws-network.test.mjs",
+      "status": "added",
+      "bytes": 7469,
+      "beforeSha256": null,
+      "afterSha256": "29eacb9e8e105952f652f28977fddd178a8d8cd7c79622612350bd8c74d42d47"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/ramws-owner.js",
+      "status": "added",
+      "bytes": 8561,
+      "beforeSha256": null,
+      "afterSha256": "770e80d029f61ef7cad3a1c6e518edc10bb6e15addd6c7a4d9e034ed64ec3609"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/ramws-wire.js",
+      "status": "added",
+      "bytes": 5172,
+      "beforeSha256": null,
+      "afterSha256": "433a686259876c4366dfb1bfaa1cface11ca091d5cb13fc558b91f122d978ecc"
+    },
+    {
+      "path": "evidence/hermit/implementation/browser/ramws.test.mjs",
+      "status": "added",
+      "bytes": 11324,
+      "beforeSha256": null,
+      "afterSha256": "66c8a30142610f328729a1062171ebbcfe8954bbbb83f8718207e661abc90067"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/HERMIT_LICENSE.txt",
+      "status": "added",
+      "bytes": 306,
+      "beforeSha256": null,
+      "afterSha256": "63748d1e0d8ac97258b42b6631100fed0ddcae97ebfb0274697e4623ffabaa09"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/gateway/ws.cjs",
+      "status": "added",
+      "bytes": 21484,
+      "beforeSha256": null,
+      "afterSha256": "21967b4e82ab5d1f562115f2fe19bb8728c395e21ad73fa0874c00ec2200369f"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/protocol/codec.cjs",
+      "status": "added",
+      "bytes": 16891,
+      "beforeSha256": null,
+      "afterSha256": "265aedca8ddda85ba81dba51b11ad57cd1e95bad233ecc10fbef1b18d5d762b8"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/protocol/envelope.schema.json",
+      "status": "added",
+      "bytes": 15343,
+      "beforeSha256": null,
+      "afterSha256": "340a0f34cc69c546ce8091a029b5509e53d32d3b1977db15fac132cadf8aa4d4"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/protocol/protocol-meta.json",
+      "status": "added",
+      "bytes": 2531,
+      "beforeSha256": null,
+      "afterSha256": "0a33802714673bb7b717259468f60e6faa9b18246448da70abf272a2fa356983"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/ramws-gateway.mjs",
+      "status": "added",
+      "bytes": 21293,
+      "beforeSha256": null,
+      "afterSha256": "c7f25eb8107be05fed421ef977155f3b0f402930eb537caac9912f2e06fc21c4"
+    },
+    {
+      "path": "evidence/hermit/implementation/server/ramws-gateway.test.mjs",
+      "status": "added",
+      "bytes": 13136,
+      "beforeSha256": null,
+      "afterSha256": "17fe1fa8c992b6f146676bc5e7f99bfef8759ca683c44b56430ccde06ec797d8"
+    },
+    {
+      "path": "evidence/hermit/implementation/three-pane-layout.py",
+      "status": "added",
+      "bytes": 4315,
+      "beforeSha256": null,
+      "afterSha256": "2da39e6fd8080cb4c5153e32d73ed2a08a0679faa2c83f84fdc485a15baa61f0"
+    },
+    {
+      "path": "evidence/hermit/implementation/vt/package.json",
+      "status": "added",
+      "bytes": 38,
+      "beforeSha256": null,
+      "afterSha256": "ad91c9ac9136396f5249a45e093bab863e9a23646620d911af827986f6180283"
+    },
+    {
+      "path": "evidence/hermit/implementation/vt/review-vt.py",
+      "status": "added",
+      "bytes": 4812,
+      "beforeSha256": null,
+      "afterSha256": "6c7f6fd295120d9a4566b351b603abe6e1a9e43cca375d00b4afd11fe42d3caf"
+    },
+    {
+      "path": "evidence/hermit/implementation/vt/src/vendor/vt/accessibility.js",
+      "status": "added",
+      "bytes": 1641,
+      "beforeSha256": null,
+      "afterSha256": "efa813b2af5b570fe347eff224efeb32318a2eca5038a400de7e432c362eac0a"
+    },
+    {
+      "path": "evidence/hermit/implementation/vt/tests/hermit-accessibility.test.mjs",
+      "status": "added",
+      "bytes": 2677,
+      "beforeSha256": null,
+      "afterSha256": "fbcdad9424431a889550719d0915e7db17e0980d471a01094985d2f9c86c9fcb"
+    },
+    {
+      "path": "evidence/hermit/inspect-extract.py",
+      "status": "added",
+      "bytes": 1907,
+      "beforeSha256": null,
+      "afterSha256": "532302d27cc8b62d3e6cef7e226805f5ccaec9a2494ae535afc49e2c73c958c3"
+    },
+    {
+      "path": "evidence/hermit/native-security/AdminBoundaryPolicy.cs",
+      "status": "added",
+      "bytes": 5305,
+      "beforeSha256": null,
+      "afterSha256": "4a1fba2589b15c7be0647eb8843686dc16e47abf9416814443a905fb55770715"
+    },
+    {
+      "path": "evidence/hermit/native-security/AdminBoundaryPolicy.result.json",
+      "status": "added",
+      "bytes": 250,
+      "beforeSha256": null,
+      "afterSha256": "e255ec2a2ec9b3059efc57786dd9434aeeb5aef47464d3916373fd36d43151e5"
+    },
+    {
+      "path": "evidence/hermit/native-security/FINAL_ADMIN_REVIEW.json",
+      "status": "added",
+      "bytes": 2533,
+      "beforeSha256": null,
+      "afterSha256": "ab32bb15ec4d60817c4d6fb0e3ea10a085f7888645e863c101e7aef96477d252"
+    },
+    {
+      "path": "evidence/hermit/native-security/MinimalPipeProbe.cs",
+      "status": "added",
+      "bytes": 6796,
+      "beforeSha256": null,
+      "afterSha256": "189ee8e1bbe120ac24f9fd1e157884ed77ebb52f06f3d5940e3f353c4b55df24"
+    },
+    {
+      "path": "evidence/hermit/native-security/MinimalPipeProbe.raw-result.json",
+      "status": "added",
+      "bytes": 970,
+      "beforeSha256": null,
+      "afterSha256": "db1800dd96aa741c8c846ac678682bbf7875d8a52aba97825532ba1ec826f4b4"
+    },
+    {
+      "path": "evidence/hermit/native-security/MinimalPipeProbe.result.json",
+      "status": "added",
+      "bytes": 4916,
+      "beforeSha256": null,
+      "afterSha256": "f2b8d518df783918d5cce9bc3868387a48275759cddb93ecbd3e6bd14c900d0a"
+    },
+    {
+      "path": "evidence/hermit/native-security/NATIVE_SECURITY_REVIEW.json",
+      "status": "added",
+      "bytes": 5533,
+      "beforeSha256": null,
+      "afterSha256": "80e6c18e02788d5ea856259d3ed2c7636539c96db8b6008219bb603a4e11eb7f"
+    },
+    {
+      "path": "evidence/hermit/native-security/ORDINARY_WINDOWS_ADMIN_ACCEPTANCE.json",
+      "status": "added",
+      "bytes": 3381,
+      "beforeSha256": null,
+      "afterSha256": "aa1c0299bb7d805011b5aef123edc686689cb7c8e210658b3dbd6f9d04bb0cf6"
+    },
+    {
+      "path": "evidence/hermit/native-security/THREE_PANE_SECURITY_REVIEW.json",
+      "status": "added",
+      "bytes": 2278,
+      "beforeSha256": null,
+      "afterSha256": "56253c78473bb07bce1cc7f8c4d13fd83b69c7d55a048a836f542dff6aa23d54"
+    },
+    {
+      "path": "evidence/hermit/native-security/pre-sid-cancel.result.json",
+      "status": "added",
+      "bytes": 86,
+      "beforeSha256": null,
+      "afterSha256": "ecc1f80e9d7720b71aced107a59df0cb600f656c3729de0df1b8411714eee15f"
+    },
+    {
+      "path": "evidence/hermit/native-security/pre-sid-cancel.test.mjs",
+      "status": "added",
+      "bytes": 2221,
+      "beforeSha256": null,
+      "afterSha256": "81d52d2da37c9e6aae271e610fc4f508a0d05b73a4c7df63291ae17ac6804016"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_BLOCKED.json",
+      "status": "added",
+      "bytes": 2913,
+      "beforeSha256": null,
+      "afterSha256": "ed18ad7fa2a333b5b5320b3fd2c194fe06159aac7e3e6aca62b7d1eecdac38b2"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_BLOCKED.png",
+      "status": "added",
+      "bytes": 65823,
+      "beforeSha256": null,
+      "afterSha256": "55c44f853fa6193edf8bfd10337c663e18f4fe639cf2c7484d63a10db5a6a2e5"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_MAIN_BOOT_B.png",
+      "status": "added",
+      "bytes": 33347,
+      "beforeSha256": null,
+      "afterSha256": "bdbe700dd26d9c17a6d7bf1ea98194808b292c63dbeb67bddb9a27af5ca27f0f"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_MAIN_RESTART_B.png",
+      "status": "added",
+      "bytes": 48073,
+      "beforeSha256": null,
+      "afterSha256": "346c7e1d946433a5da7f4c303fc121b39d4d8f346a3912206667a36287745c67"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_MAIN_SEED_B.png",
+      "status": "added",
+      "bytes": 79118,
+      "beforeSha256": null,
+      "afterSha256": "9794f14b8adfa944489efb9e55cdc4806ab00b215ceec564c39616f708cf5f46"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_QA_FINAL.png",
+      "status": "added",
+      "bytes": 84823,
+      "beforeSha256": null,
+      "afterSha256": "4742d8c09cb7b9d7a42d8ea898add27859170d7b256ed5cb406f7b1b287ea7e3"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_QA_WRITER_ASSERTION_B.png",
+      "status": "added",
+      "bytes": 75192,
+      "beforeSha256": null,
+      "afterSha256": "0a9cfb24bda903ffab92c36990e693ebaacb1638771f9927da2d70c9e49a112f"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_SHORT_PATH.json",
+      "status": "added",
+      "bytes": 3019,
+      "beforeSha256": null,
+      "afterSha256": "1c0f37d10697bacad7ad3c08f06f050207033fe75a67765f479017376807f7cb"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_SHORT_PATH.png",
+      "status": "added",
+      "bytes": 104423,
+      "beforeSha256": null,
+      "afterSha256": "1150649ae7e77711e89806e47b185d08e1d3c2fbb969e0ca0c5f5809b004b7f0"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_THREE_PANES.png",
+      "status": "added",
+      "bytes": 109001,
+      "beforeSha256": null,
+      "afterSha256": "32abd73b35890cb2b7cd5dd1b39d74c985131d31cf2b48b9d983bc922934a9a8"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DOCUMENT_THREE_PANES_DRAFT_C.png",
+      "status": "added",
+      "bytes": 109001,
+      "beforeSha256": null,
+      "afterSha256": "32abd73b35890cb2b7cd5dd1b39d74c985131d31cf2b48b9d983bc922934a9a8"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_DRAFT_CLOSURE_FINAL.json",
+      "status": "added",
+      "bytes": 1667,
+      "beforeSha256": null,
+      "afterSha256": "fd2788a72a2a7fc034ae43208d0a662c5cd2feb5f0d9ec0ff20a362b3d39594a"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_BOOT_B.json",
+      "status": "added",
+      "bytes": 2167,
+      "beforeSha256": null,
+      "afterSha256": "b6ed45e75b3b117e4b188d3861362c12519f78c80bf499cecee83ec8818afbf6"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_ENTRY_INITIAL.json",
+      "status": "added",
+      "bytes": 1655,
+      "beforeSha256": null,
+      "afterSha256": "4bd91f3965fb981a1d1e3244c50704e5f0acac66d8b06f52c089ee292bd7f392"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_PROCESS_RELAUNCH_B.json",
+      "status": "added",
+      "bytes": 2470,
+      "beforeSha256": null,
+      "afterSha256": "e209d72b17637dd7ee5acf4b384230224c13bf69e40e8b7199258e761546d849"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_PROCESS_RELAUNCH_FINAL.json",
+      "status": "added",
+      "bytes": 3345,
+      "beforeSha256": null,
+      "afterSha256": "1d519b7cbd9d87767a19b076294737b9b6a95152d2d39905adfe8c58d3261baf"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_PROCESS_RELAUNCH_FINAL_DRAFT_C.json",
+      "status": "added",
+      "bytes": 3345,
+      "beforeSha256": null,
+      "afterSha256": "9bf65dda94eac0133c313156ee775e527414eb499d7b078dd43230529bf6efa3"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_RESTART_B.json",
+      "status": "added",
+      "bytes": 109203,
+      "beforeSha256": null,
+      "afterSha256": "6e9be5f7ca157d9c1f1bc54b4bba4d5018219a630c1c8d9047d074c25cc89834"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_RESTART_FINAL.json",
+      "status": "added",
+      "bytes": 109250,
+      "beforeSha256": null,
+      "afterSha256": "a8caa327ecb7490579d23960aa2eef9419ce2f24bcc8aec713cad422c0c7db67"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_RESTART_FINAL_DRAFT_C.json",
+      "status": "added",
+      "bytes": 109250,
+      "beforeSha256": null,
+      "afterSha256": "f43314a00f7a0a6ca93a37937614a2f55e90dcb17f39baede63ad77b57b40a65"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_SEED_B.json",
+      "status": "added",
+      "bytes": 109167,
+      "beforeSha256": null,
+      "afterSha256": "e9dc8e553e9be5bc77a7c624aa80169de0970d004ae2ac34bb6f4fbf3d5c16ec"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_SEED_FINAL.json",
+      "status": "added",
+      "bytes": 109397,
+      "beforeSha256": null,
+      "afterSha256": "1c9781cc0748d01b0fb1197ac7fe95556228c4c595691e23f782c49fcebc236f"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_MAIN_SEED_FINAL_DRAFT_C.json",
+      "status": "added",
+      "bytes": 109397,
+      "beforeSha256": null,
+      "afterSha256": "8d7aa8a76ecd19456e3f98984b7a4228e09ae47ff38ef1c05253a4479f6ab216"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_PROFILE_PATH_CONTROL.json",
+      "status": "added",
+      "bytes": 1555,
+      "beforeSha256": null,
+      "afterSha256": "bea4bd935d12bb272c233087b6daa65e6a6c2b514a2ffdc332d67c554cf76c2a"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_QA_RELOAD_B.json",
+      "status": "added",
+      "bytes": 1606,
+      "beforeSha256": null,
+      "afterSha256": "9bb9b1c092e4539036347b4cbf6e9c54cdc26c5995f1effa6d8db60ebadf18c0"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_QA_SHORT_INITIAL.json",
+      "status": "added",
+      "bytes": 1393,
+      "beforeSha256": null,
+      "afterSha256": "c94c1953f2ee8c65a2b8ddbf48efc6f0fb9234f4f44035c5cba1c27635a7aac7"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_QA_WRITER_ASSERTION_B.json",
+      "status": "added",
+      "bytes": 39520,
+      "beforeSha256": null,
+      "afterSha256": "3625b66541eba26cd93307f25ae17e4f80a3ce235f40c3e8bf0960c6bfe7c1d8"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_RUNTIME_MANIFEST_TESTED.json",
+      "status": "added",
+      "bytes": 64688,
+      "beforeSha256": null,
+      "afterSha256": "5685296538cab8e6947a8e69a87558e93602d0a8e5cc3e0fa1991b42a3bd86f6"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_RUNTIME_MANIFEST_TESTED_DRAFT_C.json",
+      "status": "added",
+      "bytes": 64688,
+      "beforeSha256": null,
+      "afterSha256": "bae173033d9a73c8c88b57d6e94ff452950a3062df0f73ff6559e3bad15734b8"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_STARTUP_DIAGNOSIS.json",
+      "status": "added",
+      "bytes": 6668,
+      "beforeSha256": null,
+      "afterSha256": "221a3c6a06e2fe410a9058d3c14bd19c3e51c3e58105172109e0a7ad881a4723"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_STARTUP_DIAGNOSIS.md",
+      "status": "added",
+      "bytes": 5475,
+      "beforeSha256": null,
+      "afterSha256": "06da0765a00d6d8e189d39b82a101f3f0670405879c4ba11926422f12c3b025d"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_VALIDATION_PROGRESS.json",
+      "status": "added",
+      "bytes": 5390,
+      "beforeSha256": null,
+      "afterSha256": "8d5c4cc33852ee7b566e7a579c3f9f58fa6bbe3b96470a820fb7ce59a9cd0489"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_WEBVIEW2_ACCEPTANCE_FINAL.json",
+      "status": "added",
+      "bytes": 1489,
+      "beforeSha256": null,
+      "afterSha256": "8030dbffe0f56c40d05e9f78cf72aef7fba05d3a04494ebc9552788aa58578bc"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NATIVE_WEBVIEW2_ACCEPTANCE_FINAL_DRAFT_C.json",
+      "status": "added",
+      "bytes": 1489,
+      "beforeSha256": null,
+      "afterSha256": "e9a7baf2faceb91bf34a7e1b97fd88f4ca02ccc4095d661f7f8a3ed38326529a"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NativeDocumentProbe.cs",
+      "status": "added",
+      "bytes": 8306,
+      "beforeSha256": null,
+      "afterSha256": "8702f9e1a79160eaea9b799de3075251082196a9d9203500549c64c1b88254ef"
+    },
+    {
+      "path": "evidence/hermit/native-startup/NativeMainEntryProbe.cs",
+      "status": "added",
+      "bytes": 10787,
+      "beforeSha256": null,
+      "afterSha256": "2bd45e989ffc8b1c80c291ef4148a7fbec89a7ba6bd7d71e13b98d0083c24df9"
+    },
+    {
+      "path": "evidence/hermit/native-startup/SILICON_NATIVE_POLICY_HISTORICAL_276386b1.json",
+      "status": "added",
+      "bytes": 279,
+      "beforeSha256": null,
+      "afterSha256": "a01f602012e94e8ec607abbb5e0df30ea545ae206018e93fe7309883f0256f2f"
+    },
+    {
+      "path": "evidence/hermit/native-startup/SILICON_NATIVE_POLICY_RESULTS.json",
+      "status": "added",
+      "bytes": 279,
+      "beforeSha256": null,
+      "afterSha256": "5b51c021dd4f209a77e30c457a59838e2557c0ec11c28bcb9ecf4d4320b36a7d"
+    },
+    {
+      "path": "evidence/hermit/native-startup/SiliconPolicyAcceptance.cs",
+      "status": "added",
+      "bytes": 9476,
+      "beforeSha256": null,
+      "afterSha256": "97105d644fb2c4c0d3337e110757ec1d2b9db1cdae6d2a039c49b28c24965ed0"
+    },
+    {
+      "path": "evidence/hermit/native-startup/StartupProbe.cs",
+      "status": "added",
+      "bytes": 6598,
+      "beforeSha256": null,
+      "afterSha256": "5379de1b097bd2d567601d6768b04cf1d24e2a124ad269315fa80d243e6f8faf"
+    },
+    {
+      "path": "evidence/hermit/native-startup/StartupProbe2.cs",
+      "status": "added",
+      "bytes": 6873,
+      "beforeSha256": null,
+      "afterSha256": "f07aecc8ebf6e686fd8184ba85bf5877df10d8693646a1e448bcfcf1bbef1f44"
+    },
+    {
+      "path": "evidence/hermit/native-startup/composition-ambient-20261014T223456-0723fdbe/RESULT.json",
+      "status": "added",
+      "bytes": 2645,
+      "beforeSha256": null,
+      "afterSha256": "8ece824763faf1ab931262d846bbe777e650c2d96b035110a70983b4b5438afb"
+    },
+    {
+      "path": "evidence/hermit/native-startup/composition-relocated-20261014T223624-3192bfde/RESULT.json",
+      "status": "added",
+      "bytes": 2792,
+      "beforeSha256": null,
+      "afterSha256": "9edd4f29a5ac5b41d6810c47ce183eb340b500101d1f4a1b7b2d364491daa4de"
+    },
+    {
+      "path": "evidence/hermit/native-startup/raw-ambient-20261014T223441-8b033794/RESULT.json",
+      "status": "added",
+      "bytes": 1054,
+      "beforeSha256": null,
+      "afterSha256": "bdb87b4a487cd8554b1941d5d2a9c025df15ac205bf94fdc0366bd7239877f0d"
+    },
+    {
+      "path": "evidence/hermit/native-startup/raw-composition-ambient-20261014T224020-d7b54a62/RESULT.json",
+      "status": "added",
+      "bytes": 1836,
+      "beforeSha256": null,
+      "afterSha256": "a12586f914c152fc53a74f84f1355343dd2766805c3b193c531b6cde37d394a6"
+    },
+    {
+      "path": "evidence/hermit/native-startup/windowed-ambient-20261014T223504-e063295e/RESULT.json",
+      "status": "added",
+      "bytes": 1056,
+      "beforeSha256": null,
+      "afterSha256": "925f2f31a50940bcb1254e3aba466134df8c8982ea09a5e038895e06b8774293"
+    },
+    {
+      "path": "evidence/hermit/native-startup/windowed-relocated-20261014T223604-a02a3185/RESULT.json",
+      "status": "added",
+      "bytes": 1197,
+      "beforeSha256": null,
+      "afterSha256": "e01d2c5006915b6e0ce50aebbf7c8716c40e04c119b472440bd16aea6a321a55"
+    },
+    {
+      "path": "evidence/hermit/native/ADMIN_NATIVE_VALIDATION.md",
+      "status": "added",
+      "bytes": 5807,
+      "beforeSha256": null,
+      "afterSha256": "ea6da66007967e09e643d5dc40f2c0c9d205a99b5c9dbc344fff7afecee36d23"
+    },
+    {
+      "path": "evidence/hermit/native/NATIVE_COMPILE_RESULTS.json",
+      "status": "added",
+      "bytes": 4036,
+      "beforeSha256": null,
+      "afterSha256": "8c901df06cb4ae684ed35c48b5bf94cbdf3f839380a05a0bb15b5a987a83da5b"
+    },
+    {
+      "path": "evidence/hermit/native/admin-protocol-fixtures.log",
+      "status": "added",
+      "bytes": 166,
+      "beforeSha256": null,
+      "afterSha256": "819ae6bd2f3e71f45e23e0a9bedfe545c39ba760871cc4a9599844075d807822"
+    },
+    {
+      "path": "evidence/hermit/native/capture-native-validation.py",
+      "status": "added",
+      "bytes": 5039,
+      "beforeSha256": null,
+      "afterSha256": "a91e9f27191f3cb6584d93318aafac4a7e9a34ca23342dd9a9b39fc23f6140f4"
+    },
+    {
+      "path": "evidence/hermit/native/compile-acceptance.log",
+      "status": "added",
+      "bytes": 0,
+      "beforeSha256": null,
+      "afterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/hermit/native/compile-main-and-helper.log",
+      "status": "added",
+      "bytes": 0,
+      "beforeSha256": null,
+      "afterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/hermit/native/conpty-probe.log",
+      "status": "added",
+      "bytes": 2708,
+      "beforeSha256": null,
+      "afterSha256": "bf65ffd030b682708171c177234d2fb1b430316d709dec7e261e3af0bb97c406"
+    },
+    {
+      "path": "evidence/hermit/native/named-pipe-probe.log",
+      "status": "added",
+      "bytes": 374,
+      "beforeSha256": null,
+      "afterSha256": "4c34fe293b0e71335b882862d15e9157d688eaea94290c9afb03ea25c1ee6477"
+    },
+    {
+      "path": "evidence/hermit/transport-probe-fixtures.json",
+      "status": "added",
+      "bytes": 56727,
+      "beforeSha256": null,
+      "afterSha256": "5cfd9e7e07679c33a28d514d35b60abf6277cd046be15f9362c67c761f18e69e"
+    },
+    {
+      "path": "evidence/hermit/transport-source-probe.cjs",
+      "status": "added",
+      "bytes": 4000,
+      "beforeSha256": null,
+      "afterSha256": "c3791ce4b2cb8c1025f0e6ecd23a9f6b3dd4c8afb9c1e7b7cf7a5dd26848c0b8"
+    },
+    {
+      "path": "evidence/hermit/write-engine-review.py",
+      "status": "added",
+      "bytes": 5959,
+      "beforeSha256": null,
+      "afterSha256": "836bd5d09e8eb608eac467fa1796e1c1c12e80af09c99dfad4c41ffc3b98c33b"
+    },
+    {
+      "path": "evidence/hermit/xpu-terminal-evidence/INITIAL_TEST_RUN.tap",
+      "status": "added",
+      "bytes": 5520,
+      "beforeSha256": null,
+      "afterSha256": "54fbffb732d35ebda5d34be9ed621aa1cdcf0c600d6c2c410b7d694cc173c96b"
+    },
+    {
+      "path": "evidence/hermit/xpu-terminal-evidence/XPU_TERMINAL_TESTS.tap",
+      "status": "added",
+      "bytes": 4747,
+      "beforeSha256": null,
+      "afterSha256": "e1e827dc5747bcd98f1b504256c1cc4d3e0169d3c11fa64146fc6b6f19854b8b"
+    },
+    {
+      "path": "evidence/integration-1.4.0/RELEASE_READY.json",
+      "status": "added",
+      "bytes": 49119,
+      "beforeSha256": null,
+      "afterSha256": "a2bf3127d077e05df4b958ac303a9600b9300c8756695426a1f12044e4e56fcd"
+    },
+    {
+      "path": "evidence/integration-1.4.0/REVIEWED_OVERLAY.json",
+      "status": "added",
+      "bytes": 81400,
+      "beforeSha256": null,
+      "afterSha256": "3625e0f60561a4e07b141b06696b83a415710bae1635ee3b428cb14a3236c9c6"
+    },
+    {
+      "path": "evidence/integration-1.4.0/SOURCE_DIST_COMPARISON.json",
+      "status": "added",
+      "bytes": 3447,
+      "beforeSha256": null,
+      "afterSha256": "eec600987a8f18d3e814a98a983bd4269c24755962925d6cc9428f4794542e4c"
+    },
+    {
+      "path": "evidence/integration-1.4.0/packaging/make-short-native-closure.py",
+      "status": "added",
+      "bytes": 2807,
+      "beforeSha256": null,
+      "afterSha256": "446bad4743260c6ced2904ab5fb65f61850818016fef85caa4563f899aa323bf"
+    },
+    {
+      "path": "evidence/integration-1.4.0/packaging/package-hermit-release.py",
+      "status": "added",
+      "bytes": 28520,
+      "beforeSha256": null,
+      "afterSha256": "cc51b34f1fd10c596a46f6c515123df57dc4f51bef1fd449fb886df663bfecbf"
+    },
+    {
+      "path": "evidence/integration-1.4.0/packaging/run-draft-check.py",
+      "status": "added",
+      "bytes": 719,
+      "beforeSha256": null,
+      "afterSha256": "4e69dd65e4a589fdeda33c272c79c2bdb6145555123357efd8322d803aec4f35"
+    },
+    {
+      "path": "evidence/integration-1.4.0/packaging/verify-final-archive.py",
+      "status": "added",
+      "bytes": 4413,
+      "beforeSha256": null,
+      "afterSha256": "2123cb5fcbd4143487343ad8bc64025413e2bb2ad8da9dabf61c0b69c542a6b8"
+    },
+    {
+      "path": "evidence/integration-1.4.0/packaging/verify-packaged-runtime.py",
+      "status": "added",
+      "bytes": 4610,
+      "beforeSha256": null,
+      "afterSha256": "8e051bbb5c9ff5cae95982208e61ebd736abf64a165afc8fd678256c49cdea20"
+    },
+    {
+      "path": "evidence/integration-1.4.0/packaging/write-readiness.py",
+      "status": "added",
+      "bytes": 4875,
+      "beforeSha256": null,
+      "afterSha256": "b1e31ceeebb9e3e817e1f3870eccb0984d0f71d836e5d3ed314d2fc468f6897c"
+    },
+    {
+      "path": "host/AdminTerminal.cs",
+      "status": "added",
+      "bytes": 53817,
+      "beforeSha256": null,
+      "afterSha256": "ad11802c4ae4734e139eff666a9461d3057678bbdd51a027ad61ed6e8f4db55b"
+    },
+    {
+      "path": "host/Build-SiliconConsole.cmd",
+      "status": "modified",
+      "bytes": 1451,
+      "beforeSha256": "9d7478f820e87dc5eca8339eb66b62871281232a733d146c42730027a484cca4",
+      "afterSha256": "6f0cff714bf9303be856b0a8123b9edef52f901bb83cd286ead6820782689d72"
+    },
+    {
+      "path": "host/HostAdminBridge.cs",
+      "status": "added",
+      "bytes": 12287,
+      "beforeSha256": null,
+      "afterSha256": "1f5684d4e0fdf4b7bc01fc164e27c7ee545dd0286f6b9f0be231467c82201c7b"
+    },
+    {
+      "path": "host/JA21VirtualBrowser.cs",
+      "status": "modified",
+      "bytes": 231719,
+      "beforeSha256": "dd76a714f2b3b1478f985f872ad10041f9f0ef95dade20a426e72fae476785df",
+      "afterSha256": "1fc776272d11a8a892ea5a836c2d2edfce1b3a9d0fc390c5279210895e796c8f"
+    },
+    {
+      "path": "host/LiveWebBridge.cs",
+      "status": "modified",
+      "bytes": 23139,
+      "beforeSha256": "d5ee976ad0b881762f498393b26a4dcc68c7d2f24997b8a291e6d58ab44d7bc9",
+      "afterSha256": "04d6e847829057953026d3de8180383147099813677736cc69a54805a96c583b"
+    },
+    {
+      "path": "host/PortableDesktop.cs",
+      "status": "modified",
+      "bytes": 13340,
+      "beforeSha256": "e7fa6d5bc4a140c67974f452d8d8e2462affb10e0f10dee2aea66f574f873b3b",
+      "afterSha256": "019e90bff8a579dcbc5dadb3f9cf3756c7f7d9751dda071e5cb561f816cf911b"
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "status": "modified",
+      "bytes": 12886,
+      "beforeSha256": "1f10c691aba7c14734ec014c7ca4ed6e31994aaa3ba240b53d0cde11a6579744",
+      "afterSha256": "1d84fbed18c135b9686969f7f15e36e69df37d7b784bb760a89a371092789525"
+    },
+    {
+      "path": "tools/Build-Silicon-Acceptance.cmd",
+      "status": "modified",
+      "bytes": 1285,
+      "beforeSha256": "e706e7ae2db9e117f0189797cb7105b955813138bf47e224bee7eff5c7af39ed",
+      "afterSha256": "53e93fbc966a2e015bb8c8b2bbc9504dc6e0e8df5df55f71ab7453f525ecbbe5"
+    },
+    {
+      "path": "tools/JA21-Admin-Terminal.exe",
+      "status": "added",
+      "bytes": 49664,
+      "beforeSha256": null,
+      "afterSha256": "cc760d479070b02133e7a34e5cd548ff518cf3c1343be14bf3c365b9d0e65d3f"
+    },
+    {
+      "path": "tools/SiliconWebView2Acceptance.cs",
+      "status": "modified",
+      "bytes": 26166,
+      "beforeSha256": "4d49a7c9e9e35f9e9d32cb479ee3c07ad023fce4df17255c5c508f0198b93509",
+      "afterSha256": "d277ed34d6c3474b4ee23be00f3d84db24837dc75a111df41c7f8103863eadec"
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe",
+      "status": "modified",
+      "bytes": 298496,
+      "beforeSha256": "423ac6e5ec809c8f2d4548e2172bf2ebd88f6449dfa2f21c9470a23179338956",
+      "afterSha256": "eb12a98030cc539969f94fc70b43f2ceed3e50cc5b8f473dcd26cfa206707995"
+    },
+    {
+      "path": "tools/Test-SoftwareConsoleLauncher.ps1",
+      "status": "modified",
+      "bytes": 9350,
+      "beforeSha256": "ff68274814007ca578c92d4f5bdd87358941139d34fa3ac9f819a8fe58072394",
+      "afterSha256": "9ec73d76b6bdd1cfa7ee14aeb1b7e683edb4f9fcd422fd639c14cd6d17474b06"
+    },
+    {
+      "path": "tools/silicon_package.py",
+      "status": "modified",
+      "bytes": 6072,
+      "beforeSha256": "b4e5f002e40d0bf5c9aefed9226b3d4bf6b0d71346820b7fe62d8347f02a2633",
+      "afterSha256": "92a7586dff4b78975279ccb0a76d0d5c2930b1e67e9341919ab79ea2133f3fb9"
+    }
+  ],
+  "removals": []
+}

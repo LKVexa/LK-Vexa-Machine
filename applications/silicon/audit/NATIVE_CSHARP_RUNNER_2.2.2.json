@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "stage": "Complete",
+  "startedUtc": "2026-10-14T04:39:40.9962679Z",
+  "sourceSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4",
+  "sdk": "8.0.426",
+  "assertions": 598,
+  "nativeTiffs": 35,
+  "pixelsPerImplementation": 143360,
+  "finishedUtc": "2026-10-14T04:39:48.2423527Z"
+}

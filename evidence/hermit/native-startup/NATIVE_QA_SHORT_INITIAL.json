@@ -1,0 +1,33 @@
+{
+  "schema": "JA21/SILICON_WEBVIEW2_ACCEPTANCE/1",
+  "status": "FAIL",
+  "scope": "Real production WebView2 surface, mapped software CPU, worker, IndexedDB, Web Locks and backup restore; no ARM ISA or host OS simulation claim",
+  "software_cpu_version": "2.4.0",
+  "fixture": false,
+  "started_utc": "2026-10-14T23:06:09.9103590Z",
+  "checks": [
+    {
+      "name": "Production runtime seal and mapped software CPU closure",
+      "status": "PASS"
+    },
+    {
+      "name": "Secure mapped origin boots the real module worker and MessageChannel terminal",
+      "status": "PASS"
+    },
+    {
+      "name": "Production bridge refuses cross-origin navigation without replacing the CPU surface",
+      "status": "PASS"
+    }
+  ],
+  "live_browser_created": true,
+  "cpu_online_observed": true,
+  "browser_validation_passed": false,
+  "program_run_called": false,
+  "qa_window_shown": true,
+  "sandbox_disabled": false,
+  "test_workspace": "D:\\Codex\\hermit-native-validation\\draft-140-a\\workspace\\silicon-acceptance\\20261014-230609-17894dc4",
+  "bridge_failures": [],
+  "webview2_version": "155.0.4283.45",
+  "error": "System.Exception: Current-screen command output markers are absent.\r\n   at VBJA21.SiliconWebView2Acceptance.Command(IWebView2 view, String line)\r\n   at VBJA21.SiliconWebView2Acceptance.Run(String root, String work)",
+  "finished_utc": "2026-10-14T23:06:11.7178104Z"
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "JA21/NATIVE_MAIN_PROCESS_RELAUNCH/1",
+  "status": "PASS_ON_HISTORICAL_DRAFT_B",
+  "consoleVersion": "1.4.0",
+  "engineVersion": "2.4.0",
+  "testedUTC": "2026-10-14T23:21:56.948Z",
+  "currentReleaseValidation": false,
+  "reason": "User requested a new three-pane UI after this exact runtime draft was sealed; repeat final native acceptance against that layout.",
+  "scope": "Separate non-elevated diagnostic processes invoke the actual compiled SiliconConsoleEntry.Main and Program.Run. Seed commits a known virtual file and byte-chip field through real UI commands and IndexedDB Sync. A distinct process reopens the same isolated default package workspace and verifies exact file text and both complete field-preview arrays. No Administrator request, policy override, worker replacement or existing user volume.",
+  "proofs": [
+    {
+      "path": "NATIVE_MAIN_BOOT_B.json",
+      "status": "PASS",
+      "programRunReached": true,
+      "productionExitCode": 0,
+      "productionExeSha256": "94d225823534edbe6d78965f2348eb503fd51bd3dddc83fceface186f154de51",
+      "runtimeManifestSha256": "9e0c57b9f68b155120ed2dd3b71ef530031d97ee4934cb15cc9fd6eed1dcf214",
+      "screenshot": "NATIVE_DOCUMENT_MAIN_BOOT_B.png"
+    },
+    {
+      "path": "NATIVE_MAIN_SEED_B.json",
+      "status": "PASS",
+      "mode": "seed",
+      "nativeProcessId": 10248,
+      "programRunReached": true,
+      "productionExitCode": 0,
+      "productionExeSha256": "94d225823534edbe6d78965f2348eb503fd51bd3dddc83fceface186f154de51",
+      "runtimeManifestSha256": "9e0c57b9f68b155120ed2dd3b71ef530031d97ee4934cb15cc9fd6eed1dcf214",
+      "indexedDbCommitAcknowledged": true,
+      "screenshot": "NATIVE_DOCUMENT_MAIN_SEED_B.png"
+    },
+    {
+      "path": "NATIVE_MAIN_RESTART_B.json",
+      "status": "PASS",
+      "mode": "verify",
+      "nativeProcessId": 33100,
+      "seedProcessId": 10248,
+      "programRunReached": true,
+      "productionExitCode": 0,
+      "productionExeSha256": "94d225823534edbe6d78965f2348eb503fd51bd3dddc83fceface186f154de51",
+      "runtimeManifestSha256": "9e0c57b9f68b155120ed2dd3b71ef530031d97ee4934cb15cc9fd6eed1dcf214",
+      "exactCommittedFileRestored": true,
+      "exactCommittedFieldPreviewRestored": true,
+      "browserRuntimeProcessExitVerified": false,
+      "screenshot": "NATIVE_DOCUMENT_MAIN_RESTART_B.png"
+    }
+  ],
+  "adminUacStartup": "NOT_RUN",
+  "nativeGpuComputation": "NOT_RUN",
+  "browserRuntimeProcessExitVerified": false
+}

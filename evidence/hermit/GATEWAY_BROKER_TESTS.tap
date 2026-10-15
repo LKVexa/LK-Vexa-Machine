@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: Outgoing close obeys UTF-8 byte limit, Unicode boundaries and valid code policy
+ok 1 - Outgoing close obeys UTF-8 byte limit, Unicode boundaries and valid code policy
+  ---
+  duration_ms: 1.3831
+  type: 'test'
+  ...
+# Subtest: Broker refuses non-loopback configuration
+ok 2 - Broker refuses non-loopback configuration
+  ---
+  duration_ms: 0.5717
+  type: 'test'
+  ...
+# Subtest: Ticket requests enforce origin, header, query, role, JSON size and single use
+not ok 3 - Ticket requests enforce origin, header, query, role, JSON size and single use
+  ---
+  duration_ms: 27.3581
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:31:1'
+  failureType: 'testCodeFailure'
+  error: 'fetch failed'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  ...
+# Subtest: WebSocket admission and RFC parser reject foreign origin, Host, query, subprotocol and unmasked frames
+not ok 4 - WebSocket admission and RFC parser reject foreign origin, Host, query, subprotocol and unmasked frames
+  ---
+  duration_ms: 4.8922
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:32:1'
+  failureType: 'testCodeFailure'
+  error: 'connect EACCES 127.0.0.1:65182'
+  code: 'EACCES'
+  stack: |-
+    TCPConnectWrap.afterConnect [as oncomplete] (node:net:1864:16)
+  ...
+# Subtest: Same browser-owner path routes exact terminal bytes, confirms admission only, applies credit and isolates sessions
+not ok 5 - Same browser-owner path routes exact terminal bytes, confirms admission only, applies credit and isolates sessions
+  ---
+  duration_ms: 5.052
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:33:1'
+  failureType: 'testCodeFailure'
+  error: 'fetch failed'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  ...
+# Subtest: Sequence replay, stale epoch, over-credit, and owner loss do not replay or mutate another session
+not ok 6 - Sequence replay, stale epoch, over-credit, and owner loss do not replay or mutate another session
+  ---
+  duration_ms: 4.282
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:34:1'
+  failureType: 'testCodeFailure'
+  error: 'fetch failed'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  ...
+# Subtest: Queue cap, active session cap, duplicate owner and non-reused channel lifecycle are enforced
+not ok 7 - Queue cap, active session cap, duplicate owner and non-reused channel lifecycle are enforced
+  ---
+  duration_ms: 3.9453
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:35:1'
+  failureType: 'testCodeFailure'
+  error: 'fetch failed'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  ...
+# Subtest: Owner execution acknowledgment cannot exceed real accepted input; malformed owner resets all dependent sessions
+not ok 8 - Owner execution acknowledgment cannot exceed real accepted input; malformed owner resets all dependent sessions
+  ---
+  duration_ms: 2.4038
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:36:1'
+  failureType: 'testCodeFailure'
+  error: 'fetch failed'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  ...
+# Subtest: Fresh server epoch and expired tickets prevent session resurrection
+not ok 9 - Fresh server epoch and expired tickets prevent session resurrection
+  ---
+  duration_ms: 1.8192
+  type: 'test'
+  location: 'D:\\Codex\\2026-10-13\\pl\\work\\hermit-semisili-integration\\implementation\\server\\ramws-gateway.test.mjs:37:1'
+  failureType: 'testCodeFailure'
+  error: 'fetch failed'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 2
+# fail 7
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 152.3147

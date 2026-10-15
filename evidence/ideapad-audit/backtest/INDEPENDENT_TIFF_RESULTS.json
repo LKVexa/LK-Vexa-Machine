@@ -1,0 +1,389 @@
+{
+  "profile": "JA21-IDEAPAD-INDEPENDENT-TIFF-READER/1",
+  "status": "PASS",
+  "reader": "Pillow 12.3.0",
+  "python": "3.12.14",
+  "files": [
+    {
+      "file": "all-zero-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "231980a80a379d323e7cd7f8ddd0b31320b1de5be2b364cf2edce4e932ebe2bf"
+    },
+    {
+      "file": "all-zero-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "83621388e09ebe2564e3b3d0b9b10c8224afcee08c91afd377a1bc5eb09c2254"
+    },
+    {
+      "file": "all-zero-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "6d965fee0afcb96a40ec8bcfa35f8f9d85177f4b67538b68ddd63d1d8feab77d"
+    },
+    {
+      "file": "all-zero-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "all-zero-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "all-zero-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "552885d6a49d6ae2f1e94d3248374ebb73034232010f0f3422d870261f4d832c"
+    },
+    {
+      "file": "all-zero-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "38df71b3faeaca299646dd85b97e2c3a05376322658af002030caf85b4a72bb1"
+    },
+    {
+      "file": "all-255-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "52a3729148e3aea4a6ec9c06e14a9097e2d469b2c993ca26d1b5bcf28b2c485f"
+    },
+    {
+      "file": "all-255-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "ef1c5476430083326198af3dbebb74bcebf19ceed69c4ca840cd36f9b3feed69"
+    },
+    {
+      "file": "all-255-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "5ba6e1c6563af6445c3f7cabd9f08097109f9087e9dbea912c2b5dd122b21959"
+    },
+    {
+      "file": "all-255-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "all-255-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "all-255-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "ea4c85c1e33fbbef4f3f42dbfd0e46f23b23fcea947870837699ba5c1bd13ed0"
+    },
+    {
+      "file": "all-255-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "90b95bfe0651485745cc8ff99b059b81af95790e230b1796186533fc72ce06d2"
+    },
+    {
+      "file": "all-127-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "52a3729148e3aea4a6ec9c06e14a9097e2d469b2c993ca26d1b5bcf28b2c485f"
+    },
+    {
+      "file": "all-127-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "ef1c5476430083326198af3dbebb74bcebf19ceed69c4ca840cd36f9b3feed69"
+    },
+    {
+      "file": "all-127-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "5ba6e1c6563af6445c3f7cabd9f08097109f9087e9dbea912c2b5dd122b21959"
+    },
+    {
+      "file": "all-127-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "all-127-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "all-127-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "ea4c85c1e33fbbef4f3f42dbfd0e46f23b23fcea947870837699ba5c1bd13ed0"
+    },
+    {
+      "file": "all-127-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "399bc050a9e761467c08aa15200136fbe8d39ce8ca231224365aa8671e8f0ebf"
+    },
+    {
+      "file": "all-128-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "231980a80a379d323e7cd7f8ddd0b31320b1de5be2b364cf2edce4e932ebe2bf"
+    },
+    {
+      "file": "all-128-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "83621388e09ebe2564e3b3d0b9b10c8224afcee08c91afd377a1bc5eb09c2254"
+    },
+    {
+      "file": "all-128-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "6d965fee0afcb96a40ec8bcfa35f8f9d85177f4b67538b68ddd63d1d8feab77d"
+    },
+    {
+      "file": "all-128-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "all-128-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "all-128-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "552885d6a49d6ae2f1e94d3248374ebb73034232010f0f3422d870261f4d832c"
+    },
+    {
+      "file": "all-128-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "d39bd7eb4792c6dc9a6b7b277a71cf16661b0d603ee25daa8a445efe04d61d7b"
+    },
+    {
+      "file": "ascending-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "874a17a8a22c0cbe908151c3a729a9a6acfd6ab199db4c636b8a3403d432fe54"
+    },
+    {
+      "file": "ascending-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "765e08578c3c289edd8d0b8d5feec2fc916b53f0ebb49a3a38733ab3205816c9"
+    },
+    {
+      "file": "ascending-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "2fd41973c7443b05f13af95ea4f66dae4d36244c5e064d91ae262375e2d27c0d"
+    },
+    {
+      "file": "ascending-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "ascending-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "ascending-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "77f7fb4e0ccecc05918f432c186d53366e44ded47e2241ac09ac362e9aabdcf9"
+    },
+    {
+      "file": "ascending-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "58734b917e6386aa4ae8657c73dfd5bbd28a22284dd2a77d5dce37147b8c24df"
+    },
+    {
+      "file": "descending-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "f00e36fafc2e4f2cda125e6d8c2337d395473fd57a9ade774273d00f627c6fe1"
+    },
+    {
+      "file": "descending-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "a4c6751fd346c2ea9352899328d78dd4f62c1939b8a2cec505c4a2f6d1da3ea0"
+    },
+    {
+      "file": "descending-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "d68ca028cd8ff9b5c1b94edd0e704832438f701e7295a6512679c7d48c771693"
+    },
+    {
+      "file": "descending-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "descending-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "descending-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b5da4e9b8d1d61266c3e628323fe9ebb24ee490d2a349a254de81c16c1386017"
+    },
+    {
+      "file": "descending-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "80a9ba03cff16f8dd23354ade80e1284bbb6d03953904c12106a48c317df18c7"
+    },
+    {
+      "file": "checkerboard-extremes-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "1ad8999f7e82a54662bd6bf8b0f873da3c9cde90c7c366fe5503d1220e373a50"
+    },
+    {
+      "file": "checkerboard-extremes-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "f590a2d3921a38fed947d862f7abf0991719f11e2e5ba21ba8f6d74f07455909"
+    },
+    {
+      "file": "checkerboard-extremes-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "9223391ecb4d0a2d963fffc651fecb68a91eb3365f271fbf92f063737d334f7c"
+    },
+    {
+      "file": "checkerboard-extremes-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "checkerboard-extremes-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "checkerboard-extremes-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "f1be4dfc6d6c48c5a755f03f412abb4489dfc1c6e6ce80e2f04734273a19651a"
+    },
+    {
+      "file": "checkerboard-extremes-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "2e844bbb77cb7c6590534eddb0b4282f67ca610c348cd0af22d3640d1fe1b7fc"
+    },
+    {
+      "file": "impulse-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "e502a1a981a8363c8c384bc763b4c5298cdaaef27c215dd7a67a141d3e079b9f"
+    },
+    {
+      "file": "impulse-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "284b93486c85c80437dfe55991dd9924a0a3b95275673d53bdc7aa7f43afd135"
+    },
+    {
+      "file": "impulse-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "06b99f5036ec0980989a5209f8aaace786d76a1f2cc478f13ecc8fe5de727bb4"
+    },
+    {
+      "file": "impulse-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "impulse-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "impulse-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "c01af3bb658d23795cf307c50343487fc98d8a7d4b4f751dde8b7f4ed036a40d"
+    },
+    {
+      "file": "impulse-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "ecb3d13255d58d2c1cafe1bbb2f0a87e23f2b887f14fd682e53fdac9588fd454"
+    },
+    {
+      "file": "boundaries-processor-1.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "612b58680c51f4f3db3aa7d43704db058c13eca2ec507eba2b3d8b3723b37b19"
+    },
+    {
+      "file": "boundaries-processor-2.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "9b5fddf34826f53364ba84fc658d4cad418937d046cd35bd1851c86383bec532"
+    },
+    {
+      "file": "boundaries-processor-3.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "7dc455255428b796b143840afdbf6906a06485c808ed5e960deb249680795ddc"
+    },
+    {
+      "file": "boundaries-processor-4.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "b7ea226caf120c61df4b14471eea94495658ed641849b9eb8f904743536fbcfe"
+    },
+    {
+      "file": "boundaries-processor-5.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "69e9a416a8edf02e031782dfe2ba2528b890e3abe51ae8a14424953ee26b6c3c"
+    },
+    {
+      "file": "boundaries-processor-6.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "6ef4f60386dbd4ab944379dbc3c1742277c4bef1aa31a25ac3ed4360883a1fbf"
+    },
+    {
+      "file": "boundaries-processor-7.tif",
+      "pixels": 4096,
+      "status": "PASS",
+      "sha256": "ddb84610956ef61c3e792db3996c27b745954c7d0eb67952010f6aa096dcf7f8"
+    }
+  ],
+  "pixelComparisons": 258048,
+  "fileCount": 63,
+  "runnerSHA256": "5128c301881ca68b4522534d904db887c83efa9dde1a0744c3cdbde3805ed929"
+}

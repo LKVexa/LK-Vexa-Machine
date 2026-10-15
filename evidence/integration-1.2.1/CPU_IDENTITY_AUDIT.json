@@ -1,0 +1,512 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-10-14T18:26:22.252Z",
+  "projectRoot": "D:/Codex/2026-10-13/pl/work/blank-console-arm64/project/JA21-Silicon-Console",
+  "product": {
+    "console": "1.2.0",
+    "component": "2.2.2",
+    "nativePresenter": "9.8.7"
+  },
+  "conclusion": "Specialized JavaScript field-and-byte software processor. It is not a physical JA21 silicon chip, an ARM ISA emulator, or a general-purpose instruction-set CPU.",
+  "executionChain": [
+    {
+      "stage": "Windows x64 native console",
+      "evidence": "host/Build-SiliconConsole.cmd:10",
+      "detail": ".NET Framework/WPF x64 executable; entry selects the sealed JA21 mapped application."
+    },
+    {
+      "stage": "Microsoft WebView2",
+      "evidence": "host/LiveWebBridge.cs:78",
+      "detail": "WebView2CompositionControl owns the live JavaScript runtime."
+    },
+    {
+      "stage": "Local application mapping",
+      "evidence": "host/LiveWebBridge.cs:182",
+      "detail": "Exact HTTPS virtual host maps applications/silicon/dist without a local Node server."
+    },
+    {
+      "stage": "UI JavaScript module",
+      "evidence": "applications/silicon/dist/index.html:2",
+      "detail": "Loads /src/app.js as a module."
+    },
+    {
+      "stage": "JavaScript module worker",
+      "evidence": "applications/silicon/src/lib/ram-link.js:7",
+      "detail": "A module Worker and MessageChannel carry bounded terminal messages."
+    },
+    {
+      "stage": "SPIRAL shell and Hpu object",
+      "evidence": "applications/silicon/src/vendor/ram-worker.js:79",
+      "detail": "Constructs the command registry, VFS and Hpu typed-array software model."
+    },
+    {
+      "stage": "Host processor",
+      "evidence": "host/SiliconConsoleEntry.cs:47",
+      "detail": "Windows/.NET and WebView2 execute using the host CPU. The console does not eliminate physical processor dependence."
+    }
+  ],
+  "capabilities": {
+    "field": "64 x 64 complex field in two Float32Array(4096) objects",
+    "logic": "Numerical optical-interference models for AND, OR, NAND, XOR, XNOR",
+    "byteLanes": "Six fixed 256-entry one-byte input/output lookup table identities, four distinct functions",
+    "routing": "One deterministic max-absolute-output-change selector; ties choose lowest table index",
+    "numerics": [
+      "radix-2 Fourier propagation",
+      "Gerchberg-Saxton phase retrieval",
+      "phase/intensity sampling",
+      "geometric diffusion",
+      "Kuramoto synchronization",
+      "truncated Kerr/Wigner calculations",
+      "OAM encoding and shift models"
+    ],
+    "memory": "Typed arrays and bounded 2 MiB/1500-node virtual filesystem, persisted through IndexedDB",
+    "control": "JavaScript function calls and shell command dispatch; model iteration counters",
+    "absentInHpu": [
+      "instruction fetch/decode",
+      "program counter",
+      "architectural register file",
+      "ISA encoding",
+      "general arithmetic instruction stream",
+      "memory-mapped devices",
+      "MMU/page tables",
+      "interrupt/trap architecture",
+      "ARM instruction-set decoder",
+      "GPU compute API",
+      "hardware clock/voltage/energy measurements"
+    ]
+  },
+  "byteTables": [
+    {
+      "index": 1,
+      "id": "processor-1",
+      "samples": 256,
+      "outputCardinality": 26,
+      "declaredCardinality": 26,
+      "sha256": "19ed49d08857b4fc6c9ff7c52c55a3c1b527524bfd5559a9142634a3f58b8f30",
+      "sameAs": [],
+      "inputDependsOnPriorPixel": false
+    },
+    {
+      "index": 2,
+      "id": "processor-2",
+      "samples": 256,
+      "outputCardinality": 128,
+      "declaredCardinality": 128,
+      "sha256": "63f1ebfc2efe0b94a165ba3da8d1e0459def42b8d53d11467e45abbad1830e21",
+      "sameAs": [],
+      "inputDependsOnPriorPixel": false
+    },
+    {
+      "index": 3,
+      "id": "processor-3",
+      "samples": 256,
+      "outputCardinality": 26,
+      "declaredCardinality": 26,
+      "sha256": "19ed49d08857b4fc6c9ff7c52c55a3c1b527524bfd5559a9142634a3f58b8f30",
+      "sameAs": [
+        1
+      ],
+      "inputDependsOnPriorPixel": false
+    },
+    {
+      "index": 4,
+      "id": "processor-4",
+      "samples": 256,
+      "outputCardinality": 1,
+      "declaredCardinality": 1,
+      "sha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+      "sameAs": [],
+      "inputDependsOnPriorPixel": false
+    },
+    {
+      "index": 5,
+      "id": "processor-5",
+      "samples": 256,
+      "outputCardinality": 1,
+      "declaredCardinality": 1,
+      "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+      "sameAs": [],
+      "inputDependsOnPriorPixel": false
+    },
+    {
+      "index": 6,
+      "id": "processor-6",
+      "samples": 256,
+      "outputCardinality": 26,
+      "declaredCardinality": 26,
+      "sha256": "19ed49d08857b4fc6c9ff7c52c55a3c1b527524bfd5559a9142634a3f58b8f30",
+      "sameAs": [
+        1,
+        3
+      ],
+      "inputDependsOnPriorPixel": false
+    }
+  ],
+  "distinctTableFunctions": 4,
+  "algebraicChecks": {
+    "processor2": true,
+    "processor4": true,
+    "processor5": true,
+    "processor1Equals3And6": true
+  },
+  "metrics": {
+    "cpuCycles": {
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:1198",
+      "definition": "gif.length * 4",
+      "valueAt4096Samples": 16384,
+      "hardwareMeasurement": false
+    },
+    "gpuWarps": {
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:1172",
+      "definition": "gif.length / 32",
+      "valueAt4096Samples": 128,
+      "gpuApi": false
+    },
+    "cycles": {
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:714",
+      "definition": "Incremented once per model iteration",
+      "hardwareMeasurement": false
+    },
+    "elapsedUs": {
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:716",
+      "definition": "performance.now() elapsed time",
+      "scope": "Measured wall-clock JavaScript operation duration, not processor cycle count"
+    },
+    "landauer": {
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:600",
+      "definition": "Popcount of changed intensity bytes multiplied by kB * 300K * ln(2)",
+      "physicalEnergyMeasurement": false
+    }
+  },
+  "hardwareDesignInventory": {
+    "scope": [
+      "host",
+      "source",
+      "engine/df_medium/source",
+      "engine/ja21",
+      "applications/silicon/src",
+      "applications/silicon/web",
+      "applications/silicon/dist"
+    ],
+    "filesScanned": 132,
+    "hardwareExtensions": [
+      ".v",
+      ".sv",
+      ".vh",
+      ".svh",
+      ".vhd",
+      ".vhdl",
+      ".gds",
+      ".gdsii",
+      ".oas",
+      ".lef",
+      ".def",
+      ".sdc",
+      ".xdc",
+      ".spice",
+      ".cir",
+      ".bit",
+      ".dcp",
+      ".sys",
+      ".cu",
+      ".wgsl"
+    ],
+    "candidates": [],
+    "excludedScope": "Historical corpora, baseline VM packages, substrate documents and archived references do not establish active hardware synthesis or execution."
+  },
+  "activeHardwareBoundary": "Native interop is Windows loader/windowing APIs, WebView2 and DF_Medium software web-engine DLL. No JA21 device driver, FPGA programming path, RTL synthesis flow, gate-level netlist, layout/PDK or accelerator ABI is present in the active software-CPU path.",
+  "otherSoftwareInterpreters": "The native presenter also executes JA21 JSON intermediate representation for browser policy and initializes a DF_Medium software VM/web-engine DLL. These are separate software dependencies and do not make Hpu an ARM or physical silicon implementation.",
+  "csharpReference": {
+    "evidence": "applications/silicon/src/vendor/spiral/ChipHarness.cs:10",
+    "invokedByBrowser": false,
+    "detail": "Exported C# reference compares scalar and 32-wide nested CPU loops; Gpu is a retained method name and does not call a GPU API."
+  },
+  "issues": [
+    {
+      "severity": "material identity limitation",
+      "claim": "A physical JA21 silicon CPU exists inside the console or does not require the machine processor",
+      "result": "Unsupported. This is a host-executed software model."
+    },
+    {
+      "severity": "naming risk",
+      "claim": "Six general byte processors",
+      "evidence": "applications/silicon/src/vendor/spiral/byte-tables.js:1",
+      "result": "Six table identities contain four distinct byte functions; three tables are identical and two are constants. They are not general instruction-set processors."
+    },
+    {
+      "severity": "stale integration copy",
+      "claim": "A local static Node server opens this browser application; Windows launchers provision private Node",
+      "evidence": "applications/silicon/dist/index.html:19",
+      "result": "The integrated console maps local files through WebView2. The component documentation describes its standalone Node launch. Integrated System-panel copy should say WebView2 mapped application."
+    },
+    {
+      "severity": "compatibility naming",
+      "claim": "CPU/GPU lanes or whole number of GPU warps",
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:1158",
+      "result": "Both are ordinary JavaScript loops. User-visible primary page and xpuinfo already explicitly identify CPU-only execution and modeled counts."
+    },
+    {
+      "severity": "ambiguous startup log",
+      "claim": "No script interpreter",
+      "evidence": "host/SiliconConsoleEntry.cs:54",
+      "result": "The compiled startup entry avoids PowerShell, but the software processor executes JavaScript in WebView2. Prefer explicit compiled-entry/JavaScript-runtime wording."
+    },
+    {
+      "severity": "misleading model comment",
+      "claim": "Scalar CPU (fetch, decode, execute, writeback)",
+      "evidence": "applications/silicon/src/vendor/spiral/hpu.js:1150",
+      "result": "Actual code performs a byte lookup and array write; these are not four implemented instruction pipeline stages. Four steps is a modeled accounting multiplier."
+    }
+  ],
+  "commandControlEvidence": [
+    "applications/silicon/src/vendor/spiral/kernel.js:393",
+    "applications/silicon/src/vendor/spiral/kernel.js:441",
+    "applications/silicon/src/vendor/spiral/kernel.js:488"
+  ],
+  "distSourceParity": {
+    "compared": 39,
+    "allEqual": true,
+    "intentionalExclusion": {
+      "files": [
+        "applications/silicon/src/vendor/spiral/regex-worker-node.js"
+      ],
+      "evidence": "applications/silicon/scripts/build.mjs:30"
+    },
+    "files": [
+      {
+        "source": "applications/silicon/src/app.js",
+        "dist": "applications/silicon/dist/src/app.js",
+        "sourceSha256": "8e190b3ab159363cc1441fa8d44935c2394a17e12f4e7ba3f5d3630d95f892b9",
+        "distSha256": "8e190b3ab159363cc1441fa8d44935c2394a17e12f4e7ba3f5d3630d95f892b9"
+      },
+      {
+        "source": "applications/silicon/src/lib/ram-link.js",
+        "dist": "applications/silicon/dist/src/lib/ram-link.js",
+        "sourceSha256": "249072bf678f875aa596582e0baff7b70f6ec8fe9a33b2f3f3abcc0481c4913c",
+        "distSha256": "249072bf678f875aa596582e0baff7b70f6ec8fe9a33b2f3f3abcc0481c4913c"
+      },
+      {
+        "source": "applications/silicon/src/vendor/events.js",
+        "dist": "applications/silicon/dist/src/vendor/events.js",
+        "sourceSha256": "742029f9ba8d32f00865793de27ad46a247d157b58c85579ca6eba65b85d5219",
+        "distSha256": "742029f9ba8d32f00865793de27ad46a247d157b58c85579ca6eba65b85d5219"
+      },
+      {
+        "source": "applications/silicon/src/vendor/ram-worker.js",
+        "dist": "applications/silicon/dist/src/vendor/ram-worker.js",
+        "sourceSha256": "3357174672880e55969e09e5562f9875081957fbab4192b844a511f25f96f885",
+        "distSha256": "3357174672880e55969e09e5562f9875081957fbab4192b844a511f25f96f885"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/buffer.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/buffer.js",
+        "sourceSha256": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7",
+        "distSha256": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/byte-tables.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/byte-tables.js",
+        "sourceSha256": "3465b1a9e0d2279acebcaf81ee209f2bfb7fb2308d2ab4b061e4c0613aab02ce",
+        "distSha256": "3465b1a9e0d2279acebcaf81ee209f2bfb7fb2308d2ab4b061e4c0613aab02ce"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/chip-harness.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/chip-harness.js",
+        "sourceSha256": "f6dbecfbdebe8246b39ffbffcf24e637776ebcf01592294a79f328622893f309",
+        "distSha256": "f6dbecfbdebe8246b39ffbffcf24e637776ebcf01592294a79f328622893f309"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/ChipHarness.cs",
+        "dist": "applications/silicon/dist/src/vendor/spiral/ChipHarness.cs",
+        "sourceSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4",
+        "distSha256": "525b99f4810dfa9a3616cc7874db284300db046121843f0b5db342315043fcc4"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/browser.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/browser.js",
+        "sourceSha256": "93b9f0f94955aeef9986c7bb8fbb58c081a47f60a07fee500d012fad89ce93f8",
+        "distSha256": "93b9f0f94955aeef9986c7bb8fbb58c081a47f60a07fee500d012fad89ce93f8"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/coreutils.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/coreutils.js",
+        "sourceSha256": "8d323a73e7ecd4332b6eab927e4276b2c33b02756cf515baffa9c4e80b5dbc9b",
+        "distSha256": "8d323a73e7ecd4332b6eab927e4276b2c33b02756cf515baffa9c4e80b5dbc9b"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/fs.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/fs.js",
+        "sourceSha256": "002cac8351dde73a0036ff9c67ec94b5a9993bdc80ee42a382b359348acb79e1",
+        "distSha256": "002cac8351dde73a0036ff9c67ec94b5a9993bdc80ee42a382b359348acb79e1"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/hpu.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/hpu.js",
+        "sourceSha256": "c7abdf3fa56f9a5ae3cc94a9ef75cc20a647e7c300193222f4e61cfb7425d511",
+        "distSha256": "c7abdf3fa56f9a5ae3cc94a9ef75cc20a647e7c300193222f4e61cfb7425d511"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/index.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/index.js",
+        "sourceSha256": "4e57c19ffa410bda22107b9511e2b09eeeaff65f8dc58b65a2298c8ce083ff0c",
+        "distSha256": "4e57c19ffa410bda22107b9511e2b09eeeaff65f8dc58b65a2298c8ce083ff0c"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/ram.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/ram.js",
+        "sourceSha256": "b51b9e2f4dc85f92cfee214c35b077eb8eb00a7fcb56e0e297d15684d005c5f2",
+        "distSha256": "b51b9e2f4dc85f92cfee214c35b077eb8eb00a7fcb56e0e297d15684d005c5f2"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/russl.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/russl.js",
+        "sourceSha256": "62b85a1defb484e9c6c9126878fc11ed99984616da975fd5f375f268796c5e08",
+        "distSha256": "62b85a1defb484e9c6c9126878fc11ed99984616da975fd5f375f268796c5e08"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/system.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/system.js",
+        "sourceSha256": "510e6ced2ab16149c6e8e1935a5a33265f7e2e99c6eaa8f39f71d94f0f4c4f24",
+        "distSha256": "510e6ced2ab16149c6e8e1935a5a33265f7e2e99c6eaa8f39f71d94f0f4c4f24"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/commands/util.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/commands/util.js",
+        "sourceSha256": "7b2f824e8f10272ad741202417e167bc9162dffee77824a8feb49f7d52ce8fcf",
+        "distSha256": "7b2f824e8f10272ad741202417e167bc9162dffee77824a8feb49f7d52ce8fcf"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/env.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/env.js",
+        "sourceSha256": "7df5d6e37cf1f18d49f0cfb63ee80c0d17fbc45296200d8eaace06c5b3278277",
+        "distSha256": "7df5d6e37cf1f18d49f0cfb63ee80c0d17fbc45296200d8eaace06c5b3278277"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/hpu.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/hpu.js",
+        "sourceSha256": "8028591b199564fe8523603b494586a35ad6bff9725dc7443d59140fb373c7bc",
+        "distSha256": "8028591b199564fe8523603b494586a35ad6bff9725dc7443d59140fb373c7bc"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/kernel.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/kernel.js",
+        "sourceSha256": "f86c8f65e9a3e6db6d9d4544b8b452e8b34dd562a34b5cc296f6ee44921ec1e2",
+        "distSha256": "f86c8f65e9a3e6db6d9d4544b8b452e8b34dd562a34b5cc296f6ee44921ec1e2"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/line-reader.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/line-reader.js",
+        "sourceSha256": "d236bd9c98f6795a633d893242fa3d06096f7cd385c593f7c4e70ca0871807ba",
+        "distSha256": "d236bd9c98f6795a633d893242fa3d06096f7cd385c593f7c4e70ca0871807ba"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/pipeline.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/pipeline.js",
+        "sourceSha256": "e08ac0335207fa851f0df2e718ee48610b1a4b0f5e40282c6e4765266ee6e029",
+        "distSha256": "e08ac0335207fa851f0df2e718ee48610b1a4b0f5e40282c6e4765266ee6e029"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/regex-evaluator.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/regex-evaluator.js",
+        "sourceSha256": "b7639aa89a58b74ab4a1a0e7419f5631edf1b192a31da1de32e0c69a1c048d51",
+        "distSha256": "b7639aa89a58b74ab4a1a0e7419f5631edf1b192a31da1de32e0c69a1c048d51"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/regex-worker.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/regex-worker.js",
+        "sourceSha256": "667009bb6d18b0bb030b3c7de1a78233d474c90bd19ddb0a0bccdbc22e4c2e47",
+        "distSha256": "667009bb6d18b0bb030b3c7de1a78233d474c90bd19ddb0a0bccdbc22e4c2e47"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/registry.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/registry.js",
+        "sourceSha256": "e62bf307d0f75c079326e6543399534feabef52f96e8b9ce9808799aee5a4f68",
+        "distSha256": "e62bf307d0f75c079326e6543399534feabef52f96e8b9ce9808799aee5a4f68"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/russl-field.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/russl-field.js",
+        "sourceSha256": "af9b9633a0dafd3b58718dc2489623481c3379d433c0bfe31ea736ec1000c65e",
+        "distSha256": "af9b9633a0dafd3b58718dc2489623481c3379d433c0bfe31ea736ec1000c65e"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/russl-service.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/russl-service.js",
+        "sourceSha256": "68a63d6014f1d64fd0987d14ca685182b63acce1a75d13da3d26077462908c5a",
+        "distSha256": "68a63d6014f1d64fd0987d14ca685182b63acce1a75d13da3d26077462908c5a"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/safe-regex.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/safe-regex.js",
+        "sourceSha256": "72746ee03fb2a34b2564067dd6d9c890a74ed9c125e1ab11aa0503de89ef18cd",
+        "distSha256": "72746ee03fb2a34b2564067dd6d9c890a74ed9c125e1ab11aa0503de89ef18cd"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/ssd.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/ssd.js",
+        "sourceSha256": "afc7727dcb6b02befa5044e56adef96518545a883e7b4dcff69b0f5010a832b2",
+        "distSha256": "afc7727dcb6b02befa5044e56adef96518545a883e7b4dcff69b0f5010a832b2"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/state-codec.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/state-codec.js",
+        "sourceSha256": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a",
+        "distSha256": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/tiff-codec.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/tiff-codec.js",
+        "sourceSha256": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936",
+        "distSha256": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/vfs.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/vfs.js",
+        "sourceSha256": "1cdbdb36a11d7b660abb2ea673c41ba0e63cb0892443a5c3f2b9c69b3a139b6e",
+        "distSha256": "1cdbdb36a11d7b660abb2ea673c41ba0e63cb0892443a5c3f2b9c69b3a139b6e"
+      },
+      {
+        "source": "applications/silicon/src/vendor/spiral/volume-format.js",
+        "dist": "applications/silicon/dist/src/vendor/spiral/volume-format.js",
+        "sourceSha256": "e7a7b85f67ec51c37068104372281ff10d1f67a6ad4565d96c51aaad19da1c69",
+        "distSha256": "e7a7b85f67ec51c37068104372281ff10d1f67a6ad4565d96c51aaad19da1c69"
+      },
+      {
+        "source": "applications/silicon/src/vendor/vt/parser.js",
+        "dist": "applications/silicon/dist/src/vendor/vt/parser.js",
+        "sourceSha256": "6eb1c54bf16cc33413bcf71dc3cdbf16dd0ded0a263b131f8530c7f610f2ae0e",
+        "distSha256": "6eb1c54bf16cc33413bcf71dc3cdbf16dd0ded0a263b131f8530c7f610f2ae0e"
+      },
+      {
+        "source": "applications/silicon/src/vendor/vt/renderer-canvas.js",
+        "dist": "applications/silicon/dist/src/vendor/vt/renderer-canvas.js",
+        "sourceSha256": "8cbb899f758f4b8fc9951a742b52abf7c102e9163281039740df053c4fb018b5",
+        "distSha256": "8cbb899f758f4b8fc9951a742b52abf7c102e9163281039740df053c4fb018b5"
+      },
+      {
+        "source": "applications/silicon/src/vendor/vt/screen.js",
+        "dist": "applications/silicon/dist/src/vendor/vt/screen.js",
+        "sourceSha256": "e99683e9704817c89a35e281610ee53c6b6ab354c3d039b0e98e63c326145b8b",
+        "distSha256": "e99683e9704817c89a35e281610ee53c6b6ab354c3d039b0e98e63c326145b8b"
+      },
+      {
+        "source": "applications/silicon/src/vendor/vws/flow.js",
+        "dist": "applications/silicon/dist/src/vendor/vws/flow.js",
+        "sourceSha256": "0ff0d890d0dda2333f2b06af364850ee732ec4de5c86a3c72e55c86c3e619776",
+        "distSha256": "0ff0d890d0dda2333f2b06af364850ee732ec4de5c86a3c72e55c86c3e619776"
+      },
+      {
+        "source": "applications/silicon/src/vendor/vws/frame.js",
+        "dist": "applications/silicon/dist/src/vendor/vws/frame.js",
+        "sourceSha256": "8684b504c619c1114cb5753caf3d5bd3a922ded583e5092a17d7c704c2c6b964",
+        "distSha256": "8684b504c619c1114cb5753caf3d5bd3a922ded583e5092a17d7c704c2c6b964"
+      },
+      {
+        "source": "applications/silicon/src/version.js",
+        "dist": "applications/silicon/dist/src/version.js",
+        "sourceSha256": "e99868ecd0f464dacdbcbfc50d05b201ccf0c70f54ac37f3d15f00417275770b",
+        "distSha256": "e99868ecd0f464dacdbcbfc50d05b201ccf0c70f54ac37f3d15f00417275770b"
+      }
+    ]
+  }
+}

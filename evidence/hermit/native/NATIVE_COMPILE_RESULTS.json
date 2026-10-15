@@ -1,0 +1,120 @@
+{
+  "schema": "JA21/HERMIT_NATIVE_COMPILE/1",
+  "status": "PASS",
+  "consoleVersion": "1.4.0",
+  "engineVersion": "2.4.0",
+  "testedUTC": "2026-10-14T23:22:26.215665+00:00",
+  "warningsAsErrors": true,
+  "warningLevel": 4,
+  "target": "x64",
+  "mainAndHelperRecompiledThisRun": true,
+  "compiler": "Windows .NET Framework 4.x csc.exe, fixed SystemRoot compiler used by packaged build scripts",
+  "builds": {
+    "main-and-helper": {
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "compile-main-and-helper.log"
+    },
+    "acceptance": {
+      "status": "PASS",
+      "exitCode": 0,
+      "log": "compile-acceptance.log"
+    }
+  },
+  "files": [
+    {
+      "path": "host/JA21VirtualBrowser.cs",
+      "bytes": 231719,
+      "sha256": "1fc776272d11a8a892ea5a836c2d2edfce1b3a9d0fc390c5279210895e796c8f"
+    },
+    {
+      "path": "host/Vec1Substrate.cs",
+      "bytes": 49058,
+      "sha256": "9b50f7f3bc918cb4f92dd3b6b93fca6bb830f2eccd222fc612c9ccc7846f6538"
+    },
+    {
+      "path": "host/PortableDesktop.cs",
+      "bytes": 13340,
+      "sha256": "019e90bff8a579dcbc5dadb3f9cf3756c7f7d9751dda071e5cb561f816cf911b"
+    },
+    {
+      "path": "host/LiveWebContracts.cs",
+      "bytes": 719,
+      "sha256": "1c5accc5037564e3bb1dbe2912d7e47329ce063322a0c4efabc92035d586fd9d"
+    },
+    {
+      "path": "host/SiliconApp.cs",
+      "bytes": 7646,
+      "sha256": "cd34233eb11a2957e340005bb3a8bf153c34b337d26e8ce4f96315b43ae87ab0"
+    },
+    {
+      "path": "host/LiveWebBridge.cs",
+      "bytes": 23139,
+      "sha256": "04d6e847829057953026d3de8180383147099813677736cc69a54805a96c583b"
+    },
+    {
+      "path": "host/HostAdminBridge.cs",
+      "bytes": 12287,
+      "sha256": "1f5684d4e0fdf4b7bc01fc164e27c7ee545dd0286f6b9f0be231467c82201c7b"
+    },
+    {
+      "path": "host/AdminTerminal.cs",
+      "bytes": 53817,
+      "sha256": "ad11802c4ae4734e139eff666a9461d3057678bbdd51a027ad61ed6e8f4db55b"
+    },
+    {
+      "path": "host/SiliconConsoleEntry.cs",
+      "bytes": 12886,
+      "sha256": "1d84fbed18c135b9686969f7f15e36e69df37d7b784bb760a89a371092789525"
+    },
+    {
+      "path": "host/Build-SiliconConsole.cmd",
+      "bytes": 1451,
+      "sha256": "6f0cff714bf9303be856b0a8123b9edef52f901bb83cd286ead6820782689d72"
+    },
+    {
+      "path": "tools/Build-Silicon-Acceptance.cmd",
+      "bytes": 1285,
+      "sha256": "53e93fbc966a2e015bb8c8b2bbc9504dc6e0e8df5df55f71ab7453f525ecbbe5"
+    },
+    {
+      "path": "tools/SiliconWebView2Acceptance.cs",
+      "bytes": 26166,
+      "sha256": "d277ed34d6c3474b4ee23be00f3d84db24837dc75a111df41c7f8103863eadec"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe",
+      "bytes": 275456,
+      "sha256": "31697d8319d2ede0d103634cc7503493af6c99426d390c4c0f9a3330392a64b5"
+    },
+    {
+      "path": "tools/JA21-Admin-Terminal.exe",
+      "bytes": 49664,
+      "sha256": "cc760d479070b02133e7a34e5cd548ff518cf3c1343be14bf3c365b9d0e65d3f"
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe",
+      "bytes": 298496,
+      "sha256": "eb12a98030cc539969f94fc70b43f2ceed3e50cc5b8f473dcd26cfa206707995"
+    },
+    {
+      "path": "runtime/webview2-sdk/1.0.4191.47/Microsoft.Web.WebView2.Core.dll",
+      "bytes": 698208,
+      "sha256": "e6f54c8ce208e3797c427d01ad671b47cb25abc85604753d6ec2546d0ffef550"
+    },
+    {
+      "path": "runtime/webview2-sdk/1.0.4191.47/Microsoft.Web.WebView2.Wpf.dll",
+      "bytes": 86368,
+      "sha256": "6942b85a3388ece45febde5584d2bfc035d84315f2dd5a4a47913f01a0193800"
+    }
+  ],
+  "protocolFixtures": {
+    "status": "PASS",
+    "exitCode": 0,
+    "log": "admin-protocol-fixtures.log"
+  },
+  "nativeUi": "NOT_RUN_IN_THIS_RUNNER",
+  "adminUacStartup": "NOT_RUN",
+  "fullApplicationRestart": "NOT_RUN",
+  "scope": "Fresh exact native main, Administrator helper and acceptance binaries. Compile/source hashes and protocol fixtures do not establish UAC consent, elevated startup, native GUI or restart acceptance."
+}

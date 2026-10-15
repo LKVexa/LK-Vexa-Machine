@@ -1,0 +1,306 @@
+{
+  "schema": "JA21-SEMISILI-RELEASE-VALIDATION/1",
+  "consoleVersion": "1.3.0",
+  "engineVersion": "2.3.0",
+  "status": "NUMERICAL_AND_LIVE_GPU_VERIFIED_WITH_RESTART_GATE",
+  "generatedAt": "2026-10-14T20:48:42.156Z",
+  "references": {
+    "files": 26,
+    "pdfs": 25,
+    "pages": 350,
+    "embeddedInstructionsExecuted": false
+  },
+  "coverage": {
+    "cpu": [
+      "finite phase arithmetic",
+      "BigInt oracle",
+      "phase sampling",
+      "bounded neuron updates",
+      "Float32 publication",
+      "Pixel160 codec"
+    ],
+    "gpu": [
+      "independent finite ring arithmetic"
+    ],
+    "phaseAndNeuronGpuOffload": false
+  },
+  "regression": {
+    "tests": 381,
+    "passed": 378,
+    "failed": 0,
+    "skipped": 3,
+    "cancelled": 0,
+    "evidence": "evidence/semisili/engine-audit/TEST_RESULTS.tap"
+  },
+  "core": {
+    "profile": "SEMISILI-CORE-INDEPENDENT-ACCEPTANCE/1",
+    "status": "PASS",
+    "phaseCases": 344580,
+    "bitPlaneSamples": 25440,
+    "valuationCases": 16384,
+    "ultrametricTriples": 98304,
+    "neuronSamples": 262208,
+    "guardRejections": 13,
+    "runtime": "v24.21.0",
+    "finishedUTC": "2026-10-14T20:47:06.619Z",
+    "sourceSHA256": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+    "limits": [
+      "Numerical CPU phase model; GPU integer confirmation and browser acceptance are separate gates.",
+      "Finite ring and bounded hierarchical CNN; no physical quantum/optical hardware or trained accuracy claim."
+    ]
+  },
+  "model": {
+    "profile": "SEMISILI-MODEL-INDEPENDENT-ACCEPTANCE/1",
+    "status": "PASS",
+    "analyticSamples": 4096,
+    "stateRoundTrips": 19,
+    "tiffRoundTrips": 6,
+    "continuations": 12,
+    "guardRejections": 16,
+    "cachedCurrentHistoryCases": 1,
+    "finishedUTC": "2026-10-14T20:47:08.957Z",
+    "sourceSHA256": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+    "codecSHA256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+    "limits": [
+      "Detached CPU preparation and canonical state/TIFF behavior only. Actual GPU confirmation, publication and browser persistence remain separate gates."
+    ]
+  },
+  "codec": {
+    "profile": "SEMISILI-CODEC-INDEPENDENT-ACCEPTANCE/1",
+    "status": "PASS",
+    "pixelVectors": 34,
+    "fieldWords": 20480,
+    "coordinateCases": 4096,
+    "stateRoundtrips": 5,
+    "tiffRoundtrips": 8,
+    "malformedRejections": 72,
+    "tiffOracleBytes": 655360,
+    "maximumAcceptedStateBytes": 1475201,
+    "runtime": "v24.21.0",
+    "finishedUTC": "2026-10-14T20:47:06.177Z",
+    "sourceSHA256": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+    "testSHA256": "01ca56fb8c48f1cd3b363efc9cd056cbbfc0b624984285ece2da21c7c58d9313",
+    "adapterSHA256": {
+      "tiff-codec.js": "c9d4495dcf365d673c6bea8cfe2105789bf1cf341142da2ef82602051bbce936",
+      "state-codec.js": "591cf8b4cf3d42c76c0b6261cf33b7c185493b00e129d884275f340f55cbe55a",
+      "buffer.js": "c61a7ec3db626128c5606e06e973ca38c2830bd0b22250e25f895ce38149b6b7"
+    },
+    "limits": [
+      "Opaque uint32 storage preserves bits but does not validate neuron physics or float finiteness.",
+      "TIFF stores 20 uint8 samples per logical cell; no 160-bit display pixel claim.",
+      "CRC32 detects accidental corruption and provides no authenticity guarantee.",
+      "Browser persistence and GPU acceptance are separate integration gates."
+    ]
+  },
+  "gpuFixture": {
+    "schema": "JA21-GPU-POLICY-TESTS/1",
+    "status": "PASS",
+    "generatedAt": "2026-10-14T20:15:22.397Z",
+    "node": "v24.21.0",
+    "exitCode": 0,
+    "error": null,
+    "summary": {
+      "tests": 49,
+      "pass": 49,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 233.5013
+    },
+    "sourceSha256": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+    "scope": "Marked WebGPU API fixtures and independent BigInt arithmetic oracle. These tests do not compile WGSL or establish actual GPU hardware execution.",
+    "liveGpuExecution": "NOT_RUN",
+    "hardwareConfirmed": false
+  },
+  "workerFixture": {
+    "schema": "JA21-SEMISILI-WORKER-FIXTURE-TESTS/1",
+    "started": "2026-10-14T20:37:54.782Z",
+    "finished": "2026-10-14T20:37:59.231Z",
+    "node": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "tests": 18,
+    "pass": 18,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "sourceStable": true,
+    "sourceSha256": {
+      "src/version.js": "42eb1fea0b3dbb4f9de6485cd31e8f6b2f09d7a6b6c6a5c43d028765c79b714e",
+      "src/vendor/ram-worker.js": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+      "src/lib/semisili-core.js": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+      "src/lib/semisili-model.js": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+      "src/lib/semisili-codec.js": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+      "src/lib/semisili-gpu.js": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+      "tests/semisili-worker.test.mjs": "ffd666ccaaa46b3c287dabaebaafd45af41a6263c20368044463a9ab5c5759ae",
+      "tests/semisili-worker-adapter.mjs": "48b04224a0e478e8e3dd47426567afebe5ab0c6d668bb430e9a31b99f4e559b2",
+      "tests/semisili-gpu-fixture.mjs": "bf422b8e7bcd58274af5b5be49d1ffedfcaf31dcbcf481d50b3cb949d2f4ee49",
+      "tests/semisili-gpu-fixture-wrapper.mjs": "386e61fb68aa4d7782e0901bacf6efbf7039913fdc1eb1fef83af0b98c17a6fd",
+      "tests/fake-idb.mjs": "b1c688875f0320e201c219dcb5cd9aaea867e1e78efa66e1d84225b986884365"
+    },
+    "fixtures": {
+      "indexedDB": true,
+      "locks": true,
+      "gpu": "explicit injection marked fixture; no physical GPU confirmation",
+      "digestGates": true
+    },
+    "liveBrowserPersistence": "NOT_RUN",
+    "liveHardwareGpu": "NOT_RUN",
+    "tap": "WORKER_TEST_RESULTS.tap"
+  },
+  "nativeCompile": {
+    "status": "PASS",
+    "consoleVersion": "1.3.0",
+    "engineVersion": "2.3.0",
+    "frameworkCompiler": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+    "warningsAsErrors": true,
+    "target": "x64",
+    "mainFileVersion": "1.3.0.0",
+    "mainProductVersion": "Console 1.3.0; software CPU/XPU 2.3.0; base browser 9.8.7",
+    "mainBuildExit": 0,
+    "acceptanceBuildExit": 0,
+    "policyBuildExit": 0,
+    "files": [
+      {
+        "path": "host/Build-SiliconConsole.cmd",
+        "bytes": 1135,
+        "sha256": "9d7478f820e87dc5eca8339eb66b62871281232a733d146c42730027a484cca4"
+      },
+      {
+        "path": "host/JA21VirtualBrowser.cs",
+        "bytes": 231598,
+        "sha256": "dd76a714f2b3b1478f985f872ad10041f9f0ef95dade20a426e72fae476785df"
+      },
+      {
+        "path": "host/Vec1Substrate.cs",
+        "bytes": 49058,
+        "sha256": "9b50f7f3bc918cb4f92dd3b6b93fca6bb830f2eccd222fc612c9ccc7846f6538"
+      },
+      {
+        "path": "host/PortableDesktop.cs",
+        "bytes": 12431,
+        "sha256": "e7fa6d5bc4a140c67974f452d8d8e2462affb10e0f10dee2aea66f574f873b3b"
+      },
+      {
+        "path": "host/LiveWebContracts.cs",
+        "bytes": 719,
+        "sha256": "1c5accc5037564e3bb1dbe2912d7e47329ce063322a0c4efabc92035d586fd9d"
+      },
+      {
+        "path": "host/SiliconApp.cs",
+        "bytes": 7646,
+        "sha256": "cd34233eb11a2957e340005bb3a8bf153c34b337d26e8ce4f96315b43ae87ab0"
+      },
+      {
+        "path": "host/LiveWebBridge.cs",
+        "bytes": 19452,
+        "sha256": "d5ee976ad0b881762f498393b26a4dcc68c7d2f24997b8a291e6d58ab44d7bc9"
+      },
+      {
+        "path": "host/SiliconConsoleEntry.cs",
+        "bytes": 12756,
+        "sha256": "1f10c691aba7c14734ec014c7ca4ed6e31994aaa3ba240b53d0cde11a6579744"
+      },
+      {
+        "path": "tools/Build-Silicon-Acceptance.cmd",
+        "bytes": 1239,
+        "sha256": "e706e7ae2db9e117f0189797cb7105b955813138bf47e224bee7eff5c7af39ed"
+      },
+      {
+        "path": "tools/SiliconWebView2Acceptance.cs",
+        "bytes": 21483,
+        "sha256": "4d49a7c9e9e35f9e9d32cb479ee3c07ad023fce4df17255c5c508f0198b93509"
+      },
+      {
+        "path": "tools/SiliconPolicyAcceptance.cs",
+        "bytes": 9476,
+        "sha256": "97105d644fb2c4c0d3337e110757ec1d2b9db1cdae6d2a039c49b28c24965ed0"
+      },
+      {
+        "path": "JA21-Silicon-Console.exe",
+        "bytes": 220160,
+        "sha256": "7653ecc183e3ca62311e146000c9365e88ebd8903677dc5566306a10c95e3f85"
+      },
+      {
+        "path": "tools/Test-Silicon-WebView2.exe",
+        "bytes": 239616,
+        "sha256": "423ac6e5ec809c8f2d4548e2172bf2ebd88f6449dfa2f21c9470a23179338956"
+      }
+    ],
+    "scope": "Native presenter compilation and headless host policy; browser, persistence and GPU require separate live validation."
+  },
+  "nativePolicy": {
+    "status": "PASS",
+    "checks": 46,
+    "runtime": "4.0.30319.42000",
+    "processBits": 64,
+    "scope": "Headless production origin policy, entry normalization and sealed mapping; no browser/UI/network started",
+    "productionExeSha256": "7653ecc183e3ca62311e146000c9365e88ebd8903677dc5566306a10c95e3f85"
+  },
+  "liveBrowser": {
+    "status": "PASS",
+    "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+    "origin": "http://127.0.0.1:28431",
+    "adapter": {
+      "vendor": "intel",
+      "architecture": "xe-lpg",
+      "device": "",
+      "description": ""
+    },
+    "arithmeticSamples": 24576,
+    "operations": [
+      "add",
+      "sub",
+      "mul",
+      "negate",
+      "complement"
+    ],
+    "moduli": [
+      65536,
+      6561
+    ],
+    "fixture": false,
+    "fallback": false,
+    "mismatches": 0,
+    "reloadRecovery": "PASS",
+    "writerLock": "PASS",
+    "tiffRoundTrip": "PASS",
+    "invalidRestoreRetention": "PASS",
+    "oddPrimeGpuCommit": "PASS",
+    "oddPrimeGpuReceiptReload": "PASS",
+    "startupPanelRecovery": "PASS",
+    "persistedStorageGrant": false,
+    "fullApplicationRestart": "NOT_RUN",
+    "nativeWebView2Ui": "NOT_RUN_FOR_1.3.0",
+    "nativeArm64Startup": "NOT_RUN"
+  },
+  "bounds": {
+    "samples": 4096,
+    "defaultBitPipelineBytes": 4096,
+    "arithmeticInputBytes": 8192,
+    "canonicalFrameBytes": 81920,
+    "maxHistoryFrames": 8,
+    "stateBytes": 1572864,
+    "volumeBytes": 2097152
+  },
+  "testedSourceHashes": {
+    "applications/silicon/src/vendor/ram-worker.js": "13abc72b35b2e3d4d3147edb7ded94dbaf53f6423ccb6621cde6ae086d4ca80d",
+    "applications/silicon/src/browser-validation.js": "173978aeb35bb3cdf71ed7971f669064156b717cbf6d5b052948fb7b71c23466",
+    "applications/silicon/src/lib/semisili-gpu.js": "d92ac044c50cc7f4b514c98785c95f8b94c00a8ad2347038ca0374efed7fc1c0",
+    "applications/silicon/src/lib/semisili-core.js": "3869f69be3502612efa0b4c6167655e9b79b8cceb8ee295658049c1e142b44a7",
+    "applications/silicon/src/lib/semisili-codec.js": "a76e614f51ec55d12deba3bfdab06f17f61e70f50715d2ec33fbbb241f5914d5",
+    "applications/silicon/src/lib/semisili-model.js": "c6452d8ad90ec071af36ca5d63a436887b654542f3e806c838e6ae454c0e8305",
+    "applications/silicon/src/app.js": "d49ea8f085807caa566c622c52d7ab84cb7d5d6a40a71a1822565cff2314c27a",
+    "applications/silicon/dist/index.html": "ca0886bccc6ca6eeb900df89306a0e40c35a03ad262fba10a2aa2ae671f669ba",
+    "applications/silicon/dist/validate.html": "087d026628a59d45da6e70364c47549df5e1f1f133591b29dd7152156455138d"
+  },
+  "limitations": [
+    "Full application shutdown/restart has not been tested; the included kit provides that final check.",
+    "Live tests used Codex in-app Chromium on localhost; compiled native presenter UI is a separate acceptance surface.",
+    "Numerical phase/neuron models do not measure quantum collapse, optical propagation, or physical in-DRAM computation.",
+    "Pillow12.3.0 normally opens classic II/MM and BigTIFF II; MM BigTIFF required explicit endian-aware IFD parsing in the independent codec check."
+  ]
+}

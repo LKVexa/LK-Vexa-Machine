@@ -1,0 +1,259 @@
+{
+  "baselineReferenceFiles": [
+    {
+      "path": "references/p-adic Architecture in Image Formats.pdf",
+      "unchanged": true,
+      "sha256": "ba276066b0ddaee5b41812cb7e286ce8de1ca0616146b8753f53cc92d5c0e42f"
+    },
+    {
+      "path": "references/Quantum Computation Equations Overview.pdf",
+      "unchanged": true,
+      "sha256": "091c1c4b6d3532e11a3fe74b690f78a9b6747cc3b512ae97107e1521326f19e0"
+    },
+    {
+      "path": "references/P-adic Hologram Processing Architecture.pdf",
+      "unchanged": true,
+      "sha256": "76bd62a134cdbc3673ae06fede642595951fbc84fea5befda9e3640ea3f7617e"
+    },
+    {
+      "path": "references/Holographic Geometric Diffusion Computing.pdf",
+      "unchanged": true,
+      "sha256": "519167f186c583cf9b714ac4ede46752ba039f7c92a7ab2d5074d9954ca453e9"
+    },
+    {
+      "path": "references/Holographic Image-Based Computation.pdf",
+      "unchanged": true,
+      "sha256": "d492e71a84350f67b731f7c3b5e4a0154f25d862f25aaea7f4af6e86de8af331"
+    },
+    {
+      "path": "references/P-adic Penteract Simulation Research.pdf",
+      "unchanged": true,
+      "sha256": "97978215bfd64d76d63c1a920a24bb86267c23152ee2af09c7e4b603de20a81a"
+    },
+    {
+      "path": "references/Future Data Center Memory Tech.txt",
+      "unchanged": true,
+      "sha256": "b9b282015c06982d70729afeb26c9abb9bdbb02179b02819147ca0a72c853b85"
+    },
+    {
+      "path": "references/Penteract TIFF-GIF Storage Techniques.txt",
+      "unchanged": true,
+      "sha256": "fe025be5024ee2cca9f92dc06cfeac83228bc98f4bf7a6d3c0629ad4ba5f62e5"
+    },
+    {
+      "path": "references/p-Adic Architecture Unification.pdf",
+      "unchanged": true,
+      "sha256": "2ef3ff52c904d4f8b908dd23991ce50e668b327c0b330fab2f9c1f3011c8dcc2"
+    },
+    {
+      "path": "references/Holographic Logical Reasoning Research.txt",
+      "unchanged": true,
+      "sha256": "bd9bc1059e03978adf1e98c7dc78effe7dc3b7a12534e95f425d316f1cb59887"
+    },
+    {
+      "path": "references/hermit-ramws_2.0.0-ramws.1(3).zip",
+      "unchanged": true,
+      "sha256": "4577a4c720fcd2769acf53ca462f3f9534144ca523e104a33b7e201720f90a6e"
+    },
+    {
+      "path": "references/Holographic Logical Reasoning Research.pdf",
+      "unchanged": true,
+      "sha256": "1d2b517359a558eb63466690769390b1163d60059e562e6d1bba599144c0e8e5"
+    },
+    {
+      "path": "references/C# Hologram Computation Harness.txt",
+      "unchanged": true,
+      "sha256": "2e0b1c8ce2572a5ccdde3dc1f129c5bc9c6cafda386cc36fb8ac1bdfd02f7e5c"
+    },
+    {
+      "path": "references/Columned Unikernel Research Analysis.pdf",
+      "unchanged": true,
+      "sha256": "e3cd3f3fef93489c70325fbe064bbf69b9eddbef3783a9ac95627e9aa09fb9d8"
+    },
+    {
+      "path": "references/CartwheelBytePipeline-3.0.0 (2).zip",
+      "unchanged": true,
+      "sha256": "eefeb3ae9ec339fd8366507400847ff16936646571fcc47b9e4af2195b7a0413"
+    },
+    {
+      "path": "references/IdeaPad 5i RAM Sampling.pdf",
+      "unchanged": true,
+      "sha256": "818b873dda901a5f2d44cd6ec201b3898276d57428a5914e1fb0215ea7652808"
+    },
+    {
+      "path": "references/Holographic Computation via Image Formats.txt",
+      "unchanged": true,
+      "sha256": "804c21318edf3d217808a64191e4612addfdf5ccd6bf27342ed4aaeddbaa13d5"
+    },
+    {
+      "path": "references/OAM Spatial Shifting Arithmetic.pdf",
+      "unchanged": true,
+      "sha256": "019dc002863a78ce374b092226bcebb516fe09ab23cc93af942fd7c9e66a6f96"
+    },
+    {
+      "path": "references/p-Adic 1-Bit LAMB Architecture.pdf",
+      "unchanged": true,
+      "sha256": "ba8ef879a5b7d988794a175cfa68b5891294e5ea95300ad96ebbc2602e5b37d2"
+    },
+    {
+      "path": "references/RAM Neural Operation Interfaces.pdf",
+      "unchanged": true,
+      "sha256": "c7e727e4d012948618fe64a94383868a4c171a0e7cfc670a1248f33a61dbd783"
+    },
+    {
+      "path": "references/Microscopic Quantum Paradigm GIF Research.pdf",
+      "unchanged": true,
+      "sha256": "3d8ab80c7b4c8a8435dd425c0ee40e77dee9a39f2efa4396d16af107db559d65"
+    },
+    {
+      "path": "references/1-Bit LAMB Unikernel Integration.pdf",
+      "unchanged": true,
+      "sha256": "7d3e58e732429e90f09eb46e3a81469397af87d7136141d034b736cbbe89b31e"
+    },
+    {
+      "path": "references/Penteract TIFF-GIF Storage Techniques.pdf",
+      "unchanged": true,
+      "sha256": "8a51e458f05d4ead945d076931840a1ec2c8b38f0f461d6225bfe268760f2ba0"
+    },
+    {
+      "path": "references/TIFF GIF Spatial-Temporal Encoding.pdf",
+      "unchanged": true,
+      "sha256": "a37ea42daace1889f700e103112671fe93431b5d2ecef49c0e95a275ca2e29dc"
+    },
+    {
+      "path": "references/p-adic Bit and Anti-bit.pdf",
+      "unchanged": true,
+      "sha256": "a385a4b883c3fa4ab387e7094596ca4ba90821fcbaad487b2394c43b016fdc9b"
+    },
+    {
+      "path": "references/JA21-Blank-Console-main.zip",
+      "unchanged": true,
+      "sha256": "7172231d18190d3cf4526cb399454d7f5b655ee96252d9484c433df94534720c"
+    },
+    {
+      "path": "references/Holographic Image-Based Computation.txt",
+      "unchanged": true,
+      "sha256": "7b0302e5a83087d85d9864cceaf3eb1be86522330fa8b1b206e7394e073564a3"
+    },
+    {
+      "path": "references/Quantum States Digital Holography.pdf",
+      "unchanged": true,
+      "sha256": "11df83705fa3baafa04f756a6a861bce4456ab0f24223a1509738d46252280ec"
+    },
+    {
+      "path": "references/Quantum Computation and Circuit Evolution.pdf",
+      "unchanged": true,
+      "sha256": "d95b65cb7a4e773908937674efd2903f4763094b9780217ee8a4dab802f536c9"
+    },
+    {
+      "path": "references/Holographic Computation via Image Formats.pdf",
+      "unchanged": true,
+      "sha256": "818ca2a40f46746d00922eccfccc4ad27d9e5e339736ed4c22c31f7c905a9f82"
+    },
+    {
+      "path": "references/Future of Virtual Technologies.txt",
+      "unchanged": true,
+      "sha256": "8d05c576c0fa6611f3713625f776222916ddad56fe3df202bd729924fe1b59fe"
+    },
+    {
+      "path": "references/P-adic Holographic Simulations Research.pdf",
+      "unchanged": true,
+      "sha256": "cbbb0c66efa26ab2296e1da3576c8b8e9276d005d6d0f8665e067027bccdd247"
+    },
+    {
+      "path": "references/C# Hologram Computation Harness.pdf",
+      "unchanged": true,
+      "sha256": "fb8be063efc9207ffd61e65f9ff01261aed5a3c11d8d756df82cd86d2c1238e1"
+    }
+  ],
+  "corpusArchiveUnchanged": true,
+  "selectedCorpusFiles": [
+    {
+      "path": "corpus/russl-2.0.0/UNRESOLVED_ISSUES.md",
+      "sha256": "07d2371b6a61388cd040d7a75bb665eb329f25c3123b5b5c9f6349717215cc9e",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/COPYRIGHT",
+      "sha256": "77a26d9efb7c4a899896f9b8e9bf4ebe0b0230c1476559c69789e3b27ba544c6",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/LICENSE",
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/README_START_HERE.md",
+      "sha256": "cefe2dee76247a18b896b0e11341e9117bc12dc474a6b91bbd766c3b9df96e71",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/NOTICE",
+      "sha256": "195bb7eedea02c1664c3949fc18d43e76782818e8d46fe7e9f621faae905d555",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/research/FIXED_SHAPE_INDEXING_PROFILE.md",
+      "sha256": "0381d7b3be576dec0d159e3ed286045193fb48c0145c2960197a07cd23c9577d",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/spec/WP23_TIFF_RUSS_Migration_Specification.md",
+      "sha256": "131f4b05f4fbc3953ad84a7f92330aeaf07f5ee8fa423d415345f3761f56a9be",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/spec/WP17_Canonicalization_and_Cryptographic_Identity.md",
+      "sha256": "ac9625f59c537ad0a3b07ef1e3e7892239315a15b17d54d8ad1758edbea3108e",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/spec/WP14_RUSSL_Imaging_Profile.md",
+      "sha256": "3035f606cbeeafc501b98692c337cc9cc1bf6848387c44d6d7d12db149af7c2a",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/spec/WP24_OME_Zarr_RUSS_Interoperability_Specification.md",
+      "sha256": "a89a7028933ff090f5bf2022a284d8e4a6b1fb11fcca07e6373edcaca57bb637",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/spec/WP04_Penteract_Field_Specification.md",
+      "sha256": "dcda2f6b813f408b9a4411ff68e51dbccfe1a18689f437cfea25093f3d040d5d",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/tooling/field_layout.py",
+      "sha256": "ef3d819534bc6ab66575d44a1b47f41ed10135a19c859ec8a0654d3379aa76d5",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/interoperability/TIFF_PROFILE.md",
+      "sha256": "bad2ed6bea33100fa0bf22f63f4fa84e1038f7c92ff6aae05c9a0fbb751e1aa8",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/interoperability/STORAGE_ADAPTER_CONTRACT.md",
+      "sha256": "8d6737ee5a1c10fba97715169b2f572964d855d5ebd0e8bbd24842230c24038b",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/interoperability/OME_ZARR_PROFILE.md",
+      "sha256": "cdd2387f6333e8f951c4a02007d1e91c85548a8a83a2843a25a7ed813c125bbe",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/machine/registries/fixed_shape_layout.json",
+      "sha256": "472639aa87b56bd251b12fe588409697ee2b602a90a080978bac453778d5389d",
+      "unchanged": true
+    },
+    {
+      "path": "corpus/russl-2.0.0/tests/vectors/field/fixed_shape_index_vectors.jsonl",
+      "sha256": "79050f2300a3e4413cf4bb6ab9ee182fc8e1e92578e66abeac4e640d3e7ec0e0",
+      "unchanged": true
+    }
+  ],
+  "legacyHPU2FixtureSHA256": "28ad14ac1239e4b80ee7bd6aaa9d9ba075e452c80734434d4d7185278b2c136c",
+  "legacyHPU2FixtureOrigin": "generated by the unmodified 2.1.1 Hpu: pattern(vortex), bytes(), spool(), save()"
+}

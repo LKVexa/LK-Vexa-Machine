@@ -1,0 +1,46 @@
+{
+  "schema": "JA21/STARTUP_REPAIR_AUDIT/1",
+  "applicationVersion": "2.1.1",
+  "launcherVersion": "2.1.1",
+  "repairedBaseline": "2.1.0",
+  "date": "2026-10-12",
+  "nodeRuntimePin": "24.21.0",
+  "runtimeBinariesBundled": false,
+  "status": "OFFLINE_TESTS_PASS_WINDOWS_ACCEPTANCE_PENDING",
+  "nodeTests": {
+    "total": 153,
+    "passed": 153,
+    "failed": 0,
+    "skipped": 0,
+    "existing": 135,
+    "staticLauncherContracts": 18,
+    "testRuntime": "v22.16.0",
+    "platform": "linux"
+  },
+  "sourceChecks": {
+    "javascriptParsed": 47,
+    "localImportsResolved": 45,
+    "windowsPowerShellAstParsed": false
+  },
+  "offlineUi": {
+    "passed": 8,
+    "pageErrors": [],
+    "mode": "OFFLINE_UI_FIXTURE"
+  },
+  "independentDecoders": {
+    "passed": 3,
+    "decoder": "Pillow",
+    "version": "12.3.0"
+  },
+  "referencesPreserved": {
+    "files": 33,
+    "allSha256Unchanged": true
+  },
+  "limits": [
+    "Windows PowerShell/cmd.exe not available; native launcher execution and PS AST parse not performed.",
+    "Official Windows runtime binary transfer failed in this environment; no runtime binaries bundled, extracted, or executed here.",
+    "Node runtime checksums copied from official HTTPS document; OpenPGP not independently verified.",
+    "Full-browser worker/IndexedDB/Web Locks/production CSP not tested.",
+    "No claim of hardware XPU acceleration or renewed full semantic audit of original nested packages."
+  ]
+}

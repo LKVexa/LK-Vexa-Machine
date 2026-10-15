@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "root": "D:\\Codex\\JA21",
+  "executable": "D:\\Codex\\JA21\\JA21-Silicon-Console.exe",
+  "arguments": [
+    "--root",
+    "D:\\Codex\\JA21",
+    "--preflight"
+  ],
+  "exitCode": 0,
+  "seconds": 15.7750704,
+  "openedWindow": false,
+  "requestedElevation": false,
+  "networkStarted": false,
+  "output": "JA21 · native-entry · software CPU/XPU 2.4.0; compiled native presenter x64; WebView2 executes JavaScript; no Node or local server\r\nJA21 · preflight-pass · sealed application and SDK verified; mapped directory D:\\Codex\\JA21\\applications\\silicon\\dist\r\nJA21 software console preflight PASS. Sealed application and pinned SDK verified; no browser window or network started.\r\n"
+}
