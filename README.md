@@ -4,6 +4,8 @@
 
 **Console integration 1.4.0 · JA21 software CPU/XPU 2.4.0 · Windows x64 native presenter**
 
+**Windows launch package:** [Download JA21-1.4.0-Windows-r1.zip](https://github.com/LKVexa/LK-Vexa-Machine/releases/download/v1.4.0-windows-r1/JA21-1.4.0-Windows-r1.zip), extract into a short parent such as `D:\Codex`, and open `JA21\Start Console.cmd` normally. GitHub **Code → Download ZIP** supplies development source; use the release asset to launch the pinned Windows build.
+
 LK / Vexa Machine is a local computational research application combining a finite numerical XPU, two virtual command terminals, transactional browser storage, image-based state interchange, and an explicitly requested Administrator PowerShell connection. The default Windows application embeds its JavaScript module worker in a compiled C# / WPF WebView2 host. The optional browser profile serves the same application through a restricted localhost host and supports HERMIT WebSocket terminal transport.
 
 The term **semi-sili** identifies the project's finite p-adic phase, bulk-bit sampling, and neuron-state model executed by the existing host CPU, RAM, and available GPU. The implemented numerical path is inspectable in source: CPU complex-phasor arithmetic is checked against an independent exact-integer oracle; a separately dispatched integer WebGPU kernel can confirm every finite-arithmetic result. Phase evolution and neuron updates run on the CPU. TIFF and GIF encode data interpreted by the application.
@@ -61,7 +63,21 @@ Use the Windows release asset, rather than GitHub's automatically generated sour
 | Measured installed path | Maximum 123 characters at the tested short installation destination |
 | Native package preflight | Passed |
 
-The `r1` designation is a Windows packaging revision. It preserves the tested executable and mapped application closure. The older comprehensive source/reference layout contains historical long paths and caused Windows Explorer extraction problems. This Windows artifact places the operational closure at short paths while retaining the original archive for source and provenance. GitHub source downloads still contain the full repository's source paths; they are development material and do not provide the short-path packaging contract of the Windows asset.
+The `r1` designation is a Windows packaging revision. It preserves the tested executable and mapped application closure. The older comprehensive source/reference layout contains historical long paths and caused Windows Explorer extraction problems. This Windows artifact places the operational closure at short paths while retaining the original archive for source and provenance.
+
+### GitHub source ZIP and complete source history
+
+The main branch's GitHub **Code → Download ZIP** export omits two historical VM trees through `.gitattributes` `export-ignore` rules, bounding exported source paths for Windows extraction into a short destination. The omitted trees are `substrate/DF_Large/vm/BOTTLE_ROCKET_4.7.0_COLUMNED_LCTL_VIRTUAL_DEVICE_IO_SERVICE_ARCHITECTURE_61K` and `substrate/DF_Xtra_Large/vm/QUORUM_LCTL_MSSL_2.1.0`. All 358 historical runtime members and the active C#/JavaScript/native build sources remain in the export. No source is deleted from the Git repository.
+
+The source ZIP is a development archive. Its path fix does not convert it into the immutable Windows launch package or transfer existing binary qualification to changed source. Extract it to a short parent such as `D:\Codex`; avoid deeply nested destinations. The public-source overlays and historical seal caveat below still apply.
+
+For every tracked file, including both historical VM trees, use a Git clone with long-path support and a short checkout directory:
+
+```powershell
+git clone --config core.longpaths=true https://github.com/LKVexa/LK-Vexa-Machine.git D:\Codex\LKM
+```
+
+The unchanged [original complete source/reference archive](https://github.com/LKVexa/LK-Vexa-Machine/releases/download/v1.4.0-windows-r1/JA21_Semi_Sili_XPU_Console_1.4.0.zip) also remains available as a release asset. It retains the original long member paths and is intended for provenance or extraction with long-path-capable development tools. Older tags keep their original archive policy; use the current main-branch source export for the path correction.
 
 The public source tree also contains current licensing/documentation overlays and a source-only resealer correction. Some overlays change files covered by the original runtime manifest, including package licensing metadata. The retained runtime/package manifests are historical records of the original binary release, so a raw Git checkout is **not** the immutable, directly launchable sealed Windows package. Build, review, reseal, and requalify modified source before distributing a new executable package. Original replaced files are preserved under `provenance/pre-publication/`; `provenance/GITHUB_SOURCE_PROVENANCE.json` records the publication transformation. The GPL/notice companion accompanies the byte-exact Windows ZIP without modifying its historical bytes or test pins.
 

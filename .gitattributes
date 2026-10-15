@@ -1,2 +1,9 @@
 # Integrity ledgers hash exact bytes. Preserve source and binary bytes on checkout.
 * -text
+
+# Keep the complete historical VM trees in Git, while avoiding their long names
+# in GitHub Download ZIP / git archive exports. Active runtime/build sources remain.
+/substrate/DF_Large/vm/BOTTLE_ROCKET_4.7.0_COLUMNED_LCTL_VIRTUAL_DEVICE_IO_SERVICE_ARCHITECTURE_61K export-ignore
+/substrate/DF_Large/vm/BOTTLE_ROCKET_4.7.0_COLUMNED_LCTL_VIRTUAL_DEVICE_IO_SERVICE_ARCHITECTURE_61K/** export-ignore
+/substrate/DF_Xtra_Large/vm/QUORUM_LCTL_MSSL_2.1.0 export-ignore
+/substrate/DF_Xtra_Large/vm/QUORUM_LCTL_MSSL_2.1.0/** export-ignore
