@@ -1792,6 +1792,16 @@
       "path": "tools/Test-Silicon-WebView2.exe",
       "bytes": 298496,
       "sha256": "eb12a98030cc539969f94fc70b43f2ceed3e50cc5b8f473dcd26cfa206707995"
+    },
+    {
+      "path": "JA21-Silicon-Console.exe.config",
+      "bytes": 364,
+      "sha256": "732de288bde037f1647af32e81a68ee5bb1b43ae6b6ef3341ffd640ecfbe9c70"
+    },
+    {
+      "path": "tools/Test-Silicon-WebView2.exe.config",
+      "bytes": 364,
+      "sha256": "732de288bde037f1647af32e81a68ee5bb1b43ae6b6ef3341ffd640ecfbe9c70"
     }
   ],
   "consoleVersion": "1.4.0",

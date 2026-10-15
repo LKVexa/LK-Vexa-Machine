@@ -30,6 +30,9 @@ runtime_paths=[
 runtime_paths += ['applications/silicon/VERSION', 'applications/silicon/package.json']
 runtime_paths += ['host/SiliconApp.cs', 'host/SiliconConsoleEntry.cs', 'host/Build-SiliconConsole.cmd', 'JA21-Silicon-Console.exe', 'console.json', 'CONSOLE_BUILD.json', 'CONSOLE_VERSION']
 runtime_paths += ['tools/SiliconWebView2Acceptance.cs', 'tools/Build-Silicon-Acceptance.cmd', 'tools/Test-Silicon-WebView2.exe', 'Test Silicon CPU.cmd']
+# Downloaded SDK assemblies need the reviewed per-application CLR trust policy.
+# Require both sidecars even when the prior runtime inventory predates this fix.
+runtime_paths += ['JA21-Silicon-Console.exe.config', 'tools/Test-Silicon-WebView2.exe.config']
 runtime_paths += [p.relative_to(ROOT).as_posix() for p in sorted((ROOT/'applications/silicon/dist').rglob('*')) if p.is_file()]
 # Retain the reviewed closure from the shipped manifest. The inherited generic
 # list predates source/helper/gateway sealing; dropping those members silently

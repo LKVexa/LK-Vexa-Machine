@@ -4,7 +4,7 @@
 
 **Console integration 1.4.0 · JA21 software CPU/XPU 2.4.0 · Windows x64 native presenter**
 
-**Windows launch package:** [Download JA21-1.4.0-Windows-r1.zip](https://github.com/LKVexa/LK-Vexa-Machine/releases/download/v1.4.0-windows-r1/JA21-1.4.0-Windows-r1.zip), extract into a short parent such as `D:\Codex`, and open `JA21\Start Console.cmd` normally. GitHub **Code → Download ZIP** supplies development source; use the release asset to launch the pinned Windows build.
+**Current Windows startup download:** [Download the main-branch ZIP](https://github.com/LKVexa/LK-Vexa-Machine/archive/refs/heads/main.zip), extract into a short parent such as `D:\Codex`, and open `LK-Vexa-Machine-main\Start Console.cmd` normally. This export includes the compiled x64 runtime and the downloaded-DLL startup correction. The original immutable release asset is retained separately for historical qualification and provenance.
 
 LK / Vexa Machine is a local computational research application combining a finite numerical XPU, two virtual command terminals, transactional browser storage, image-based state interchange, and an explicitly requested Administrator PowerShell connection. The default Windows application embeds its JavaScript module worker in a compiled C# / WPF WebView2 host. The optional browser profile serves the same application through a restricted localhost host and supports HERMIT WebSocket terminal transport.
 
@@ -47,9 +47,9 @@ The version fields identify different components. The native compatibility value
 
 ## Distribution and installation
 
-### Recommended Windows artifact
+### Current download and historical Windows artifact
 
-Use the Windows release asset, rather than GitHub's automatically generated source ZIP, for installation:
+Use the [current main-branch ZIP](https://github.com/LKVexa/LK-Vexa-Machine/archive/refs/heads/main.zip) for the corrected Windows startup. The original release asset below remains byte-exact and does not contain the later downloaded-DLL correction:
 
 [**JA21-1.4.0-Windows-r1.zip**](https://github.com/LKVexa/LK-Vexa-Machine/releases/download/v1.4.0-windows-r1/JA21-1.4.0-Windows-r1.zip)
 
@@ -69,7 +69,7 @@ The `r1` designation is a Windows packaging revision. It preserves the tested ex
 
 The main branch's GitHub **Code → Download ZIP** export omits two historical VM trees through `.gitattributes` `export-ignore` rules, bounding exported source paths for Windows extraction into a short destination. The omitted trees are `substrate/DF_Large/vm/BOTTLE_ROCKET_4.7.0_COLUMNED_LCTL_VIRTUAL_DEVICE_IO_SERVICE_ARCHITECTURE_61K` and `substrate/DF_Xtra_Large/vm/QUORUM_LCTL_MSSL_2.1.0`. All 358 historical runtime members and the active C#/JavaScript/native build sources remain in the export. No source is deleted from the Git repository.
 
-The source ZIP is a development archive. Its path fix does not convert it into the immutable Windows launch package or transfer existing binary qualification to changed source. Extract it to a short parent such as `D:\Codex`; avoid deeply nested destinations. The public-source overlays and historical seal caveat below still apply.
+The source ZIP contains the current compiled x64 runtime alongside development sources. It remains distinct from the immutable historical Windows asset; qualification of older bytes does not automatically transfer to later changes. Extract it to a short parent such as `D:\Codex`; avoid deeply nested destinations. The public-source overlays and historical full-package ledger caveat below still apply.
 
 For every tracked file, including both historical VM trees, use a Git clone with long-path support and a short checkout directory:
 
@@ -79,9 +79,19 @@ git clone --config core.longpaths=true https://github.com/LKVexa/LK-Vexa-Machine
 
 The unchanged [original complete source/reference archive](https://github.com/LKVexa/LK-Vexa-Machine/releases/download/v1.4.0-windows-r1/JA21_Semi_Sili_XPU_Console_1.4.0.zip) also remains available as a release asset. It retains the original long member paths and is intended for provenance or extraction with long-path-capable development tools. Older tags keep their original archive policy; use the current main-branch source export for the path correction.
 
-The current main-branch ZIP includes the compiled x64 presenter and a synchronized 358-member runtime integrity manifest. After extracting the complete ZIP into a short writable folder, open **Start Console.cmd** normally. The current seal covers the published package metadata and HERMIT notice as well as all previously sealed runtime code; integrity verification remains enabled. The original Windows release asset and its test pins remain unchanged.
+The current main-branch ZIP includes the compiled x64 presenter and a synchronized 360-member runtime integrity manifest. After extracting the complete ZIP into a short writable folder, open **Start Console.cmd** normally. The current seal covers the published package metadata and HERMIT notice as well as all previously sealed runtime code; integrity verification remains enabled. The original Windows release asset and its test pins remain unchanged.
 
 The source tree also includes licensing/documentation overlays and a source-only resealer correction. The broader `package.integrity.json`, `FILES_MANIFEST.json`, and checksum ledgers remain records of the original complete distribution; they are not a current exact-set receipt for the filtered GitHub source export. Native startup verifies the current runtime manifest. Review, rebuild, reseal, and requalify later code modifications before distributing a new executable package. Original replaced files are preserved under `provenance/pre-publication/`; `provenance/GITHUB_SOURCE_PROVENANCE.json` records the initial publication transformation. The GPL/notice companion accompanies the byte-exact Windows release asset without modifying its historical bytes or test pins.
+
+### Downloaded Windows assemblies
+
+Windows can attach Internet-zone metadata (`Zone.Identifier`, `ZoneId=3`) to files extracted from a downloaded ZIP. .NET Framework can then reject a local `Assembly.LoadFrom` call with `FileLoadException`, HRESULT `0x80131515`, even after the runtime SHA-256 preflight succeeds. The console's ordinary `--preflight` validates identity and bytes before returning; it does not load the managed adapter. This distinction explained the previous validation gap. See Microsoft's [loadFromRemoteSources documentation](https://learn.microsoft.com/en-us/dotnet/framework/configure-apps/file-schema/runtime/loadfromremotesources-element).
+
+`JA21-Silicon-Console.exe.config` and `tools/Test-Silicon-WebView2.exe.config` opt their respective CLR processes into `loadFromRemoteSources`. This is an application-scoped full-trust setting, not a per-DLL allowlist. Before loading WebView2, the unchanged native host still checks the runtime closure, exact SDK SHA-256 values, assembly names/versions, contained paths and actual loaded locations. Both configuration files are included in the current 360-member runtime manifest and required by the resealer. The original 358 runtime payloads and all executable bytes remain unchanged by this correction.
+
+This correction preserves download-zone metadata. It changes no machine-wide .NET configuration, Windows trust-zone policy, PowerShell execution policy, SmartScreen policy, or UAC flow. The elevated Administrator helper receives no remote-load configuration. The optional legacy PowerShell launcher is a separate process and does not inherit the native application's CLR configuration; use **Start Console.cmd** for this native profile.
+
+The Windows regression check in `tests/test_downloaded_sdk_startup.py` uses only an isolated temporary runtime, marks both managed SDK DLLs as Internet-zone files, reproduces the missing-configuration failure, and checks the configured native process and SDK-loading acceptance executable. It also checks that configuration and DLL tampering are rejected and that the zone markers remain present. This test is separate from elevated PowerShell or GPU qualification.
 
 ### Prerequisites
 
@@ -91,8 +101,8 @@ Hardware GPU confirmation additionally requires a secure WebGPU context, a usabl
 
 ### Installation sequence
 
-1. Download the Windows artifact and compare its SHA-256 with the value above or its release checksum sidecar.
-2. Extract the complete Windows package into a short writable parent directory, such as `D:\Codex`. Its `JA21` top-level folder produces `D:\Codex\JA21`.
+1. Download the current main-branch ZIP from the link above. Historical release checksums identify their original assets, not this changing branch export.
+2. Extract the complete ZIP into a new short writable parent directory, such as `D:\Codex`. Its top-level folder is `LK-Vexa-Machine-main`; keep the application configuration sidecars with their executables. Preserve any existing `workspace/` separately when replacing an older installation.
 3. Open the extracted folder in File Explorer and double-click **Start Console.cmd** normally.
 4. Wait for both **XPU 1** and **XPU 2** prompts. Use the virtual terminals and numerical tools without elevating the application.
 5. If the privileged connection is needed, select **Connect PowerShell** in the third pane. Windows consent is a separate, explicit action.
@@ -469,9 +479,9 @@ Return to the repository root and run:
 
 The host build compiles both `tools/JA21-Admin-Terminal.exe` and `JA21-Silicon-Console.exe`. The acceptance build produces `tools/Test-Silicon-WebView2.exe`. Both use `/platform:x64`, `/warn:4`, and `/warnaserror+`. Build scripts contain the exact source lists, references, entry points, and compiler selection.
 
-Integrity verification must follow an intentional reviewed rebuild. `tools/reseal.py` regenerates development manifests and `tools/silicon_package.py` validates the mapped application contract. The publication's source correction retains the previous runtime manifest's validated inventory, explicitly requires the Administrator bridge/helper, includes current mapped assets, and hashes the current files. It accepts an existing supported inventory across an intentional version bump; the newly written seal records the current `VERSION`. Missing required members, malformed/escaping paths, or unsupported inventory format stop the process. Preserve the original release's manifests and evidence separately; resealing modified content does not transfer the old runtime's qualification to new bytes. Bit-for-bit reproducibility of arbitrary C# rebuilds is not asserted by this release.
+Integrity verification must follow an intentional reviewed rebuild. `tools/reseal.py` regenerates development manifests and `tools/silicon_package.py` validates the mapped application contract. The publication's source correction retains the previous runtime manifest's validated inventory, explicitly requires the Administrator bridge/helper and both downloaded-assembly configuration sidecars, includes current mapped assets, and hashes the current files. It accepts an existing supported inventory across an intentional version bump; the newly written seal records the current `VERSION`. Missing required members, malformed/escaping paths, or unsupported inventory format stop the process. Preserve the original release's manifests and evidence separately; resealing modified content does not transfer the old runtime's qualification to new bytes. Bit-for-bit reproducibility of arbitrary C# rebuilds is not asserted by this release.
 
-The recorded production runtime seal has 358 entries. Use that manifest as the immutable historical reference for the shipped binary. The inherited generic resealer predated additional source/helper/gateway sealing and omitted part of that inventory; a source-only correction accompanies this publication. An isolated ZIP-backed fixture executes the corrected inventory/hash-writer statements with the real path validators: it matches all 358 original members and their byte lengths/SHA-256 values, rejects traversal and a missing required helper before runtime publication, and restores required Admin members to an otherwise incomplete prior inventory. This fixture does not assert full-script filesystem publication or native runtime qualification. The Windows binary artifact is unchanged by the source-tool correction. Review and explicitly maintain the complete closure when adding or intentionally retiring members; successful hashing alone is not a completeness audit.
+The original release runtime seal has 358 entries. Use that manifest as the immutable historical reference for the original release. The current main-branch runtime has 360 entries: the same 358 payloads plus the two process configuration sidecars described above. The inherited generic resealer predated additional source/helper/gateway sealing and omitted part of that inventory; a source-only correction accompanies this publication. An isolated ZIP-backed fixture executes the corrected inventory/hash-writer statements with the real path validators: it matches all 358 original members and their byte lengths/SHA-256 values, rejects traversal and a missing required helper before runtime publication, and restores required Admin members to an otherwise incomplete prior inventory. This fixture does not assert full-script filesystem publication or native runtime qualification. The Windows binary artifact is unchanged by the source-tool correction. Review and explicitly maintain the complete closure when adding or intentionally retiring members; successful hashing alone is not a completeness audit.
 
 The retained policy/native-engine build path is separate:
 
