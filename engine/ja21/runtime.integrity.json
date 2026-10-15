@@ -390,8 +390,8 @@
     },
     {
       "path": "applications/silicon/package.json",
-      "bytes": 516,
-      "sha256": "f5c3cacc7daf248abda16c59b3b81228b2f9aac80e48210a82e6a13a9def5858"
+      "bytes": 518,
+      "sha256": "cfc2923df6d535fc2ff85a3e62857fb6ffa4a563c894c5e20db086c06680765e"
     },
     {
       "path": "applications/silicon/scripts/build.mjs",
@@ -410,8 +410,8 @@
     },
     {
       "path": "applications/silicon/scripts/ramws/HERMIT_LICENSE.txt",
-      "bytes": 306,
-      "sha256": "63748d1e0d8ac97258b42b6631100fed0ddcae97ebfb0274697e4623ffabaa09"
+      "bytes": 1278,
+      "sha256": "11d17bb7ecb5d5ce30baa993b89f28233f1aaf2fac0e20c844ce54592a70cb27"
     },
     {
       "path": "applications/silicon/scripts/ramws/admin-gateway.mjs",
